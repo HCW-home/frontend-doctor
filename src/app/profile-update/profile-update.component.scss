@@ -1,0 +1,106 @@
+@import "variables.scss";
+
+.phone-num {
+  display: flex;
+}
+.country-code {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+.phone-num-field {
+  padding-top: 4px;
+}
+
+.label {
+  color: black !important;
+}
+
+.field-container {
+  margin: 20px 10px;
+  mat-form-field {
+    margin: 10px;
+  }
+
+  // ::ng-deep .mat-input-wrapper {
+  //   width: 180px !important;
+  // }
+  // ::ng-deep .mat-form-field-infix {
+  //   width: 180px !important;
+  // }
+
+  ::ng-deep .mat-form-field-label {
+    left: 0 !important;
+  }
+}
+
+.field-container {
+  margin: 12px 0px;
+  mat-form-field {
+    margin: 10px;
+  }
+
+  // ::ng-deep .mat-input-wrapper {
+  //   width: 180px !important;
+  // }
+  // ::ng-deep .mat-form-field-infix {
+  //   width: 180px !important;
+  // }
+
+  ::ng-deep .mat-form-field-label {
+    left: 0 !important;
+  }
+}
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* flex-grow: 1; */
+  height: 100%;
+  div:last-child {
+    margin-top: auto;
+  }
+}
+.dialog-title {
+  display: block !important;
+}
+.error {
+  margin-top: 28px;
+  color: rgb(255, 45, 45);
+  text-align: center;
+}
+.dialog-content {
+  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+}
+.btn__send {
+  background-color: $primary-color;
+  color: #ffffff;
+}
+.mat-form-field-disabled .label {
+  color: #bbb !important;
+}
+mat-form-field {
+    width: 100%;
+  }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.0);
+  background-color: rgba(0,0,0,0.7);
+  position: absolute; 
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  
+  &::ng-deep .mat-progress-spinner circle,
+  .mat-spinner circle {
+    stroke: #2871bd !important;
+  }
+}
+

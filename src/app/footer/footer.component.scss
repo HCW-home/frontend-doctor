@@ -1,0 +1,19 @@
+img {
+    margin-left: 10px;
+    width: 100px;
+}
+
+:host {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    color: white;
+    justify-content: center;
+    div {
+      display: flex;
+      align-content: center;
+      align-items: center;
+    }
+    width: 100%;
+    padding: 30px 0;
+}

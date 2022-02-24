@@ -1,0 +1,27 @@
+<div  class="overlay">
+  <div (click)="onClose()"  class="btn-div"></div>
+  <div></div>
+<div class="chat-cont">
+    <div class="header"></div>
+
+        <div  style="overflow: scroll; " class="chat">
+
+
+            <div *ngFor="let msg of chatMessages"  [ngClass]="{'outgoing': msg.type === 'outgoing', 'incoming': msg.type === 'incoming'}" class=" ion-margin">
+              <div class="ion-no-padding ion-no-margin">
+                <div class="bubble  ion-padding" size="10">
+              <p style="overflow-wrap: normal;"  class="ion-no-padding ion-no-margin">{{msg.text}}</p>
+                </div>
+              </div>
+              <div  class="msg-time ion-no-padding ion-no-margin"><span class="msg-time">4 avril 12:19</span></div>
+            </div>
+
+
+          </div>
+
+
+</div>
+<div class="resume-c-btn" routerLink="/pending-consultations/123" >
+    {{ 'sideChat.startTheConsultation' | translate }}
+</div>
+</div>

@@ -1,0 +1,48 @@
+
+@import "variables.scss";
+
+
+mat-grid-list{
+  background-color: #ffffff;
+}
+// mat-grid-tile{
+//   border-bottom: 1px solid gray;
+// }
+span.tile-header{
+  font-size: 11px;
+  color: #3f3f3f;
+
+}
+
+
+
+mat-card{
+  padding:30px;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 150px;
+  min-height: 80%;
+}
+
+mat-icon{
+  height: 15px;
+
+}
+
+h4{
+  margin-bottom: 16px;
+  margin-top: 20px;
+  font-weight: bold;
+    font-size: 17px;
+}
+.desc{
+  // // margin-left: 80px;
+  // // margin-top: 80px;
+margin-bottom: 40px;
+  // width: 50%;
+}
+
+.submit-btn{
+  background-color:#5CB85C;
+  color: white;
+}

@@ -1,0 +1,389 @@
+<div
+  *ngIf="consultation && consultation.consultation"
+  style="height: 100%; position: relative;"
+>
+  <div
+
+    (scroll)="handleScroll($event)"
+
+    #scoll
+    style="overflow: scroll; overflow-x: auto;"
+    [ngClass]="{ withInput: showInput }"
+    class="chat"
+  >
+    <div
+      style="
+        width: calc(100%-32px);
+        background-color: #ffffff;
+        padding: 20px 30px;
+      "
+      [ngClass]="{ 'big-font': noPagination }"
+    >
+      <h4 style="margin-top: 0; padding: 16px 0;">
+        {{ "chat.generalInformation" | translate }}
+      </h4>
+
+
+      <div class="c_info_wrap" *ngIf="consultation.consultation.IMADTeam">
+        <div class="c_info_row_title">
+          {{ "chat.nurse" | translate }}
+        </div>
+        <div style="font-size: 1em; padding-top: 5px;">
+          {{
+            consultation.consultation.IMADTeam
+          }}
+        </div>
+      </div>
+      <div class="c_info_wrap">
+        <div class="c_info_row_title">
+          {{ "chat.patientFirstnameAndLastname" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          <ng-container *ngIf="consultation.consultation.firstName !== 'No firstname'">
+            {{ consultation.consultation.firstName + " " }}
+            {{ consultation.consultation.lastName | uppercase }}
+          </ng-container>
+                   <ng-container  *ngIf="consultation.consultation.firstName === 'No firstname'">
+                    <span style="color: #8a8a8a;" >
+                     {{
+                       "consultations.noPatientName" | translate
+                     }}
+                    </span>
+                   </ng-container>
+          <img
+            style="margin-bottom: -7px;"
+            [src]="
+              consultation.consultation.flagPatientOnline === true
+                ? 'assets/img/online.png'
+                : 'assets/img/offline.png'
+            "
+          />
+        </div>
+      </div>
+
+      <div class="c_info_wrap">
+        <div class="c_info_row_title">
+          {{ "chat.patientBirthday" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{
+            consultation.consultation.birthDate
+              ? (consultation.consultation.birthDate | date: "d MMM yyyy")
+              : ("chat.notdefined" | translate)
+          }}
+        </div>
+      </div>
+      <div class="c_info_wrap">
+        <div class="c_info_row_title">{{ "chat.sex" | translate }}</div>
+        <div class="c_info_row_content">
+          {{ consultation.consultation.gender | translatedGender }}
+        </div>
+      </div>
+      <div
+        class="c_info_wrap"
+        *ngIf="publicinvite && publicinvite.emailAddress"
+      >
+        <div class="c_info_row_title">{{ "chat.email" | translate }}</div>
+        <div class="c_info_row_content">
+          {{ publicinvite.emailAddress }}
+        </div>
+      </div>
+      <div class="c_info_wrap" *ngIf="publicinvite && publicinvite.phoneNumber">
+        <div class="c_info_row_title">{{ "chat.phoneNumber" | translate }}</div>
+        <div class="c_info_row_content">
+          {{ publicinvite.phoneNumber }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="consultation.consultation.status === 'closed'"
+        class="c_info_wrap"
+      >
+        <div class="c_info_row_title">
+          {{ "chat.doctor" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{ currentUser.firstName }}
+          {{ currentUser.lastName | uppercase }}
+        </div>
+      </div>
+
+      <div class="c_info_wrap">
+        <div class="c_info_row_title">
+          {{ "chat.patientInvitedAt" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{
+            consultation.consultation.createdAt | date: "d MMM yyyy HH:mm":"fr"
+          }}
+        </div>
+      </div>
+
+      <div class="c_info_wrap" *ngIf="consultation && consultation.guest">
+        <div class="c_info_row_title">
+          {{ "chat.guest" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{ consultation.guest.email || consultation.guest.phoneNumber }}
+
+          <img
+            style="margin-bottom: -7px;"
+            [src]="
+              consultation.consultation.flagGuestOnline === true
+                ? 'assets/img/online.png'
+                : 'assets/img/offline.png'
+            "
+          />
+        </div>
+      </div>
+
+      <div class="c_info_wrap" *ngIf="consultation && consultation.translator">
+        <div class="c_info_row_title">
+          {{ "chat.translator" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{ consultation.translator.firstName }}
+
+          <img
+            style="margin-bottom: -7px;"
+            [src]="
+              consultation.consultation.flagTranslatorOnline === true
+                ? 'assets/img/online.png'
+                : 'assets/img/offline.png'
+            "
+          />
+        </div>
+      </div>
+      <div *ngIf="consultation && consultation.translator"
+      class="c_info_wrap"
+    >
+      <div class="c_info_row_title">
+        {{ "chat.translatorContactDetails" | translate }}
+      </div>
+      <div class="c_info_row_content">
+        {{ consultation.translator.email }} <br>
+        {{ consultation.translator.direct }}
+      </div>
+    </div>
+
+      <div
+        *ngIf="consultation.consultation.status === 'closed'"
+        class="c_info_wrap"
+      >
+        <div class="c_info_row_title">
+          {{ "chat.startDateTime" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{
+            consultation.consultation.acceptedAt | date: "d MMM yyyy HH:mm":"fr"
+          }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="consultation.consultation.status === 'closed'"
+        class="c_info_wrap"
+      >
+        <div class="c_info_row_title">
+          {{ "chat.endDateTime" | translate }}
+        </div>
+        <div class="c_info_row_content">
+          {{
+            consultation.consultation.closedAt | date: "d MMM yyyy HH:mm":"fr"
+          }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="consultation.consultation.status === 'closed'"
+        class="c_info_wrap"
+      >
+        <div class="c_info_row_title">{{ "chat.duration" | translate }}</div>
+        <div class="c_info_row_content">
+          {{
+            consultation.consultation.createdAt -
+              consultation.consultation.closedAt | duration
+          }}
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="
+        width: calc(100%-40px);
+
+        padding: 20px 37px;
+      "
+      [ngClass]="{ 'big-font': noPagination }"
+    >
+      <p style="background-color: #ffcc00; padding: 14px; font-size: 1.1em;">
+        {{ "chat.textMessagesOnlySentToPatientWarning" | translate }}
+      </p>
+    </div>
+    <div
+      *ngFor="let msg of chatMessages"
+      id="{{ msg.id }}"
+      class="m-chat"
+      [ngClass]="{ reverse: msg.direction === 'outgoing' }"
+    >
+      <div style="grid-area: content;">
+        <audio *ngIf="msg.isAudio" controls>
+          <source [src]="msg.attachmentsURL" type="audio/mpeg" />
+          {{ "chat.yourBrowserDoesNotSupportTheAudioElement" | translate }}
+        </audio>
+        <img
+          *ngIf="msg.isImage"
+          (load)="imageLoaded()"
+          (error)="imageLoaded()"
+          style="width: 70%; display: block; float: left; max-height: 990px;"
+          [src]="msg.attachmentsURL"
+          alt="Couldn't load image"
+        />
+
+        <div class="bubble" *ngIf="msg.text || msg.isFile">
+          <div size="10" [ngClass]="{ 'big-font': noPagination }">
+            <p
+              style="overflow-wrap: normal;"
+              class="ion-no-padding ion-no-margin"
+            >
+              {{ msg.text }}
+            </p>
+            <button
+              *ngIf="msg.isFile"
+              style="
+                border-top: 1px solid rgb(195, 195, 195);
+                text-decoration: underline;
+                border-radius: 0;
+              "
+              mat-button
+              (click)="download(msg.attachmentsURL)"
+              type="submit"
+            >
+              <img
+                class="pdf"
+                src="../../assets/svg/icon-Pdf.svg"
+                style=""
+                svgIcon="pdf"
+              />
+              <!-- </mat-icon> -->
+              {{ msg.fileName || "Attachment" }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="msg.type === 'videoCall'"
+        style="grid-area: center; text-align: center;"
+      >
+        <div style="margin: 22px auto;">
+          {{
+            msg.closedAt
+              ? msg.acceptedAt
+                ? ("chat.videoCallAccepted" | translate)
+                : ("chat.videoCallMissed" | translate)
+              : ("chat.videoCall" | translate)
+          }}
+          <span
+            style="display: block; text-align: center; margin-top: 10px;"
+            class="msg-time"
+            >{{ msg.createdAt | date: "d MMMM HH:mm":"fr-fr" }}</span
+          >
+        </div>
+        <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto;">
+          {{ "chat.videoCallFinished" | translate }}
+          <span
+            style="display: block; text-align: center; margin-top: 10px;"
+            class="msg-time"
+            >{{ msg.closedAt | date: "d MMMM HH:mm":"fr-fr" }}</span
+          >
+        </div>
+      </div>
+
+      <div
+        *ngIf="msg.type === 'audioCall'"
+        style="text-align: center; grid-area: center;"
+      >
+        <div style="margin-bottom: 22px;">
+          {{
+            msg.closedAt
+              ? msg.acceptedAt
+                ? ("chat.videoAudioAccepted" | translate)
+                : ("chat.videoAudioMissed" | translate)
+              : ("chat.videoAudioRequested" | translate)
+          }}
+          <span
+            style="display: block; text-align: center; margin-top: 10px;"
+            class="msg-time"
+            >{{ msg.createdAt | date: "d MMMM HH:mm":"fr-fr" }}</span
+          >
+        </div>
+        <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto;">
+          {{ "chat.videoAudioFinished" | translate }}
+          <span
+            style="display: block; text-align: center; margin-top: 10px;"
+            class="msg-time"
+            >{{ msg.closedAt | date: "d MMMM HH:mm":"fr-fr" }}</span
+          >
+        </div>
+      </div>
+      <div
+        *ngIf="msg.type !== 'videoCall' && msg.type !== 'audioCall'"
+        style="grid-area: msgTime;"
+        [ngClass]="{ 'big-font': noPagination }"
+        class="msg-time"
+      >
+        <span class="msg-time">{{
+          msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showInput" class="inputCont">
+    <form style="display: flex; flex: 1; align-items: center; height: 100%;">
+      <button
+        (click)="showAttachBrowseDlg()"
+        style="flex: 1; border: none; height: 100%;"
+        class="send-btn"
+        mat-button
+      >
+        <mat-icon svgIcon="attach"></mat-icon>
+      </button>
+      <input
+        #fileInput
+        style="display: none;"
+        type="file"
+        (change)="handleFileInput($event)"
+      />
+
+      <textarea
+        rows="1"
+        style="
+          resize: none;
+          font-family: Roboto, 'Helvetica Neue', sans-serif;
+          border: none;
+          border-left: 1px solid rgba(203, 203, 203, 0.93);
+          border-right: 1px solid rgba(203, 203, 203, 0.93);
+          font-size: 16px;
+          flex: 12;
+          padding: 7px 0;
+          padding-left: 10px;
+        "
+        contenteditable
+        (keypress)="sendMsg($event)"
+        (click)="readMessages()"
+        [(ngModel)]="chatText"
+        name="chatInput"
+        matInput
+      ></textarea>
+      <button
+        (click)="send()"
+        style="flex: 1; border: none; height: 100%;"
+        class="send-btn"
+        mat-button
+      >
+        <mat-icon svgIcon="send"></mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

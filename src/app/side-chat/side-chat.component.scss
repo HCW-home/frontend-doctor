@@ -1,0 +1,167 @@
+
+@import "variables.scss";
+.overlay{
+  position: fixed; /* Sit on top of the page content */
+  display: block; /* Hidden by default */
+  width: 100vw; /* Full width (cover the whole page) */
+  height: 100vh; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Black background with opacity */
+  z-index: 110; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+.chat-cont{
+
+  width:33.33%;
+  height: 100%;
+  position: fixed;
+  z-index: 112;
+  background-color: #fafafa;
+  min-width: 400px;
+  right: 0;
+}
+
+.btn-div{
+
+  width:66.6%;
+  height: 100%;
+  position: fixed;
+  // z-index: 112;
+  // background-color: #ffffff;
+  max-width: calc(100% - 400px);
+  left: 0;
+}
+
+
+
+.header {
+  position: fixed;
+  width:33.33%;
+  min-width: 400px;
+  border-bottom: 1px solid rgb(209, 209, 209);
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  top:0;
+  height: 70px;
+  z-index: 100;
+  margin-right:100px;
+}
+
+.header h3{
+  font-size: 1.3em;
+  padding-top: 18px;
+  padding-left: 20px;
+  font-weight: 500;
+
+}
+
+.header div{
+  height: 100%;
+  display: inline-block;
+  width:24.333%;
+  text-align: center;
+  // line-height: 406%;
+}
+
+.bubble{
+  border-radius: 6px;
+  // min-width:270px;
+
+}
+.incoming> div > div.bubble{
+  background-color: $primary-color ;
+  color: #ffffff;
+
+  padding:8px 14px 8px 14px;
+
+}
+
+
+span.msg-time{
+  margin-top: 6px;
+  font-size: 10px;
+ color: rgb(58, 58, 58) ;
+
+}
+div.msg-time{
+  min-width: 80%;
+   flex-direction: row-reverse;
+}
+.outgoing, .incoming{
+  // min-width:270px;
+  width:70%;
+  margin-top:16px;
+}
+// .bubble{
+//   width:70%;
+// }
+.outgoing{
+  // width:70%;
+  // margin-right:2%;
+  margin-left:  30%;
+
+}
+.outgoing> div> div.bubble{
+  padding:8px 14px 8px 14px;
+
+  color: rgb(58, 58, 58) ;
+  background-color: #ffffff;
+
+
+    margin-right:0;
+
+
+}
+.outgoing  div.msg-time {justify-content: flex-end;}
+.outgoing span.msg-time{
+  text-align: right;
+  float: right;
+}
+
+.bubble p{
+  font-size: 13px;
+}
+
+div.chat{
+  height: 100%;
+  margin: 2%;
+  padding: 2%;
+  margin-bottom: 65px;
+  margin-top:80px;
+  width:94%;
+}
+
+
+div.resume-c-btn{
+
+  text-align: center;
+
+  display: inline-block;
+  // display: table;
+  width:21.333%;
+
+  background-color: $primary-color;
+  color: #ffffff;
+  // line-height: 50%;
+  display:table-cell;
+  vertical-align:middle;
+  cursor: pointer;
+  line-height: 406%;
+
+right: 0;
+  position: fixed;
+  width:33.33%;
+  min-width: 400px;
+
+  margin: 0;
+  padding: 0;
+
+  bottom:0;
+  height: 70px;
+  z-index: 120;
+  // margin-right:100px;
+}

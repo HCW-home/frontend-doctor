@@ -1,0 +1,146 @@
+@import "variables.scss";
+
+
+.header {
+  position: fixed;
+  width:100%;
+  border-bottom: 1px solid rgb(209, 209, 209);
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  top:0;
+  height: 70px;
+  z-index: 100;
+  display: flex;
+  line-height: 70px;
+  // margin-right:100px;
+}
+
+.header h3{
+  font-size: 1.3em;
+  padding-top: 18px;
+  padding-left: 20px;
+  font-weight: 500;
+
+}
+
+.header > div{
+  height: 100%;
+  display: inline-block;
+
+  text-align: center;
+  // line-height: 406%;
+}
+.header div.back-btn{
+  width:8.6666%;
+  cursor: pointer;
+}
+.header div.doctor{
+  text-decoration: underline;
+  text-align: left;
+}
+
+.header div.next-c-btn{
+  margin-right:100px;
+  text-align: center;
+
+  display: inline-block;
+  // display: table;
+
+  float: right;
+  background-color: $primary-color;
+  color: #ffffff;
+  // line-height: 50%;
+  display:table-cell;
+  vertical-align:middle;
+  cursor: pointer;
+  line-height: 406%;
+
+}
+
+.doctor div{
+  text-decoration: underline;
+  text-align: left;
+  position: relative;
+
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    height: 70px;
+  line-height: 70px;
+}
+
+.title div{
+  position: relative;
+
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  height: 70px;
+line-height: 70px;
+}
+.doctor mat-icon , .title mat-icon{
+  height: 25px;
+}
+.icon{
+  height: 57px !important;
+  width: 32px !important;
+}
+
+
+.back-btn mat-icon{
+  height: 16px;
+
+}
+
+.doc-btn{
+  background-color: #F2F7F7;
+}
+
+.info{
+  position: fixed;
+  width:100%;
+  border-bottom: 1px solid rgb(209, 209, 209);
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  top:70;
+  height: 70px;
+  z-index: 100;
+  padding:5px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#user {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: left;
+
+  mat-icon {
+    text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    vertical-align: middle;
+    display: inline-flex;
+    height: 28px;
+    padding-bottom: 4px;
+    width: 28px;
+  }
+  .items {
+    position: absolute;
+    bottom: -200%;
+    left: 0;
+    width: 100%;
+    height: 140px;
+
+    div {
+      height: 70px;
+      background: #fff;
+      border: 1px solid #e4e4e4;
+    }
+    .logout {
+      background: #E3393A;
+      color: #fff;
+    }
+  }
+}

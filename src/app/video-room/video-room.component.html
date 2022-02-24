@@ -1,0 +1,129 @@
+<div
+  *ngIf="!accepted"
+  class="bounds"
+  style="background-image: url('/assets/background.jpg');"
+>
+  <div style="width: 100%; height: 32%;"></div>
+
+  <mat-icon
+    svgIcon="incoming"
+    style="
+      display: block;
+      width: 180px;
+      height: 180px;
+      margin: auto;
+      margin-bottom: 30px;
+      font-size: 20px;
+      color: #ffffff;
+    "
+  ></mat-icon>
+  <!-- <h3 style="text-align: center; font-weight: 200; margin: 24px; color: white;">
+    <strong>{{ "videoRoom.consultation" | translate }} </strong> <br />
+    {{ patient.firstName + " " + patient.lastName | uppercase }}
+  </h3> -->
+  <div style="width: 170px; margin: auto; margin-top: 40px;">
+    <button (click)="joinToSession()" class="fab accept-btn" mat-button>
+      <mat-icon st svgIcon="camera"></mat-icon>
+    </button>
+    <button
+      (click)="rejectCall()"
+      color="danger"
+      class="fab reject-btn"
+      mat-button
+    >
+      <mat-icon st svgIcon="hangup"></mat-icon>
+    </button>
+  </div>
+</div>
+
+<div style="width: 100%; height: 100%; position: relative;">
+  <div
+    [ngClass]="{ ringing: !this.remoteUsers.length }"
+    id="layout"
+    class="bounds"
+    style="height: 100%; display: flex;"
+    (click)="toggleButtons()"
+  >
+    <ng-container *ngIf="accepted">
+      <!-- Main video -->
+      <div
+        *ngIf="!audioOnly && !webCamDisabled"
+        #mainStream
+        style="
+          z-index: 1003;
+          width: 30%;
+          height: 30%;
+          position: absolute;
+          top: 0px;
+          right: 0;
+        "
+        class="OT_root OT_publisher OT_main custom-class"
+        id="localUser"
+      >
+
+
+      <app-peer-video
+      #streamComponentLocal
+      *ngIf="myCamStream"
+        [stream]="myCamStream"
+  [id]="myCamStream.mediaStream.id"
+
+      ></app-peer-video>
+      </div>
+
+
+
+      <!-- Remotes -->
+      <div
+        *ngFor="let user of this.remoteUsers"
+        style="height: 100%; top: 0px; flex: 1;"
+        class="OT_root OT_publisher OT_remote custom-class OV_big"
+        id="remoteUsers"
+      >
+      <ng-container *ngFor="let stream of user.streams" >
+
+        <app-peer-video
+        *ngIf="stream.kind  === 'video'"
+          [stream]="stream"
+          [id]="stream.mediaStream.id"
+        ></app-peer-video>
+
+        <app-peer-audio
+        *ngIf="stream.kind  === 'audio'"
+        [stream]="stream"
+
+        >
+
+        </app-peer-audio>
+      </ng-container>
+      </div>
+    </ng-container>
+  </div>
+
+  <div
+    style="
+      width: 170px;
+      margin: auto;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 1005;
+    "
+  >
+    <button (click)="camStatusChanged()" class="fab accept-btn" mat-button>
+      <mat-icon    *ngIf="camStatus === 'on'" st svgIcon="camera"></mat-icon>
+      <mat-icon    *ngIf="camStatus === 'off'" st svgIcon="cameraOff"></mat-icon>
+    </button>
+    <button
+      (click)="rejectCall()"
+      color="danger"
+      class="fab reject-btn"
+      mat-button
+    >
+      <mat-icon st svgIcon="hangup"></mat-icon>
+    </button>
+  </div>
+</div>

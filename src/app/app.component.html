@@ -1,0 +1,129 @@
+<ng-container *ngIf="isLoggedIn">
+  <mat-sidenav-container class="container">
+    <app-side-chat class="overlay"></app-side-chat>
+
+    <mat-sidenav opened #sidenav mode="side" class="sidenav">
+      <div class="at">@ <span> {{ 'login.home' | translate }}</span></div>
+      <mat-list class="menu-list">
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/dashboard"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon svgIcon="dashboard"></mat-icon>
+            <span class="btn-text">{{ 'app.dashboard' | translate }}</span>
+          </button>
+        </mat-list-item>
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/pending-consultations"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon
+              svgIcon="queue"
+              [matBadge]="pendingConsultations || ''"
+              matBadgePosition="after"
+              matBadgeColor="danger"
+            ></mat-icon>
+            <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
+          </button>
+        </mat-list-item>
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/active-consultations"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon
+              svgIcon="chat"
+              [matBadge]="activeConsultations || ''"
+              matBadgePosition="after"
+              matBadgeColor="danger"
+            ></mat-icon>
+            <span class="btn-text">{{ 'app.openedConsultation' | translate }}</span>
+          </button>
+        </mat-list-item>
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/closed-consultations"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon
+              svgIcon="history"
+              [matBadge]="''"
+              matBadgePosition="after"
+              matBadgeColor="danger"
+            ></mat-icon>
+            <span class="btn-text">{{ 'app.consultationHistory' | translate }}</span>
+          </button>
+        </mat-list-item>
+
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/invitations"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon
+              svgIcon="invite"
+              [matBadge]="''"
+              matBadgePosition="after"
+              matBadgeColor="danger"
+            ></mat-icon>
+            <span class="btn-text">{{ 'app.invites' | translate }}</span>
+          </button>
+        </mat-list-item>
+
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/test-media"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon
+              svgIcon="selfcheck"
+              [matBadge]="''"
+              matBadgePosition="after"
+              matBadgeColor="danger"
+            ></mat-icon>
+            <span class="btn-text">{{ 'app.testVideoSound' | translate }}</span>
+          </button>
+        </mat-list-item>
+
+        <mat-list-item class="list-item">
+          <button
+            routerLink="/support"
+            routerLinkActive="active"
+            class="menu-btn"
+            mat-button
+          >
+            <mat-icon
+              svgIcon="question"
+              [matBadge]="''"
+              matBadgePosition="after"
+              matBadgeColor="danger"
+            ></mat-icon>
+            <span class="btn-text">{{ 'app.support' | translate }}</span>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content">
+        <router-outlet *ngIf="navigated"></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+<router-outlet *ngIf="!isLoggedIn"></router-outlet>

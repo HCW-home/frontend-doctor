@@ -1,0 +1,141 @@
+
+@import "variables.scss";
+
+
+// mat-grid-tile{
+//   border-bottom: 1px solid gray;
+// }
+span.tile-header{
+  font-size: 11px;
+  color: #3f3f3f;
+}
+
+
+mat-card{
+  padding:0;
+}
+
+mat-icon{
+  height: 15px;
+}
+
+.desc{
+  // margin-left: 80px;
+  // margin-top: 80px;
+  margin: 20px auto 19px 20px;
+  width: 70%;
+}
+
+
+.card-left, .card-right{
+  padding-top:31px;
+  padding-bottom: 31px;
+  display: inline;
+}
+
+@media  screen and (max-width: 1079px) {
+  .card-left, .card-right{
+    width:85% !important;
+    display: block !important;
+    margin-right: 70px !important;
+  }
+  .card-right{
+    margin-top:50px;
+    margin-left: 7.5% !important;
+    float: left !important;
+
+  }
+}
+
+.card-left{
+  float: left;
+  width:58%;
+  margin-left: 4%;
+  background-image: url("/assets/img/bg-queue.png");
+}
+.card-right{
+  float: right;
+  width:30%;
+  margin-right:  4%;
+  background-image: url("/assets/img/bg-open.png");
+  min-width: 186px;
+}
+
+
+.next-con-btn{
+  background-color: $primary-color ;
+  color:#ffffff;
+  border-radius: 50px;
+  margin:20px;
+  font-size: 12px;
+}
+
+
+.view-more-btn{
+  border-radius: 50px;
+  margin:20px;
+  font-size: 12px;
+  border: 1px solid #737373;
+}
+
+.badge{
+  height:0px
+}
+
+//#BD2828
+
+
+.total-badge{
+  display: inline;
+  position: absolute;
+  top:25px;
+  right: 39px;
+}
+
+
+.last-msg{
+  color: #3f3f3f;
+}
+
+.noCon{
+  margin-left: 21px;
+}
+
+
+
+table {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid #b1b1b16b;
+  border-collapse: collapse;
+  padding-right: 1%;
+
+  tr {
+    border-top: 1px solid #b1b1b16b;
+    border-left: 2px solid #ffffff;
+    cursor: pointer;
+    &:hover {
+      border-left: 2px solid $primary-color;
+    }
+  }
+  td {
+    padding: 18px 0 18px 2%;
+  }
+  .tile-header {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+}
+.active-consultations {
+  .unread,
+  .arrow {
+    width: 24px;
+    padding: 18px 4px;
+  }
+  .badge {
+    position: relative;
+    left: 11px;
+  }
+}

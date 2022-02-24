@@ -1,0 +1,45 @@
+@import "variables.scss";
+
+mat-card {
+  background-image: url("/assets/img/bg-queue.png");
+  margin: 150px 7.5% 0 7.5%;
+}
+
+dl {
+  width: 600px;
+  line-height: 2em;
+}
+dt {
+  width: 200px;
+  text-align: right;
+  color: $primary-color;
+  display: inline-block;
+}
+dd {
+  display: inline-block;
+  width: 350px;
+  mat-form-field.mat-form-field-disabled {
+    margin-left: 10px;
+    ::ng-deep .mat-form-field-label  {
+      color: grey !important;
+    }
+
+  }
+  mat-form-field {
+    margin-left: 10px;
+
+    ::ng-deep .mat-form-field-label {
+      left: 0 !important;
+      color: black !important;
+    }
+
+  }
+}
+.invite-btn {
+  margin: 20px 80px;
+  background-color: $primary-color;
+  color: #ffffff;
+  border-radius: 50px;
+  // margin: 20px;
+  font-size: 12px;
+}

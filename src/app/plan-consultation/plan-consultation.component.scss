@@ -1,0 +1,221 @@
+@import "variables.scss";
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &.separated {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #8ac2e6;
+  }
+
+  h4 {
+    margin: 10px;
+    font-size: 21px;
+    font-weight: 400;
+  }
+}
+
+.example-full-width {
+  width: 100%;
+  height: 50px;
+  padding: 0px;
+}
+
+.example-full-width input {
+  height: 100%;
+}
+
+.container {
+  width: 400px;
+  margin: auto;
+}
+
+.at {
+  margin: 16px;
+  margin-bottom: 63px;
+  font-size: 48px;
+  text-align: center;
+  color: #ffff;
+
+  font-weight: 800;
+}
+
+.at>span {
+  display: block;
+  font-size: 16px;
+}
+
+ng-container {}
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/bg-splash@2x.png");
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+}
+
+#saml-login {
+  .redirect-btn {
+    margin: auto;
+    display: block;
+    background-color: #ffff;
+    border-radius: 60px;
+    text-align: center;
+    height: 48px;
+    color: $primary-color;
+    padding-top: 5px;
+  }
+}
+
+h4 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: -10px;
+}
+
+.submit-btn {
+  margin: auto;
+  display: block;
+  margin-top: 50px;
+  background-color: #ffff;
+  border-radius: 60px;
+  text-align: center;
+  width: 160px;
+  height: 48px;
+  color: $primary-color;
+}
+
+input {
+  color: white;
+  caret-color: white;
+}
+
+mat-form-field {
+  height: 35px;
+  font-size: 1.3em;
+  margin: 20px auto;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px $primary-color inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: white !important;
+}
+
+.loading {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::ng-deep .mat-progress-spinner circle,
+  .mat-spinner circle {
+    stroke: white !important;
+  }
+}
+
+.error {
+  background-color: white;
+  margin-top: 28px;
+  color: rgb(255, 45, 45);
+  text-align: center;
+  font-size: 16px !important;
+
+
+}
+
+.message-container{
+  padding: 21px;
+  font-size: 20px;
+  border-radius: 16px;
+}
+.resend-btn {
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+
+  // border-radius: 60px;
+  text-align: center;
+  // width: 160px;
+  // height: 48px;
+  color: white;
+}
+
+.error--loading {
+  margin-top: 20px;
+
+  min-height: 80px;
+}
+
+.code-input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  mat-form-field {
+    ::ng-deep .mat-form-field-label {
+      left: 0 !important;
+    }
+  }
+}
+
+.row {
+  margin: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.white {
+  color: white;
+}
+
+.white-link {
+  display: inline-block;
+  color: white;
+  opacity: 0.8;
+}
+
+.success {
+  background-color: white;
+
+  color: green;
+
+}
+
+.submit-btn {
+  margin: auto;
+  display: block;
+  margin-top: 80px;
+  background-color: #ffff;
+  border-radius: 60px;
+  text-align: center;
+  width: 160px;
+  height: 48px;
+  color: $primary-color;
+}
+
+ .plan-consultation-form{
+  ::ng-deep {
+    .mat-form-field-label{
+      left:0 !important;
+      color: white;
+    }
+  }
+}

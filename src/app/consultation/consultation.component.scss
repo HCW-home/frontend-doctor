@@ -1,0 +1,139 @@
+@import "variables.scss";
+
+.con-wrap {
+  height: calc(100vh - 70px);
+  // width:100%;
+  margin-top: 70px;
+  display: flex;
+  overflow: hidden;
+}
+
+.call-wrap {
+  flex: 1;
+
+  .submit-btn {
+    margin-bottom: 20px;
+  }
+}
+.chat-wrap {
+  flex: 2;
+}
+
+.bounds {
+  // background-color: #494949;
+  overflow: hidden;
+  // position: absolute;
+  // left: 0;
+  // right: 0;
+  top: 0px;
+  bottom: 0;
+  height: inherit;
+  max-width: 800px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  // min-width: 400px !important;
+  //width: inherit;
+  background-image: url("/assets/background.jpg");
+  background-size: 100%;
+  background-position: center;
+}
+.submit-btn {
+  margin: auto;
+  display: block;
+  background-color: #ffff;
+  border-radius: 60px;
+  text-align: center;
+  width: 58%;
+  height: 37px;
+  margin: auto;
+  color: $primary-color;
+}
+
+.submit-btn mat-icon {
+  width: 16px;
+}
+// .submit-btn:first-child{
+//   margin-top: 26px;
+//   margin-bottom: 24px;
+
+// }
+
+.device--select {
+  margin: auto;
+  text-align: left;
+  display: block;
+  width: 139px;
+  font-size: 12px;
+  color: white;
+}
+
+#configuration {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000aa;
+
+  mat-form-field {
+    width: 350px;
+    margin-left: 0;
+  }
+
+  .container {
+    margin-top: 5%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 80%;
+    margin-left: 10%;
+    min-height: 300px;
+    background: #fff;
+
+    h2 {
+      text-align: center;
+      margin: 0;
+    }
+
+    .left,
+    .right {
+      display: inline-block;
+      width: 50%;
+      height: 400px;
+      vertical-align: top;
+      padding: 20px 5%;
+      box-sizing: border-box;
+    }
+
+    p {
+      color: #2871bd;
+    }
+
+    .submit-btn {
+      background: #2871BD;
+      color: #fff;
+    }
+  }
+}
+
+#volume-container {
+  height: 12px;
+  width: 95%;
+  border: 1px solid #eaeaea;
+  background: linear-gradient(90deg, rgba(194,0,0,1) 0%, rgba(252,220,1,1) 25%, rgba(41,218,0,1) 52%, rgba(41,218,0,1) 82%, rgba(252,220,1,1) 94%, rgba(194,0,0,1) 100%);
+
+  #volume-slider {
+    height: 100%;
+    width: 0;
+    background: #fbfbfb;
+    transition: width 0.15s ease;
+    float: right;
+  }
+}
+
+#video-container {
+  width: 320px;
+  height: 240px;
+  border: 1px solid #d6d6d6;
+}

@@ -1,0 +1,54 @@
+<ng-container>
+  <div class="wrap">
+    <div class="container">
+      <div class="at">@ <span>{{ configService.config.branding }}</span></div>
+
+      <form (submit)="handleSubmit()" class="example-form plan-consultation-form" [formGroup]="planConsultationForm">
+        <h4  *ngIf="!success && !error">{{ 'planConsultation.whenWillYouBeAvailable' | translate }}</h4>
+        <!-- <p class="center white" *ngIf="!success"><small>{{ 'resetPassword.youAreOnThisPage' | translate }}</small></p> -->
+
+        <section *ngIf="success" class="message-container success">
+          <p >
+            {{ 'planConsultation.success' | translate }}
+            <mat-icon svgIcon="check"></mat-icon>
+          </p>
+        </section>
+
+        <section *ngIf="!success && error" class="message-container error">
+          <mat-error >{{error}}</mat-error>
+        </section>
+        <section >
+          <mat-form-field *ngIf="consultation && !error && !success" class="dealy-input">
+            <input matInput placeholder="{{ 'planConsultation.timeInMinutes' | translate }}" formControlName="delay" type="number" />
+             <mat-error>
+              {{ 'planConsultation.maxDelay' | translate }}
+            </mat-error>
+
+          </mat-form-field>
+
+          <button  *ngIf="!error && !loading && !success" class="submit-btn" mat-button type="submit">
+            {{ 'planConsultation.send' | translate }}
+          </button>
+
+
+        </section>
+      </form>
+
+      <div class="error--loading">
+        <div *ngIf="loading" class="loading">
+          <mat-spinner [diameter]="35"></mat-spinner>
+        </div>
+
+        <!-- <ng-container *ngIf="error" [ngSwitch]="error">
+          <div *ngSwitchCase="'token-expired'" class="error">
+            {{ 'resetPassword.yourTokenHasExpired' | translate }} <a routerLink="/forgot-password">{{ 'resetPassword.iForgotMyPassword' | translate }}</a>
+          </div>
+          <div *ngSwitchDefault class="error">
+            {{ 'resetPassword.anUnknownErrorHasBeenEncountered' | translate }}
+          </div>
+        </ng-container> -->
+
+      </div>
+    </div>
+  </div>
+</ng-container>

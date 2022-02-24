@@ -1,0 +1,13 @@
+.bg{
+	background-image: url("img/incalling.png");
+	height: 740px;
+	width: 360px;
+}
+
+.svg{
+	position: relative;
+	left: 75px;
+	top:157px;
+	height: 210px;
+	width: 210px;
+}

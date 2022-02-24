@@ -1,0 +1,259 @@
+<ng-container>
+  <app-overlay
+    (close)="chatOpen = false"
+    *ngIf="chatOpen"
+    [consultation]="currentConsultation"
+  >
+  </app-overlay>
+
+  <app-top-nav
+    *ngIf="title"
+    [title]="title.title"
+    [icon]="title.icon"
+  ></app-top-nav>
+  <div class="desc">
+    <h2
+      style="display: inline;"
+      [matBadge]="
+        status === 'closed' || !consultations.length ? '' : consultations.length
+      "
+      matBadgePosition="after"
+      matBadgeColor="danger"
+    >
+      {{ title.title | uppercase }}
+    </h2>
+  </div>
+
+  <div>
+    <h4 class="noCon" *ngIf="!consultations.length">
+      {{ "consultations.noConsultation" | translate }}
+    </h4>
+
+    <table class="consultations" *ngIf="consultations.length">
+      <tr
+        *ngFor="
+          let consultation of consultations;
+          let i = index;
+          trackBy: trackItem | paginate: { itemsPerPage: 10, currentPage: page }
+        "
+      >
+        <td
+          (click)="exportPDF(consultation)"
+          *ngIf="status === 'closed'"
+          class="pdf"
+        >
+          <div
+            *ngIf="PDFConsultation && PDFConsultation._id === consultation._id"
+          >
+            <mat-spinner [diameter]="35"></mat-spinner>
+          </div>
+
+          <div
+            *ngIf="!PDFConsultation || PDFConsultation._id !== consultation._id"
+          >
+            <mat-icon
+              svgIcon="pdf"
+              style="width: 25px; height: 25px;"
+            ></mat-icon>
+          </div>
+        </td>
+        <td (click)="showChat(consultation._id)">
+          <span class="tile-header">{{
+            "consultations.patient" | translate
+          }}</span>
+
+          <ng-container *ngIf="consultation.consultation.firstName !== 'No firstname'">
+            {{
+              consultation.consultation.firstName  +
+                " " +
+                consultation.consultation.lastName
+            }}
+          </ng-container>
+          <ng-container  *ngIf="consultation.consultation.firstName === 'No firstname'">
+           <span style="color: #8a8a8a;" >
+            {{
+              "consultations.noPatientName" | translate
+            }}
+           </span>
+          </ng-container>
+        </td>
+        <td (click)="showChat(consultation._id)">
+          <span class="tile-header">{{
+            "consultations.waitingQueue" | translate
+          }}</span>
+          {{
+            consultation.queue && consultation.queue.name
+              ? consultation.queue.name
+              : "Général"
+          }}
+        </td>
+        <td *ngIf="status != 'closed'" (click)="showChat(consultation._id)">
+          <span class="tile-header">{{
+            "consultations.message" | translate
+          }}</span>
+          {{
+            (consultation.lastMsg
+              ? consultation.lastMsg.text ||
+                ("consultations.attachement" | translate)
+              : ("consultations.newConsultation" | translate)
+            ) | slice: 0:25
+          }}
+        </td>
+        <td *ngIf="status === 'closed'" (click)="showChat(consultation._id)">
+          <span class="tile-header">{{
+            "consultations.startDateTime" | translate
+          }}</span>
+          {{
+            consultation.consultation.createdAt | date: "d MMM yyyy HH:mm":"fr"
+          }}
+        </td>
+        <td *ngIf="status != 'closed'" (click)="showChat(consultation._id)">
+          <span class="tile-header">{{
+            "consultations.time" | translate
+          }}</span>
+          {{
+            (consultation.lastMsg
+              ? consultation.lastMsg.createdAt
+              : consultation.consultation.createdAt
+            ) | msgTime
+          }}
+        </td>
+        <td *ngIf="status === 'closed'" (click)="showChat(consultation._id)">
+          <span class="tile-header">{{
+            "consultations.duration" | translate
+          }}</span>
+          {{
+            consultation.consultation.createdAt -
+              consultation.consultation.closedAt | duration
+          }}
+        </td>
+
+        <td
+          class="online-status-cell"
+          *ngIf="status != 'closed'"
+          (click)="showChat(consultation._id)"
+        >
+          <span
+            class="tile-header"
+            style="margin-bottom: 0px !important; margin-top: 8px;"
+            >{{ "consultations.patient" | translate }}</span
+          >
+          <img
+            [src]="
+              consultation.consultation.flagPatientOnline === true
+                ? 'assets/img/online.png'
+                : 'assets/img/offline.png'
+            "
+          />
+        </td>
+        <td class="online-status-cell">
+          <ng-container
+            *ngIf="status != 'closed' && consultation.consultation.translator"
+            (click)="showChat(consultation._id)"
+          >
+            <span
+              class="tile-header"
+              style="margin-bottom: 0px !important; margin-top: 8px;"
+              >{{ "consultations.translator" | translate }}</span
+            >
+            <img
+              [src]="
+                consultation.consultation.flagTranslatorOnline === true
+                  ? 'assets/img/online.png'
+                  : 'assets/img/offline.png'
+              "
+            />
+          </ng-container>
+        </td>
+        <td class="online-status-cell">
+          <ng-container
+            *ngIf="status != 'closed' && consultation.consultation.guest"
+            (click)="showChat(consultation._id)"
+          >
+            <span
+              class="tile-header"
+              style="margin-bottom: 0px !important; margin-top: 8px;"
+              >{{ "consultations.guest" | translate }}</span
+            >
+            <img
+              [src]="
+                consultation.consultation.flagGuestOnline === true
+                  ? 'assets/img/online.png'
+                  : 'assets/img/offline.png'
+              "
+            />
+          </ng-container>
+        </td>
+
+        <td>
+          <button
+            (click)="openDialog(consultation)"
+            class="invite-btn"
+            mat-button
+            *ngIf="status === 'closed'"
+          >
+            {{ "consultations.sendAgainANewInvitation" | translate }}
+          </button>
+          <button
+            (click)="resendInvite(consultation.consultation.invite)"
+            class="invite-btn"
+            mat-button
+            *ngIf="status !== 'closed'"
+          >
+            {{ "consultations.sendAgainTheInvitation" | translate }}
+          </button>
+        </td>
+        <td (click)="showChat(consultation._id)" *ngIf="status != 'closed'">
+          <span class="tile-header" *ngIf="consultation.unreadCount">{{
+            "consultations.unread" | translate
+          }}</span>
+          <mat-icon
+            *ngIf="consultation.unreadCount"
+            class="badge"
+            matBadgePosition="before"
+            [matBadge]="consultation.unreadCount"
+            matBadgeColor="warn"
+          ></mat-icon>
+        </td>
+        <td (click)="showChat(consultation._id)">
+          <mat-icon svgIcon="next"></mat-icon>
+        </td>
+      </tr>
+    </table>
+    <div
+      *ngIf="consultations.length"
+      class="has-text-centered pagination-control"
+    >
+      <pagination-controls
+        (pageChange)="page = $event"
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+      ></pagination-controls>
+    </div>
+  </div>
+
+  <!-- this will contain the chat history that will be used to create the pdf -->
+  <div
+    *ngIf="PDFConsultation"
+    #chatHistory
+    id="chatHistory"
+    style="
+      width: 2110px;
+      position: absolute;
+      top: 0;
+      left: -20000px;
+      z-index: 10000;
+    "
+  >
+    <mat-card style="height: 100%; display: flex; padding-top: 100px;">
+      <app-chat
+        (loaded)="generateAndSavePDF()"
+        [noPagination]="true"
+        style="margin: auto; margin-top: 0; width: 70%;"
+        [consultation]="PDFConsultation"
+        [showInput]="false"
+      ></app-chat>
+    </mat-card>
+  </div>
+</ng-container>
+<app-footer [dark]="true"></app-footer>

@@ -1,0 +1,224 @@
+<ng-container>
+  <app-top-nav title="invitations" icon="invite"></app-top-nav>
+  <div class="desc">
+    <h2 style="display: inline;">{{ "invitations" | uppercase }}</h2>
+  </div>
+
+  <div>
+    <div>
+      <button
+        (click)="openDialog()"
+        class="invite-btn"
+        mat-button
+        type="submit"
+        color="primary"
+      >
+        {{ "invitations.newInvite" | translate }}
+      </button>
+    </div>
+
+    <h4 class="noCon" *ngIf="!loading && !totalCount">
+      {{ "invitations.noConsultationInvite" | translate }}
+    </h4>
+    <div *ngIf="loading" class="loading-wrapper">
+      <div class="loading">
+        <mat-spinner [diameter]="60"></mat-spinner>
+      </div>
+    </div>
+
+    <table [style.display]="loading ? 'none' : 'table'" class="invitations">
+      <tr
+        *ngFor="
+          let invite of invitations
+            | async
+            | paginate
+              : { itemsPerPage: 10, currentPage: page, totalItems: totalCount }
+        "
+      >
+        <td>
+          <span class="tile-header" *ngIf="invite.emailAddress">{{
+            "login.email" | translate
+          }}</span>
+          <span class="tile-header" *ngIf="invite.phoneNumber">{{
+            "invitations.phoneNumber" | translate
+          }}</span>
+          <span
+            class="tile-header"
+            *ngIf="!invite.phoneNumber && !invite.emailAddress"
+            >{{ "login.email" | translate }}</span
+          >
+          <span *ngIf="invite.emailAddress">{{ invite.emailAddress }}</span>
+          <span *ngIf="invite.phoneNumber">{{ invite.phoneNumber }}</span>
+          <span *ngIf="!invite.phoneNumber && !invite.emailAddress">
+            {{ "invitations.notDefined" | translate }}
+          </span>
+        </td>
+        <td>
+          <span class="tile-header">{{
+            "invitations.lastname" | translate
+          }}</span>
+          <div *ngIf="invite.firstName || invite.lastName">
+            {{ invite.firstName + " " + invite.lastName }}
+          </div>
+          <div *ngIf="!invite.firstName && !invite.lastName">
+            {{ "invitations.notDefined" | translate }}
+          </div>
+        </td>
+        <td>
+          <span class="tile-header">{{
+            "invitations.creationDate" | translate
+          }}</span>
+          {{ invite.createdAt | date: "d MMM yyyy HH:mm":"fr" }}
+        </td>
+        <td>
+          <span class="tile-header">{{
+            "invitations.scheduledDate" | translate
+          }}</span>
+          {{
+            invite.scheduledFor
+              ? (invite.scheduledFor | date: "d MMM yyyy HH:mm")
+              : "Immédiatement"
+          }}
+        </td>
+        <td>
+          <span class="tile-header">{{
+            "invitations.patient" | translate
+          }}</span>
+
+          <ng-container *ngIf="invite.status === 'SENT'">{{
+            "invitations.sent" | translate
+          }}</ng-container>
+          <ng-container *ngIf="invite.status === 'ACCEPTED'" >
+            <span style='color: green'> {{"invitations.accepted" | translate}}</span>
+        </ng-container>
+          <ng-container *ngIf="invite.status === 'COMPLETE'">{{
+            "invitations.closed" | translate
+          }}</ng-container>
+          <ng-container *ngIf="invite.status === 'CANCELED'">{{
+            "invitations.canceled" | translate
+          }}</ng-container>
+        </td>
+        <td>
+          <span class="tile-header">{{
+            "invitations.guestInvite" | translate
+          }}</span>
+
+          <ng-container *ngIf="invite.guestInvite">
+            <ng-container *ngIf="invite.guestInvite.status === 'SENT'">{{
+              "invitations.sent" | translate
+            }}</ng-container>
+            <ng-container *ngIf="invite.guestInvite.status === 'ACCEPTED'" >
+              <span style='color: green'> {{"invitations.accepted" | translate}}</span>
+             </ng-container>
+            <ng-container *ngIf="invite.guestInvite.status === 'COMPLETE'">{{
+              "invitations.closed" | translate
+            }}</ng-container>
+            <ng-container *ngIf="invite.guestInvite.status === 'CANCELED'">{{
+              "invitations.canceled" | translate
+            }}</ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="!invite.guestInvite">{{
+            "invitations.none" | translate
+          }}</ng-container>
+        </td>
+        <td>
+          <span class="tile-header">{{
+            "invitations.translatorRequestInvite" | translate
+          }}</span>
+          <ng-container *ngIf="invite.translatorRequestInvite">
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'SENT'"
+              >{{ "invitations.sent" | translate }}</ng-container
+            >
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'ACCEPTED'" >
+              <span style='color: green'> {{"invitations.accepted" | translate}}</span>
+  </ng-container
+            >
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'COMPLETE'"
+              >{{ "invitations.closed" | translate }}</ng-container
+            >
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'CANCELED'"
+              >{{ "invitations.canceled" | translate }}</ng-container
+            >
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'REFUSED'"
+              >
+              <span style="color: red;">{{ "invitations.refused" | translate }}</span>
+              </ng-container
+            >
+          </ng-container>
+          <ng-container *ngIf="!invite.translatorRequestInvite">{{
+            "invitations.none" | translate
+          }}</ng-container>
+        </td>
+        <td style="display: flex; flex-direction: column;">
+          <span class="tile-header"></span>
+          <div *ngIf="invite.resending" class="loading">
+            <mat-spinner [diameter]="35"></mat-spinner>
+          </div>
+          <button
+            *ngIf="
+              !invite.resending &&
+              (!invite.translatorRequestInvite ||
+                invite.translatorRequestInvite.status === 'ACCEPTED')
+            "
+            (click)="resendInvite(invite.id)"
+            mat-button
+            title="{{ 'invitations.sendAgainTheSMSOrEmailInvite' | translate }}"
+          >
+            {{ "invitations.sendAgain" | translate }}
+          </button>
+          <button
+            (click)="openDialog(invite)"
+            mat-button
+            *ngIf="
+              invite.translatorRequestInvite &&
+              invite.translatorRequestInvite.status == 'REFUSED'
+            "
+          >
+            {{ "consultations.sendAgainANewInvitation" | translate }}
+          </button>
+          <button
+          mat-button
+          [routerLink]= "['/invitations/' + invite.id ]"
+
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <ng-container *ngIf="invite.status !== 'ACCEPTED'">
+            <span class="tile-header"></span>
+            <div *ngIf="invite.revoking" class="loading">
+              <mat-spinner [diameter]="35"></mat-spinner>
+            </div>
+            <button
+              *ngIf="!invite.revoking"
+              (click)="revokeInvite(invite.id)"
+              mat-button
+              title="{{
+                'invitations.cancelThisInvitationToJoinAConsultation'
+                  | translate
+              }}"
+            >
+              {{ "invitations.cancel" | translate }}
+            </button>
+          </ng-container>
+        </td>
+      </tr>
+    </table>
+
+    <div *ngIf="totalCount" class="has-text-centered pagination-control">
+      <pagination-controls
+        (pageChange)="getInvites($event)"
+        previousLabel="{{ 'invitations.previous' | translate }}"
+        nextLabel="{{ 'invitations.next' | translate }}"
+      ></pagination-controls>
+    </div>
+  </div>
+</ng-container>
+<app-footer [dark]="true" class="black"></app-footer>

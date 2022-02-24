@@ -1,0 +1,167 @@
+<app-top-nav
+  *ngIf="consultation"
+  [consultation]="consultation"
+  [showCloseConsBtn]="true"
+  (closeCon)="confirmClose = true"
+></app-top-nav>
+<app-overlay
+  (close)="confirmClose = false"
+  *ngIf="confirmClose"
+  [showFinishOption]="true"
+  [redirect]="redirect"
+  [showCloseOverlay]="true"
+  [consultation]="consultation"
+>
+</app-overlay>
+
+<div class="con-wrap">
+  <div
+    *ngIf="incomingCall"
+    class="call-wrap"
+    [style.flex]="incomingCall ? '2' : '1'"
+  >
+    <app-video-room
+      (hangup)="reject()"
+      [sessionId]="consultation._id"
+      [token]="currentCall.token"
+      [audioOnly]="audioOnly"
+      [audioDeviceId]="audioDeviceId"
+      [videoDeviceId]="videoDeviceId"
+    ></app-video-room>
+  </div>
+  <div *ngIf="!incomingCall" class="bounds call-wrap">
+    <div style="width: 100%; height: 34%;"></div>
+
+    <mat-icon
+      svgIcon="phone"
+      style="
+        display: block;
+        width: 70px;
+        height: 70px;
+        margin: auto;
+        font-size: 20px;
+        color: #ffffff;
+      "
+    ></mat-icon>
+    <h3
+      style="text-align: center; font-weight: 200; margin: 24px; color: white;"
+    >
+      {{ "consultation.start" | translate }} <br />
+      <strong>{{ "consultation.aCall" | translate }}</strong>
+    </h3>
+
+    <button
+      (click)="makeCall(false)"
+      class="submit-btn"
+      mat-button
+      *ngIf="
+        videoDevices.length > 0 &&
+        currentCall &&
+        currentCall.type === 'videoCall'
+      "
+    >
+      <mat-icon svgIcon="camera"></mat-icon>&nbsp;&nbsp;
+      {{ "consultation.joinVideoCall" | translate }}
+    </button>
+
+    <button
+      (click)="makeCall(false)"
+      class="submit-btn"
+      mat-button
+      *ngIf="videoDevices.length > 0 && !currentCall"
+    >
+      <mat-icon svgIcon="camera"></mat-icon>&nbsp;&nbsp;
+      {{ "consultation.videoCall" | translate }}
+    </button>
+
+    <button
+      (click)="makeCall(true)"
+      class="submit-btn"
+      mat-button
+      *ngIf="!currentCall"
+    >
+      <mat-icon st svgIcon="mic"></mat-icon> &nbsp;&nbsp;
+      {{ "consultation.audioCall" | translate }}
+    </button>
+    <button
+      (click)="makeCall(true)"
+      class="submit-btn"
+      mat-button
+      *ngIf="currentCall && currentCall.type === 'audioCall'"
+    >
+      <mat-icon st svgIcon="mic"></mat-icon> &nbsp;&nbsp;
+      {{ "consultation.joinAudioCall" | translate }}
+    </button>
+    <button (click)="openConfiguration()" class="submit-btn" mat-button>
+      <mat-icon st svgIcon="info"></mat-icon> &nbsp;&nbsp;
+      {{ "consultation.configuration" | translate }}
+    </button>
+  </div>
+  <div class="chat-wrap" [style.flex]="incomingCall ? '1' : '2'">
+    <app-chat
+      *ngIf="consultation"
+      [showInput]="consultation.consultation.status === 'active'"
+      [consultation]="consultation"
+      [publicinvite]="publicinvite"
+    >
+    </app-chat>
+  </div>
+
+  <div id="configuration" *ngIf="showConfiguration">
+    <div class="container">
+      <h2>{{ "consultation.microAndCameraConfiguration" | translate }}</h2>
+
+      <div class="left">
+        <p>{{ "consultation.microSelection" | translate }}</p>
+
+        <mat-form-field class="device--select" *ngIf="audioDevices.length > 0">
+          <mat-select
+            matNativeControl
+            [required]="audioDevices.length > 1"
+            [(ngModel)]="audioDeviceId"
+            [disabled]="audioDevices.length < 2"
+            (selectionChange)="initAudioPublisher()"
+          >
+            <mat-option
+              *ngFor="let device of audioDevices; let i = index"
+              [value]="device.deviceId"
+            >
+              {{ device.label || "device " + (i + 1) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div id="volume-container">
+          <div id="volume-slider" [style.width.%]="100 - volumeLevel"></div>
+        </div>
+      </div>
+
+      <div class="right">
+        <p>{{ "consultation.cameraSelection" | translate }}</p>
+
+        <mat-form-field class="device--select" *ngIf="videoDevices.length > 0">
+          <mat-select
+            matNativeControl
+            [required]="videoDevices.length > 1"
+            [(ngModel)]="videoDeviceId"
+            [disabled]="videoDevices.length < 2"
+            (selectionChange)="initVideoPublisher()"
+          >
+            <mat-option
+              *ngFor="let device of videoDevices; let i = index"
+              [value]="device.deviceId"
+            >
+              {{ device.label || "device " + (i + 1) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+      </div>
+
+      <button class="submit-btn" mat-button (click)="closeConfiguration()">
+        {{ "consultation.close" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+@import "~@angular/material/theming";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "./variables.scss";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+$md-hug: (
+  50: #e5eef7,
+  100: #bfd4eb,
+  200: #94b8de,
+  300: #699cd1,
+  400: #4886c7,
+  500: #2871bd,
+  600: #2469b7,
+  700: #1e5eae,
+  800: #1854a6,
+  900: #0f4298,
+  A100: #c9daff,
+  A200: #96b8ff,
+  A400: #6396ff,
+  A700: #4985ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$app-primary: mat-palette($md-hug);
+$app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($app-theme);
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-list-item-content {
+  padding: 0px !important;
+}
+
+.mat-badge-after .mat-badge-content {
+  // background: #bd2828 !important;
+  z-index: 20;
+  right: -24px !important;
+  top: -12px !important;
+}
+.mat-badge-content {
+  background: #bd2828 !important;
+}
+
+.mat-form-field-label {
+  left: 41% !important;
+}
+
+img {
+  image-orientation: from-image;
+}
+.pagination-control {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.list-card {
+  margin-bottom: 28px;
+}
+
+.owl-dt-control-content.owl-dt-control-button-content {
+  color: $primary-color;
+}
+
+.red-snackbar {
+  background: #b00020 !important;
+}

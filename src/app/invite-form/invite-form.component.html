@@ -1,0 +1,452 @@
+<ng-container *ngIf="data.status !== 'ACCEPTED'">
+<div *ngIf="!myForm" class="invite-type-container">
+
+  <div class="invite-type-header">
+    <h1 mat-dialog-title style="display: block !important">
+  {{ "inviteForm.sendAnInvitation" | translate }}
+
+
+
+    </h1>
+  </div>
+
+  <div class="invite-type-content">
+    <div class="invite-form interpreter__form">
+      <h4>{{ "inviteForm.patientTeleConsultation" | translate }}</h4>
+      <p>
+        {{ "inviteForm.patientTeleConsultationDescription" | translate }}
+      </p>
+      <button
+        class="btn__send"
+        [disabled]="loading"
+        (click)="showPatientForm()"
+        mat-button
+      >
+        {{ "inviteForm.invite" | translate }}
+      </button>
+    </div>
+    <div class="invite-form interpreter__form">
+      <h4>{{ "inviteForm.thirdPartyConsultation" | translate }}</h4>
+      <p>
+        {{ "inviteForm.thirdPartyConsultationDescription" | translate }}
+      </p>
+      <button
+        class="btn__send"
+        [disabled]="loading"
+        (click)="showTierFrom()"
+        mat-button
+      >
+        {{ "inviteForm.invite" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<form
+  *ngIf="myForm"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="myForm"
+  #ngForm="ngForm"
+>
+  <div class="form-container">
+    <div class="invite-form patient__form">
+      <h1
+        *ngIf="isPatientInvite"
+        mat-dialog-title
+        style="display: block !important"
+      >
+        {{ "inviteForm.invitationPatient" | translate }}
+      </h1>
+      <h1
+        *ngIf="!isPatientInvite"
+        mat-dialog-title
+        style="display: block !important"
+      >
+        {{ "inviteForm.invitationThirdParty" | translate }}
+      </h1>
+      <div mat-dialog-content class="dialog-content">
+        <div *ngIf="!isPatientInvite" class="on-premise-container">
+          <p
+            [innerHTML]="'inviteForm.consultationWillBeOnPremise' | translate"
+          ></p>
+        </div>
+        <!-- <p>Send an invitation</p> -->
+        <div *ngIf="isPatientInvite" class="field-container">
+          <mat-form-field>
+            <mat-label class="label">
+              {{ "inviteForm.firstName" | translate }}</mat-label
+            >
+            <input
+              [(ngModel)]="data.firstName"
+              matInput
+              placeholder="Enter patient first name"
+              formControlName="firstNameFormControl"
+              [errorStateMatcher]="matcher"
+              required
+            />
+
+            <mat-error
+              *ngIf="myForm.controls.firstNameFormControl.hasError('required')"
+              [innerHTML]="'inviteForm.firstNameIsRequired' | translate"
+            >
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="label">{{
+              "inviteForm.lastName" | translate
+            }}</mat-label>
+            <input
+              [(ngModel)]="data.lastName"
+              matInput
+              placeholder="Enter patient last name"
+              formControlName="lastNameFormControl"
+              [errorStateMatcher]="matcher"
+              required
+            />
+
+            <mat-error
+              *ngIf="myForm.controls.lastNameFormControl.hasError('required')"
+              [innerHTML]="'inviteForm.lastNameIsRequired' | translate"
+            >
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div *ngIf="isPatientInvite" class="field-container">
+          <mat-form-field>
+            <mat-label class="label">{{
+              "inviteForm.sex" | translate
+            }}</mat-label>
+            <mat-select
+              formControlName="genderFormControl"
+              required
+              [(ngModel)]="data.gender"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option>--</mat-option>
+              <mat-option value="male">{{
+                "inviteForm.male" | translate
+              }}</mat-option>
+              <mat-option value="female">{{
+                "inviteForm.female" | translate
+              }}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="myForm.controls.genderFormControl.hasError('required')"
+              >{{ "inviteForm.pleaseChooseTheSex" | translate }}</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field *ngIf="queues.length > 0">
+            <mat-label class="label">{{
+              "inviteForm.waitingQueue" | translate
+            }}</mat-label>
+            <mat-select
+              formControlName="queueFormControl"
+              [(ngModel)]="data.queue"
+              [errorStateMatcher]="matcher"
+            >
+              <mat-option [value]="undefined">{{
+                "inviteForm.mySelf" | translate
+              }}</mat-option>
+              <span>
+                <mat-option *ngFor="let queue of queues" [value]="queue.id">
+                  {{ queue.name }}
+                </mat-option>
+              </span>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="isPatientInvite" class="field-container">
+          <mat-form-field>
+            <mat-label class="label">{{
+              "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumberEx"
+                | translate
+            }}</mat-label>
+            <input
+              [(ngModel)]="data.patientContact"
+              matInput
+              placeholder="+4179..."
+              formControlName="patientContactFormControl"
+              [errorStateMatcher]="matcher"
+              name="patientContact"
+              (ngModelChange)="changeTel()"
+            />
+
+            <mat-error
+              *ngIf="
+                myForm.controls.patientContactFormControl.hasError(
+                  'emailOrPhoneControl'
+                )
+              "
+            >
+              {{ "inviteForm.pleaseEnterValidEmailOrPhoneNumber" | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                myForm.controls.patientContactFormControl.hasError('required')
+              "
+            >
+              {{
+                "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber"
+                  | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="field-container">
+          <div>
+            <mat-checkbox
+              formControlName="isScheduled"
+              [(ngModel)]="schedule"
+              color="primary"
+              >{{ "inviteForm.schedulingLater" | translate }}</mat-checkbox
+            >
+            <mat-error
+              style="margin-left: 30px; margin-top: 10px"
+              *ngIf="!schedule && inviteTranslator"
+            >
+              {{ "inviteForm.warningTranslatorMightBeLate" | translate }}
+            </mat-error>
+          </div>
+
+          <mat-form-field>
+            <mat-label class="label">{{
+              "inviteForm.language" | translate
+            }}</mat-label>
+            <mat-select
+              formControlName="languageFormControl"
+              required
+              [(ngModel)]="data.language"
+              [errorStateMatcher]="matcher"
+              (selectionChange)="languageSelectChanged($event)"
+            >
+              <mat-select-trigger>
+                <span class="language__option">
+                  <span> {{ "inviteForm." + data.language | translate }}</span>
+                  <span
+                    [className]="'flag-icon flag-icon-' + data.language"
+                  ></span>
+                </span>
+              </mat-select-trigger>
+
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let lang of languages" [value]="lang.code">
+                <span class="language__option">
+                  <span>{{ lang.translated }}</span>
+
+                  <span
+                    *ngIf="lang.code === 'en'"
+                    [className]="'flag-icon flag-icon-gb'"
+                  ></span>
+                  <span
+                    *ngIf="lang.code !== 'en'"
+                    [className]="'flag-icon flag-icon-' + lang.code"
+                  ></span>
+                </span>
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="myForm.controls.languageFormControl.hasError('required')"
+              >{{ "inviteForm.pleaseChooseLanguage" | translate }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="field-container" style="margin-top: 14px !important">
+          <mat-form-field class="schedule" *ngIf="schedule">
+            <mat-label class="label">{{
+              "inviteForm.scheduledAt" | translate
+            }}</mat-label>
+            <input
+              formControlName="dateTimeFormControl"
+              [owlDateTime]="dt1"
+              [owlDateTimeTrigger]="dt1"
+              [placeholder]="translate.instant('inviteForm.dateTime')"
+              [(ngModel)]="data.scheduledFor"
+              matInput
+              autocomplete="off"
+              [min]="now"
+            />
+            <owl-date-time #dt1></owl-date-time>
+          </mat-form-field>
+        </div>
+
+        <!-- <mat-error *ngIf="myForm.hasError('error')">
+          Veuillez renseigner uniquement un des deux champs Email ou Numéro de
+          mobile
+        </mat-error> -->
+        <div *ngIf="error" class="error">
+          {{ error }}
+        </div>
+      </div>
+      <div *ngIf="loading" class="loading">
+        <mat-spinner [diameter]="35"></mat-spinner>
+      </div>
+    </div>
+
+    <div class="invite-form interpreter__form">
+      <h1 mat-dialog-title style="display: block !important">
+        {{ "inviteForm.guests" | translate }}
+      </h1>
+      <div mat-dialog-content class="dialog-content">
+        <!-- <p>Send an invitation</p> -->
+
+        <div class="field-container" style="margin-top: 14px !important">
+          <mat-checkbox
+            formControlName="inviteGuestFormControl"
+            [(ngModel)]="inviteGuest"
+            color="primary"
+            >{{
+              "inviteForm.inviteLovedOneOrProfessional" | translate
+            }}</mat-checkbox
+          >
+        </div>
+        <div *ngIf="inviteGuest" class="field-container">
+          <mat-form-field>
+            <mat-label class="label">{{
+              "inviteForm.emailOrSMS" | translate
+            }}</mat-label>
+            <input
+              [(ngModel)]="data.guestContact"
+              matInput
+              placeholder="Email ou SMS"
+              formControlName="guestContactFormControl"
+              [errorStateMatcher]="matcher"
+            />
+
+            <mat-error
+              *ngIf="
+                myForm.controls.guestContactFormControl.hasError(
+                  'emailOrPhoneControl'
+                )
+              "
+            >
+              {{ "inviteForm.pleaseEnterValidEmailOrPhoneNumber" | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                myForm.controls.guestContactFormControl.hasError('required')
+              "
+            >
+              {{
+                "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber"
+                  | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div
+          *ngIf="this.translate.currentLang !== this.data.language"
+          class="field-container"
+          style="margin-top: 14px !important"
+        >
+          <mat-checkbox
+            formControlName="inviteTranslatorFormControl"
+            [(ngModel)]="inviteTranslator"
+            color="primary"
+            >{{ "inviteForm.inviteTranslator" | translate }}</mat-checkbox
+          >
+        </div>
+        <ng-container
+          *ngIf="
+            inviteTranslator &&
+            this.translate.currentLang !== this.data.language
+          "
+        >
+          <div class="field-container" style="margin-top: 14px !important">
+            <mat-form-field>
+              <mat-label class="label">{{
+                "inviteForm.translationOrganization" | translate
+              }}</mat-label>
+              <mat-select
+                formControlName="translationOrganizationFormControl"
+                [(ngModel)]="data.translationOrganization"
+                [errorStateMatcher]="matcher"
+              >
+                <mat-option>--</mat-option>
+                <ng-container
+                  *ngFor="
+                    let translationOrganization of translationOrganizations
+                  "
+                >
+                  <mat-option
+                    *ngIf="
+                      (translationOrganization.languages || []).indexOf(
+                        this.data.language
+                      ) !== -1
+                    "
+                    [value]="translationOrganization.id"
+                  >
+                    <span>
+                      {{ translationOrganization.name }}
+                    </span>
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  myForm.controls.translationOrganizationFormControl.hasError(
+                    'required'
+                  )
+                "
+                >{{
+                  "inviteForm.pleaseChooseOrganization" | translate
+                }}</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <mat-error *ngIf="inviteTranslator" style="margin-left: 40px">
+            {{
+              "inviteForm.patientInvitationWillBeAfterTranslatorIsValidated"
+                | translate
+            }}
+          </mat-error>
+        </ng-container>
+        <mat-error
+          class="field-container"
+          *ngIf="myForm.hasError('atLeastAGuestOrTranslator')"
+        >
+          {{ "inviteForm.atLeastInviteGuestOrTranslator" | translate }}
+        </mat-error>
+        <!-- <div *ngIf="error" class="error">
+        {{ error }}
+      </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="submit__section">
+    <div mat-dialog-actions>
+      <button
+        class="btn__cancel"
+        mat-button
+        (click)="onNoClick()"
+        type="button"
+      >
+        {{ "inviteForm.cancel" | translate }}
+      </button>
+      <button class="btn__send" [disabled]="loading" type="submit" mat-button>
+        <ng-container *ngIf="edit">
+          {{ "inviteForm.update" | translate }}
+
+        </ng-container>
+        <ng-container *ngIf="!edit">
+          {{ "inviteForm.send" | translate }}
+        </ng-container>
+
+      </button>
+    </div>
+  </div>
+</form>
+
+</ng-container>
+<ng-container *ngIf="data.status === 'ACCEPTED'">
+  <div class="accepted-invite-error">
+  <div  class="error">
+    {{ "inviteForm.cantUpdateAcceptedInvite" | translate  }}
+  </div>
+</div>
+</ng-container>

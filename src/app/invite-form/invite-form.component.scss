@@ -1,0 +1,245 @@
+@import "variables.scss";
+
+.phone-num {
+  display: flex;
+}
+.country-code {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+.phone-num-field {
+  padding-top: 4px;
+}
+
+.label {
+  color: black !important;
+}
+
+.field-container {
+  margin: 4px 10px;
+  place-items: center;
+  display: flex;
+  justify-content: space-around;
+  mat-form-field,
+  mat-checkbox {
+    margin: 16px 30px;
+    flex: 1;
+  }
+
+  // ::ng-deep .mat-input-wrapper {
+  //   width: 180px !important;
+  // }
+  // ::ng-deep .mat-form-field-infix {
+  //   width: 180px !important;
+  // }
+
+  ::ng-deep .mat-form-field-label {
+    left: 0 !important;
+  }
+
+  ::ng-deep
+    .mat-form-field.mat-form-field-invalid
+    .mat-form-field-label.mat-accent,
+  .mat-form-field.mat-form-field-invalid
+    .mat-form-field-label
+    .mat-form-field-required-marker {
+    color: #f44336 !important;
+  }
+
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+    color: black !important;
+  }
+}
+.invite-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* flex-grow: 1; */
+  height: 100%;
+  div:last-child {
+    margin-top: auto;
+  }
+  padding: 30px;
+  h1 {
+    margin-bottom: 0px;
+    text-align: center;
+  }
+}
+.dialog-title {
+  display: block !important;
+}
+.error {
+  margin-top: 28px;
+  color: rgb(255, 45, 45);
+  text-align: center;
+}
+.dialog-content {
+  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+}
+.btn__send {
+  background-color: $primary-color;
+  color: #ffffff;
+}
+
+.btn__cancel {
+  background-color: rgb(255, 45, 45);
+  color: #ffffff;
+}
+.mat-form-field-disabled .label {
+  color: #bbb !important;
+}
+
+.schedule {
+}
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
+}
+
+.form-container > div {
+  margin: 16px;
+}
+.interpreter__form {
+  flex: 1 1 234px !important;
+  border-left: 1px solid rgb(182, 182, 182);
+  background-color: #f2f7f7;
+  display: flex;
+  align-items: stretch;
+  height: auto !important;
+
+  // max-width: 400px;
+  margin: 0 !important;
+}
+
+.patient__form {
+  flex: 2 1 362px !important;
+
+  margin: 0 !important;
+}
+
+.submit__section {
+  // flex: 1 1 571px !important;
+  align-items: center;
+  display: flex;
+  // margin-right: -24px !important;
+  // margin-left: -24px !important;
+  justify-content: center;
+  margin: 0px !important;
+  border-top: 1px solid rgb(182, 182, 182);
+  place-items: center;
+  align-items: center;
+  min-height: 60px;
+  margin-top: 0 !important;
+  padding: 10px !important;
+}
+// ::ng-deep .md-dialog-container {
+//   width: 970px !important;
+//   height: 800px !important;
+// }
+
+p {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 99%;
+}
+
+h1 {
+  margin-left: -30px;
+  margin-right: -30px;
+  border-bottom: 1px solid rgb(182, 182, 182);
+  padding: 22px;
+  padding-top: 0px;
+  font-size: 2em;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+.language__option {
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 10px;
+}
+
+.invite-type-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.invite-type-header {
+  padding: 23px;
+  border-bottom: 1px solid #b6b6b6;
+  h1 {
+    text-align: center;
+    margin-bottom: 0;
+    border-bottom: none;
+    padding: 10px;
+  }
+}
+.invite-type-content {
+  display: flex;
+  flex: 1;
+  text-align: center;
+  & > div {
+    justify-content: space-around !important;
+    align-items: center !important;
+  }
+
+  h4 {
+    margin: 4px auto;
+    font-weight: 500;
+  }
+  p {
+    font-weight: 200;
+  }
+}
+
+.on-premise-container {
+  height: 276px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+form {
+  ::ng-deep #mat-dialog-title-0 {
+    display: none !important;
+  }
+}
+// .invite-type-content {
+//   margin-right: -23px;
+//   margin-left: -23px;
+//   margin-bottom: -23px;
+// }
+// .invite-type-header {
+//   margin-right: -23px;
+//   margin-left: -23px;
+// }
+
+::ng-deep #invite_form_dialog {
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+.accepted-invite-error{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

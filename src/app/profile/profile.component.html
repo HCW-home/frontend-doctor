@@ -1,0 +1,71 @@
+<app-top-nav
+  [title]="'profile.profile' | translate"
+  [icon]="'stat'"
+></app-top-nav>
+<mat-card>
+  <h2>{{ "profile.profile" | translate }}</h2>
+
+  <dl>
+    <dt>{{ "profile.lastname" | translate }}</dt>
+    <dd>{{ currentUser.firstName + " " + currentUser.lastName }}</dd>
+
+    <dt>{{ "profile.addressEmail" | translate }}</dt>
+    <dd>{{ currentUser.email }}</dd>
+
+    <dt>{{ "profile.phoneNumber" | translate }}</dt>
+    <dd>{{ currentUser.phoneNumber }}</dd>
+
+    <dt>{{ "profile.smsChallenge" | translate }}</dt>
+    <dd>{{ currentUser.authPhoneNumber }}</dd>
+    <dt>{{ "profile.smsNotification" | translate }}</dt>
+    <dd>
+      <mat-slide-toggle
+        #toggleElement
+        [disabled]="isLoading"
+        (change)="onChange($event)"
+        [checked]="enableNotif"
+      >
+        {{ "profile.enable" | translate }}
+      </mat-slide-toggle>
+      <mat-form-field>
+        <mat-label class="label">{{
+          "profile.mobilePhoneNumber" | translate
+        }}</mat-label>
+
+        <input
+          matInput
+          [disabled]="isLoading"
+          (ngModelChange)="onChangeNumber()"
+          [(ngModel)]="currentNotifPhoneNumber"
+          placeholder="+41..."
+          type="text"
+        />
+        <mat-error>
+          {{ "profile.invalidNumber" | translate }}
+        </mat-error>
+      </mat-form-field>
+      <button
+        mat-icon-button
+        *ngIf="isSMSPhoneChanged && !isLoading"
+        [disabled]="isLoading"
+        (click)="onSave()"
+      >
+      {{ "profile.save" | translate }}
+      <mat-icon>save</mat-icon>
+    </button>
+      <mat-spinner *ngIf="isLoading" [diameter]="35"></mat-spinner>
+    </dd>
+  </dl>
+</mat-card>
+<!--
+<div>
+  <button
+    (click)="openDialog()"
+    class="invite-btn"
+    mat-button
+    type="submit"
+    color="primary"
+  >
+    {{ 'profile.updateTheProfile' | translate }}
+  </button>
+</div> -->
