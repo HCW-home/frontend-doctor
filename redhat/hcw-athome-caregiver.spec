@@ -23,7 +23,7 @@ SPECS version 1
 %install
 make build
 %{__install} -d -m0755 %{buildroot}/%{_datadir}/hcw-athome/caregiver
-%{__cp} -a dist/hcw-at-home-caregiver/* %{buildroot}/%{_datadir}/hcw-athome/caregiver/
+%{__cp} -a dist/hug-at-home/* %{buildroot}/%{_datadir}/hcw-athome/caregiver/
 
 %clean
 %{__rm} -rf %{buildroot}

@@ -25,4 +25,5 @@
 #	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_install:
-	cp -r dist/hcw-at-home-caregiver /usr/share/hcw-athome/caregiver/
+	install -d -m0755 debian/hcw-athome-caregiver/usr/share/hcw-athome/caregiver/
+	cp -r dist/hug-at-home/* debian/hcw-athome-caregiver/usr/share/hcw-athome/caregiver/
