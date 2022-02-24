@@ -3,7 +3,7 @@ builder:
   options:
     image: builder-centos8
     env:
-      SPEC_PATH: redhat/hug-home-web.spec
+      SPEC_PATH: redhat/hcw-athome-caregiver.spec
 - method: docker
   options:
     image: builder-focal
