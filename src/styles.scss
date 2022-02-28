@@ -81,7 +81,9 @@ body {
 }
 
 .mat-form-field-label {
-  left: 41% !important;
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 
 img {

@@ -1,21 +1,24 @@
 <ng-container>
   <div class="wrap">
     <div class="container">
-      <div class="at">@ <span>{{ configService.config.branding }}</span></div>
+      <div class="at">
+        @ <span>{{ configService.config.branding }}</span>
+      </div>
 
       <p id="saml-login" *ngIf="showSamlLogin">
         <a [href]="samlLoginUrl" class="redirect-btn" mat-button>
-          {{ 'login.institutionalConnection' | translate }}
+          {{ "login.institutionalConnection" | translate }}
         </a>
       </p>
 
       <form
         *ngIf="!localLoginToken && showPasswordLogin"
         (submit)="loginLocal()"
-        class="example-form"
         [class.separated]="showSamlLogin"
       >
-        <h4>{{ 'login.loginWithALocalAccount' | translate }}</h4>
+        <h4 class="login-local-header">
+          {{ "login.loginWithALocalAccount" | translate }}
+        </h4>
         <mat-form-field class="example-full-width">
           <input
             [(ngModel)]="email"
@@ -31,10 +34,11 @@
               !emailFormControl.hasError('required')
             "
           >
-            {{ 'login.pleaseProvideAValidEmail' | translate }}
+            {{ "login.pleaseProvideAValidEmail" | translate }}
           </mat-error>
           <mat-error *ngIf="emailFormControl.hasError('required')">
-            {{ 'login.email' | translate }} <strong>{{ 'login.required' | translate }}</strong>
+            {{ "login.email" | translate }}
+            <strong>{{ "login.required" | translate }}</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
@@ -47,23 +51,25 @@
             [errorStateMatcher]="matcher"
           />
           <mat-error *ngIf="passwordFormControl.hasError('required')">
-            {{ 'login.password' | translate }} <strong>{{ 'login.required' | translate }}</strong>
+            {{ "login.password" | translate }}
+            <strong>{{ "login.required" | translate }}</strong>
           </mat-error>
         </mat-form-field>
 
         <button class="submit-btn" mat-button type="submit">
-          {{ 'login.login' | translate }}
+          {{ "login.login" | translate }}
         </button>
 
         <div class="row center">
-            <a class="white-link" routerLink="/forgot-password">{{ 'login.iForgotMyPassword' | translate }}</a>
+          <a class="white-link" routerLink="/forgot-password">{{
+            "login.iForgotMyPassword" | translate
+          }}</a>
         </div>
 
         <app-select-language></app-select-language>
-
-    </form>
+      </form>
       <form *ngIf="localLoginToken" (submit)="loginSms()" class="example-form">
-        <h4>{{ 'login.pleaseFillUpTheRecievedSMS' | translate }}</h4>
+        <h4>{{ "login.pleaseFillUpTheRecievedSMS" | translate }}</h4>
         <div class="code-input-wrapper">
           <mat-form-field>
             <input
@@ -76,13 +82,14 @@
             />
 
             <mat-error *ngIf="codeFormControl.hasError('required')">
-              {{ 'login.verificationCode' | translate }} <strong>{{ 'login.required' | translate }}</strong>
+              {{ "login.verificationCode" | translate }}
+              <strong>{{ "login.required" | translate }}</strong>
             </mat-error>
           </mat-form-field>
         </div>
 
         <button class="submit-btn" mat-button type="submit">
-          {{ 'login.send' | translate }}
+          {{ "login.send" | translate }}
         </button>
       </form>
 
@@ -92,7 +99,7 @@
         class="resend-btn"
         mat-button
       >
-        {{ 'login.sendCodeAgain' | translate }}
+        {{ "login.sendCodeAgain" | translate }}
       </button>
       <div class="error--loading">
         <div *ngIf="loading" class="loading">

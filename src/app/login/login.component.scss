@@ -16,6 +16,28 @@
   }
 }
 
+.container {
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: white !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: white !important;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+  }
+}
+
 .example-full-width {
   width: 100%;
   height: 50px;
@@ -159,15 +181,18 @@ input:-webkit-autofill {
 }
 
 .row {
-    margin: 10px;
+  margin: 10px;
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 .white-link {
-    display: inline-block;
-    color: white;
-    opacity: 0.8;
+  display: inline-block;
+  color: white;
+  opacity: 0.8;
+}
+.login-local-header {
+  margin-bottom: 16px !important;
 }
