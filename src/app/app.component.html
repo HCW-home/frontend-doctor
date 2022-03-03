@@ -3,7 +3,17 @@
     <app-side-chat class="overlay"></app-side-chat>
 
     <mat-sidenav opened #sidenav mode="side" class="sidenav">
-      <div class="at">@ <span> {{ 'login.home' | translate }}</span></div>
+      <div class="at">
+        <img
+          class="logo"
+          *ngIf="configService.config.logo"
+          [src]="configService.config.logo"
+          alt="@"
+        />
+        <span *ngIf="!configService.config.logo">{{
+          configService.config.branding
+        }}</span>
+      </div>
       <mat-list class="menu-list">
         <mat-list-item class="list-item">
           <button
@@ -13,7 +23,7 @@
             mat-button
           >
             <mat-icon svgIcon="dashboard"></mat-icon>
-            <span class="btn-text">{{ 'app.dashboard' | translate }}</span>
+            <span class="btn-text">{{ "app.dashboard" | translate }}</span>
           </button>
         </mat-list-item>
         <mat-list-item class="list-item">
@@ -29,7 +39,7 @@
               matBadgePosition="after"
               matBadgeColor="danger"
             ></mat-icon>
-            <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
+            <span class="btn-text">{{ "app.waitingRoom" | translate }}</span>
           </button>
         </mat-list-item>
         <mat-list-item class="list-item">
@@ -45,7 +55,9 @@
               matBadgePosition="after"
               matBadgeColor="danger"
             ></mat-icon>
-            <span class="btn-text">{{ 'app.openedConsultation' | translate }}</span>
+            <span class="btn-text">{{
+              "app.openedConsultation" | translate
+            }}</span>
           </button>
         </mat-list-item>
         <mat-list-item class="list-item">
@@ -61,7 +73,9 @@
               matBadgePosition="after"
               matBadgeColor="danger"
             ></mat-icon>
-            <span class="btn-text">{{ 'app.consultationHistory' | translate }}</span>
+            <span class="btn-text">{{
+              "app.consultationHistory" | translate
+            }}</span>
           </button>
         </mat-list-item>
 
@@ -78,7 +92,7 @@
               matBadgePosition="after"
               matBadgeColor="danger"
             ></mat-icon>
-            <span class="btn-text">{{ 'app.invites' | translate }}</span>
+            <span class="btn-text">{{ "app.invites" | translate }}</span>
           </button>
         </mat-list-item>
 
@@ -95,7 +109,7 @@
               matBadgePosition="after"
               matBadgeColor="danger"
             ></mat-icon>
-            <span class="btn-text">{{ 'app.testVideoSound' | translate }}</span>
+            <span class="btn-text">{{ "app.testVideoSound" | translate }}</span>
           </button>
         </mat-list-item>
 
@@ -112,7 +126,7 @@
               matBadgePosition="after"
               matBadgeColor="danger"
             ></mat-icon>
-            <span class="btn-text">{{ 'app.support' | translate }}</span>
+            <span class="btn-text">{{ "app.support" | translate }}</span>
           </button>
         </mat-list-item>
       </mat-list>

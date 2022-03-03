@@ -33,6 +33,9 @@
 .container {
   width: 400px;
   margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .at {
@@ -45,12 +48,13 @@
   font-weight: 800;
 }
 
-.at>span {
+.at > span {
   display: block;
   font-size: 16px;
 }
 
-ng-container {}
+ng-container {
+}
 
 .wrap {
   width: 100%;
@@ -135,11 +139,9 @@ input:-webkit-autofill {
   color: rgb(255, 45, 45);
   text-align: center;
   font-size: 16px !important;
-
-
 }
 
-.message-container{
+.message-container {
   padding: 21px;
   font-size: 20px;
   border-radius: 16px;
@@ -196,7 +198,6 @@ input:-webkit-autofill {
   background-color: white;
 
   color: green;
-
 }
 
 .submit-btn {
@@ -211,11 +212,15 @@ input:-webkit-autofill {
   color: $primary-color;
 }
 
- .plan-consultation-form{
+.plan-consultation-form {
   ::ng-deep {
-    .mat-form-field-label{
-      left:0 !important;
+    .mat-form-field-label {
+      left: 0 !important;
       color: white;
     }
   }
+}
+.logo {
+  width: 150px;
+  margin: 42px;
 }

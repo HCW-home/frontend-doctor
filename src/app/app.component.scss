@@ -1,60 +1,59 @@
-
 @import "variables.scss";
 
 .container {
   height: 100%;
-  width:100%;
+  width: 100%;
 }
 
-.sidenav{
+.sidenav {
   z-index: 1 !important;
   width: 100px;
 }
 
-.at{
+.at {
   margin: 16px;
   font-size: 30px;
   text-align: center;
   color: $primary-color;
   font-weight: 500;
 }
-.at> span{
+.at > span {
   display: block;
   font-size: 12px;
 }
 
-.menu-list{
+.menu-list {
   margin-top: 80px;
 }
 
-.list-item{
+.list-item {
   margin: 0;
   padding-top: 0 !important;
   height: 99px !important;
 }
 
 mat-list-item,
-.menu-btn{
+.menu-btn {
   padding-left: 4px;
   padding-right: 4px;
   // padding-top: 10px !important;
 
-  margin:0;
+  margin: 0;
   // padding: 0;
-  width:100%;
+  width: 100%;
   border-radius: 0;
 }
-.menu-btn{
+.menu-btn {
   padding-bottom: 20px !important;
   padding-top: 20px !important;
   height: 100%;
 }
-mat-list-item:nth-child(2) .menu-btn{
+mat-list-item:nth-child(2) .menu-btn {
   padding-left: 10px;
   padding-right: 10px;
 }
 
-mat-list-item:nth-child(1) .menu-btn{
+mat-list-item:nth-child(1) .menu-btn {
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -62,41 +61,44 @@ mat-list-item:nth-child(1) .menu-btn{
 // mat-list-item{
 //   padding:14px 0 14px 0px !important;
 // }
-span.btn-text{
+span.btn-text {
   width: 80%;
   margin: auto;
   font-size: 11px;
   white-space: normal;
   display: block;
-  word-wrap:break-word;
+  word-wrap: break-word;
   line-height: 1.2;
 }
-.menu-btn:hover{
- background-color: #2871BD;
- color: #ffffff;
+.menu-btn:hover {
+  background-color: #2871bd;
+  color: #ffffff;
 }
 
-mat-toolbar{
+mat-toolbar {
   background-color: white !important;
 }
 .header {
   border-bottom: 1px solid rgb(209, 209, 209);
-  margin:10px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
-.header h3{
+.header h3 {
   font-size: 1.3em;
   padding-top: 18px;
   padding-left: 20px;
   font-weight: 500;
-
 }
 
-button.active{
-  background-color: #2871BD;
+button.active {
+  background-color: #2871bd;
   color: #ffffff;
 }
 
-mat-list-item{
+mat-list-item {
   margin-bottom: 8px;
+}
+.logo {
+  width: 50px;
+  max-width: 100% !important;
 }
