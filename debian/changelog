@@ -1,3 +1,13 @@
+hcw-athome-caregiver (4.3.4) focal; urgency=medium
+
+  [ Muhammed ]
+  * get and display logo from config refs #4114
+
+  [ Olivier Bitsch ]
+  * Updating favicon
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 07 Mar 2022 15:27:39 +0100
+
 hcw-athome-caregiver (4.3.3) focal; urgency=medium
 
   [ Muhammed ]
