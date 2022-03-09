@@ -1,3 +1,10 @@
+hcw-athome-caregiver (4.3.6) focal; urgency=medium
+
+  [ Muhammed ]
+  * FIX audio volume indicator refs #4143
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 09 Mar 2022 12:19:47 +0100
+
 hcw-athome-caregiver (4.3.5) focal; urgency=medium
 
   * Put back @Home in sidebar
