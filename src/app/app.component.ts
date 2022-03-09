@@ -1,180 +1,266 @@
-import { environment } from './../environments/environment';
-import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { SocketEventsService } from './socket-events.service';
-import { ConsultationService } from './consultation.service';
+import { environment } from "./../environments/environment";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  NgZone,
+  HostListener,
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { MatIconRegistry } from "@angular/material/icon";
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  SimpleSnackBar,
+} from "@angular/material/snack-bar";
+import { SocketEventsService } from "./socket-events.service";
+import { ConsultationService } from "./consultation.service";
 
-import { AuthService } from './auth/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ConfigService } from './config.service';
+import { AuthService } from "./auth/auth.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ConfigService } from "./config.service";
 
+import { MarkdownModule } from "ngx-markdown";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  @ViewChild('unreadBadge') unreadBadge: ElementRef;
+  @ViewChild("unreadBadge") unreadBadge: ElementRef;
 
-  lastConectionStatus = '';
+  lastConectionStatus = "";
   currentUser;
   unreadActiveCount = 0;
   unreadPendingCount = 0;
 
-  token = '';
+  token = "";
   callRunning = true;
   isLoggedIn = false;
   navigated;
   pendingConsultations;
   activeConsultations;
   currentSnackBar: MatSnackBarRef<SimpleSnackBar>;
-  returnUrl = 'dashboard';
+  returnUrl = "dashboard";
   // @HostListener('window:beforeunload')
   // unloadHandler(event) {
   //   console.log('%capp.component.ts line:37 BEFORE UNLOAD', 'color: #007acc;', );
   //   this.authService.logout()
   // }
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+  constructor(
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
     private _socketEventsService: SocketEventsService,
     private consultationService: ConsultationService,
-    private zone: NgZone, private authService: AuthService,
+    private zone: NgZone,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     public configService: ConfigService
-
   ) {
-    iconRegistry.addSvgIcon('dashboard', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg'));
-    iconRegistry.addSvgIcon('queue', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-queue.svg'));
-    iconRegistry.addSvgIcon('chat', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-open.svg'));
-    iconRegistry.addSvgIcon('history', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-history.svg'));
-    iconRegistry.addSvgIcon('next', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-next.svg'));
-    iconRegistry.addSvgIcon('back', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/arrow-back.svg'));
-    iconRegistry.addSvgIcon('stat', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-user.svg'));
-    iconRegistry.addSvgIcon('info', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/Icon-info.svg'));
-    iconRegistry.addSvgIcon('phone', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/phone-solid.svg'));
-    iconRegistry.addSvgIcon('camera', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-cameraOn.svg'));
-    iconRegistry.addSvgIcon('mic', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-speak.svg'));
-    iconRegistry.addSvgIcon('hangup', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-hangup.svg'));
-    iconRegistry.addSvgIcon('incoming', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-audio.svg'));
-    iconRegistry.addSvgIcon('cameraOff', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-cameraOff.svg'));
-    iconRegistry.addSvgIcon('logout', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-logout.svg'));
-    iconRegistry.addSvgIcon('attach', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-attachment.svg'));
-    iconRegistry.addSvgIcon('pdf', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/file-pdf-solid.svg'));
-    iconRegistry.addSvgIcon('send', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/paper-plane-solid.svg'));
-    iconRegistry.addSvgIcon('question', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/question-circle-solid.svg'));
-    iconRegistry.addSvgIcon('selfcheck', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/self-check.svg'));
-    iconRegistry.addSvgIcon('check', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-checkFull.svg'));
-    iconRegistry.addSvgIcon('invite', sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-invite.svg'));
-
-
+    iconRegistry.addSvgIcon(
+      "dashboard",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-dashboard.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "queue",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-queue.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "chat",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-open.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "history",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-history.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "next",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-next.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "back",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/arrow-back.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "stat",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-user.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "info",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/Icon-info.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "phone",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/phone-solid.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "camera",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-cameraOn.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "mic",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-speak.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "hangup",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-hangup.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "incoming",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-audio.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "cameraOff",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-cameraOff.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "logout",
+      sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/icon-logout.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "attach",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "../assets/svg/icon-attachment.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "pdf",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "../assets/svg/file-pdf-solid.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "send",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "../assets/svg/paper-plane-solid.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "question",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "../assets/svg/question-circle-solid.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "selfcheck",
+      sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/self-check.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "check",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "../assets/svg/icon-checkFull.svg"
+      )
+    );
+    iconRegistry.addSvgIcon(
+      "invite",
+      sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/icon-invite.svg")
+    );
   }
 
   ngOnInit() {
-
-
     // if (!sessionStorage.getItem('hasSession')) {
     //   this.authService.logout()
     //   sessionStorage.setItem('hasSession',"true")
     // }
-    this.token = this.GetParam('tk');
+    this.token = this.GetParam("tk");
     this.currentUser = this.authService.currentUserValue;
-    const isLoginPage = document.location.href.includes('/app/login');
-    const isResetPawordPage = document.location.href.includes('/app/reset-password');
-    const isForgotPasswordPage = document.location.href.includes('/app/forgot-password');
+    const isLoginPage = document.location.href.includes("/app/login");
+    const isResetPawordPage = document.location.href.includes(
+      "/app/reset-password"
+    );
+    const isForgotPasswordPage = document.location.href.includes(
+      "/app/forgot-password"
+    );
 
-
-    this.authService.currentUser.subscribe(user => {
+    this.authService.currentUser.subscribe((user) => {
       this.currentUser = user;
 
       // If the user is not authentified
       if (!this.currentUser) {
-
         this.isLoggedIn = false;
         // We let him browse to /login
         if (isLoginPage || isResetPawordPage || isForgotPasswordPage) {
           return;
         }
-
       }
 
       this.zone.run(() => {
         if (this.currentUser) {
-
           this.currentUser = user;
           this.isLoggedIn = true;
 
           this.initServices();
 
-          setTimeout(() => this.navigated = true, 1);
+          setTimeout(() => (this.navigated = true), 1);
         }
-
       });
-
     });
-
-
-
-
   }
 
   getConsultationsOverview() {
-    this.consultationService.getConsultationsOverview().subscribe(consultations => {
-      console.log('go consultations  in dashboard', consultations);
-      this.zone.run(() => {
-        this.pendingConsultations = consultations.filter(c => {
-          return c.consultation.status === 'pending';
-        }).length;
-        this.activeConsultations = consultations.filter(c => {
-          return c.consultation.status === 'active';
-        }).length;
+    this.consultationService
+      .getConsultationsOverview()
+      .subscribe((consultations) => {
+        console.log("go consultations  in dashboard", consultations);
+        this.zone.run(() => {
+          this.pendingConsultations = consultations.filter((c) => {
+            return c.consultation.status === "pending";
+          }).length;
+          this.activeConsultations = consultations.filter((c) => {
+            return c.consultation.status === "active";
+          }).length;
+        });
       });
-    });
-
-
-
   }
 
   initServices() {
-
-
     this._socketEventsService.init(this.currentUser);
     this.consultationService.init(this.currentUser);
-    this._socketEventsService.onCall().subscribe(e => {
+    this._socketEventsService.onCall().subscribe((e) => {
       this.zone.run(() => {
-        this.router.navigate(['/consultation/' + e.data.consultation], { state: e.data });
+        this.router.navigate(["/consultation/" + e.data.consultation], {
+          state: e.data,
+        });
       });
     });
 
     this._socketEventsService.connectionSub().subscribe((status) => {
-      if (status == "connect_failed" && this.lastConectionStatus != "connect_failed") {
+      if (
+        status == "connect_failed" &&
+        this.lastConectionStatus != "connect_failed"
+      ) {
         this.lastConectionStatus = "connect_failed";
         setTimeout(() => {
-          this.openSnackBar("La connexion avec le serveur ne fonctionne pas correctement, vous ne pouvez plus recevoir les demandes de consultation. Si le problème persiste, contacter votre support.", "red-snackbar");
+          this.openSnackBar(
+            "La connexion avec le serveur ne fonctionne pas correctement, vous ne pouvez plus recevoir les demandes de consultation. Si le problème persiste, contacter votre support.",
+            "red-snackbar"
+          );
         }, 100);
-      }
-      else if (status == "connect") {
-
-        if (this.currentSnackBar && this.lastConectionStatus == "connect_failed") {
+      } else if (status == "connect") {
+        if (
+          this.currentSnackBar &&
+          this.lastConectionStatus == "connect_failed"
+        ) {
           this.openSnackBar("Vous êtes reconnecté", null);
         }
-        this.lastConectionStatus = "connect"
-
+        this.lastConectionStatus = "connect";
       }
-    })
+    });
     this.getConsultationsOverview();
   }
 
-
   GetParam(name) {
-    const results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    const results = new RegExp("[\\?&]" + name + "=([^&#]*)").exec(
+      window.location.href
+    );
     if (!results) {
-      return '';
+      return "";
     }
-    return results[1] || '';
+    return results[1] || "";
   }
 
   openSnackBar(message: string, cssClass: string) {
@@ -184,12 +270,9 @@ export class AppComponent implements OnInit {
       }
       this.currentSnackBar = this._snackBar.open(message, "X", {
         panelClass: [cssClass],
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        verticalPosition: "bottom",
+        horizontalPosition: "center",
       });
     });
-
   }
-
-
 }

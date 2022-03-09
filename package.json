@@ -34,6 +34,7 @@
     "jspdf": "^1.5.3",
     "moment": "^2.24.0",
     "ng-pick-datetime": "^7.0.0",
+    "ngx-markdown": "9.1.1",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.6.3",
     "sails.io.js": "^1.2.1",
