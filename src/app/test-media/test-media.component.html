@@ -2,16 +2,15 @@
   <app-top-nav [title]="'Test son & vidéo'" [icon]="'chat'"></app-top-nav>
 
   <div id="configuration">
-    <div class="container" >
+    <div class="container">
       <div *ngIf="showSpinner" class="loading">
         <mat-spinner [diameter]="60"></mat-spinner>
       </div>
-    <ng-container *ngIf="!showSpinner">
+      <ng-container *ngIf="!showSpinner">
+        <div class="left">
+          <h2>{{ "testMedia.microTest" | translate }}</h2>
 
-      <div class="left">
-        <h2>{{ 'testMedia.microTest' | translate }}</h2>
-
-        <!-- <mat-form-field class="device--select" *ngIf="audioDevices.length > 0">
+          <!-- <mat-form-field class="device--select" *ngIf="audioDevices.length > 0">
           <mat-select matNativeControl [required]="audioDevices.length > 1" [(ngModel)]="audioDeviceId" [disabled]="audioDevices.length < 2" (selectionChange)="initAudioPublisher()">
             <mat-option *ngFor="let device of audioDevices; let i = index" [value]="device.deviceId">
               {{ device.label || "device " + (i + 1) }}
@@ -19,16 +18,16 @@
           </mat-select>
         </mat-form-field> -->
 
-        <div id="volume-container">
-          <div id="volume-slider" [style.width.%]="100 + volumeLevel"></div>
+          <div id="volume-container">
+            <div id="volume-slider" [style.width.%]="100 - volumeLevel"></div>
+          </div>
+          <p>{{ "testMedia.aProperlyTuned" | translate }}</p>
         </div>
-        <p>{{ 'testMedia.aProperlyTuned' | translate }}</p>
-      </div>
 
-      <div class="right">
-        <h2>{{ 'testMedia.cameraTest' | translate }}</h2>
+        <div class="right">
+          <h2>{{ "testMedia.cameraTest" | translate }}</h2>
 
-        <!-- <mat-form-field class="device--select" *ngIf="videoDevices.length > 0">
+          <!-- <mat-form-field class="device--select" *ngIf="videoDevices.length > 0">
           <mat-select matNativeControl [required]="videoDevices.length > 1" [(ngModel)]="videoDeviceId" [disabled]="videoDevices.length < 2" (selectionChange)="initVideoPublisher()">
             <mat-option *ngFor="let device of videoDevices; let i = index" [value]="device.deviceId">
               {{ device.label || "device " + (i + 1) }}
@@ -36,19 +35,16 @@
           </mat-select>
         </mat-form-field> -->
 
-        <div id="video-container" >
-        <app-peer-video
-        #streamComponentLocal
-        *ngIf="myCamStream"
-          [stream]="myCamStream"
-        ></app-peer-video>
-      </div>
-      </div>
-
-    </ng-container>
-
+          <div id="video-container">
+            <app-peer-video
+              #streamComponentLocal
+              *ngIf="myCamStream"
+              [stream]="myCamStream"
+            ></app-peer-video>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
-
 </ng-container>
 <app-footer [dark]="true"></app-footer>
