@@ -1,5 +1,8 @@
 <ng-container>
-  <app-top-nav [title]="'dashboard.dashboard' | translate" [icon]="'dashboard'"></app-top-nav>
+  <app-top-nav
+    [title]="'dashboard.dashboard' | translate"
+    [icon]="'dashboard'"
+  ></app-top-nav>
 
   <app-overlay
     (close)="chatOpen = false"
@@ -7,11 +10,16 @@
     [consultation]="currentConsultation"
   >
   </app-overlay>
-  <div style="margin-top:150px;">
+  <div style="margin-top: 150px" class="cards-container">
     <mat-card class="card-left">
       <div class="desc">
-        <h2>{{ 'dashboard.room' | translate }} <strong>{{ 'dashboard.waiting' | translate }}</strong></h2>
-        <p>{{ 'dashboard.consultationsListInAwaitingTreatment' | translate }}</p>
+        <h2>
+          {{ "dashboard.room" | translate }}
+          <strong>{{ "dashboard.waiting" | translate }}</strong>
+        </h2>
+        <p>
+          {{ "dashboard.consultationsListInAwaitingTreatment" | translate }}
+        </p>
       </div>
       <button
         *ngIf="pendingConsultations.length"
@@ -19,25 +27,32 @@
         class="next-con-btn"
         mat-button
       >
-        {{ 'dashboard.startNextConsultation' | translate }}
+        {{ "dashboard.startNextConsultation" | translate }}
       </button>
       <h4 class="noCon" *ngIf="!pendingConsultations.length">
-        {{ 'dashboard.noConsultation' | translate }}
+        {{ "dashboard.noConsultation" | translate }}
       </h4>
 
       <table *ngIf="pendingConsultations.length" class="pending-consultations">
         <tr *ngFor="let pc of pendingConsultations" (click)="showChat(pc._id)">
           <td>
-            <span class="tile-header">{{ 'dashboard.patient' | translate }}</span>
-            {{ pc.consultation.firstName + ' '+ pc.consultation.lastName}}
+            <span class="tile-header">{{
+              "dashboard.patient" | translate
+            }}</span>
+            {{ pc.consultation.firstName + " " + pc.consultation.lastName }}
           </td>
           <td>
-            <span class="tile-header">{{ 'dashboard.message' | translate }}</span>
+            <span class="tile-header">{{
+              "dashboard.message" | translate
+            }}</span>
             {{ pc.lastMsg ? pc.lastMsg.text : "Nouvelle consultation" }}
           </td>
           <td>
-            <span class="tile-header">{{ 'dashboard.time' | translate }}</span>
-            {{ (pc.lastMsg ? pc.lastMsg.createdAt : pc.consultation.createdAt) | msgTime }}
+            <span class="tile-header">{{ "dashboard.time" | translate }}</span>
+            {{
+              (pc.lastMsg ? pc.lastMsg.createdAt : pc.consultation.createdAt)
+                | msgTime
+            }}
           </td>
         </tr>
       </table>
@@ -48,7 +63,7 @@
         mat-button
         class="view-more-btn"
       >
-        {{ 'dashboard.displayTheList' | translate }}
+        {{ "dashboard.displayTheList" | translate }}
       </button>
       <mat-icon
         *ngIf="pendingConsultationsCount"
@@ -60,30 +75,38 @@
 
     <mat-card class="card-right">
       <div class="desc">
-        <h2>{{ 'dashboard.openedConsultations' | translate }}</h2>
+        <h2>{{ "dashboard.openedConsultations" | translate }}</h2>
         <p>
-          {{ 'dashboard.consultationsListAwaitingToBeClosedOrCompleted' | translate }}
+          {{
+            "dashboard.consultationsListAwaitingToBeClosedOrCompleted"
+              | translate
+          }}
         </p>
       </div>
 
       <div
         *ngIf="activeConsultations.length"
-        style="height: 36px; margin:20px; width: 200px;"
+        style="height: 36px; margin: 20px; width: 200px"
       ></div>
 
       <h4 class="noCon" *ngIf="!activeConsultations.length">
-        {{ 'dashboard.noConsultation' | translate }}
+        {{ "dashboard.noConsultation" | translate }}
       </h4>
 
       <table *ngIf="activeConsultations.length" class="active-consultations">
         <tr *ngFor="let ac of activeConsultations" (click)="showChat(ac._id)">
           <td>
-            <span class="tile-header">{{ 'dashboard.patient' | translate }}</span>
-            {{ ac.consultation.firstName + ' '+ ac.consultation.lastName}}
+            <span class="tile-header">{{
+              "dashboard.patient" | translate
+            }}</span>
+            {{ ac.consultation.firstName + " " + ac.consultation.lastName }}
           </td>
           <td>
-            <span class="tile-header">{{ 'dashboard.time' | translate }}</span>
-            {{ (ac.lastMsg ? ac.lastMsg.createdAt : ac.consultation.createdAt) | msgTime }}
+            <span class="tile-header">{{ "dashboard.time" | translate }}</span>
+            {{
+              (ac.lastMsg ? ac.lastMsg.createdAt : ac.consultation.createdAt)
+                | msgTime
+            }}
           </td>
           <td class="unread">
             <mat-icon
@@ -106,7 +129,7 @@
         mat-button
         class="view-more-btn"
       >
-        {{ 'dashboard.displayTheList' | translate }}
+        {{ "dashboard.displayTheList" | translate }}
       </button>
       <mat-icon
         class="badge total-badge"
