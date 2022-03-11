@@ -1,3 +1,9 @@
+hcw-athome-caregiver (4.3.8) focal; urgency=medium
+
+  * Remove HUG@Home branding
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 11 Mar 2022 14:33:38 +0100
+
 hcw-athome-caregiver (4.3.7) focal; urgency=medium
 
   [ Muhammed ]
