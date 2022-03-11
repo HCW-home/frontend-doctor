@@ -1,3 +1,11 @@
+hcw-athome-caregiver (4.3.7) focal; urgency=medium
+
+  [ Muhammed ]
+  * use translation for connection error
+  * fix dashboard cards alignment
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 11 Mar 2022 09:13:26 +0100
+
 hcw-athome-caregiver (4.3.6) focal; urgency=medium
 
   [ Muhammed ]

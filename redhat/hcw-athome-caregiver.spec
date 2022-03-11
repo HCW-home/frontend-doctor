@@ -1,6 +1,6 @@
 Summary: Front end for HCW@Home web application for caregiver
 Name: hcw-athome-caregiver
-Version: 4.3.6
+Version: 4.3.7
 Release: 2
 Group: Web Application
 License: HUG
