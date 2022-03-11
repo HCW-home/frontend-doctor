@@ -22,6 +22,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ConfigService } from "./config.service";
 
 import { MarkdownModule } from "ngx-markdown";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-root",
@@ -59,7 +60,8 @@ export class AppComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
-    public configService: ConfigService
+    public configService: ConfigService,
+    private translate: TranslateService
   ) {
     iconRegistry.addSvgIcon(
       "dashboard",
@@ -230,20 +232,20 @@ export class AppComponent implements OnInit {
 
     this._socketEventsService.connectionSub().subscribe((status) => {
       if (
-        status == "connect_failed" &&
-        this.lastConectionStatus != "connect_failed"
+        status === "connect_failed" &&
+        this.lastConectionStatus !== "connect_failed"
       ) {
         this.lastConectionStatus = "connect_failed";
         setTimeout(() => {
           this.openSnackBar(
-            "La connexion avec le serveur ne fonctionne pas correctement, vous ne pouvez plus recevoir les demandes de consultation. Si le problème persiste, contacter votre support.",
+            this.translate.instant("app.connectionFailed"),
             "red-snackbar"
           );
         }, 100);
-      } else if (status == "connect") {
+      } else if (status === "connect") {
         if (
           this.currentSnackBar &&
-          this.lastConectionStatus == "connect_failed"
+          this.lastConectionStatus === "connect_failed"
         ) {
           this.openSnackBar("Vous êtes reconnecté", null);
         }
