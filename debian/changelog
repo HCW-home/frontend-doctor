@@ -1,3 +1,9 @@
+hcw-athome-caregiver (4.3.9) focal; urgency=medium
+
+  * Remove unwanted logo from login page
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 14 Mar 2022 09:31:34 +0100
+
 hcw-athome-caregiver (4.3.8) focal; urgency=medium
 
   * Remove HUG@Home branding
