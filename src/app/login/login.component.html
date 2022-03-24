@@ -2,15 +2,7 @@
   <div class="wrap">
     <div class="container">
       <div class="at">
-        <img
-          class="logo"
-          *ngIf="configService.config.logo"
-          [src]="configService.config.logo"
-          alt="@"
-        />
-        <span *ngIf="!configService.config.logo">{{
-          configService.config.branding
-        }}</span>
+        @
       </div>
 
       <p id="saml-login" *ngIf="showSamlLogin">
