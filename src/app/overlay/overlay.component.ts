@@ -30,7 +30,7 @@ export class OverlayComponent implements OnInit {
   public doctorComment = '';
 
   // The list of rating values
-  public ratings: string[] = ['bad', 'ok', 'good'];
+  public ratings: string[] = ['good', 'ok', 'bad'];
 
   // Whether or not the feedback has been submitted (i.e. the request is ongoing)
   public feedbackSubmitted = false;
