@@ -226,9 +226,6 @@
               <mat-select-trigger>
                 <span class="language__option">
                   <span> {{ "inviteForm." + data.language | translate }}</span>
-                  <span
-                    [className]="'flag-icon flag-icon-' + data.language"
-                  ></span>
                 </span>
               </mat-select-trigger>
 
@@ -236,15 +233,6 @@
               <mat-option *ngFor="let lang of languages" [value]="lang.code">
                 <span class="language__option">
                   <span>{{ lang.translated }}</span>
-
-                  <span
-                    *ngIf="lang.code === 'en'"
-                    [className]="'flag-icon flag-icon-gb'"
-                  ></span>
-                  <span
-                    *ngIf="lang.code !== 'en'"
-                    [className]="'flag-icon flag-icon-' + lang.code"
-                  ></span>
                 </span>
               </mat-option>
             </mat-select>

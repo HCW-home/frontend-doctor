@@ -27,7 +27,6 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@schematics/angular": "^11.0.5",
     "core-js": "^2.5.4",
-    "flag-icon-css": "^3.4.6",
     "html2canvas": "^1.0.0-rc.1",
     "hug-angular-lib": "http://builder/hug-angular/npm/hug-angular-lib-0.0.3.tgz",
     "jquery": "^3.5.1",

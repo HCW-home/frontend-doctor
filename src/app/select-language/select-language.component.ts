@@ -6,11 +6,11 @@ import { TranslateService } from '@ngx-translate/core';
   template: `
     <div id="hhwMultiLang">
       <div (click)="openDropdown()">
-        <span [className]="'flag-icon flag-icon-' + (translate.currentLang === 'us' || translate.currentLang === 'en' ? 'us' : translate.currentLang)"></span>&nbsp;<span>{{ opened ? '▲' : '▼' }}</span>
+        <span>{{ opened ? '▲' : '▼' }}</span>
       </div>
       <div *ngIf="opened">
-        <div (click)="changeLang('en')" class="hhwmlOption"><span class="flag-icon flag-icon-us"></span></div>
-        <div (click)="changeLang('fr')" class="hhwmlOption"><span class="flag-icon flag-icon-fr"></span></div>
+        <div (click)="changeLang('en')" class="hhwmlOption"></div>
+        <div (click)="changeLang('fr')" class="hhwmlOption"></div>
       </div>
     </div>
   `,
