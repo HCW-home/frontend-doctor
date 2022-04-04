@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  // api: 'https://dev-medecin-hug-at-home.oniabsis.com/api/v1',
-  // host: 'https://dev-medecin-hug-at-home.oniabsis.com/',
+  api: 'https://dev-medecin-hug-at-home.oniabsis.com/api/v1',
+  host: 'https://dev-medecin-hug-at-home.oniabsis.com/',
 
-  api: 'http://localhost:1337/api/v1',
-  host: 'http://localhost:1337/',
+  //api: 'http://localhost:1337/api/v1',
+  //host: 'http://localhost:1337/',
 
   //   api: 'http://192.168.1.9:1337/api/v1',
   // host: 'http://192.168.1.9:1337/',
