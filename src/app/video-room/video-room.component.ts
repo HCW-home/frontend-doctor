@@ -86,28 +86,14 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log("Initialize video", this.token, this.audioOnly);
-
+    if (this.audioOnly) {
+      this.camStatus = "off";
+    }
     this.peerId = this.authService.currentUserValue.id;
 
     this.askForPerm().then(() => {
       this.joinToSession();
     });
-    // this.accepted = !this.token;
-
-    // this.subscriptions.push(this.socketSer.consultationClosedSubj.subscribe(consultation => {
-    //   if (consultation._id === this.sessionId && consultation.consultation && consultation.consultation.status === 'closed') {
-    //     console.log('consultation closed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..')
-    //     this.exitSession();
-    //     return true;
-    //   }
-    // }));
-
-    // this.subscriptions.push(this.socketSer.onRejectCall().subscribe(event => {
-    //   console.log('call rejected ', event);
-    //   // if (event.data.consultation.id === this.sessionId) {
-    //   //   this.exitSession();
-    //   // }
-    // }));
   }
 
   ngOnDestroy() {
@@ -219,7 +205,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       this.rejected = true;
       this.roomService.close();
       if (this.myCamStream) {
-        this.myCamStream.mediaStream.getTracks().forEach(function (track) {
+        this.myCamStream.mediaStream.getTracks().forEach((track) => {
           track.stop();
         });
       }
@@ -235,7 +221,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       this.roomService.disableWebcam();
       this.camStatus = "off";
     } else {
-      this.roomService.updateWebcam({ start: true });
+      this.roomService.updateWebcam({ start: true, restart: true });
       this.camStatus = "on";
     }
   }
