@@ -1,3 +1,9 @@
+hcw-athome-caregiver (4.3.13) focal; urgency=medium
+
+  * Update licence
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 03 May 2022 16:42:16 +0200
+
 hcw-athome-caregiver (4.3.12) focal; urgency=medium
 
 - Removing country flag for languages
