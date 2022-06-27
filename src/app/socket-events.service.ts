@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 
 import io from 'socket.io-client';
 import sailsIOClient from 'sails.io.js'
+import { ConsultationService } from './consultation.service';
 const sailsIo = sailsIOClient(io);
 sailsIo.sails.autoConnect = false;
 
@@ -15,11 +16,10 @@ sailsIo.sails.autoConnect = false;
 export class SocketEventsService {
   socket
   initialized = false
-  private connectionStatus = 'unknow'
   private connection: Subject<String> = new Subject()
   public consultationClosedSubj: Subject<any> = new Subject()
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private consultationsService: ConsultationService) { }
 
   init(currentUser) {
     // console.info('sails ' , io.sails)
@@ -75,6 +75,7 @@ export class SocketEventsService {
     this.socket.on('reconnect', (number) => {
       this.connection.next('connect')
       console.info('Reconnected to server', number)
+      this.consultationsService.loadConsultationOverview()
     })
 
     this.socket.on('reconnect_attempt', () => {

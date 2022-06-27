@@ -118,7 +118,7 @@ export class ConsultationService {
     this.initialized = true;
   }
 
-  loadConsultationOverview() {
+  public loadConsultationOverview() {
     this.http.get<any[]>(environment.api + '/consultations-overview').pipe(tap(consultations => {
       this.consultationsOverview = consultations;
       this.updateUnreadCount();
