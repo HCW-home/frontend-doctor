@@ -1,3 +1,11 @@
+hcw-athome-caregiver (4.3.14) focal; urgency=medium
+
+  [ muhammed ]
+  * Reload consultations after socket reconnect
+  * remove unneeded file
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 29 Jun 2022 10:20:39 +0200
+
 hcw-athome-caregiver (4.3.13) focal; urgency=medium
 
   * Update licence
