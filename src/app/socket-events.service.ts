@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Injector } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { environment } from '../environments/environment'
 
@@ -19,7 +19,7 @@ export class SocketEventsService {
   private connection: Subject<String> = new Subject()
   public consultationClosedSubj: Subject<any> = new Subject()
 
-  constructor(private router: Router, private consultationsService: ConsultationService) { }
+  constructor(private router: Router, private injector: Injector) { }
 
   init(currentUser) {
     // console.info('sails ' , io.sails)
@@ -75,7 +75,8 @@ export class SocketEventsService {
     this.socket.on('reconnect', (number) => {
       this.connection.next('connect')
       console.info('Reconnected to server', number)
-      this.consultationsService.loadConsultationOverview()
+      const  consultationsService =  this.injector.get(ConsultationService)
+      consultationsService.loadConsultationOverview()
     })
 
     this.socket.on('reconnect_attempt', () => {
