@@ -1,3 +1,14 @@
+hcw-athome-caregiver (4.3.15) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Add apt update before installing repo dependancies
+  * Fix back hug-angular dependancy to the right URL
+
+  [ muhammed ]
+  * FIX circular dependency
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 29 Jun 2022 11:32:37 +0200
+
 hcw-athome-caregiver (4.3.14) focal; urgency=medium
 
   [ muhammed ]
