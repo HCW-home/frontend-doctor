@@ -75,8 +75,13 @@ export class SocketEventsService {
     this.socket.on('reconnect', (number) => {
       this.connection.next('connect')
       console.info('Reconnected to server', number)
-      const  consultationsService =  this.injector.get(ConsultationService)
-      consultationsService.loadConsultationOverview()
+      try {
+        const  consultationsService =  this.injector.get(ConsultationService)
+        consultationsService.loadConsultationOverview()
+        
+      } catch (error) {
+        console.error(error)
+      }
     })
 
     this.socket.on('reconnect_attempt', () => {
