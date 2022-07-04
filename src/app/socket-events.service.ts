@@ -76,8 +76,20 @@ export class SocketEventsService {
       this.connection.next('connect')
       console.info('Reconnected to server', number)
       try {
-        const  consultationsService =  this.injector.get(ConsultationService)
-        consultationsService.loadConsultationOverview()
+        const  consultationsService =  this.injector.get(ConsultationService);
+        const pendingCount = consultationsService.consultationsOverview.filter(
+          (c) => c.consultation.status === "pending"
+        ).length
+
+        console.log('Pending count ', pendingCount)
+        consultationsService.loadConsultationOverview().subscribe(consultations=>{
+          const pendingCountAfterUpdate = consultations.filter(
+            (c) => c.consultation.status === "pending"
+          ).length
+          if(pendingCountAfterUpdate> pendingCount){
+            this.playAudio()
+          }
+        })
         
       } catch (error) {
         console.error(error)
