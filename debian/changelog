@@ -1,3 +1,11 @@
+hcw-athome-caregiver (4.3.16) focal; urgency=medium
+
+  [ muhammed ]
+  * handle errors with fetching consultations, use try catch
+  * FIX no consultation sound if consultation was created when doctor was disconnected
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 04 Jul 2022 14:42:52 +0200
+
 hcw-athome-caregiver (4.3.15) focal; urgency=medium
 
   [ Olivier Bitsch ]
