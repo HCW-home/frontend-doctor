@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.configService.config.method === 'saml') {
       this.showSamlLogin = true;
       if (!token) {
-        // (window as any).location.href = this.samlLoginUrl;
+        (window as any).location.href = this.samlLoginUrl;
       }
     } else if (this.configService.config.method === 'password') {
       this.showPasswordLogin = true;
