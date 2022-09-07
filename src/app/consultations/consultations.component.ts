@@ -125,6 +125,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       lastName: consultation.lastName,
       emailAddress: user.email,
       phoneNumber: user.phoneNumber,
+      metadata: consultation.metadata, //! metadata
     };
     const dialogRef = this.dialog.open(InviteFormComponent, {
       id: 'invite_form_dialog',
@@ -143,10 +144,12 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   }
 
   getConsultations() {
+    
     this.overviewSub = this.consultationService
       .getConsultationsOverview()
       .subscribe((consultations) => {
         console.log('got consultation over ', consultations);
+
         this.zone.run(() => {
           this.consultations = consultations.filter(
             (c) => c.consultation.status === this.status,

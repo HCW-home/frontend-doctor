@@ -74,8 +74,10 @@ export class InvitationsComponent implements OnInit {
         edit,
         id: invite.id,
         status: invite.status,
+        metadata: invite.metadata,
         inviteObj: invite,
       };
+      
     }
     const dialogRef = this.dialog.open(InviteFormComponent, {
       id: "invite_form_dialog",
@@ -99,6 +101,7 @@ export class InvitationsComponent implements OnInit {
       .pipe(
         tap((resp) => {
           console.log("response ", resp);
+
           this.totalCount = +(resp as HttpResponse<Invitation[]>).headers.get(
             "X-Total-Count"
           );

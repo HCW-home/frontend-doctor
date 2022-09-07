@@ -4851,8 +4851,9 @@ https-proxy-agent@^2.2.1, https-proxy-agent@^2.2.3:
     agent-base "^4.3.0"
     debug "^3.1.0"
 
-hug-angular-lib@../../hug-angular/dist/hug-angular-lib/:
-  version "0.0.2"
+"hug-angular-lib@https://projects.iabsis.com/repository/hug-angular/npm/hug-angular-lib-0.0.3.tgz":
+  version "0.0.3"
+  resolved "https://projects.iabsis.com/repository/hug-angular/npm/hug-angular-lib-0.0.3.tgz#dd3b1d448bf13fb4e95f3e6b12710a073e01ea68"
   dependencies:
     bowser "^2.11.0"
     hark "^1.2.3"
