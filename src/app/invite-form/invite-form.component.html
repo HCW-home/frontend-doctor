@@ -262,7 +262,25 @@
           </mat-form-field>
         </div>
 
-        <!-- <mat-error *ngIf="myForm.hasError('error')">
+        <!-- Metadata champ -->
+        <div  class="field-container">
+
+          <mat-form-field 
+            *ngFor="let item of configService.config.metadata; let i = index"
+          >
+            <mat-label class="label">
+              {{  item }}  
+            </mat-label>
+            <input
+              formControlName="metadataFormControl"
+              [(ngModel)]="data[item]"
+              matInput
+            />
+          </mat-form-field>
+          
+        </div>
+
+        <!-- <mat-error *ngIf="myForm.hasError('error')"><<
           Veuillez renseigner uniquement un des deux champs Email ou Numéro de
           mobile
         </mat-error> -->

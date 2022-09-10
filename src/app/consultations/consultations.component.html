@@ -127,16 +127,7 @@
               consultation.consultation.closedAt | duration
           }}
         </td>
-        
 
-        <td *ngIf="status != 'closed'" (click)="showChat(consultation._id)">
-          <span class="tile-header">
-            metadata
-          </span>
-          {{
-            consultation.consultation.metadata
-          }}
-        </td>
         <td
           class="online-status-cell"
           *ngIf="status != 'closed'"

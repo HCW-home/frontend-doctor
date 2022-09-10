@@ -179,6 +179,24 @@
           }}
         </div>
       </div>
+      <!-- Here i put des metadata informations  -->
+
+      <div
+        *ngFor="let item of consultation.consultation.metadata | keyvalue"
+        class="c_info_wrap"
+      >
+        <div class="c_info_row_title">
+          {{
+            item.key
+          }}
+        </div>
+        <div class="c_info_row_content">
+          {{
+            item.value
+          }}
+        </div>
+      </div>
+      <!--  -->
 
       <div
         *ngIf="consultation.consultation.status === 'closed'"

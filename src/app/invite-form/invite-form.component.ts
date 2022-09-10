@@ -12,6 +12,8 @@ import {
   FormBuilder, FormGroup, AbstractControl
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ConfigService } from '../config.service';
+
 
 
 
@@ -35,6 +37,10 @@ interface DialogData {
   id?: string;
   status: string;
   inviteObj: any;
+  metadata: object ;  //! metadata
+  // equipemed: string;
+  // consultationid: string;
+  // nurse: string;
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -87,7 +93,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     private queueServ: QueueService,
     private translationOrganizationService: TranslationOrganizationService,
     private languageService: LanguageService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public configService: ConfigService,
   ) {
     this.edit = data.edit;
     if (!this.data.emailAddress) {
@@ -116,10 +123,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   }
 
 
-
   createFormGroup() {
     let queueFormControl;
-
     queueFormControl = new FormControl(undefined);
 
     this.myForm = this.formBuilder.group({
@@ -144,7 +149,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       inviteTranslatorFormControl: new FormControl(false),
       inviteGuestFormControl: new FormControl(false),
       translationOrganizationFormControl: new FormControl(null, [this.translationOrganizationValidator.bind(this)]),
-      queueFormControl
+      queueFormControl,
+      metadataFormControl: new FormControl(''),
 
       // our custom validator
     }, {
@@ -266,6 +272,12 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.dialogRef.close();
   }
   onSubmit() {
+   
+    //! Put on the metadata an object with all the item we set and we get from the form
+    this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
+      result[item] = this.data[item]
+      return result;
+    },{});
 
     if (this.loading) {
       return;
@@ -295,6 +307,13 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     }
 
     console.log('submit ', this.data, this.myForm.valid, this.myForm);
+
+    console.log(this.data.metadata + " meta ");
+
+
+    
+
+
     if (!this.myForm.valid || this.atLeastAGuestOrTranslator(this.myForm)) {
       // this to show error messages
       this.validateAllFormFields(this.myForm);
@@ -304,8 +323,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         return;
       }
     }
-
-
+    
+    
     this.data.isPatientInvite = this.isPatientInvite;
     if(this.edit){
 
@@ -321,6 +340,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         cancelGuestInvite = true;
       }
       console.log('this.data', this.data, this.inviteGuest,this.inviteTranslator )
+      
       if(this.data.inviteObj.translationOrganization && !this.inviteTranslator){
         cancelTranslationRequestInvite = true;
       }
@@ -336,6 +356,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         language,
         guestEmailAddress,
         guestPhoneNumber,
+        metadata,
+        //equipemed,
       } = this.data;
 
       this.inviteService.updateInvite({
@@ -352,7 +374,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         guestPhoneNumber,
         cancelGuestInvite,
         cancelScheduledFor,
-        cancelTranslationRequestInvite
+        cancelTranslationRequestInvite,
+        metadata,
       }, this.data.id).subscribe(res => {
         this.dialogRef.close();
       }, err => {
