@@ -265,7 +265,7 @@
         <!-- Metadata champ -->
         <div  
           class="field-container"
-          *ngIF="!configService.config.metadata && configService.config.metadata.length === 0"
+          *ngIf="configService.config.metadata.length"
         >
 
           <mat-form-field 

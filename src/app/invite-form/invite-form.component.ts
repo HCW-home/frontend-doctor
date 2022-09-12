@@ -107,7 +107,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     }else{
       this.data.scheduledFor = '';
     }
-
+ 
     this.data.language = this.data.language || 'fr'
 
     if (this.data.guestContact) {
@@ -271,10 +271,13 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   onSubmit() {
    
     //! Put on the metadata an object with all the item we set and we get from the form
-    this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
-      result[item] = this.data[item]
-      return result;
-    },{});
+    if(this.configService.config.metadata.length != ""){
+      this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
+        result[item] = this.data[item]
+        return result;
+      },{});
+    }
+    
 
     if (this.loading) {
       return;
