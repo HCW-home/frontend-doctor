@@ -38,9 +38,6 @@ interface DialogData {
   status: string;
   inviteObj: any;
   metadata: object ;  //! metadata
-  // equipemed: string;
-  // consultationid: string;
-  // nurse: string;
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -308,7 +305,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
     console.log('submit ', this.data, this.myForm.valid, this.myForm);
 
-    console.log(this.data.metadata + " meta ");
 
 
     
@@ -357,7 +353,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         guestEmailAddress,
         guestPhoneNumber,
         metadata,
-        //equipemed,
       } = this.data;
 
       this.inviteService.updateInvite({

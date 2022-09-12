@@ -263,7 +263,10 @@
         </div>
 
         <!-- Metadata champ -->
-        <div  class="field-container">
+        <div  
+          class="field-container"
+          *ngIF="!configService.config.metadata && configService.config.metadata.length === 0"
+        >
 
           <mat-form-field 
             *ngFor="let item of configService.config.metadata; let i = index"
