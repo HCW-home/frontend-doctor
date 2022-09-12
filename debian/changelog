@@ -1,3 +1,12 @@
+hcw-athome-caregiver (0.4.3.18) focal; urgency=medium
+
+  [ YassineEF ]
+  * added metadata variable to the front
+  * Add field to the Display meta env variable
+  * Correct some views field errors
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 12 Sep 2022 10:12:59 +0200
+
 hcw-athome-caregiver (4.3.17) focal; urgency=medium
 
   [ muhammed ]
