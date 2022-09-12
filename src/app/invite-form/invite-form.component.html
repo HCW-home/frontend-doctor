@@ -262,14 +262,14 @@
           </mat-form-field>
         </div>
 
-        <!-- Metadata champ -->
-        <div  
+        <!--! Metadata field, generated from the DISPLAY_META backend enviroment variable -->
+        <!-- <div  
           class="field-container"
-          *ngIf="configService.config.metadata.length"
+          ngIf="configService.config.metadata.length"
         >
 
           <mat-form-field 
-            *ngFor="let item of configService.config.metadata; let i = index"
+            ngFor="let item of configService.config.metadata; let i = index"
           >
             <mat-label class="label">
               {{  item }}  
@@ -281,7 +281,7 @@
             />
           </mat-form-field>
           
-        </div>
+        </div> -->
 
         <!-- <mat-error *ngIf="myForm.hasError('error')"><<
           Veuillez renseigner uniquement un des deux champs Email ou Numéro de

@@ -37,7 +37,7 @@ interface DialogData {
   id?: string;
   status: string;
   inviteObj: any;
-  metadata: object ;  //! metadata
+  // metadata: object ;  //! metadata
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -147,7 +147,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       inviteGuestFormControl: new FormControl(false),
       translationOrganizationFormControl: new FormControl(null, [this.translationOrganizationValidator.bind(this)]),
       queueFormControl,
-      metadataFormControl: new FormControl(''),
+      // metadataFormControl: new FormControl(''),
 
       // our custom validator
     }, {
@@ -271,12 +271,12 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   onSubmit() {
    
     //! Put on the metadata an object with all the item we set and we get from the form
-    if(this.configService.config.metadata.length != ""){
-      this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
-        result[item] = this.data[item]
-        return result;
-      },{});
-    }
+    // if(this.configService.config.metadata.length != ""){
+    //   this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
+    //     result[item] = this.data[item]
+    //     return result;
+    //   },{});
+    // }
     
 
     if (this.loading) {
@@ -355,7 +355,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         language,
         guestEmailAddress,
         guestPhoneNumber,
-        metadata,
+        // metadata,
       } = this.data;
 
       this.inviteService.updateInvite({
@@ -373,7 +373,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         cancelGuestInvite,
         cancelScheduledFor,
         cancelTranslationRequestInvite,
-        metadata,
+        // metadata,
       }, this.data.id).subscribe(res => {
         this.dialogRef.close();
       }, err => {
