@@ -129,19 +129,20 @@
         </td>
 
           <td 
+          *ngFor="let displayItem of configService.config.metadata"
+            >
+            <ng-container
+            
             *ngIf="status != 'closed'" 
             (click)="showChat(consultation._id)"
-            ><span
-            *ngFor="let item of consultation.consultation.metadata | keyvalue;  let i = index;"
             >
+            
             <span 
               class="tile-header">
-              {{ i < 1 ? item.key : ""}}
-            </span>
-            
-
-              {{  i < 1 ? item.value : "" }}
-            </span>
+              {{ displayItem }}
+             </span>
+              {{   consultation.consultation.metadata[displayItem]  ? consultation.consultation.metadata[displayItem]  : "-" }}
+            </ng-container>
           </td>
 
         <td

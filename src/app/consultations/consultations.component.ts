@@ -22,6 +22,8 @@ import jsPDF from 'jspdf';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../user.service';
 import { SocketEventsService } from '../socket-events.service';
+import { ConfigService } from '../config.service';
+
 
 @Component({
   selector: 'app-consultations',
@@ -82,7 +84,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     private inviteService: InviteService,
     private _socketEventsService: SocketEventsService,
     private activeRoute: ActivatedRoute,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public configService: ConfigService,
   ) {
     this.titles = [
       {
