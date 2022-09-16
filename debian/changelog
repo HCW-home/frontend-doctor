@@ -1,3 +1,10 @@
+hcw-athome-caregiver (4.3.20) focal; urgency=medium
+
+  [ YassineEF ]
+  * Fixed error of blank metadata DISPLAY META
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 16 Sep 2022 15:04:21 +0200
+
 hcw-athome-caregiver (4.3.19) focal; urgency=medium
 
   [ YassineEF ]
