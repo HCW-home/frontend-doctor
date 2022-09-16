@@ -127,10 +127,16 @@
               consultation.consultation.closedAt | duration
           }}
         </td>
+        <ng-container
+            *ngIf="configService.config.metadata.length > 0; else notMetadata"
+            
+            > 
 
           <td 
           *ngFor="let displayItem of configService.config.metadata"
+             
             >
+
             <ng-container
             
             *ngIf="status != 'closed'" 
@@ -144,7 +150,19 @@
               {{   consultation.consultation.metadata[displayItem]  ? consultation.consultation.metadata[displayItem]  : "-" }}
             </ng-container>
           </td>
+        </ng-container>
+        
+        <ng-template #notMetadata>
+          <td>
+          <span class="tile-header">
+              -
+            </span>
+            -
+          </td>
+          </ng-template>
 
+          
+          
         <td
           class="online-status-cell"
           *ngIf="status != 'closed'"
