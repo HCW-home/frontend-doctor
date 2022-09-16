@@ -1,3 +1,10 @@
+hcw-athome-caregiver (4.3.21) focal; urgency=medium
+
+  [ YassineEF ]
+  * Fixed error of metadata object null value
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 16 Sep 2022 16:53:22 +0200
+
 hcw-athome-caregiver (4.3.20) focal; urgency=medium
 
   [ YassineEF ]
