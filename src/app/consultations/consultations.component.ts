@@ -110,6 +110,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     this.consultationId = this.activeRoute.snapshot.params.id;
     this.currentUser = this.authService.currentUserValue;
     console.log('current user ', this.currentUser);
+    
     this.status = this.activatedRoute.snapshot.data.status;
     this.title = this.titles.find((t) => t.status === this.status);
     this.getConsultations();
