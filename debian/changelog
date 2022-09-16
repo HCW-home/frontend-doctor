@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.20) focal; urgency=medium
+
+  [ YassineEF ]
+  * refs #5029 -show metadata on waiting room from Display meta
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 13 Sep 2022 16:47:48 +0200
+
 hcw-athome-caregiver (0.4.3.19) focal; urgency=medium
 
   [ Olivier Bitsch ]
