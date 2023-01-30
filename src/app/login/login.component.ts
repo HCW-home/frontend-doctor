@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   email: string;
   password: string;
   samlLoginUrl = `${environment.api}/login-saml`;
+  openIdLoginUrl = `${environment.api}/login-openid`;
   localLoginToken;
   smsLoginToken;
   smsVerificationCode;
