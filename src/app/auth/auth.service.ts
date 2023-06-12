@@ -1,4 +1,4 @@
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { SocketEventsService } from './../socket-events.service';
 
 import { Injectable } from '@angular/core';

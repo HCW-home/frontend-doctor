@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SelectLanguageComponent } from './select-language.component';
 
@@ -6,7 +6,7 @@ describe('SelectLanguageComponent', () => {
   let component: SelectLanguageComponent;
   let fixture: ComponentFixture<SelectLanguageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SelectLanguageComponent ]
     })

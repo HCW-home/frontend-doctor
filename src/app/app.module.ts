@@ -206,12 +206,9 @@ const routes: Routes = [
     path: "plan-consultation",
     component: PlanConsultationComponent,
   },
-  {
-    path: "**",
+  { path: "**",
     redirectTo: "/dashboard",
-    pathMatch: "full",
-    canActivate: [AuthGuard, RouterGuard],
-  },
+    pathMatch: "full" },
 ];
 
 @NgModule({
@@ -250,7 +247,7 @@ const routes: Routes = [
     BrowserModule,
     SharedModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     NgxPaginationModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
