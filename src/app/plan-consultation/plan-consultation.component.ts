@@ -1,6 +1,6 @@
 import { Component,  OnDestroy, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PlanConsultationService } from '../plan-consultation.service';
 import { Subscription, throwError } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class PlanConsultationComponent implements OnInit, OnDestroy {
 
-  planConsultationForm: FormGroup;
+  planConsultationForm: UntypedFormGroup;
   public consultation;
   private token: string;
   loading = true;
@@ -20,7 +20,7 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   error: string = null;
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public configService: ConfigService,
     private planConsultationService: PlanConsultationService,
     private translate: TranslateService

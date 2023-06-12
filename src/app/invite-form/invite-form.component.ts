@@ -8,8 +8,8 @@ import { InviteService } from './../invite.service';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  FormControl, FormGroupDirective, NgForm, Validators, ValidatorFn,
-  FormBuilder, FormGroup, AbstractControl
+  UntypedFormControl, FormGroupDirective, NgForm, Validators, ValidatorFn,
+  UntypedFormBuilder, UntypedFormGroup, AbstractControl
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ConfigService } from '../config.service';
@@ -41,7 +41,7 @@ interface DialogData {
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -86,7 +86,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   edit = false;
   constructor(
     public dialogRef: MatDialogRef<InviteFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private inviteService: InviteService, private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private inviteService: InviteService, private formBuilder: UntypedFormBuilder,
     private queueServ: QueueService,
     private translationOrganizationService: TranslationOrganizationService,
     private languageService: LanguageService,
@@ -122,30 +122,30 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
   createFormGroup() {
     let queueFormControl;
-    queueFormControl = new FormControl(undefined);
+    queueFormControl = new UntypedFormControl(undefined);
 
     this.myForm = this.formBuilder.group({
-      patientContactFormControl: new FormControl('', this.isPatientInvite ? [
+      patientContactFormControl: new UntypedFormControl('', this.isPatientInvite ? [
         Validators.required,
         emailOrPhoneValidator
       ] : []),
-      guestContactFormControl: new FormControl('', [
+      guestContactFormControl: new UntypedFormControl('', [
         emailOrPhoneValidator,
         this.guestContactValidatorValidator.bind(this)
       ]),
 
       emailFormControl:
-        new FormControl('', this.isPatientInvite ? [Validators.email] : []),
-      phoneNumberFormControl: new FormControl('', this.isPatientInvite ? [Validators.pattern(phoneNumberRegex)] : []),
-      firstNameFormControl: new FormControl('', this.isPatientInvite ? [Validators.required] : []),
-      lastNameFormControl: new FormControl('', this.isPatientInvite ? [Validators.required] : []),
-      genderFormControl: new FormControl('', this.isPatientInvite ? [Validators.required] : []),
-      languageFormControl: new FormControl('fr', this.isPatientInvite ? [Validators.required] : []),
-      dateTimeFormControl: new FormControl(''),
-      isScheduled: new FormControl(false),
-      inviteTranslatorFormControl: new FormControl(false),
-      inviteGuestFormControl: new FormControl(false),
-      translationOrganizationFormControl: new FormControl(null, [this.translationOrganizationValidator.bind(this)]),
+        new UntypedFormControl('', this.isPatientInvite ? [Validators.email] : []),
+      phoneNumberFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.pattern(phoneNumberRegex)] : []),
+      firstNameFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.required] : []),
+      lastNameFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.required] : []),
+      genderFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.required] : []),
+      languageFormControl: new UntypedFormControl('fr', this.isPatientInvite ? [Validators.required] : []),
+      dateTimeFormControl: new UntypedFormControl(''),
+      isScheduled: new UntypedFormControl(false),
+      inviteTranslatorFormControl: new UntypedFormControl(false),
+      inviteGuestFormControl: new UntypedFormControl(false),
+      translationOrganizationFormControl: new UntypedFormControl(null, [this.translationOrganizationValidator.bind(this)]),
       queueFormControl,
       // metadataFormControl: new FormControl(''),
 
@@ -251,7 +251,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.dialogRef.updateSize('70%', '83%');
     });
   }
-  atLeastAGuestOrTranslator(group: FormGroup): { [s: string]: boolean } {
+  atLeastAGuestOrTranslator(group: UntypedFormGroup): { [s: string]: boolean } {
     if (!this.isPatientInvite) {
 
       if (group) {
@@ -405,14 +405,14 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     });
   }
 
-  validateAllFormFields(formGroup: FormGroup) {
+  validateAllFormFields(formGroup: UntypedFormGroup) {
 
     Object.keys(formGroup.controls).forEach(field => {  // {2}
       const control = formGroup.get(field);             // {3}
-      if (control instanceof FormControl) {             // {4}
+      if (control instanceof UntypedFormControl) {             // {4}
         control.markAsTouched({ onlySelf: true });
         control.updateValueAndValidity()
-      } else if (control instanceof FormGroup) {        // {5}
+      } else if (control instanceof UntypedFormGroup) {        // {5}
         this.validateAllFormFields(control);            // {6}
       }
     });

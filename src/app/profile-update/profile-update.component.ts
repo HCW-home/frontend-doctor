@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from './../user.service';
 import { Component, Inject, OnDestroy, OnInit,Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, FormGroupDirective, NgForm, Validators, ValidatorFn, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm, Validators, ValidatorFn, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from '../auth/auth.service';
 
@@ -23,7 +23,7 @@ interface DialogData {
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -65,7 +65,7 @@ export class ProfileUpdateComponent implements OnDestroy, OnInit {
   now = new Date();
   constructor(
     public dialogRef: MatDialogRef<ProfileUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private userService: UserService, private formBuilder: FormBuilder, private authService: AuthService) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private userService: UserService, private formBuilder: UntypedFormBuilder, private authService: AuthService) {
     
   }
 
@@ -73,11 +73,11 @@ export class ProfileUpdateComponent implements OnDestroy, OnInit {
   createFormGroup() {
   
     this.myForm = this.formBuilder.group({
-      phoneNumberFormControl: new FormControl('', [Validators.required]),
-      firstNameFormControl: new FormControl('', [Validators.required]),
-      lastNameFormControl: new FormControl('', [Validators.required]),
+      phoneNumberFormControl: new UntypedFormControl('', [Validators.required]),
+      firstNameFormControl: new UntypedFormControl('', [Validators.required]),
+      lastNameFormControl: new UntypedFormControl('', [Validators.required]),
       // departementNameFormControl: new FormControl('', [Validators.required]),
-      dateTimeFormControl: new FormControl('')
+      dateTimeFormControl: new UntypedFormControl('')
     });
     (window as any).myForm = this.myForm;
   }
@@ -125,12 +125,12 @@ export class ProfileUpdateComponent implements OnDestroy, OnInit {
     }
   }
 
-  validateAllFormFields(formGroup: FormGroup) {         // {1}
+  validateAllFormFields(formGroup: UntypedFormGroup) {         // {1}
     Object.keys(formGroup.controls).forEach(field => {  // {2}
       const control = formGroup.get(field);             // {3}
-      if (control instanceof FormControl) {             // {4}
+      if (control instanceof UntypedFormControl) {             // {4}
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        // {5}
+      } else if (control instanceof UntypedFormGroup) {        // {5}
         this.validateAllFormFields(control);            // {6}
       }
     });

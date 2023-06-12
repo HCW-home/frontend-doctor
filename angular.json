@@ -137,7 +137,6 @@
       }
     }
   },
-  "defaultProject": "hug-at-home",
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss"

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   error = "";
   success = false;
 
-  emailFormControl = new FormControl('', [
+  emailFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.email,
   ]);

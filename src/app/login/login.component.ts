@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
-  FormControl,
+  UntypedFormControl,
   FormGroupDirective,
   NgForm,
   Validators,
@@ -19,7 +19,7 @@ import { ConfigService } from '../config.service';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
-    control: FormControl | null,
+    control: UntypedFormControl | null,
     form: FormGroupDirective | NgForm | null,
   ): boolean {
     const isSubmitted = form && form.submitted;
@@ -37,12 +37,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  emailFormControl = new FormControl('', [
+  emailFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  passwordFormControl = new FormControl('', [Validators.required]);
-  codeFormControl = new FormControl('', [Validators.required]);
+  passwordFormControl = new UntypedFormControl('', [Validators.required]);
+  codeFormControl = new UntypedFormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
   subscriptions: Subscription[] = [];

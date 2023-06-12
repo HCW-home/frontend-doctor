@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { MustMatch } from './_helpers/must-match.validator';
 import { AuthService } from '../auth/auth.service';
@@ -13,7 +13,7 @@ import { ConfigService } from '../config.service';
 export class ResetPasswordComponent implements OnInit {
 
   token = "";
-  resetPasswordForm: FormGroup;
+  resetPasswordForm: UntypedFormGroup;
 
   linkSent = false;
   loading = false;
@@ -25,7 +25,7 @@ export class ResetPasswordComponent implements OnInit {
   //   Validators.pattern(new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})")),
   // ]);
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService,
+  constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService,
     public configService: ConfigService) { }
 
   ngOnInit() {
