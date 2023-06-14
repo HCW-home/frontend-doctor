@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-select-language',
+  selector: "app-select-language",
   template: `
     <div id="hhwMultiLang">
       <div (click)="openDropdown()">
@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
     </div>
   `,
   styles: [
-    '#hhwMultiLang { cursor: pointer;position: fixed;width: 42px;left: calc(50% - 21px); }'
+    "#hhwMultiLang { cursor: pointer;position: fixed;width: 42px;left: calc(50% - 21px); }"
   ]
 })
 export class SelectLanguageComponent {
@@ -29,7 +29,7 @@ export class SelectLanguageComponent {
 
   changeLang(lang) {
     this.openDropdown()
-    window.localStorage.setItem('hhw-lang', lang)
+    window.localStorage.setItem("hhw-lang", lang)
     this.translate.use(lang)
   }
 }

@@ -1,8 +1,8 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Component, Inject, OnInit } from '@angular/core';
+import { TranslateService } from "@ngx-translate/core";
+import { Component, Inject, OnInit } from "@angular/core";
 
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 export interface DialogData {
   question: string
@@ -11,16 +11,16 @@ export interface DialogData {
   title?: string
 }
 @Component({
-  selector: 'app-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss']
+  selector: "app-confirmation-dialog",
+  templateUrl: "./confirmation-dialog.component.html",
+  styleUrls: ["./confirmation-dialog.component.scss"]
 })
 export class ConfirmationDialogComponent implements OnInit {
 
-  question = ''
-  yesText = ''
-  noText = ''
-  title = ''
+  question = ""
+  yesText = ""
+  noText = ""
+  title = ""
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -35,8 +35,6 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    // this.dialogRef.updateSize('50%', '50%');
 
   }
 

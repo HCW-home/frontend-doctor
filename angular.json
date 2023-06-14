@@ -43,7 +43,6 @@
             "stylePreprocessorOptions": {
               "includePaths": ["./src/variables.scss", "./src/styles"]
             },
-            "es5BrowserSupport": true,
             "aot": true
           },
           "configurations": {

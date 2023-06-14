@@ -69,7 +69,7 @@ span.tile-header {
     border-left: 2px solid #fff;
     cursor: pointer;
     &:hover {
-      border-left: 2px solid $primary-color;
+      border-left: 2px solid var(--primary-color);
     }
   }
   td {

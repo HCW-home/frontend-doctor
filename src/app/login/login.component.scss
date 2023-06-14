@@ -89,7 +89,7 @@ ng-container {
     border-radius: 60px;
     text-align: center;
     height: 48px;
-    color: $primary-color;
+    color: var(--primary-color);
     padding-top: 5px;
   }
 }
@@ -109,7 +109,7 @@ h4 {
   text-align: center;
   width: 160px;
   height: 48px;
-  color: $primary-color;
+  color: var(--primary-color);
 }
 
 input {
@@ -126,7 +126,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px $primary-color inset !important;
+  -webkit-box-shadow: 0 0 0 30px var(--primary-color) inset !important;
 }
 
 input:-webkit-autofill {

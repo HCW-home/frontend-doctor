@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="71723fb9-d804-4060-bc9b-547eb5e9e01e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/browserslist" beforeDir="false" afterPath="$PROJECT_DIR$/browserslist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/chat.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/chat.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/confirmation-dialog/confirmation-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/confirmation-dialog/confirmation-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultation/consultation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultation/consultation.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultations/consultations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultations/consultations.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/footer/footer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/footer/footer.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/forgot-password/forgot-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/forgot-password/forgot-password.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invitations/invitations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invitations/invitations.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/login.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/overlay/overlay.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/overlay/overlay.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/plan-consultation/plan-consultation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/plan-consultation/plan-consultation.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile-update/profile-update.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile-update/profile-update.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/profile.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/reset-password/reset-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/reset-password/reset-password.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/select-language/select-language.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/select-language/select-language.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/side-chat/side-chat.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/side-chat/side-chat.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/stream/peer-audio/peer-audio.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/stream/peer-audio/peer-audio.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/translated-gender.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/translated-gender.pipe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/variables.scss" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2JDWR6wbfoUbeavZxbbAlMZv2fs" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;angular-update&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/grigoryan/react/hcw-doctor&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/grigoryan/react/hcw-doctor/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="Tests (hug-at-home)" type="JavaScriptTestRunnerKarma">
+      <config-file value="$PROJECT_DIR$/src/karma.conf.js" />
+      <working-directory value="$PROJECT_DIR$" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="E2E Tests (hug-at-home-e2e)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71723fb9-d804-4060-bc9b-547eb5e9e01e" name="Changes" comment="" />
+      <created>1671613122780</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1671613122780</updated>
+      <workItem from="1671613124014" duration="707000" />
+      <workItem from="1671783837624" duration="29000" />
+      <workItem from="1686126946386" duration="8000" />
+      <workItem from="1686301107672" duration="2110000" />
+      <workItem from="1686579714318" duration="9718000" />
+      <workItem from="1686681657143" duration="2346000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="browserslist" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/select-language/select-language.component.ts</url>
+          <line>17</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

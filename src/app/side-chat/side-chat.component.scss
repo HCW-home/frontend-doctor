@@ -73,7 +73,7 @@
 
 }
 .incoming> div > div.bubble{
-  background-color: $primary-color ;
+  background-color: var(--primary-color) ;
   color: #ffffff;
 
   padding:8px 14px 8px 14px;
@@ -144,7 +144,7 @@ div.resume-c-btn{
   // display: table;
   width:21.333%;
 
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
   // line-height: 50%;
   display:table-cell;

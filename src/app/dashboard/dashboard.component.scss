@@ -53,7 +53,7 @@ mat-icon {
 }
 
 .next-con-btn {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
   border-radius: 50px;
   margin: 20px;
@@ -101,7 +101,7 @@ table {
     border-left: 2px solid #ffffff;
     cursor: pointer;
     &:hover {
-      border-left: 2px solid $primary-color;
+      border-left: 2px solid var(--primary-color);
     }
   }
   td {

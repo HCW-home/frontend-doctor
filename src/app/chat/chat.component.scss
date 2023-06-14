@@ -67,7 +67,7 @@
   // min-width:270px;
 }
 div.bubble {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
 
   padding: 8px 14px 8px 14px;
@@ -137,7 +137,7 @@ div.resume-c-btn {
   // display: table;
   width: 21.333%;
 
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
   // line-height: 50%;
   display: table-cell;
@@ -197,10 +197,10 @@ textarea:focus {
 
 // div.pdf {
 
-//       color: $primary-color ;
+//       color: var(--primary-color) ;
 //       -webkit-mask: url(../../assets/svg/icon-Pdf.svg);
 
-//      background-color:$primary-color ;
+//      background-color:var(--primary-color) ;
 //      width:28px;
 //      height:28px;
 //      filter: brightness(0) invert(1);

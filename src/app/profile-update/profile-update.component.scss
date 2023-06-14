@@ -75,7 +75,7 @@
   // flex-direction: column;
 }
 .btn__send {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 .mat-form-field-disabled .label {

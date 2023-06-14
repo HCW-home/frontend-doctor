@@ -59,7 +59,7 @@ span.tile-header {
 }
 .invite-btn {
   margin: 20px 80px;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
   border-radius: 50px;
   // margin: 20px;
@@ -93,7 +93,7 @@ mat-card {
     border-top: 1px solid #b1b1b191;
     border-left: 2px solid #fff;
     &:hover {
-      border-left: 2px solid $primary-color;
+      border-left: 2px solid var(--primary-color);
     }
   }
   td {

@@ -12,7 +12,7 @@ dl {
 dt {
   width: 200px;
   text-align: right;
-  color: $primary-color;
+  color: var(--primary-color);
   display: inline-block;
 }
 dd {
@@ -37,7 +37,7 @@ dd {
 }
 .invite-btn {
   margin: 20px 80px;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
   border-radius: 50px;
   // margin: 20px;

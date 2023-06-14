@@ -95,7 +95,7 @@
   // min-width:270px;
 }
 .incoming > div > div.bubble {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
 
   padding: 8px 14px 8px 14px;
@@ -160,7 +160,7 @@ div.resume-c-btn {
   // display: table;
   width: 21.333%;
 
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: #ffffff;
   // line-height: 50%;
   display: table-cell;
@@ -205,7 +205,7 @@ div.btns div:first-child {
   background-color: #e3393a;
 }
 div.btns div:last-child {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
 }
 
 .btn {
@@ -214,7 +214,7 @@ div.btns div:last-child {
   margin: auto;
   display: block;
 
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   border-radius: 60px;
   text-align: center;
   width: 80%;
@@ -288,7 +288,7 @@ textarea:focus {
   }
 }
 .submit-btn {
-  background: $primary-color;
+  background: var(--primary-color);
 }
 .discard-btn {
   background-color: #e3393a;
