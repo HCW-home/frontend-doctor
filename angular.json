@@ -37,7 +37,6 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/marked/marked.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["./src/variables.scss", "./src/styles"]
