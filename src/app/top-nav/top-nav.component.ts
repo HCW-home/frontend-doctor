@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, NgZone, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Location } from '@angular/common';
-import { ConsultationService } from '../consultation.service';
+import { ConsultationService } from '../core/consultation.service';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',

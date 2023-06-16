@@ -3,7 +3,7 @@ import { ConfirmationDialogComponent } from "./../confirmation-dialog/confirmati
 import { Invitation } from "./../Invitation";
 import { HttpRequest, HttpResponse } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { InviteService } from "./../invite.service";
+import { InviteService } from "../core/invite.service";
 import { InviteFormComponent } from "./../invite-form/invite-form.component";
 import { Component, OnInit, Pipe } from "@angular/core";
 import {

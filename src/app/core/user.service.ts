@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UserService {
   ) { }
 
   getUserIp(): Observable<any> {
-    return this.http.get<any[]>(environment.api + '/user/ip');
+    return this.http.get<any[]>(environment.api + "/user/ip");
   }
 
   getUser(id): Observable<any> {

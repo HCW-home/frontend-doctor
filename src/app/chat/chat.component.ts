@@ -11,10 +11,10 @@ import {
   OnDestroy,
   HostListener,
 } from '@angular/core'
-import { MessageService } from '../message.service'
+import { MessageService } from '../core/message.service'
 import { AuthService } from '../auth/auth.service'
-import { SocketEventsService } from '../socket-events.service'
-import { ConsultationService } from '../consultation.service'
+import { SocketEventsService } from '../core/socket-events.service'
+import { ConsultationService } from '../core/consultation.service'
 import { environment } from '../../environments/environment'
 
 

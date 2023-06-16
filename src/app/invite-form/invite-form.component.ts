@@ -1,10 +1,10 @@
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageService } from './../language.service';
-import { TranslationOrganizationService } from './../translation-organization.service';
-import { QueueService } from './../queue.service';
+import { LanguageService } from '../core/language.service';
+import { TranslationOrganizationService } from '../core/translation-organization.service';
+import { QueueService } from '../core/queue.service';
 import { first, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { InviteService } from './../invite.service';
+import { InviteService } from '../core/invite.service';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
@@ -12,7 +12,7 @@ import {
   UntypedFormBuilder, UntypedFormGroup, AbstractControl
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ConfigService } from '../config.service';
+import { ConfigService } from '../core/config.service';
 
 
 

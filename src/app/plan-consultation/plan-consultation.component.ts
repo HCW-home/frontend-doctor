@@ -1,7 +1,7 @@
 import { Component,  OnDestroy, OnInit } from '@angular/core';
-import { ConfigService } from '../config.service';
+import { ConfigService } from '../core/config.service';
 import { FormControl, Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { PlanConsultationService } from '../plan-consultation.service';
+import { PlanConsultationService } from '../core/plan-consultation.service';
 import { Subscription, throwError } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError } from 'rxjs/operators';

@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { Injectable } from "@angular/core";
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 
-import { AuthService } from './auth.service';
-import { SocketEventsService } from '../socket-events.service';
+import { AuthService } from "./auth.service";
+import { SocketEventsService } from "../core/socket-events.service";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -14,9 +13,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
-      console.log('error ', err);
+      console.log("error ", err);
 
-      if (err.statusText == "Unknown Error") {
+      if (err.statusText === "Unknown Error") {
         this._socketEventsService.updateConnectionStatus("connect_failed");
       }
 

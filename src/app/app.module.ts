@@ -64,7 +64,7 @@ import { DefaultIntl } from "./OwlDefaultIntl";
 import { ProfileUpdateComponent } from "./profile-update/profile-update.component";
 import { TranslatedGenderPipe } from "./translated-gender.pipe";
 import { I18nModule } from "./i18n/i18n.module";
-import { ConfigService } from "./config.service";
+import { ConfigService } from "./core/config.service";
 
 import { HugAngularLibModule } from "hug-angular-lib";
 import { PeerVideoComponent } from "./stream/peer-video/peer-video.component";

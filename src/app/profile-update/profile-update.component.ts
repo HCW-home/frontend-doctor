@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { UserService } from './../user.service';
+import { UserService } from '../core/user.service';
 import { Component, Inject, OnDestroy, OnInit,Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntypedFormControl, FormGroupDirective, NgForm, Validators, ValidatorFn, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';

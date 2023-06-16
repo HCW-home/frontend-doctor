@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject,  } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../environments/environment";
+import { environment } from "../../environments/environment";
 import { tap, map,first } from "rxjs/operators";
 import { SocketEventsService } from "./socket-events.service";
 import { Router } from "@angular/router";

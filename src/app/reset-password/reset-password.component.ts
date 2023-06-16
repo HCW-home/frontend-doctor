@@ -3,7 +3,7 @@ import { FormControl, Validators, UntypedFormBuilder, UntypedFormGroup } from '@
 
 import { MustMatch } from './_helpers/must-match.validator';
 import { AuthService } from '../auth/auth.service';
-import { ConfigService } from '../config.service';
+import { ConfigService } from '../core/config.service';
 
 @Component({
   selector: 'app-reset-password',

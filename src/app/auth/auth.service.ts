@@ -1,17 +1,15 @@
-import { waitForAsync } from '@angular/core/testing';
-import { SocketEventsService } from './../socket-events.service';
+import { SocketEventsService } from "../core/socket-events.service";
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { map } from "rxjs/operators";
+import { environment } from "../../environments/environment";
 
-import { ConsultationService } from '../consultation.service';
-import { Router } from '@angular/router';
-import { User } from '../user';
+import { Router } from "@angular/router";
+import { User } from "../user";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AuthService {
   public currentUserSubject: BehaviorSubject<any>;
   private loggedIn: Subject<User> = new Subject();
@@ -34,7 +32,7 @@ export class AuthService {
   login(token) {
     const headers = {};
     if (token) {
-      headers['x-access-token'] = token;
+      headers["x-access-token"] = token;
     }
     return this.http.get<any>(`${environment.api}/current-user?_version=${environment.version}`, { headers })
       .pipe(map(res => {
@@ -94,9 +92,10 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.socketEventsService.disconnect()
     this.http.get(`${environment.api}/logout`).subscribe(r => {
-      this.router.navigate(['/login']);
+      console.log(r, "res");
+      this.router.navigate(["/login"]);
     }, err => {
-      this.router.navigate(['/login']);
+      this.router.navigate(["/login"]);
     })
   }
 
@@ -105,7 +104,7 @@ export class AuthService {
   }
 
   getLang() {
-    return window.localStorage.getItem('hhw-lang') || window.navigator.language.slice(0, 2);
+    return window.localStorage.getItem("hhw-lang") || window.navigator.language.slice(0, 2);
   }
 
   getCurrentUser(token?) {
@@ -114,7 +113,7 @@ export class AuthService {
 
     return this.http.get<any>(`${environment.api}/current-user`, opts).pipe(map(res => {
 
-      console.log('%cauth.service.ts line:114 currentuser', 'color: #007acc;', res);
+      console.log("%cauth.service.ts line:114 currentuser", "color: #007acc;", res);
       this.currentUserSubject.next(res.user);
 
       return res.user

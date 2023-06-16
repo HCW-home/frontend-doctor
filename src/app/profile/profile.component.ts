@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { UserService } from './../user.service';
+import { UserService } from '../core/user.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';

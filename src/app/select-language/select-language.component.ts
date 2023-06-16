@@ -4,30 +4,54 @@ import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-select-language",
   template: `
-    <div id="hhwMultiLang">
-      <div (click)="openDropdown()">
-        <span>{{ opened ? '▲' : '▼' }}</span>
-      </div>
-      <div *ngIf="opened">
-        <div (click)="changeLang('en')" class="hhwmlOption"></div>
-        <div (click)="changeLang('fr')" class="hhwmlOption"></div>
-      </div>
+    <div class="language-selector">
+      <mat-icon [ngStyle]="{'color':'white'}">language</mat-icon>
+<!--      <span>{{ selectedLanguage | uppercase }}</span>-->
+      <mat-form-field style="width: 100px">
+<!--        <mat-select  [value]="selectedLanguage" (change)="onLanguageSelect($event)">-->
+<!--          <mat-option *ngFor="let lang of languages" [value]="lang.value">-->
+<!--            {{lang.viewValue}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+        <select matNativeControl [value]="selectedLanguage" (change)="onLanguageSelect($event.target.value)">
+          <option *ngFor="let lang of languages" [value]="lang.value">{{lang.viewValue}}</option>
+
+        </select>
+      </mat-form-field>
+
     </div>
   `,
-  styles: [
-    "#hhwMultiLang { cursor: pointer;position: fixed;width: 42px;left: calc(50% - 21px); }"
-  ]
+  styles: [`
+    select {
+      color: #FFFFFF;
+    }
+  .language-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .language-selector mat-icon {
+    margin-right: 8px;
+  }
+  .language-selector span {
+    margin-right: 8px;
+  }`]
 })
 export class SelectLanguageComponent {
   opened = false
-
+  languages = [
+    {value: "en", viewValue: "English"},
+    {value: "fr", viewValue: "Français"},
+  ];
+  selectedLanguage = localStorage.getItem("hhw-lang") || this.languages[0].value
   constructor(public translate: TranslateService) { }
 
   openDropdown() {
     this.opened = !this.opened
   }
 
-  changeLang(lang) {
+  onLanguageSelect(lang) {
     this.openDropdown()
     window.localStorage.setItem("hhw-lang", lang)
     this.translate.use(lang)

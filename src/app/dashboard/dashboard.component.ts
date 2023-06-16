@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import {ConsultationService} from '../consultation.service';
+import {ConsultationService} from '../core/consultation.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -82,7 +82,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
 ngOnDestroy() {
-  console.log('destyoing ');
 
   if (this.overviewSubscription) {this.overviewSubscription.unsubscribe(); }
   if (this.unreadActiveCountSubscription) {this.unreadActiveCountSubscription.unsubscribe(); }

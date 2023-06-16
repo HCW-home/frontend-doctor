@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { ConsultationService } from '../consultation.service';
+import { ConsultationService } from '../core/consultation.service';
 import { Router } from '@angular/router';
-import { ConfigService } from '../config.service';
+import { ConfigService } from '../core/config.service';
 
 @Component({
   selector: 'app-overlay',

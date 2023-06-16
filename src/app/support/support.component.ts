@@ -1,9 +1,9 @@
-import { SupportService } from './../support.service';
+import { SupportService } from '../core/support.service';
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import {UserService } from '../user.service';
+import {UserService } from '../core/user.service';
 import { Router } from '@angular/router';
-import { ConfigService } from '../config.service';
+import { ConfigService } from '../core/config.service';
 
 @Component({
   selector: 'app-support',

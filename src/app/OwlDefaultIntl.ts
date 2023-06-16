@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { OwlDateTimeIntl } from 'ng-pick-datetime';
+import { OwlDateTimeIntl } from "ng-pick-datetime";
 
 // here is the default text string
 @Injectable()
