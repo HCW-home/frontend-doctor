@@ -15,7 +15,7 @@ node_modules:
 	@ npx yarn install
 
 build: node_modules
-	@ npx ng build --prod --build-optimizer --aot --output-hashing=all --extract-css=true --vendor-chunk
+	@ npx ng build --build-optimizer --aot --output-hashing=all --vendor-chunk
 
 install: build
 

@@ -33,7 +33,6 @@
     "jspdf": "^1.5.3",
     "moment": "^2.24.0",
     "ng-pick-datetime": "^7.0.0",
-    "ngx-markdown": "9.1.1",
     "ngx-pagination": "^5.0.0",
     "node-sass": "^9.0.0",
     "rxjs": "~6.6.3",

@@ -21,7 +21,6 @@ import { AuthService } from "./auth/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ConfigService } from "./core/config.service";
 
-import { MarkdownModule } from "ngx-markdown";
 import { TranslateService } from "@ngx-translate/core";
 
 @Component({

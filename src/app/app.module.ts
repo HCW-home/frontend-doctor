@@ -69,7 +69,6 @@ import { ConfigService } from "./core/config.service";
 import { HugAngularLibModule } from "hug-angular-lib";
 import { PeerVideoComponent } from "./stream/peer-video/peer-video.component";
 import { PlanConsultationComponent } from "./plan-consultation/plan-consultation.component";
-import { MarkdownModule } from "ngx-markdown";
 registerLocaleData(localeFr);
 
 const routes: Routes = [
@@ -253,7 +252,6 @@ const routes: Routes = [
         OwlNativeDateTimeModule,
         I18nModule,
         HugAngularLibModule,
-        MarkdownModule.forRoot(),
     ],
     providers: [
         AuthService,
