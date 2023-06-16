@@ -1,21 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import {
   UntypedFormControl,
   FormGroupDirective,
   NgForm,
   Validators,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { first } from "rxjs/operators";
+import { Subscription } from "rxjs";
 
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from "@ngx-translate/core";
 
 
-import { environment } from '../../environments/environment';
-import { AuthService } from '../auth/auth.service';
-import { ConfigService } from '../config.service';
+import { environment } from "../../environments/environment";
+import { AuthService } from "../auth/auth.service";
+import {ConfigService} from "../core/config.service";
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -32,24 +32,24 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  emailFormControl = new UntypedFormControl('', [
+  emailFormControl = new UntypedFormControl("", [
     Validators.required,
     Validators.email,
   ]);
-  passwordFormControl = new UntypedFormControl('', [Validators.required]);
-  codeFormControl = new UntypedFormControl('', [Validators.required]);
+  passwordFormControl = new UntypedFormControl("", [Validators.required]);
+  codeFormControl = new UntypedFormControl("", [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
   subscriptions: Subscription[] = [];
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = '';
+  error = "";
   email: string;
   password: string;
   samlLoginUrl = `${environment.api}/login-saml`;
@@ -70,8 +70,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
-    console.log('login component ', this.returnUrl);
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || "/dashboard";
+    console.log("login component ", this.returnUrl);
     // If the user is already logged in, redirect him
     if (this.authService.currentUserValue) {
       this.router.navigateByUrl(this.returnUrl);
@@ -92,16 +92,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   init() {
-    console.log('inti login TOKEN ', this.route.snapshot.queryParams);
+    console.log("inti login TOKEN ", this.route.snapshot.queryParams);
     const token = this.route.snapshot.queryParams.token || this.route.snapshot.queryParams.tk;
     // If we have a token in the URL, the user has been redirected after the SAML login
     if (
       token
     ) {
-      console.log('token ', this.route.snapshot.queryParams.token);
+      console.log("token ", this.route.snapshot.queryParams.token);
 
-      console.log('return url ', this.route.snapshot.queryParams.returnUrl);
-      this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
+      console.log("return url ", this.route.snapshot.queryParams.returnUrl);
+      this.returnUrl = this.route.snapshot.queryParams.returnUrl || "/dashboard";
 
       this.subscriptions.push(
         this.authService
@@ -124,17 +124,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
     console.log(this.configService.config);
-    if (!('method' in this.configService.config)) {
+    if (!("method" in this.configService.config)) {
       this.showPasswordLogin = true;
       this.showSamlLogin = true;
     }
 
-    if (this.configService.config.method === 'saml') {
+    if (this.configService.config.method === "saml") {
       this.showSamlLogin = true;
       if (!token) {
         (window as any).location.href = this.samlLoginUrl;
       }
-    } else if (this.configService.config.method === 'password') {
+    } else if (this.configService.config.method === "password") {
       this.showPasswordLogin = true;
     } else {
       this.showPasswordLogin = true;
@@ -147,8 +147,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // When the user submits the local form
   loginLocal() {
-    this.error = '';
-    console.log('submit', this.email, this.password);
+    this.error = "";
+    console.log("submit", this.email, this.password);
     this.loading = true;
     this.subscriptions.push(
       this.authService.loginLocal(this.email, this.password).subscribe(
@@ -167,7 +167,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginSms() {
-    this.error = '';
+    this.error = "";
     this.loading = true;
     this.subscriptions.push(
       this.authService.loginSms(this.smsVerificationCode, this.user).subscribe(
@@ -177,9 +177,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (err) => {
           console.log(err);
-          if (err == 'MAX_ATTEMPTS') {
-            this.localLoginToken = '';
-            err == this.translate.instant('login.youReachedTheMaximumAttemptAmount');
+          if (err == "MAX_ATTEMPTS") {
+            this.localLoginToken = "";
+            err == this.translate.instant("login.youReachedTheMaximumAttemptAmount");
           }
           this.loading = false;
           this.error = err;
@@ -188,7 +188,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
   login2FA() {
-    this.error = '';
+    this.error = "";
     this.subscriptions.push(
       this.authService
         .login2FA(this.localLoginToken, this.smsLoginToken, this.user)
