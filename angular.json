@@ -44,6 +44,22 @@
             "aot": true
           },
           "configurations": {
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.remote.staging.ts"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.remote.dev.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -78,6 +94,12 @@
             "browserTarget": "hug-at-home:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "hug-at-home:build:dev"
+            },
+            "staging": {
+              "browserTarget": "hug-at-home:build:staging"
+            },
             "production": {
               "browserTarget": "hug-at-home:build:production"
             }
