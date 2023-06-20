@@ -4,5 +4,6 @@ export const environment = {
   host: "https://dev-hug-at-home.oniabsis.com/",
   iceServerUrls : "turn:turn.hcuge.ch",
   iceServerUsername : "hugathome",
-  iceServerCredential : "x2gbotORZfEB0DLg"
+  iceServerCredential : "x2gbotORZfEB0DLg",
+  version: "2.0.1-2",
 };

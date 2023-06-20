@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.4.3.22) focal; urgency=medium
+hcw-athome-caregiver (0.4.3.23) focal; urgency=medium
 
   [ YassineEF ]
   * Fixed error of metadata object null value
