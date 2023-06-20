@@ -15,7 +15,7 @@ node_modules:
 	@ npx yarn install
 
 build: node_modules
-	@ npx ng build --configuration=dev --build-optimizer --aot --output-hashing=all --vendor-chunk
+	@ npx ng build --configuration=production --build-optimizer --aot --output-hashing=all --vendor-chunk
 
 install: build
 
