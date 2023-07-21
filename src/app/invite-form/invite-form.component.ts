@@ -205,7 +205,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.subscriptions.push(this.translationOrganizationService.getTranslationOrganizations().subscribe(translationOrganizations => {
       this.translationOrganizations = translationOrganizations
       this.loading = false
-      let languages = []
+      const languages = []
       this.translationOrganizations.forEach(organization => {
         (organization.languages || []).forEach(lang => {
           if (languages.indexOf(lang) === -1) {

@@ -69,6 +69,7 @@ import { ConfigService } from "./core/config.service";
 import { HugAngularLibModule } from "hug-angular-lib";
 import { PeerVideoComponent } from "./stream/peer-video/peer-video.component";
 import { PlanConsultationComponent } from "./plan-consultation/plan-consultation.component";
+import {ClipboardModule} from "@angular/cdk/clipboard";
 registerLocaleData(localeFr);
 
 const routes: Routes = [
@@ -246,12 +247,13 @@ const routes: Routes = [
         BrowserModule,
         SharedModule,
         HttpClientModule,
-        RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+        RouterModule.forRoot(routes, {relativeLinkResolution: "legacy"}),
         NgxPaginationModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
         I18nModule,
         HugAngularLibModule,
+        ClipboardModule,
     ],
     providers: [
         AuthService,

@@ -23,6 +23,14 @@
         {{ "chat.generalInformation" | translate }}
       </h4>
 
+      <div class="c_info_wrap">
+
+        <div class="c_info_row_content" [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
+          <button class="submit-btn" mat-button >
+            {{ 'Invite Expert' }}
+          </button>
+        </div>
+      </div>
 
       <div class="c_info_wrap" *ngIf="consultation.consultation.IMADTeam">
         <div class="c_info_row_title">
