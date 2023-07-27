@@ -13,7 +13,7 @@ export class MessageService {
 
   getConsultationMessages(id, skip, noPagination): Observable<any> {
     const msgsURL = (noPagination) ? environment.api + `/message?where={"consultation":"${id}"}&sort=createdAt DESC&limit=2000` :
-      environment.api + `/message?where={"consultation":"${id}"}&sort=createdAt DESC&limit=20&skip=${skip}`;
+      environment.api + `/message?where={"consultation":"${id}"}&sort=createdAt DESC&limit=20&skip=${skip}&populate=from`;
     return this.http.get<any>(msgsURL)
       .pipe(map((msgs) => {
         return msgs.reverse();

@@ -16,6 +16,7 @@ import { AuthService } from '../auth/auth.service'
 import { SocketEventsService } from '../core/socket-events.service'
 import { ConsultationService } from '../core/consultation.service'
 import { environment } from '../../environments/environment'
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -48,6 +49,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private socketEventsService: SocketEventsService,
     private zone: NgZone,
+    private _snackBar: MatSnackBar,
     private consultationService: ConsultationService,
   ) { }
 
@@ -74,6 +76,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.listenToCallEvents()
   }
 
+
+  inviteExpert() {
+    this._snackBar.open("Copied to clipboard", "X", {
+      verticalPosition: "top",
+      horizontalPosition: "right",
+      duration: 2500
+    })
+  }
 
   listenToCallEvents() {
     this.subscriptions.push(

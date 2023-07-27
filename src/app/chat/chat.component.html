@@ -25,7 +25,7 @@
 
       <div class="c_info_wrap">
 
-        <div class="c_info_row_content" [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
+        <div class="c_info_row_content" (click)="inviteExpert()" [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
           <button class="submit-btn" mat-button >
             {{ 'Invite Expert' }}
           </button>
@@ -358,8 +358,9 @@
         [ngClass]="{ 'big-font': noPagination }"
         class="msg-time"
       >
-        <span class="msg-time">{{
-          msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
+        <span *ngIf="msg.from?.role === 'expert'">{{msg.from.firstName}} {{msg.from.lastName}} - </span>
+        <span class="msg-time">
+          {{msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
         }}</span>
       </div>
     </div>
