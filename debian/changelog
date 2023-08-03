@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.29) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6016 , add invite expert snackBar
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 27 Jul 2023 13:29:33 +0200
+
 hcw-athome-caregiver (0.4.3.28) focal; urgency=medium
 
   [ Gor Grigoryan ]
