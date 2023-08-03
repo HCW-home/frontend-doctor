@@ -84,6 +84,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       duration: 2500
     })
   }
+  getExpertStatusById(id, flagExpertsOnline) {
+    if(flagExpertsOnline && id in flagExpertsOnline) {
+      return flagExpertsOnline[id];
+    }
+    return false;
+  }
 
   listenToCallEvents() {
     this.subscriptions.push(

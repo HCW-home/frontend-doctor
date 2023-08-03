@@ -69,6 +69,27 @@
         </div>
       </div>
 
+      <div class="c_info_wrap" *ngIf="consultation.consultation?.experts?.length">
+        <div class="c_info_row_title">
+          {{ "Experts" | translate }}
+        </div>
+        <div class="c_info_row_content" *ngFor="let expert of consultation.consultation?.experts">
+          <ng-container >
+            {{ expert.firstName + " " }}
+            {{ expert.lastName | uppercase }}
+          </ng-container>
+
+          <img
+                  style="margin-bottom: -7px;"
+                  [src]="
+              getExpertStatusById(expert.id, consultation?.consultation?.flagExpertsOnline)
+                ? 'assets/img/online.png'
+                : 'assets/img/offline.png'
+            "
+          />
+        </div>
+      </div>
+
       <div class="c_info_wrap">
         <div class="c_info_row_title">
           {{ "chat.patientBirthday" | translate }}
@@ -358,7 +379,7 @@
         [ngClass]="{ 'big-font': noPagination }"
         class="msg-time"
       >
-        <span *ngIf="msg.from?.role === 'expert'">{{msg.from.firstName}} {{msg.from.lastName}} - </span>
+        <span *ngIf="msg.from?.role === 'expert'" class="msg-time">{{msg.from.firstName}} {{msg.from.lastName}} - </span>
         <span class="msg-time">
           {{msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
         }}</span>
