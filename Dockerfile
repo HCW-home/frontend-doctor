@@ -1,11 +1,11 @@
 FROM node:16 AS builder
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm i
+COPY yarn.lock ./
+RUN npx yarn install
 COPY . .
-RUN sed -i 's/native/web/g' src/environments/environment.prod.ts
-RUN npx ionic cap build browser --prod --no-open
+RUN npx ng build --configuration=production --build-optimizer --aot --output-hashing=all --vendor-chunk
 
 FROM nginx:latest
-COPY --from=builder /usr/src/app/www/ /usr/share/nginx/html/
+COPY --from=builder /usr/src/app/dist/hug-at-home/ /usr/share/nginx/html/
 COPY nginx-docker.conf.template /etc/nginx/templates/default.conf.template
