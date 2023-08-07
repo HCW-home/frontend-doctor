@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.30) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add expert status
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 03 Aug 2023 16:55:46 +0200
+
 hcw-athome-caregiver (0.4.3.29) focal; urgency=medium
 
   [ Gor Grigoryan ]
