@@ -24,7 +24,7 @@ export class MessageService {
     return this.http.post<any[]>(environment.api + `/message`, {
       text,
       consultation: consultationId,
-      type: 'text'
+      type: "text"
     });
   }
 

@@ -379,7 +379,11 @@
         [ngClass]="{ 'big-font': noPagination }"
         class="msg-time"
       >
-        <span *ngIf="msg.from?.role === 'expert'" class="msg-time">{{msg.from.firstName}} {{msg.from.lastName}} - </span>
+        <span *ngIf="msg.from?.role !== 'patient' " class="msg-time">{{msg.from?.firstName}} {{msg.from?.lastName}} - </span>
+        <span *ngIf="msg.from?.role === 'patient' " class="msg-time">
+          {{ consultation.consultation.firstName + " " }}
+          {{ consultation.consultation.lastName | uppercase }}
+          - </span>
         <span class="msg-time">
           {{msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
         }}</span>

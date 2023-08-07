@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs'
+import { Subscription } from "rxjs"
 import {
   Component,
   OnInit,
@@ -10,26 +10,26 @@ import {
   Output,
   OnDestroy,
   HostListener,
-} from '@angular/core'
-import { MessageService } from '../core/message.service'
-import { AuthService } from '../auth/auth.service'
-import { SocketEventsService } from '../core/socket-events.service'
-import { ConsultationService } from '../core/consultation.service'
-import { environment } from '../../environments/environment'
+} from "@angular/core"
+import { MessageService } from "../core/message.service"
+import { AuthService } from "../auth/auth.service"
+import { SocketEventsService } from "../core/socket-events.service"
+import { ConsultationService } from "../core/consultation.service"
+import { environment } from "../../environments/environment"
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  selector: "app-chat",
+  templateUrl: "./chat.component.html",
+  styleUrls: ["./chat.component.scss"],
 })
 export class ChatComponent implements OnInit, OnDestroy {
   @Input() consultation
   @Input() publicinvite
   @Input() showInput: boolean
-  @ViewChild('scoll') contentArea: ElementRef
-  @ViewChild('fileInput') fileInput: ElementRef
+  @ViewChild("scoll") contentArea: ElementRef
+  @ViewChild("fileInput") fileInput: ElementRef
 
   currentUser
   chatMessages = []
@@ -94,7 +94,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   listenToCallEvents() {
     this.subscriptions.push(
       this.socketEventsService.onRejectCall().subscribe((event) => {
-        console.log('call rejected .................', event)
+        console.log("call rejected .................", event)
 
         const message = this.chatMessages.find(
           (msg) => msg.id === event.data.message.id,
@@ -106,7 +106,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     )
     this.subscriptions.push(
       this.socketEventsService.onAcceptCall().subscribe((event) => {
-        console.log('call accepted.................', event)
+        console.log("call accepted.................", event)
         const message = this.chatMessages.find(
           (msg) => msg.id === event.data.message.id,
         )
@@ -160,7 +160,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   scrollToBottom(after?): void {
     try {
       setTimeout(() => {
-        console.log('scroll to bottom')
+        console.log("scroll to bottom")
         this.contentArea.nativeElement.scrollTop = this.contentArea.nativeElement.scrollHeight
       }, after || 10)
     } catch (err) { }
@@ -168,14 +168,18 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   send(e) {
     this.chatText = this.chatText.trim()
-    if (this.chatText === '') {
+    if (this.chatText === "") {
       return
     }
 
     this.chatMessages.push({
-      direction: 'outgoing',
+      direction: "outgoing",
       text: this.chatText,
       createdAt: Date.now(),
+      from: {
+        firstName: this.currentUser?.firstName,
+        lastName: this.currentUser?.lastName
+      }
     })
 
     this.scrollToBottom()
@@ -183,7 +187,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       .sendMessage(this.consultation.id || this.consultation._id, this.chatText)
       .subscribe((r) => { })
 
-    this.chatText = ''
+    this.chatText = ""
   }
 
   sendMsg(event) {
@@ -199,26 +203,26 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   adjustMsg(msg) {
-    if (msg.type === 'attachment') {
+    if (msg.type === "attachment") {
       msg.attachmentsURL =
         environment.api +
         `/consultation/${
         this.consultation._id || this.consultation.id
         }/attachment/${msg.id}?token=${this.currentUser.token}`
 
-      if (msg.mimeType.endsWith('jpeg') || msg.mimeType.endsWith('png')) {
+      if (msg.mimeType.endsWith("jpeg") || msg.mimeType.endsWith("png")) {
         msg.isImage = true
-      } else if (msg.mimeType.startsWith('audio')) {
+      } else if (msg.mimeType.startsWith("audio")) {
         msg.isAudio = true
       } else {
         msg.isFile = true
       }
     }
 
-    if (msg.from === this.currentUser.id) {
-      msg.direction = 'outgoing'
+    if (msg.from.id === this.currentUser.id) {
+      msg.direction = "outgoing"
     } else {
-      msg.direction = 'incoming'
+      msg.direction = "incoming"
     }
     return msg
   }
@@ -228,7 +232,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   showAttachBrowseDlg() {
-    const event = new MouseEvent('click', { bubbles: true })
+    const event = new MouseEvent("click", { bubbles: true })
     this.fileInput.nativeElement.dispatchEvent(event)
   }
 
@@ -248,7 +252,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         })
       })
   }
-  @HostListener('scroll', ['$event'])
+  @HostListener("scroll", ["$event"])
   public handleScroll(event) {
     const isReachingTop = event.target.scrollTop < 600
     if (isReachingTop && !this.loadingMsgs && !this.noPagination) {
@@ -260,13 +264,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     let page = 1
     this.chatMessages.forEach((msg) => {
       const elem = document.getElementById(msg.id)
-      console.log('add divider ', elem, elem.offsetTop)
+      console.log("add divider ", elem, elem.offsetTop)
 
       if (!elem) {
         return
       }
       if (elem.offsetTop > 2970 * page - 720 && elem.offsetTop < 2970 * page) {
-        elem.style['margin-top'] = '700px'
+        elem.style["margin-top"] = "700px"
         page++
       }
     })
