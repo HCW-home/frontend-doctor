@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.4.3.31) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Dockerization
+
+  [ Gor Grigoryan ]
+  * add sender name under message,fix direction of messages
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 07 Aug 2023 17:06:29 +0200
+
 hcw-athome-caregiver (0.4.3.30) focal; urgency=medium
 
   [ Gor Grigoryan ]
