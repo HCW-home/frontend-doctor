@@ -245,6 +245,17 @@ textarea:focus {
   margin-top: 20px;
 }
 
+.chat-wrapper {
+  height: 600px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.chat-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
 .reverse {
   grid-template-areas:
     ".. ..  content"
@@ -269,4 +280,24 @@ textarea:focus {
 }
 .c_info_wrap {
   margin-top: 23px;
+  @media (min-width: 600px) {
+    width: 50%;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  border-radius: 60px;
+  height: 37px;
+  margin: auto;
+  color: #ffff ;
+}
+
+.general-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

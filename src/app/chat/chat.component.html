@@ -23,6 +23,8 @@
         {{ "chat.generalInformation" | translate }}
       </h4>
 
+<div class="general-wrapper">
+
       <div class="c_info_wrap">
 
         <div class="c_info_row_content" (click)="inviteExpert()" [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
@@ -253,6 +255,12 @@
           }}
         </div>
       </div>
+
+
+</div>
+
+
+
     </div>
 
     <div
@@ -267,7 +275,8 @@
         {{ "chat.textMessagesOnlySentToPatientWarning" | translate }}
       </p>
     </div>
-    <div
+    <div class="chat-wrapper">
+     <div
       *ngFor="let msg of chatMessages"
       id="{{ msg.id }}"
       class="m-chat"
@@ -388,6 +397,7 @@
           {{msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
         }}</span>
       </div>
+    </div>
     </div>
   </div>
 
