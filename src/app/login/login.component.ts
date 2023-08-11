@@ -142,7 +142,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else if (this.configService.config.method === "openid") {
       this.showOpenIdLogin = true;
       if (!token) {
-      (window as any).location.href = this.showOpenIdLogin;
+        (window as any).location.href = this.openIdLoginUrl;
       }
     }else if (this.configService.config.method === "both") {
       this.showPasswordLogin = true;
