@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   showPasswordLogin = false;
   showSamlLogin = false;
+  showOpenIdLogin = false;
 
   constructor(
     private authService: AuthService,
@@ -125,7 +126,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
-    console.log(this.configService.config);
+    console.log(this.configService.config, 'this.configService.config');
     if (!("method" in this.configService.config)) {
       this.showPasswordLogin = true;
       this.showSamlLogin = true;
@@ -138,7 +139,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     } else if (this.configService.config.method === "password") {
       this.showPasswordLogin = true;
-    } else {
+    } else if (this.configService.config.method === "openid") {
+      this.showOpenIdLogin = true;
+      if (!token) {
+      (window as any).location.href = this.showOpenIdLogin;
+      }
+    }else if (this.configService.config.method === "both") {
       this.showPasswordLogin = true;
       this.showSamlLogin = true;
     }

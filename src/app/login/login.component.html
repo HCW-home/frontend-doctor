@@ -5,7 +5,13 @@
         @
       </div>
 
-      <p id="saml-login" *ngIf="showSamlLogin">
+      <p class="saml-login" *ngIf="showSamlLogin">
+        <a [href]="samlLoginUrl" class="redirect-btn" mat-button>
+          {{ "login.institutionalConnection" | translate }}
+        </a>
+      </p>
+
+      <p class="saml-login" *ngIf="showOpenIdLogin">
         <a [href]="openIdLoginUrl" class="redirect-btn" mat-button>
           {{ "login.institutionalConnection" | translate }}
         </a>
