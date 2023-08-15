@@ -13,9 +13,8 @@ import { TranslateService } from "@ngx-translate/core";
 <!--            {{lang.viewValue}}-->
 <!--          </mat-option>-->
 <!--        </mat-select>-->
-        <select matNativeControl [value]="selectedLanguage" (change)="onLanguageSelect($event.target.value)">
+        <select matNativeControl [(ngModel)]="selectedLanguage" (change)="onLanguageSelect($event.target.value)">
           <option *ngFor="let lang of languages" [value]="lang.value">{{lang.viewValue}}</option>
-
         </select>
       </mat-form-field>
 
@@ -44,8 +43,11 @@ export class SelectLanguageComponent {
     {value: "en", viewValue: "English"},
     {value: "fr", viewValue: "Français"},
   ];
-  selectedLanguage = localStorage.getItem("hhw-lang") || this.languages[0].value
-  constructor(public translate: TranslateService) { }
+  selectedLanguage;
+
+  constructor(public translate: TranslateService) {
+    this.selectedLanguage = localStorage.getItem("hhw-lang") || this.languages[0].value;
+  }
 
   openDropdown() {
     this.opened = !this.opened
