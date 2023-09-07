@@ -164,7 +164,9 @@
     "patient": "Patient",
     "thirdParty": "Tiers",
     "dateTime": "",
+    "ar": "Arabe",
     "fr": "Français",
+    "fa": "Persan",
     "it": "Italien",
     "es": "Espagnol",
     "de": "Allemand",
@@ -186,7 +188,10 @@
     "vn": "Vietnamien",
     "en": "English",
     "et": "Tigrigna",
-    "sg": "Tamoul"
+    "sg": "Tamoul",
+    "ta": "Tamoul",
+    "ti": "Tigrigna"
+
   },
   "overlay": {
     "close": "Clôturer",

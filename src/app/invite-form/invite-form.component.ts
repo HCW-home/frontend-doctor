@@ -2,7 +2,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../core/language.service';
 import { TranslationOrganizationService } from '../core/translation-organization.service';
 import { QueueService } from '../core/queue.service';
-import { first, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { InviteService } from '../core/invite.service';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
@@ -13,9 +12,6 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ConfigService } from '../core/config.service';
-
-
-
 
 interface DialogData {
   phoneNumber: string;
@@ -65,8 +61,6 @@ const emailOrPhoneValidator = (control: AbstractControl): { [key: string]: any }
 
 })
 export class InviteFormComponent implements OnDestroy, OnInit {
-
-
   isPatientInvite = true;
   matcher = new MyErrorStateMatcher();
   loading = false;
@@ -213,16 +207,22 @@ export class InviteFormComponent implements OnDestroy, OnInit {
           }
         });
       })
+    }));
 
-      this.languages = languages.map(l => {
-        return {
-          code: l,
-          translated: this.translate.instant("inviteForm." + l)
+    this.translationOrganizationService.getLanguages().subscribe({
+      next: (res) => {
+        if (res?.length) {
+          this.languages = res.map(l => {
+            return {
+              code: l,
+              translated: this.translate.instant("inviteForm." + l)
+            }
+          })
         }
-      })
-
-
-    }))
+      }, error: (err) => {
+        console.log(err, 'err');
+      }
+    });
 
   }
 

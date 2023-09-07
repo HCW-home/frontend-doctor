@@ -163,7 +163,9 @@
 		"patient": "Patient",
 		"thirdParty": "Third party",
 		"dateTime": "",
+		"ar": "Arabic",
 		"fr": "French",
+		"fa": "Persian",
 		"it": "Italian",
 		"es": "Spanish",
 		"de": "German",
@@ -183,9 +185,11 @@
 		"kr": "Korean",
 		"my": "Malay",
 		"vn": "Vietnamese",
-		"en": "Anglais",
+		"en": "English",
 		"et": "Tigrigna",
-		"sg": "Tamil"
+		"sg": "Tamil",
+		"ta": "Tamil",
+		"ti": "Tigrinya"
 	},
 	"overlay": {
 		"close": "Close",
