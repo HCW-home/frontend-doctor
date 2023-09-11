@@ -1,17 +1,17 @@
-import { TranslateService } from '@ngx-translate/core';
-import { LanguageService } from '../core/language.service';
-import { TranslationOrganizationService } from '../core/translation-organization.service';
-import { QueueService } from '../core/queue.service';
-import { Subscription } from 'rxjs';
-import { InviteService } from '../core/invite.service';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from "../core/language.service";
+import { TranslationOrganizationService } from "../core/translation-organization.service";
+import { QueueService } from "../core/queue.service";
+import { Subscription } from "rxjs";
+import { InviteService } from "../core/invite.service";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import {
   UntypedFormControl, FormGroupDirective, NgForm, Validators, ValidatorFn,
   UntypedFormBuilder, UntypedFormGroup, AbstractControl
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { ConfigService } from '../core/config.service';
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+import { ConfigService } from "../core/config.service";
 
 interface DialogData {
   phoneNumber: string;
@@ -55,9 +55,9 @@ const emailOrPhoneValidator = (control: AbstractControl): { [key: string]: any }
   return null
 };
 @Component({
-  selector: 'app-invite-form',
-  templateUrl: './invite-form.component.html',
-  styleUrls: ['./invite-form.component.scss'],
+  selector: "app-invite-form",
+  templateUrl: "./invite-form.component.html",
+  styleUrls: ["./invite-form.component.scss"],
 
 })
 export class InviteFormComponent implements OnDestroy, OnInit {
@@ -65,7 +65,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   matcher = new MyErrorStateMatcher();
   loading = false;
   createInviteSub: Subscription;
-  error = '';
+  error = "";
   myForm;
   queues;
   getQueuesSub;
@@ -89,20 +89,20 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   ) {
     this.edit = data.edit;
     if (!this.data.emailAddress) {
-      this.data.emailAddress = '';
+      this.data.emailAddress = "";
     }
     if (!this.data.phoneNumber) {
-      this.data.phoneNumber = '';
+      this.data.phoneNumber = "";
     }
     if(this.data.scheduledFor){
 
       this.data.scheduledFor = new Date(this.data.scheduledFor).toISOString();
       this.schedule = true;
     }else{
-      this.data.scheduledFor = '';
+      this.data.scheduledFor = "";
     }
- 
-    this.data.language = this.data.language || 'fr'
+
+    this.data.language = this.data.language || "fr"
 
     if (this.data.guestContact) {
       this.inviteGuest = true
@@ -119,23 +119,23 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     queueFormControl = new UntypedFormControl(undefined);
 
     this.myForm = this.formBuilder.group({
-      patientContactFormControl: new UntypedFormControl('', this.isPatientInvite ? [
+      patientContactFormControl: new UntypedFormControl("", this.isPatientInvite ? [
         Validators.required,
         emailOrPhoneValidator
       ] : []),
-      guestContactFormControl: new UntypedFormControl('', [
+      guestContactFormControl: new UntypedFormControl("", [
         emailOrPhoneValidator,
         this.guestContactValidatorValidator.bind(this)
       ]),
 
       emailFormControl:
-        new UntypedFormControl('', this.isPatientInvite ? [Validators.email] : []),
-      phoneNumberFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.pattern(phoneNumberRegex)] : []),
-      firstNameFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.required] : []),
-      lastNameFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.required] : []),
-      genderFormControl: new UntypedFormControl('', this.isPatientInvite ? [Validators.required] : []),
-      languageFormControl: new UntypedFormControl('fr', this.isPatientInvite ? [Validators.required] : []),
-      dateTimeFormControl: new UntypedFormControl(''),
+        new UntypedFormControl("", this.isPatientInvite ? [Validators.email] : []),
+      phoneNumberFormControl: new UntypedFormControl("", this.isPatientInvite ? [Validators.pattern(phoneNumberRegex)] : []),
+      firstNameFormControl: new UntypedFormControl("", this.isPatientInvite ? [Validators.required] : []),
+      lastNameFormControl: new UntypedFormControl("", this.isPatientInvite ? [Validators.required] : []),
+      genderFormControl: new UntypedFormControl("", this.isPatientInvite ? [Validators.required] : []),
+      languageFormControl: new UntypedFormControl("fr", this.isPatientInvite ? [Validators.required] : []),
+      dateTimeFormControl: new UntypedFormControl(""),
       isScheduled: new UntypedFormControl(false),
       inviteTranslatorFormControl: new UntypedFormControl(false),
       inviteGuestFormControl: new UntypedFormControl(false),
@@ -172,7 +172,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
   changeEmail() {
     if (this.data.emailAddress.trim().length > 0) {
-      this.data.phoneNumber = '';
+      this.data.phoneNumber = "";
       this.myForm.controls.phoneNumberFormControl.disable();
     } else {
       this.myForm.controls.phoneNumberFormControl.enable();
@@ -181,14 +181,14 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   changeTel() {
     if (this.data.phoneNumber.trim().length > 0) {
       this.myForm.controls.emailFormControl.disable();
-      this.data.emailAddress = '';
+      this.data.emailAddress = "";
     } else {
       this.myForm.controls.emailFormControl.enable();
     }
   }
   ngOnInit() {
-    this.dialogRef.updateSize('50%', '50%');
-    this.data.doctorLanguage = window.localStorage.getItem('hhw-lang')
+    this.dialogRef.updateSize("50%", "50%");
+    this.data.doctorLanguage = window.localStorage.getItem("hhw-lang")
 
 
 
@@ -199,14 +199,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.subscriptions.push(this.translationOrganizationService.getTranslationOrganizations().subscribe(translationOrganizations => {
       this.translationOrganizations = translationOrganizations
       this.loading = false
-      const languages = []
-      this.translationOrganizations.forEach(organization => {
-        (organization.languages || []).forEach(lang => {
-          if (languages.indexOf(lang) === -1) {
-            languages.push(lang)
-          }
-        });
-      })
     }));
 
     this.translationOrganizationService.getLanguages().subscribe({
@@ -220,7 +212,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
           })
         }
       }, error: (err) => {
-        console.log(err, 'err');
+        console.log(err, "err");
       }
     });
 
@@ -229,7 +221,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   showTierFrom() {
 
     this.isPatientInvite = false;
-    this.dialogRef.updateSize('70%', '83%');
+    this.dialogRef.updateSize("70%", "83%");
 
     this.queues = []
     this.inviteGuest = true;
@@ -248,7 +240,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
 
       this.createFormGroup();
-      this.dialogRef.updateSize('70%', '83%');
+      this.dialogRef.updateSize("70%", "83%");
     });
   }
   atLeastAGuestOrTranslator(group: UntypedFormGroup): { [s: string]: boolean } {
@@ -269,15 +261,15 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.dialogRef.close();
   }
   onSubmit() {
-   
-    //! Put on the metadata an object with all the item we set and we get from the form
+
+    // ! Put on the metadata an object with all the item we set and we get from the form
     // if(this.configService.config.metadata.length != ""){
     //   this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
     //     result[item] = this.data[item]
     //     return result;
     //   },{});
     // }
-    
+
 
     if (this.loading) {
       return;
@@ -306,11 +298,11 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.data.translationOrganization = undefined;
     }
 
-    console.log('submit ', this.data, this.myForm.valid, this.myForm);
+    console.log("submit ", this.data, this.myForm.valid, this.myForm);
 
 
 
-    
+
 
 
     if (!this.myForm.valid || this.atLeastAGuestOrTranslator(this.myForm)) {
@@ -322,8 +314,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         return;
       }
     }
-    
-    
+
+
     this.data.isPatientInvite = this.isPatientInvite;
     if(this.edit){
 
@@ -338,8 +330,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       if(this.data.inviteObj.guestInvite && !this.inviteGuest){
         cancelGuestInvite = true;
       }
-      console.log('this.data', this.data, this.inviteGuest,this.inviteTranslator )
-      
+      console.log("this.data", this.data, this.inviteGuest,this.inviteTranslator )
+
       if(this.data.inviteObj.translationOrganization && !this.inviteTranslator){
         cancelTranslationRequestInvite = true;
       }
