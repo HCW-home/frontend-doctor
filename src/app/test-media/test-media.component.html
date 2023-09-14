@@ -7,7 +7,9 @@
         <mat-spinner [diameter]="60"></mat-spinner>
       </div>
       <ng-container *ngIf="!showSpinner">
+
         <div class="left">
+          <h2 class="error-message">{{error}}</h2>
           <h2>{{ "testMedia.microTest" | translate }}</h2>
 
           <!-- <mat-form-field class="device--select" *ngIf="audioDevices.length > 0">

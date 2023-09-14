@@ -27,6 +27,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   myCamStream;
   volumeLevel: number = 0;
   showSpinner;
+  error;
   peerId: string;
   @ViewChild("videoElement") videoElement: ElementRef;
 
@@ -85,7 +86,9 @@ export class TestMediaComponent implements OnInit, OnDestroy {
               this.initMediaTests();
             });
           })
-          .catch(() => {});
+          .catch((error) => {
+            this.showSpinner = false;
+          });
         navigator.mediaDevices
           .getUserMedia({ audio: true })
           .then((stream) => {
@@ -103,7 +106,9 @@ export class TestMediaComponent implements OnInit, OnDestroy {
               this.initMediaTests();
             });
           })
-          .catch(() => {});
+          .catch((err) => {
+            this.showSpinner = false;
+          });
       });
   }
 
@@ -125,7 +130,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
         roomId: this.peerId,
         joinVideo: true,
         joinAudio: true,
-        token: token,
+        token,
       });
 
       this.roomService.onCamProducing.subscribe((stream) => {
@@ -134,6 +139,9 @@ export class TestMediaComponent implements OnInit, OnDestroy {
 
         this.showSpinner = false;
       });
-    });
+    }, (err) => {
+      this.error = err.error?.message || err.statusText || err.message || err;
+      this.showSpinner  = false;
+    })
   }
 }
