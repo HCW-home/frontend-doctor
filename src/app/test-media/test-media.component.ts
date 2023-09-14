@@ -140,7 +140,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
         this.showSpinner = false;
       });
     }, (err) => {
-      this.error = err.error?.message || err.statusText || err.message || err;
+      this.error = err.details || err.error?.message || err.statusText || err.message || err;
       this.showSpinner  = false;
     })
   }
