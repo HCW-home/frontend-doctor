@@ -1,0 +1,59 @@
+<form
+        *ngIf="myForm"
+        (submit)="onSubmit()"
+        class="invite-form"
+        [formGroup]="myForm"
+>
+    <h1 mat-dialog-title style="display: block !important;">
+        {{ 'Invite Expert' | translate }}
+    </h1>
+    <div mat-dialog-content class="dialog-content">
+        <div class="field-container">
+            <div class="expert-link-wrapper">
+                <p>{{data}}</p>
+                <mat-icon svgIcon="copy" (click)="copy()" [cdkCopyToClipboard]="data"></mat-icon>
+            </div>
+            <mat-form-field class="w-100">
+                <mat-label class="label">{{ 'Email' | translate }}</mat-label>
+                <input
+                        matInput
+                        placeholder="{{ 'Enter Expert Email' | translate }}"
+                        formControlName="email"
+                        [errorStateMatcher]="matcher"
+                        required
+                />
+
+                <mat-error
+                        *ngIf="myForm.controls.email.hasError('required')"
+                >
+                    {{ 'Email is' | translate }}
+                    <strong>{{ 'profileUpdate.required' | translate }}</strong>
+                </mat-error>
+                <mat-error
+                        *ngIf="myForm.controls.email.hasError('email')"
+                >
+                    Enter valid email
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="error" class="error">
+            {{ error }}
+        </div>
+
+
+    </div>
+
+    <div *ngIf="loading" class="loading darkoverlay">
+        <mat-spinner [diameter]="35"></mat-spinner>
+    </div>
+
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="onNoClick()" type="button">
+            {{ 'profileUpdate.cancel' | translate }}
+        </button>
+        <button class="btn__send" [disabled]="loading" type="submit" mat-button>
+            {{ 'profileUpdate.send' | translate }}
+        </button>
+    </div>
+</form>

@@ -25,9 +25,8 @@
 
 <div class="general-wrapper">
 
-      <div class="c_info_wrap">
-
-        <div class="c_info_row_content" (click)="inviteExpert()" [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
+      <div class="c_info_wrap" *ngIf="consultation.consultation.status !== 'closed'">
+        <div class="c_info_row_content" (click)="inviteExpert(consultation.consultation.expertInvitationURL)" [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
           <button class="submit-btn" mat-button >
             {{ 'Invite Expert' }}
           </button>
@@ -92,16 +91,12 @@
         </div>
       </div>
 
-      <div class="c_info_wrap">
+      <div class="c_info_wrap" *ngIf="consultation.consultation.birthDate">
         <div class="c_info_row_title">
           {{ "chat.patientBirthday" | translate }}
         </div>
         <div class="c_info_row_content">
-          {{
-            consultation.consultation.birthDate
-              ? (consultation.consultation.birthDate | date: "d MMM yyyy")
-              : ("chat.notdefined" | translate)
-          }}
+          {{consultation.consultation.birthDate | date: "d MMM yyyy"}}
         </div>
       </div>
       <div class="c_info_wrap">
@@ -275,7 +270,7 @@
         {{ "chat.textMessagesOnlySentToPatientWarning" | translate }}
       </p>
     </div>
-    <div class="chat-wrapper">
+    <div class="chat-wrapper" *ngIf="chatMessages.length">
      <div
       *ngFor="let msg of chatMessages"
       id="{{ msg.id }}"

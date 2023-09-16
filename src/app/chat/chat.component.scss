@@ -246,7 +246,7 @@ textarea:focus {
 }
 
 .chat-wrapper {
-  height: 600px;
+  max-height: 600px;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

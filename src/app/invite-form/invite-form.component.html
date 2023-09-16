@@ -261,32 +261,6 @@
             <owl-date-time #dt1></owl-date-time>
           </mat-form-field>
         </div>
-
-        <!--! Metadata field, generated from the DISPLAY_META backend enviroment variable -->
-        <!-- <div  
-          class="field-container"
-          ngIf="configService.config.metadata.length"
-        >
-
-          <mat-form-field 
-            ngFor="let item of configService.config.metadata; let i = index"
-          >
-            <mat-label class="label">
-              {{  item }}  
-            </mat-label>
-            <input
-              formControlName="metadataFormControl"
-              [(ngModel)]="data[item]"
-              matInput
-            />
-          </mat-form-field>
-          
-        </div> -->
-
-        <!-- <mat-error *ngIf="myForm.hasError('error')"><<
-          Veuillez renseigner uniquement un des deux champs Email ou Numéro de
-          mobile
-        </mat-error> -->
         <div *ngIf="error" class="error">
           {{ error }}
         </div>
@@ -321,7 +295,7 @@
             <input
               [(ngModel)]="data.guestContact"
               matInput
-              placeholder="Email ou SMS"
+              [placeholder]="'inviteForm.emailOrSMS' | translate"
               formControlName="guestContactFormControl"
               [errorStateMatcher]="matcher"
             />
@@ -346,6 +320,38 @@
               }}
             </mat-error>
           </mat-form-field>
+        </div>
+
+
+        <div class="field-container" style="margin-top: 14px !important">
+          <mat-checkbox formControlName="inviteExpert" color="primary">
+            Invite Expert
+          </mat-checkbox>
+        </div>
+        <div *ngIf="myForm.controls.inviteExpert.value" class="field-container">
+          <div class="experts-wrapper">
+          <div formArrayName="experts">
+            <div
+                    *ngFor="let expertControl of expertFormArray.controls; let i = index"
+                    class="expert-field"
+            >
+              <mat-form-field class="w-100">
+                <mat-label>Email</mat-label>
+                <input
+                        matInput
+                        [formControlName]="i"
+                        placeholder="Email"
+                />
+                <mat-error *ngIf="expertControl.hasError('required')">
+                  Please only fill up an email
+                </mat-error>
+                <!-- Add other errors here as necessary -->
+              </mat-form-field>
+              <button mat-button *ngIf="i > 0" (click)="removeExpert(i)">Remove</button>
+            </div>
+          </div>
+          <button mat-button (click)="addExpert()">Add Another Expert</button>
+          </div>
         </div>
 
         <div

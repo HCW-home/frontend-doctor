@@ -70,6 +70,7 @@ import { HugAngularLibModule } from "hug-angular-lib";
 import { PeerVideoComponent } from "./stream/peer-video/peer-video.component";
 import { PlanConsultationComponent } from "./plan-consultation/plan-consultation.component";
 import {ClipboardModule} from "@angular/cdk/clipboard";
+import {InviteExpertComponent} from "./invite-expoert/invite-expert.component";
 registerLocaleData(localeFr);
 
 const routes: Routes = [
@@ -230,6 +231,7 @@ const routes: Routes = [
         SupportComponent,
         InvitationsComponent,
         InviteFormComponent,
+        InviteExpertComponent,
         InvitationAlreadyAcceptedComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,

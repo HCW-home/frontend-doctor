@@ -17,6 +17,8 @@ import { SocketEventsService } from "../core/socket-events.service"
 import { ConsultationService } from "../core/consultation.service"
 import { environment } from "../../environments/environment"
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
+import {InviteExpertComponent} from "../invite-expoert/invite-expert.component";
 
 
 @Component({
@@ -51,10 +53,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     private zone: NgZone,
     private _snackBar: MatSnackBar,
     private consultationService: ConsultationService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
-    this.loaded
     this.currentUser = this.authService.currentUserValue
 
     this.getMessages()
@@ -77,12 +79,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
 
-  inviteExpert() {
-    this._snackBar.open("Copied to clipboard", "X", {
-      verticalPosition: "top",
-      horizontalPosition: "right",
-      duration: 2500
-    })
+  inviteExpert(expertLink: string) {
+    const dialogRef = this.dialog.open(InviteExpertComponent, {
+      width: "500px",
+      height: "600 px",
+      data: expertLink
+    });
+
   }
   getExpertStatusById(id, flagExpertsOnline) {
     if(flagExpertsOnline && id in flagExpertsOnline) {
@@ -166,7 +169,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     } catch (err) { }
   }
 
-  send(e) {
+  send() {
     this.chatText = this.chatText.trim()
     if (this.chatText === "") {
       return
@@ -192,7 +195,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   sendMsg(event) {
     if (event.charCode === 13) {
-      this.send(event)
+      this.send()
       return false
     }
   }

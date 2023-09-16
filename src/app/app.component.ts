@@ -160,6 +160,10 @@ export class AppComponent implements OnInit {
       "invite",
       sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/icon-invite.svg")
     );
+    iconRegistry.addSvgIcon(
+      "copy",
+      sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/copy.svg")
+    );
   }
 
   ngOnInit() {

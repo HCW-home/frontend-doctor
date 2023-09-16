@@ -1,0 +1,11 @@
+.expert-link-wrapper {
+  display: flex;
+  align-items: center;
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+.error {
+  color: red;
+}
