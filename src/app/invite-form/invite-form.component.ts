@@ -53,7 +53,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 const phoneNumberRegex = new RegExp(/^(\+|00)[0-9 ]+$/)
 
-const emailOrPhoneValidator = (control: AbstractControl): { [key: string]: any } | null => {
+export const emailOrPhoneValidator = (control: AbstractControl): { [key: string]: any } | null => {
     const testEmail = Validators.email(control)
     const testPhone = Validators.pattern(phoneNumberRegex)(control)
 
@@ -130,7 +130,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     }
 
     addExpert() {
-        this.expertFormArray.push(this.fb.control(""));
+        this.expertFormArray.push(this.fb.control("", [
+            emailOrPhoneValidator
+        ]));
     }
 
     removeExpert(index: number) {
@@ -163,7 +165,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             inviteGuestFormControl: new UntypedFormControl(false),
             inviteExpert: new UntypedFormControl(false),
             experts: this.fb.array([
-                this.fb.control("")
+                this.fb.control("", [
+                    emailOrPhoneValidator
+                ])
             ]),
             translationOrganizationFormControl: new UntypedFormControl(null, [this.translationOrganizationValidator.bind(this)]),
             queueFormControl,

@@ -5,83 +5,85 @@ import {MyErrorStateMatcher} from "../profile-update/profile-update.component";
 import {DialogData} from "../confirmation-dialog/confirmation-dialog.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConsultationService} from "../core/consultation.service";
+import {emailOrPhoneValidator} from "../invite-form/invite-form.component";
 
 @Component({
-  selector: "app-invite-expert",
-  templateUrl: "./invite-expert.component.html",
-  styleUrls: ["./invite-expert.component.scss"]
+    selector: "app-invite-expert",
+    templateUrl: "./invite-expert.component.html",
+    styleUrls: ["./invite-expert.component.scss"]
 })
 export class InviteExpertComponent implements OnInit {
-  matcher = new MyErrorStateMatcher();
-  loading = false;
-  error = "";
-  myForm: UntypedFormGroup;
-  constructor(
-      public dialogRef: MatDialogRef<InviteExpertComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData,
-      private _snackBar: MatSnackBar,
-      private consultationService: ConsultationService,
-      private formBuilder: UntypedFormBuilder) {
-  }
+    matcher = new MyErrorStateMatcher();
+    loading = false;
+    error = "";
+    myForm: UntypedFormGroup;
+
+    constructor(
+        public dialogRef: MatDialogRef<InviteExpertComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private _snackBar: MatSnackBar,
+        private consultationService: ConsultationService,
+        private formBuilder: UntypedFormBuilder) {
+    }
 
 
-  createFormGroup() {
-    this.myForm = this.formBuilder.group({
-      email: new UntypedFormControl("", [Validators.required, Validators.email]),
-    });
-    (window as any).myForm = this.myForm;
-  }
-  ngOnInit() {
-    this.createFormGroup();
-  }
+    createFormGroup() {
+        this.myForm = this.formBuilder.group({
+            email: new UntypedFormControl("", [emailOrPhoneValidator, Validators.required]),
+        });
+    }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+    ngOnInit() {
+        this.createFormGroup();
+    }
 
-  copy() {
-    this._snackBar.open("Copied to clipboard", "X", {
-      verticalPosition: "top",
-      horizontalPosition: "right",
-      duration: 2500
-    });
-  }
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
-  onSubmit() {
-    if (this.myForm.valid) {
-      this.loading = true;
-      const body = {
-        expertLink: this.data,
-        to: this.myForm.get("email").value
-      }
-      this.consultationService.sendExpertLink(body).subscribe({
-        next: (res) => {
-          this._snackBar.open("Link Sent to Email", "X", {
+    copy() {
+        this._snackBar.open("Copied to clipboard", "X", {
             verticalPosition: "top",
             horizontalPosition: "right",
             duration: 2500
-          });
-          this.onNoClick();
-          this.loading = false;
-        }, error: (err) => {
-          this.error = err.details || err.error?.message || err.statusText || err.message || err;
-          this.loading = false;
-        }
-      });
-    } else {
-      this.validateAllFormFields(this.myForm);
+        });
     }
 
-  }
+    onSubmit() {
+        if (this.myForm.valid) {
+            this.loading = true;
+            const body = {
+                expertLink: this.data,
+                to: this.myForm.get("email").value
+            }
+            this.consultationService.sendExpertLink(body).subscribe({
+                next: (res) => {
+                    this._snackBar.open("Link Sent to Email", "X", {
+                        verticalPosition: "top",
+                        horizontalPosition: "right",
+                        duration: 2500
+                    });
+                    this.onNoClick();
+                    this.loading = false;
+                }, error: (err) => {
+                    this.error = err.details || err.error?.message || err.statusText || err.message || err;
+                    this.loading = false;
+                }
+            });
+        } else {
+            this.validateAllFormFields(this.myForm);
+        }
 
-  validateAllFormFields(formGroup: UntypedFormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof UntypedFormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof UntypedFormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
-  }
+    }
+
+    validateAllFormFields(formGroup: UntypedFormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof UntypedFormControl) {
+                control.markAsTouched({onlySelf: true});
+            } else if (control instanceof UntypedFormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
+    }
 }

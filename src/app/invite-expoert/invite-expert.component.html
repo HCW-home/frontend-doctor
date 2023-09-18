@@ -14,15 +14,19 @@
                 <mat-icon svgIcon="copy" (click)="copy()" [cdkCopyToClipboard]="data"></mat-icon>
             </div>
             <mat-form-field class="w-100">
-                <mat-label class="label">{{ 'Email' | translate }}</mat-label>
+                <mat-label>{{"inviteForm.emailOrSMS" | translate}}</mat-label>
                 <input
                         matInput
-                        placeholder="{{ 'Enter Expert Email' | translate }}"
+                        [placeholder]="'inviteForm.emailOrSMS' | translate"
                         formControlName="email"
                         [errorStateMatcher]="matcher"
                         required
                 />
-
+                <mat-error
+                        *ngIf="myForm.controls.email.hasError('emailOrPhoneControl' )"
+                >
+                    {{ "inviteForm.pleaseEnterValidEmailOrPhoneNumber" | translate }}
+                </mat-error>
                 <mat-error
                         *ngIf="myForm.controls.email.hasError('required')"
                 >
