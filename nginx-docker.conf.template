@@ -3,11 +3,18 @@ map $http_upgrade $connection_upgrade {
         '' close;
     }
 
+
 server {
     listen       8081;
     server_name  _;
 
     root   /usr/share/nginx/html;
+
+    location /healthcheck {
+          access_log    off;
+          log_not_found off;
+          return 200 '{"message": "Health OK"}';
+    }
 
     location ~/(api|socket\.io|__getcookie) {
         proxy_set_header Host $host;
