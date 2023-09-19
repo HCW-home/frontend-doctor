@@ -1,3 +1,15 @@
+hcw-athome-caregiver (0.4.3.35) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6112 , Have default languages defined by default without the need to create mongo entry
+  * remove unused code
+  * refs #6125, Display proper error if no mediasoup server available
+  * add details
+  * refs #6118, Add Invite expert from Invite form, #6119 Create modal on Invite Expert button
+  * invite expert email or sms
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 19 Sep 2023 09:34:46 +0200
+
 hcw-athome-caregiver (0.4.3.34) focal; urgency=medium
 
   [ Gor Grigoryan ]
