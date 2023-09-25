@@ -22,6 +22,12 @@ install: build
 archive:
 	@ tar -czvf "dosetup-$(timeStamp).tar.gz" dist
 
+docker:
+	@ docker build -t docker.io/iabsis/hcw-doctor .
+
+podman:
+	@ podman build -t docker.io/iabsis/hcw-doctor .
+
 test:
 	echo "test the app"
 #	@ npx yarn run test
