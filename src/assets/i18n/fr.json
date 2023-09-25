@@ -88,7 +88,10 @@
     "microAndCameraConfiguration": "Configuration de la caméra et du micro",
     "microSelection": "Choix du micro",
     "cameraSelection": "Choix de la caméra",
-    "close": "Fermer"
+    "close": "Fermer",
+    "inviteExpert": "Inviter un expert",
+    "share": "Partager l'invitation par e-mail ou par téléphone mobile",
+    "shareBy": "Partager l'invitation par lien"
   },
   "dashboard": {
     "dashboard": "Tableau de bord",

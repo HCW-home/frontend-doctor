@@ -30,6 +30,7 @@ export class InviteExpertComponent implements OnInit {
     createFormGroup() {
         this.myForm = this.formBuilder.group({
             email: new UntypedFormControl("", [emailOrPhoneValidator, Validators.required]),
+            link: new UntypedFormControl(this.data)
         });
     }
 

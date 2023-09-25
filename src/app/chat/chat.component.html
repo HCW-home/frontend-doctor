@@ -67,6 +67,13 @@
                 : 'assets/img/offline.png'
             "
           />
+          <button
+                  (click)="resendInvite(consultation.consultation.invite)"
+                  class="submit-btn" mat-button
+                  *ngIf="consultation.consultation.status !== 'closed' && !consultation.consultation.flagPatientOnline"
+          >
+            {{ "invitations.sendAgain" | translate }}
+          </button>
         </div>
       </div>
 

@@ -74,7 +74,10 @@
 		"waitingRoom": "Waiting room",
 		"openedConsultation": "Opened consultations",
 		"consultationsHistory": "Consultations history",
-		"online": "Online"
+		"online": "Online",
+		"inviteExpert": "Invite Expert",
+		"share": "Share invite by Email or mobile phone",
+		"shareBy": "Share invite by link"
 	},
 	"consultation": {
 		"start": "START",

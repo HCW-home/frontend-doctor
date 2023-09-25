@@ -11,6 +11,7 @@ import {
   OnDestroy,
   HostListener,
 } from "@angular/core"
+import {TranslateService} from "@ngx-translate/core";
 import { MessageService } from "../core/message.service"
 import { AuthService } from "../auth/auth.service"
 import { SocketEventsService } from "../core/socket-events.service"
@@ -19,6 +20,8 @@ import { environment } from "../../environments/environment"
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {InviteExpertComponent} from "../invite-expoert/invite-expert.component";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {InviteService} from "../core/invite.service";
 
 
 @Component({
@@ -54,6 +57,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private consultationService: ConsultationService,
     public dialog: MatDialog,
+    private translate: TranslateService,
+    private inviteService: InviteService,
   ) { }
 
   ngOnInit() {
@@ -78,15 +83,33 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.listenToCallEvents()
   }
 
-
   inviteExpert(expertLink: string) {
     const dialogRef = this.dialog.open(InviteExpertComponent, {
-      width: "500px",
-      height: "600 px",
-      data: expertLink
+      width: "800px",
+      data: expertLink,
+      autoFocus: false
+    });
+  }
+
+  resendInvite(invitationId) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      id: "confirmation_dialog",
+      data: {
+        question: this.translate.instant("invitations.confirmResend"),
+        yesText: this.translate.instant("invitations.sendAgain"),
+        noText: this.translate.instant("invitations.cancelSendAgain"),
+        title: this.translate.instant("invitations.resendConfirmTitle"),
+      },
+    });
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        this.inviteService.resendInvite(invitationId).subscribe((res) => {
+        });
+      }
     });
 
   }
+
   getExpertStatusById(id, flagExpertsOnline) {
     if(flagExpertsOnline && id in flagExpertsOnline) {
       return flagExpertsOnline[id];

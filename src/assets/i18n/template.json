@@ -84,7 +84,10 @@
         "microAndCameraConfiguration": "consultation.microAndCameraConfiguration",
         "microSelection": "consultation.microSelection",
         "cameraSelection": "consultation.cameraSelection",
-        "close": "consultation.close"
+        "close": "consultation.close",
+        "inviteExpert": "consultation.inviteExpert",
+        "share": "consultation.share",
+        "shareBy": "consultation.shareBy"
     },
     "consultations": {
         "noConsultation": "consultations.noConsultation",
