@@ -1,3 +1,9 @@
+hcw-athome-caregiver (0.4.3.36) focal; urgency=medium
+
+  * Adding healthcheck URL
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 25 Sep 2023 09:38:21 +0200
+
 hcw-athome-caregiver (0.4.3.35) focal; urgency=medium
 
   [ Gor Grigoryan ]
