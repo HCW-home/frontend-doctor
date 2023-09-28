@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.38) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * rerange video room
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 28 Sep 2023 11:59:19 +0200
+
 hcw-athome-caregiver (0.4.3.37) focal; urgency=medium
 
   [ Olivier Bitsch ]
