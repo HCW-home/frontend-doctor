@@ -81,7 +81,7 @@
         <div class="c_info_row_title">
           {{ "Experts" | translate }}
         </div>
-        <div class="c_info_row_content" *ngFor="let expert of consultation.consultation?.experts">
+        <div class="experts_content" *ngFor="let expert of consultation.consultation?.experts">
           <ng-container >
             {{ expert.firstName + " " }}
             {{ expert.lastName | uppercase }}
