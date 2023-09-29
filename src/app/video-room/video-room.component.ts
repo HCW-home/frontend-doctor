@@ -100,11 +100,15 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
     muteStatusChanged() {
         if (this.localStream) {
-            // Mute/unmute microphone by enabling/disabling the audio track
             const audioTracks = this.localStream.getAudioTracks();
             if (audioTracks.length > 0) {
-                audioTracks[0].enabled = !audioTracks[0].enabled;
-                this.muteStatus = audioTracks[0].enabled ? "on" : "off";
+                if (this.muteStatus === "on") {
+                    this.roomService.muteMic();
+                    this.muteStatus = "off";
+                } else {
+                    this.roomService.unmuteMic();
+                    this.muteStatus = "on";
+                }
             }
         }
     }
