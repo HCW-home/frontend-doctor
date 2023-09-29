@@ -33,6 +33,7 @@
     >
       <mat-icon st svgIcon="hangup"></mat-icon>
     </button>
+
   </div>
 </div>
 
@@ -51,8 +52,6 @@
         #mainStream
         style="
           z-index: 1003;
-          width: 30%;
-          height: 30%;
           position: absolute;
           top: 0px;
           right: 0;
@@ -91,16 +90,14 @@
 
   <div
     style="
-      width: 170px;
-      margin: auto;
       position: absolute;
       bottom: 50px;
-      left: 0;
       right: 0;
-      margin-left: auto;
-      margin-right: auto;
       z-index: 1005;
-    "
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center"
   >
     <button (click)="camStatusChanged()" class="fab accept-btn" mat-button>
       <mat-icon *ngIf="camStatus === 'on'" st svgIcon="camera"></mat-icon>
@@ -113,6 +110,10 @@
       mat-button
     >
       <mat-icon st svgIcon="hangup"></mat-icon>
+    </button>
+    <button (click)="muteStatusChanged()" class="fab accept-btn" mat-button>
+      <mat-icon *ngIf="muteStatus === 'on'"  svgIcon="mic"></mat-icon>
+      <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
     </button>
   </div>
 </div>

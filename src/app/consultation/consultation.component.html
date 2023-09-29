@@ -23,7 +23,7 @@
     <app-video-room
       (hangup)="reject()"
       [sessionId]="consultation._id"
-      [token]="currentCall.token"
+      [token]="currentCall?.token"
       [audioOnly]="audioOnly"
       [audioDeviceId]="audioDeviceId"
       [videoDeviceId]="videoDeviceId"

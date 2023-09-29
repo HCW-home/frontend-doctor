@@ -31,6 +31,8 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     remoteUsers = [];
     resizeTimeout;
     bigElement;
+    muteStatus: "on" | "off" = "on";
+    localStream: MediaStream | null = null;
 
     @Output() hangup = new EventEmitter<boolean>();
 
@@ -73,14 +75,16 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        console.log("Initialize video", this.token, this.audioOnly);
         if (this.audioOnly) {
             this.camStatus = "off";
         }
         this.peerId = this.authService.currentUserValue.id;
 
-        this.askForPerm().then(() => {
+        this.askForPerm().then((stream) => {
+            this.localStream = stream;
             this.joinToSession();
+        }).catch(error => {
+            console.error("Error accessing media devices.", error);
         });
     }
 
@@ -92,6 +96,17 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         });
         this.rejectCall();
         this.remoteUsers = [];
+    }
+
+    muteStatusChanged() {
+        if (this.localStream) {
+            // Mute/unmute microphone by enabling/disabling the audio track
+            const audioTracks = this.localStream.getAudioTracks();
+            if (audioTracks.length > 0) {
+                audioTracks[0].enabled = !audioTracks[0].enabled;
+                this.muteStatus = audioTracks[0].enabled ? "on" : "off";
+            }
+        }
     }
 
     joinToSession() {

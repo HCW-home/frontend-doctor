@@ -107,6 +107,10 @@ export class AppComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-speak.svg")
     );
     iconRegistry.addSvgIcon(
+      "micOff",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/mic-off.svg")
+    );
+    iconRegistry.addSvgIcon(
       "hangup",
       sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-hangup.svg")
     );
