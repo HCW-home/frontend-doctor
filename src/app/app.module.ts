@@ -70,6 +70,7 @@ import { HugAngularLibModule } from "hug-angular-lib";
 import { PeerVideoComponent } from "./stream/peer-video/peer-video.component";
 import { PlanConsultationComponent } from "./plan-consultation/plan-consultation.component";
 import {ClipboardModule} from "@angular/cdk/clipboard";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 import {InviteExpertComponent} from "./invite-expoert/invite-expert.component";
 registerLocaleData(localeFr);
 
@@ -256,6 +257,7 @@ const routes: Routes = [
         I18nModule,
         HugAngularLibModule,
         ClipboardModule,
+        DragDropModule,
     ],
     providers: [
         AuthService,

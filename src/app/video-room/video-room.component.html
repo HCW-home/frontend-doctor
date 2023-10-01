@@ -50,12 +50,7 @@
       <div
         *ngIf="camStatus === 'on' && !webCamDisabled"
         #mainStream
-        style="
-          z-index: 1003;
-          position: absolute;
-          top: 0px;
-          right: 0;
-        "
+        cdkDrag
         class="OT_root OT_publisher OT_main custom-class"
         id="localUser"
       >
