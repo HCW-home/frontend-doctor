@@ -939,7 +939,7 @@ ion-fab-button.controller {
 }
 
 #localUser {
-  position: absolute;
+  position: fixed;
   top: 0 !important;
   right: 0 !important;
   min-height: 180px;
