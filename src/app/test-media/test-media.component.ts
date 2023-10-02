@@ -8,6 +8,7 @@ import {
   ElementRef,
   OnDestroy,
 } from "@angular/core";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: "app-test-media",
@@ -25,10 +26,11 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   videoDevices = [];
   audioDevices = [];
   myCamStream;
-  volumeLevel: number = 0;
+  volumeLevel = 0;
   showSpinner;
   error;
   peerId: string;
+  private volumeChangeSubscription: Subscription;
   @ViewChild("videoElement") videoElement: ElementRef;
 
   constructor(
@@ -113,13 +115,12 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.volumeChangeSubscription.unsubscribe();
     this.roomService.close();
   }
 
   initMediaTests() {
-    this.roomService.onVolumeChange.subscribe((change) => {
-      console.log("Volume change ", change);
-
+    this.volumeChangeSubscription = this.roomService.onVolumeChange.subscribe((change) => {
       this.volumeLevel = change.volume * 1000;
     });
 

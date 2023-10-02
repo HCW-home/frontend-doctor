@@ -1,4 +1,4 @@
-import {AuthService} from "./../auth/auth.service";
+import {AuthService} from "../auth/auth.service";
 import {
     RoomService,
     LogService,
@@ -96,6 +96,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         });
         this.rejectCall();
         this.remoteUsers = [];
+        this.roomService.close();
     }
 
     muteStatusChanged() {
@@ -114,17 +115,11 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     }
 
     joinToSession() {
-        this.logger.debug("Join to session");
         this.accepted = true;
 
         this.remoteUsers = [];
 
         this.roomService.init({peerId: this.peerId});
-        console.log(
-            "ROOM SERVICE ",
-            this.roomService._closed.toString(),
-            this.audioOnly
-        );
 
         this.roomService.join({
             roomId: this.sessionId,
@@ -203,13 +198,11 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
             if (!this.openviduLayout) {
                 return;
             }
-            console.log("update layout .....................................");
             this.openviduLayout.updateLayout();
         }, 20);
     }
 
     rejectCall() {
-        console.log("rejectCall vide -room ");
         if (!this.rejected) {
             this.rejected = true;
             this.roomService.close();
