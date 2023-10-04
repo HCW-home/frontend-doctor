@@ -28,7 +28,7 @@
     "@schematics/angular": "^11.0.5",
     "core-js": "^2.5.4",
     "html2canvas": "^1.0.0-rc.1",
-    "hug-angular-lib": "https://projects.iabsis.com/repository/hug-angular/npm/hug-angular-lib-0.0.3.tgz",
+    "hcw-stream-lib": "0.0.6",
     "jquery": "^3.5.1",
     "jspdf": "^1.5.3",
     "moment": "^2.24.0",

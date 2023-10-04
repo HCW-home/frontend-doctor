@@ -1,4 +1,4 @@
-import { RoomService, LogService, Stream } from "hug-angular-lib";
+import { RoomService, LogService } from "hcw-stream-lib";
 import { AuthService } from "./../auth/auth.service";
 import { OpenViduService } from "./../openvidu.service";
 import {
@@ -115,7 +115,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.volumeChangeSubscription.unsubscribe();
+    this.volumeChangeSubscription?.unsubscribe();
     this.roomService.close();
   }
 

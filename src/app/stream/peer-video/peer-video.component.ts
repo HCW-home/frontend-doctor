@@ -1,5 +1,5 @@
 import { Subscription } from "rxjs";
-import { Stream, LogService } from "hug-angular-lib";
+import { Stream, LogService } from "hcw-stream-lib";
 import {
   Component,
   Input,

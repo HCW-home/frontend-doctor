@@ -66,7 +66,7 @@ import { TranslatedGenderPipe } from "./translated-gender.pipe";
 import { I18nModule } from "./i18n/i18n.module";
 import { ConfigService } from "./core/config.service";
 
-import { HugAngularLibModule } from "hug-angular-lib";
+import { HugAngularLibModule } from "hcw-stream-lib";
 import { PeerVideoComponent } from "./stream/peer-video/peer-video.component";
 import { PlanConsultationComponent } from "./plan-consultation/plan-consultation.component";
 import {ClipboardModule} from "@angular/cdk/clipboard";

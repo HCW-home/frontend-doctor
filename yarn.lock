@@ -4664,6 +4664,20 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hcw-stream-lib@0.0.7:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/hcw-stream-lib/-/hcw-stream-lib-0.0.6.tgz#d66db799213cc2b6c5f30995b16a4b53c5e6231c"
+  integrity sha512-6MEEYvwcbXxVWPQ3fgThLqbHYNjLb2le0+cycgEnMmMslpnpohiZy4gx2YeAvVOey3arGPRVp+7efNXtVnmBog==
+  dependencies:
+    bowser "^2.11.0"
+    hark "^1.2.3"
+    mediasoup-client "^3.6.26"
+    ngx-logger "^4.1.9"
+    platform "^1.3.6"
+    sails.io.js "^1.2.1"
+    socket.io-client "^3.0.4"
+    tslib "^2.0.0"
+
 hdr-histogram-js@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/hdr-histogram-js/-/hdr-histogram-js-2.0.3.tgz#0b860534655722b6e3f3e7dca7b78867cf43dcb5"
@@ -4830,19 +4844,6 @@ https-proxy-agent@^2.2.1:
   dependencies:
     agent-base "^4.3.0"
     debug "^3.1.0"
-
-"hug-angular-lib@https://projects.iabsis.com/repository/hug-angular/npm/hug-angular-lib-0.0.3.tgz":
-  version "0.0.3"
-  resolved "https://projects.iabsis.com/repository/hug-angular/npm/hug-angular-lib-0.0.3.tgz#dd3b1d448bf13fb4e95f3e6b12710a073e01ea68"
-  dependencies:
-    bowser "^2.11.0"
-    hark "^1.2.3"
-    mediasoup-client "^3.6.26"
-    ngx-logger "^4.1.9"
-    platform "^1.3.6"
-    sails.io.js "^1.2.1"
-    socket.io-client "^3.0.4"
-    tslib "^2.0.0"
 
 human-signals@^2.1.0:
   version "2.1.0"
