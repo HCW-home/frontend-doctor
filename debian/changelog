@@ -1,3 +1,12 @@
+hcw-athome-caregiver (0.4.3.42) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * close room on destroy
+  * position fix
+  * update hcw-stream-lib
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 04 Oct 2023 14:00:39 +0200
+
 hcw-athome-caregiver (0.4.3.41) focal; urgency=medium
 
   [ Olivier Bitsch ]
