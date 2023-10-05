@@ -53,6 +53,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     myCamStream: Stream;
 
     camStatus = "on";
+    screenStream: any = null;
 
     constructor(
         private socketSer: SocketEventsService,
@@ -191,6 +192,18 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     }
 
     private connectWebCam(): void {
+    }
+
+    async startScreenSharing() {
+        this.screenStream = await this.roomService.startScreenShare();
+        if (!this.screenStream) {
+            console.error("Screen sharing failed or was denied by the user.");
+        }
+    }
+
+    stopScreenSharing() {
+        this.roomService.stopScreenShare();
+        this.screenStream = null;
     }
 
     private updateLayout() {
