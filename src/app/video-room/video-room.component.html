@@ -63,7 +63,7 @@
       </div>
 
       <div *ngIf="screenStream">
-        <app-peer-video [stream]="screenStream" [id]="myCamStream.mediaStream.id"></app-peer-video>
+        <app-peer-video-screen [stream]="screenStream" [id]="screenStream.id"></app-peer-video-screen>
       </div>
 
       <!-- Remotes -->
