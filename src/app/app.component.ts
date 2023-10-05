@@ -123,6 +123,14 @@ export class AppComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-cameraOff.svg")
     );
     iconRegistry.addSvgIcon(
+      "shareScreen",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/screen-share.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "stopShareScreen",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/stop-screen-share.svg")
+    );
+    iconRegistry.addSvgIcon(
       "logout",
       sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/icon-logout.svg")
     );

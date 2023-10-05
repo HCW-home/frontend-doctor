@@ -196,6 +196,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
     async startScreenSharing() {
         this.screenStream = await this.roomService.startScreenShare();
+        console.log(this.screenStream, "this.screenStream")
         if (!this.screenStream) {
             console.error("Screen sharing failed or was denied by the user.");
         }
