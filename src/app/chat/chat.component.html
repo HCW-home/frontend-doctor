@@ -33,14 +33,12 @@
         </div>
       </div>
 
-      <div class="c_info_wrap" *ngIf="consultation.consultation.IMADTeam">
+      <div class="c_info_wrap" *ngIf="consultation?.nurse">
         <div class="c_info_row_title">
-          {{ "chat.nurse" | translate }}
+          {{ 'Requested by' }}
         </div>
         <div style="font-size: 1em; padding-top: 5px;">
-          {{
-            consultation.consultation.IMADTeam
-          }}
+          {{consultation.nurse.firstName}}   {{consultation.nurse.lastName}}
         </div>
       </div>
       <div class="c_info_wrap">
