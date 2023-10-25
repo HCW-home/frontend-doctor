@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.47) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * requester name
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 25 Oct 2023 13:29:27 +0200
+
 hcw-athome-caregiver (0.4.3.46) focal; urgency=medium
 
   [ Gor Grigoryan ]
