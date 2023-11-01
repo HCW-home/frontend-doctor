@@ -28,7 +28,7 @@
 	"chat": {
 		"generalInformation": "GENERAL INFORMATION",
 		"nurse": "Nurse",
-		"patientFirstnameAndLastname": "Patient firstname and lastname",
+		"patientFirstnameAndLastname": "Patient name",
 		"patientBirthday": "Patient birthday",
 		"notdefined": "Undefined",
 		"sex": "Sex",
@@ -207,7 +207,7 @@
 		"consultationSummary": "CONSULTATION SUMMARY",
 		"nurse": "Nurse",
 		"none": "None",
-		"patientFirstnameAndLastname": "Patient firstname and lastname",
+		"patientFirstnameAndLastname": "Patient name",
 		"patientBirthday": "Patient birthday",
 		"notdefined": "Undefined",
 		"sex": "Sex",
@@ -348,7 +348,7 @@
 		"logout": "Logout",
 		"startTheNextConsultation": "Start the next consultation",
 		"terminateTheConsultation": "Terminate the consultation",
-		"patientFirstnameAndLastname": "Patient firstname and lastname",
+		"patientFirstnameAndLastname": "Patient name",
 		"patientBirthday": "Patient birthday",
 		"nurse": "Nurse"
 	},

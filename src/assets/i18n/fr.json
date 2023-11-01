@@ -29,7 +29,7 @@
   "chat": {
     "generalInformation": "INFORMATIONS GÉNÉRALES",
     "nurse": "Infirmier",
-    "patientFirstnameAndLastname": "Prénom et nom du patient",
+    "patientFirstnameAndLastname": "Nom du patient",
     "patientBirthday": "Date de naissance du patient",
     "notdefined": "Non définie",
     "sex": "Sexe",
@@ -209,7 +209,7 @@
     "consultationSummary": "RÉSUMÉ DE LA CONSULATION",
     "nurse": "Infirmier",
     "none": "Aucun",
-    "patientFirstnameAndLastname": "Prénom et nom du patient",
+    "patientFirstnameAndLastname": "Nom du patient",
     "patientBirthday": "Date de naissance du patient",
     "notdefined": "Non définie",
     "sex": "Sexe",
@@ -350,7 +350,7 @@
     "logout": "Se déconnecter",
     "startTheNextConsultation": "Démarrer la consultation suivante",
     "terminateTheConsultation": "Terminer la consultation",
-    "patientFirstnameAndLastname": "Prénom et nom du patient",
+    "patientFirstnameAndLastname": "Nom du patient",
     "patientBirthday": "Date de naissance du patient",
     "nurse": "Infirmier"
   },
