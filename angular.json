@@ -17,6 +17,18 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "socket.io-client",
+              "sails.io.js",
+              "html2canvas",
+              "hark",
+              "mediasoup-client",
+              "bowser",
+              "core-js",
+              "rgbcolor",
+              "raf",
+              "rgbcolor"
+            ],
             "outputPath": "dist/hug-at-home",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -32,14 +44,14 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js"
-            ],
+            "styles": ["src/styles.scss"],
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js"],
             "stylePreprocessorOptions": {
-              "includePaths": ["./src/variables.scss", "./src/styles"]
+              "includePaths": [
+                "./src/variables.scss",
+                "./src/styles",
+                "./node_modules"
+              ]
             },
             "aot": true
           },
@@ -133,6 +145,12 @@
               "src/assets"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
         }
       }
     },
@@ -162,6 +180,7 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }
