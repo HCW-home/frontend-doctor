@@ -83,6 +83,14 @@ export class AppComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-next.svg")
     );
     iconRegistry.addSvgIcon(
+      "back",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/arrow-back.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "stat",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icon-user.svg")
+    );
+    iconRegistry.addSvgIcon(
       "info",
       sanitizer.bypassSecurityTrustResourceUrl("assets/svg/Icon-info.svg")
     );
