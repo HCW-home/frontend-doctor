@@ -313,4 +313,15 @@ export class ConsultationService {
         );
     }
 
+    downloadPdf(url: string): Observable<Blob> {
+        return this.http.get(url, { responseType: 'blob' }).pipe(
+            tap(
+                data => console.log('PDF downloaded successfully.'),
+                error => console.error('Error downloading the file.'),
+                () => console.info('Download completed.')
+            )
+        );
+    }
+
+
 }
