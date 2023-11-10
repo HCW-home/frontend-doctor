@@ -26,7 +26,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "@schematics/angular": "^11.0.5",
-    "core-js": "^2.5.4",
+    "core-js": "^3",
     "date-fns": "^2.30.0",
     "hcw-stream-lib": "0.0.6",
     "html2canvas": "^1.0.0-rc.1",
@@ -39,7 +39,7 @@
     "subsink": "^1.0.0",
     "tslib": "^1.10.0",
     "yarn": "^1.22.17",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.11",
