@@ -33,7 +33,7 @@
   "chat.patientInvitedAt": "Patient invité le",
   "chat.guest": "Invité",
   "chat.translator": "Interprète",
-  "chat.translatorContactDetails": "",
+  "chat.translatorContactDetails": "Detail du contact du traducteur",
   "chat.startDateTime": "Date/heure de début",
   "chat.endDateTime": "Date/heure de fin",
   "chat.duration": "Durée",

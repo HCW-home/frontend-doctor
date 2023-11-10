@@ -38,7 +38,7 @@
     "patientInvitedAt": "Patient invited at",
     "guest": "Guest",
     "translator": "Interpreter",
-    "translatorContactDetails": "",
+    "translatorContactDetails": "Translator contact details",
     "startDateTime": "Start date/time",
     "endDateTime": "End date/time",
     "duration": "Duration",
