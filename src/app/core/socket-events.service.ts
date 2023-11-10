@@ -195,7 +195,7 @@ export class SocketEventsService {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
 
-      this.socket.on('rejectCall', (e) => observer.next(e))
+      // this.socket.on('rejectCall', (e) => observer.next(e))
     })
     obs.subscribe(sub)
     return sub
