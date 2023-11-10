@@ -1,15 +1,10 @@
-node_version:=$(shell node -v)
-yarn_version:=$(shell npx yarn -v)
+VERSION ?= $(shell head -n 1 debian/changelog| cut -d' ' -f2 | sed 's/[\(\)]*//g')
+
 timeStamp:=$(shell date +%Y%m%d%H%M%S)
 
 .DEFAULT_GOAL := build
 
 .PHONY: install build archive test clean
-
-show:
-	@ echo Timestamp: "$(timeStamp)"
-	@ echo Node Version: $(node_version)
-	@ echo yarn_version: $(yarn_version)
 
 node_modules:
 	@ npx yarn install
@@ -28,9 +23,12 @@ docker:
 podman:
 	@ podman build -t docker.io/iabsis/hcw-doctor .
 
-test:
-	echo "test the app"
-#	@ npx yarn run test
+do-release:
+	gbp dch  --ignore-branch
+	sed -i 's/UNRELEASED/focal/' debian/changelog
+	sed -i "s/Version:.*/Version: $(VERSION)/" redhat/hcw-athome-caregiver.spec
+	git add debian/changelog redhat/hcw-athome-caregiver.spec
+	echo "You can run now:\n git commit -m \"New release ${VERSION}\""
 
 clean:
 	@ echo "cleaning the dist directory"

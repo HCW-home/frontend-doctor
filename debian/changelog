@@ -1,3 +1,20 @@
+hcw-athome-caregiver (0.4.3.51) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * updated some packages
+
+  [ Olivier Bitsch ]
+  * Do first package cleanup
+  * handled all warning on compile
+
+  [ Gor Grigoryan ]
+  * remove jquery
+
+  [ Olivier Bitsch ]
+  * Remove unused icon declaration
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 10 Nov 2023 14:04:36 +0100
+
 hcw-athome-caregiver (0.4.3.50) focal; urgency=medium
 
   * Update nginx configuration file (security reason)
