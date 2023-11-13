@@ -17,7 +17,6 @@ import { AuthService } from "../auth/auth.service"
 import { SocketEventsService } from "../core/socket-events.service"
 import { ConsultationService } from "../core/consultation.service"
 import { environment } from "../../environments/environment"
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {InviteExpertComponent} from "../invite-expoert/invite-expert.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
@@ -35,31 +34,37 @@ export class ChatComponent implements OnInit, OnDestroy {
   @Input() showInput: boolean
   @ViewChild("scoll") contentArea: ElementRef
   @ViewChild("fileInput") fileInput: ElementRef
+  @ViewChild('element') element: ElementRef;
 
   currentUser
   chatMessages = []
   chatText: string
-  fileToUpload: File = null
 
   loadingMsgs = true
   @Input() noPagination = false
   @Output() loaded = new EventEmitter<boolean>()
 
+  chatHeight: string;
   loadedImages = 0
   chatImagesCount
   subscriptions: Subscription[] = []
-  consultations = []
+  consultations = [];
+
   constructor(
     private msgServ: MessageService,
     private authService: AuthService,
     private socketEventsService: SocketEventsService,
     private zone: NgZone,
-    private _snackBar: MatSnackBar,
     private consultationService: ConsultationService,
     public dialog: MatDialog,
     private translate: TranslateService,
     private inviteService: InviteService,
   ) { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.calculateHeight();
+  }
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue
@@ -170,6 +175,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             (msg) => msg.isImage,
           ).length
           this.loadingMsgs = false
+          this.calculateHeight();
 
           if (this.noPagination && !this.chatImagesCount) {
             setTimeout(() => {
@@ -332,5 +338,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.loadedImages === this.chatImagesCount && this.noPagination) {
       this.addPageDividers()
     }
+  }
+
+  calculateHeight(): void {
+    this.chatHeight = `calc(100% - ${this.element.nativeElement.offsetHeight}px)`;
   }
 }

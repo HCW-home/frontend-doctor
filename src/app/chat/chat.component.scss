@@ -246,14 +246,7 @@ textarea:focus {
 }
 
 .chat-wrapper {
-  max-height: 600px;
   overflow: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.chat-wrapper::-webkit-scrollbar {
-  display: none;
 }
 
 .reverse {
