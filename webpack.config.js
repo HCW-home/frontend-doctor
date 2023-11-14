@@ -1,18 +1,10 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   experiments: {
     outputModule: true,
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname,'dist/hug-at-home/index.html'), // Spécifiez le chemin vers votre fichier HTML de modèle
-      inject: true,
-      chunks: '[name].bundle.js',
-     template: path.join(__dirname, 'src/index.html'),
-    }),
-  ],
+  plugins: [],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/hug-at-home'),
