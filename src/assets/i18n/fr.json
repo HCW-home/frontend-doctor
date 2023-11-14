@@ -21,6 +21,7 @@
   "app.invites": "Invitations",
   "app.testVideoSound": "Test son/vidéo",
   "app.support": "Support",
+  "app.connectionFailed": "La connexion avec le serveur ne fonctionne pas correctement, vous ne pouvez plus recevoir les demandes de consultation. Si le problème persiste, contacter votre support.",
   "chat.generalInformation": "INFORMATIONS GÉNÉRALES",
   "chat.nurse": "Infirmier",
   "chat.patientFirstnameAndLastname": "Nom du patient",

@@ -23,7 +23,8 @@
     "consultationHistory": "Consultation history",
     "invites": "Invites",
     "testVideoSound": "Test video/sound",
-    "support": "Support"
+    "support": "Support",
+    "connectionFailed": "The connection to the server is not functioning properly, and you can no longer receive consultation requests. If the issue persists, please contact your support."
   },
   "chat": {
     "generalInformation": "GENERAL INFORMATION",
