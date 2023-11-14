@@ -4,7 +4,8 @@ COPY package*.json ./
 COPY yarn.lock ./
 RUN npx yarn install
 COPY . .
-RUN npx ng build --configuration=production --build-optimizer --aot --output-hashing=all --vendor-chunk
+#RUN npx ng build --configuration=production --build-optimizer --aot --output-hashing=all --vendor-chunk
+RUN make
 
 FROM nginxinc/nginx-unprivileged:latest
 COPY --from=builder /usr/src/app/dist/hug-at-home/ /usr/share/nginx/html/

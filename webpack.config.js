@@ -1,47 +1,27 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  plugins: [],
-  output: {
-    module: true,
+  experiments: {
+    outputModule: true,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname,'dist/hug-at-home/index.html'), // Spécifiez le chemin vers votre fichier HTML de modèle
+      inject: true,
+      chunks: '[name].bundle.js',
+     template: path.join(__dirname, 'src/index.html'),
+    }),
+  ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/hug-at-home'),
   },
   optimization: {
-    // chunkIds: 'natural',
-    // concatenateModules: true,
-    minimize: true,
     runtimeChunk: 'single',
     splitChunks: {
       maxSize: 1000000,
       chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-      // minSize: 20000,
-      // minRemainingSize: 0,
-      // minChunks: 1,
-      // maxAsyncRequests: 30,
-      // maxInitialRequests: 30,
-      // enforceSizeThreshold: 50000,
-      // cacheGroups: {
-      //   defaultVendors: {
-      //     test: /[\\/]node_modules[\\/]/,
-      //     priority: -10,
-      //     reuseExistingChunk: true,
-      //   },
-      //   default: {
-      //     minChunks: 2,
-      //     priority: -20,
-      //     reuseExistingChunk: true,
-      //   },
-      // },
-    },
+    }
   },
 };

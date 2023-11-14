@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "indexTransform": "./index-html-transform.js",
             "allowedCommonJsDependencies": [
               "socket.io-client",
               "sails.io.js",

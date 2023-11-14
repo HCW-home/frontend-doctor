@@ -29,6 +29,7 @@
     "core-js": "^3",
     "date-fns": "^2.30.0",
     "hcw-stream-lib": "0.0.12",
+    "html-webpack-plugin": "^5.5.3",
     "html2canvas": "^1.0.0-rc.1",
     "jspdf": "^2.5.1",
     "ng-pick-datetime": "^7.0.0",
