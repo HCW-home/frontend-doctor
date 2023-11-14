@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.62) focal; urgency=medium
+
+  * Adding custom script to chunk main js files
+  * cleanup useless plugin
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 14 Nov 2023 15:51:08 +0100
+
 hcw-athome-caregiver (0.4.3.61) focal; urgency=medium
 
   * Rollback to previous build profile
