@@ -1,3 +1,11 @@
+hcw-athome-caregiver (0.4.3.64) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * chat scroll error fix
+  * chat scroll fix
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 14 Nov 2023 16:36:20 +0100
+
 hcw-athome-caregiver (0.4.3.63) focal; urgency=medium
 
   [ Gor Grigoryan ]
