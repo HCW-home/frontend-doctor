@@ -175,25 +175,25 @@ export class ChatComponent implements OnInit, OnDestroy {
             (msg) => msg.isImage,
           ).length
           this.loadingMsgs = false
-          this.calculateHeight();
 
           if (this.noPagination && !this.chatImagesCount) {
             setTimeout(() => {
-              this.addPageDividers()
+              this.addPageDividers();
             }, 0)
           }
 
           if (!noScroll) {
-            this.scrollToBottom(100)
+            this.scrollToBottom(100);
           }
-        })
+          this.calculateHeight();
+        });
       })
   }
   scrollToBottom(after?): void {
     try {
       setTimeout(() => {
         console.log("scroll to bottom")
-        this.contentArea.nativeElement.scrollTop = this.contentArea.nativeElement.scrollHeight
+        this.contentArea.nativeElement.scrollTop = this.contentArea?.nativeElement?.scrollHeight
       }, after || 10)
     } catch (err) { }
   }
@@ -341,6 +341,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   calculateHeight(): void {
-    this.chatHeight = `calc(100% - ${this.element.nativeElement.offsetHeight}px)`;
+    this.chatHeight = `calc(100% - ${this.element?.nativeElement?.offsetHeight}px)`;
   }
 }
