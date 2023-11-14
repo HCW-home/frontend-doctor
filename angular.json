@@ -15,7 +15,7 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "allowedCommonJsDependencies": [
               "socket.io-client",
@@ -97,6 +97,11 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "custom": {
+              "customWebpackConfig": {
+                "path": "./webpack.config.js"
+              }
             }
           }
         },
