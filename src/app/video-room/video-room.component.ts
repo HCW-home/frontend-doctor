@@ -91,13 +91,24 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.exitSession();
-
+        this.stopWebCam();
         this.subscriptions.forEach((sub) => {
             sub.unsubscribe();
         });
         this.rejectCall();
         this.remoteUsers = [];
         this.roomService.close();
+    }
+
+
+    stopWebCam() {
+        try {
+            if (this.localStream) {
+                this.localStream.getTracks().forEach(track => track.stop());
+            }
+        } catch (error) {
+            console.error('Error stopping webcam stream', error);
+        }
     }
 
     muteStatusChanged() {
@@ -249,4 +260,5 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         const mediaPerms = {audio: true, video: true};
         return navigator.mediaDevices.getUserMedia(mediaPerms);
     }
+
 }
