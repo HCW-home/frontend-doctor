@@ -231,8 +231,8 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         if (!this.rejected) {
             this.rejected = true;
             this.roomService.close();
-            if (this.myCamStream) {
-                this.myCamStream.mediaStream.getTracks().forEach((track) => {
+            if (this.localStream) {
+                this.localStream.getTracks().forEach((track) => {
                     track.stop();
                 });
             }
