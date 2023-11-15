@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.66) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6204, Camera is not released after a video call
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 15 Nov 2023 14:11:01 +0100
+
 hcw-athome-caregiver (0.4.3.65) focal; urgency=medium
 
   [ Olivier Bitsch ]
