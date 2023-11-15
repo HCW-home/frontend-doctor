@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.4.3.65) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Add missing translation
+
+  [ Gor Grigoryan ]
+  * stop track on destroy
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 15 Nov 2023 12:12:31 +0100
+
 hcw-athome-caregiver (0.4.3.64) focal; urgency=medium
 
   [ Gor Grigoryan ]
