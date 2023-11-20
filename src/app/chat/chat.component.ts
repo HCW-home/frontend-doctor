@@ -259,19 +259,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     return msg
   }
 
-
-  extractFilename(url: string): string | null {
-    const urlPaths = url.split('/');
-    const lastPath = urlPaths[urlPaths.length - 1];
-    return lastPath.split('#')[0].split('?')[0];
-  }
-
-  downloadPdf(pdfUrl: string): void {
+  downloadPdf(pdfUrl: string, fileName: string): void {
     this.consultationService.downloadPdf(pdfUrl).subscribe(blob => {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      const filename = this.extractFilename(pdfUrl);
-      link.download = filename || 'attachment.pdf';
+      link.download = fileName || 'attachment.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
