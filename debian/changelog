@@ -1,3 +1,11 @@
+hcw-athome-caregiver (0.4.3.67) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add Roboto font
+  * ui fixes in chat, add some translations
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 20 Nov 2023 09:04:20 +0100
+
 hcw-athome-caregiver (0.4.3.66) focal; urgency=medium
 
   [ Gor Grigoryan ]
