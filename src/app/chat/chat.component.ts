@@ -240,7 +240,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         environment.api +
         `/consultation/${
         this.consultation._id || this.consultation.id
-        }/attachment/${msg.id}?token=${this.currentUser.token}`
+        }/attachment/${msg.id}`
 
       if (msg.mimeType.endsWith("jpeg") || msg.mimeType.endsWith("png")) {
         msg.isImage = true
