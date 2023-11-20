@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.68) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * remove token from download file url, SENSITIVE DATA IN URL
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 20 Nov 2023 11:42:36 +0100
+
 hcw-athome-caregiver (0.4.3.67) focal; urgency=medium
 
   [ Gor Grigoryan ]
