@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.70) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * fix downloading pdf
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 20 Nov 2023 17:45:10 +0100
+
 hcw-athome-caregiver (0.4.3.69) focal; urgency=medium
 
   [ Olivier Bitsch ]
