@@ -54,7 +54,9 @@
     "videoAudioRequested": "Video audio requested",
     "videoAudioFinished": "Video audio finished",
     "IMADTeam": "IMADTeam",
-    "joinVideoCall": "Join video"
+    "joinVideoCall": "Join video",
+    "inviteExpert": "Invite Expert",
+    "requestedBy": "Requested by"
   },
   "consultations": {
     "noPatientName": "Undefined",

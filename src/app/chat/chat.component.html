@@ -10,7 +10,7 @@
             class="chat"
     >
         <div #element style="background-color: #ffffff;padding: 20px 30px;"
-                [ngClass]="{ 'big-font': noPagination }"
+             [ngClass]="{ 'big-font': noPagination }"
         >
             <h4 style="margin-top: 0; padding: 16px 0;">
                 {{ "chat.generalInformation" | translate }}
@@ -19,18 +19,15 @@
             <div class="general-wrapper">
 
                 <div class="c_info_wrap" *ngIf="consultation.consultation.status !== 'closed'">
-                    <div class="c_info_row_content"
-                         (click)="inviteExpert(consultation.consultation.expertInvitationURL)"
-                         [cdkCopyToClipboard]="consultation.consultation.expertInvitationURL">
-                        <button class="submit-btn" mat-button>
-                            {{ 'Invite Expert' }}
-                        </button>
-                    </div>
+                    <button class="submit-btn" mat-button
+                            (click)="inviteExpert(consultation.consultation.expertInvitationURL)">
+                        {{ 'chat.inviteExpert' | translate }}
+                    </button>
                 </div>
 
                 <div class="c_info_wrap" *ngIf="consultation?.nurse">
                     <div class="c_info_row_title">
-                        {{ 'Requested by' }}
+                        {{ 'chat.requestedBy'| translate }}
                     </div>
                     <div style="font-size: 1em; padding-top: 5px;">
                         {{consultation.nurse.firstName}}   {{consultation.nurse.lastName}}
@@ -207,20 +204,17 @@
                 </div>
                 <!-- Here i put the metadata informations  -->
 
-                <div
-                        *ngFor="let item of consultation.consultation.metadata | keyvalue"
-                        class="c_info_wrap"
-                >
-                    <div class="c_info_row_title">
-                        {{
-                        item.key
-                        }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{
-                        item.value
-                        }}
-                    </div>
+                <div *ngFor="let item of consultation.consultation.metadata | keyvalue">
+                    <ng-container *ngIf="item.value">
+                        <div class="c_info_wrap">
+                            <div class="c_info_row_title">
+                                {{ item.key }}
+                            </div>
+                            <div class="c_info_row_content">
+                                {{ item.value }}
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
                 <!--  -->
 
@@ -259,7 +253,7 @@
 
 
         <div #scoll [style.height]="chatHeight" class="chat-wrapper">
-            <div
+            <div *ngIf="consultation.consultation.status !== 'closed'"
                     style="padding: 20px 37px"
                     [ngClass]="{ 'big-font': noPagination }"
             >
