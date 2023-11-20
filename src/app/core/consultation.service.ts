@@ -272,7 +272,6 @@ export class ConsultationService {
         formData.append("attachment", file, file.name);
         return this.http.post(endpoint, formData, {
             headers: {
-                "mime-type": file.type,
                 "x-access-token": `${this.currentUser.token}`,
                 fileName: encodeURIComponent(file.name),
             },
