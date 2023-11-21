@@ -8,6 +8,7 @@ import { environment } from "../../environments/environment";
 
 import { Router } from "@angular/router";
 import { User } from "../user";
+import { ConfigService } from "../core/config.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -17,6 +18,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
     private router: Router,
+    private configService: ConfigService,
     private socketEventsService: SocketEventsService) {
     this.currentUserSubject = new BehaviorSubject<User>(null);
     this.currentUser = this.currentUserSubject.asObservable();
@@ -46,6 +48,13 @@ export class AuthService {
     this.currentUserSubject.next(user);
 
   }
+
+  refreshTokens() {
+    const currentUser = this.currentUserValue;
+    const refreshToken = currentUser.refreshToken;
+    return this.http.post<any>(`${environment.api}/refresh-token`,{ refreshToken });
+  }
+
   loginLocal(email, password) {
 
     const opts =  { withCredentials: true };
@@ -90,8 +99,11 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.socketEventsService.disconnect()
     this.http.get(`${environment.api}/logout`).subscribe(r => {
-      console.log(r, "res");
-      this.router.navigate(["/login"]);
+      if (this.configService.config.method === "openid") {
+        window.location.href = this.configService.config.openIdLogoutUri;
+      } else {
+        this.router.navigate(["/login"]);
+      }
     }, err => {
       this.router.navigate(["/login"]);
     })

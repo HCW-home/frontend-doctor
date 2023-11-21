@@ -8,24 +8,27 @@ import { SocketEventsService } from "../core/socket-events.service";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService,
-    private _socketEventsService: SocketEventsService) { }
+  constructor(
+      private authService: AuthService,
+      private _socketEventsService: SocketEventsService
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
-      console.log("error ", err);
+      console.log("Error encountered: ", err);
 
       if (err.statusText === "Unknown Error") {
         this._socketEventsService.updateConnectionStatus("connect_failed");
       }
 
-      if (err.status === 401 || err.status === 403) {
-        // auto logout if 401 response returned from api
+      const refreshTokenEndpoint = 'refresh-token';
+
+      if (err.status === 401  && request.url.includes(refreshTokenEndpoint)) {
         this.authService.logout();
       }
 
-      const error = err.error.message || err.statusText;
-      return throwError(error);
+      // const error = err.error.message || err.statusText;
+      return throwError(err);
     }));
   }
 }

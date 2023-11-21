@@ -6,4 +6,5 @@ export class User {
   lastName: string;
   token?: string;
   phoneNumber: string;
+  refreshToken: string
 }
