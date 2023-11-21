@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.4.3.71) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Fix nginx config
+
+  [ Gor Grigoryan ]
+  * handle expired token
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 21 Nov 2023 12:10:39 +0100
+
 hcw-athome-caregiver (0.4.3.70) focal; urgency=medium
 
   [ Gor Grigoryan ]
