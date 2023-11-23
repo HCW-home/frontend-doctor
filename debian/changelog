@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.4.3.73) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Allow 3Mb by default
+
+  [ Gor Grigoryan ]
+  * refs #6235, Dead zone in the line
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 23 Nov 2023 16:04:36 +0100
+
 hcw-athome-caregiver (0.4.3.72) focal; urgency=medium
 
   [ Gor Grigoryan ]
