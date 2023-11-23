@@ -1,26 +1,29 @@
-import { Subscription } from "rxjs"
+import {Subscription} from "rxjs"
 import {
   Component,
-  OnInit,
-  Input,
-  NgZone,
-  ViewChild,
   ElementRef,
   EventEmitter,
-  Output,
-  OnDestroy,
   HostListener,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  Sanitizer,
+  ViewChild,
 } from "@angular/core"
 import {TranslateService} from "@ngx-translate/core";
-import { MessageService } from "../core/message.service"
-import { AuthService } from "../auth/auth.service"
-import { SocketEventsService } from "../core/socket-events.service"
-import { ConsultationService } from "../core/consultation.service"
-import { environment } from "../../environments/environment"
+import {MessageService} from "../core/message.service"
+import {AuthService} from "../auth/auth.service"
+import {SocketEventsService} from "../core/socket-events.service"
+import {ConsultationService} from "../core/consultation.service"
+import {environment} from "../../environments/environment"
 import {MatDialog} from "@angular/material/dialog";
 import {InviteExpertComponent} from "../invite-expoert/invite-expert.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {InviteService} from "../core/invite.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
 
 
 @Component({
@@ -59,6 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private translate: TranslateService,
     private inviteService: InviteService,
+    private _sanitizer: DomSanitizer,
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -236,17 +240,29 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   adjustMsg(msg) {
     if (msg.type === "attachment") {
-      msg.attachmentsURL =
+      const requestUrl =
         environment.api +
         `/consultation/${
         this.consultation._id || this.consultation.id
         }/attachment/${msg.id}`
 
+      const user = this.authService.currentUserValue;
+
       if (msg.mimeType.endsWith("jpeg") || msg.mimeType.endsWith("png")) {
-        msg.isImage = true
+        fetch(requestUrl, {
+          headers: {
+            'x-access-token': user.token,
+          }
+        }).then(res=> {
+          return res.blob()
+        }).then(imageFile=>{
+              msg.isImage = true
+              msg.attachmentsURL = this._sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(imageFile));
+            })
       } else if (msg.mimeType.startsWith("audio")) {
         msg.isAudio = true
       } else {
+        msg.attachmentsURL = requestUrl;
         msg.isFile = true
       }
     }
@@ -276,6 +292,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.fileInput.nativeElement.dispatchEvent(event)
   }
 
+  showErrorDialog(message: string, title: string): void {
+    this.dialog.open(ErrorDialogComponent, {
+      width: '450px',
+      autoFocus: false,
+      data: {
+        title,
+        message
+      },
+    });
+  }
+
   handleFileInput(event) {
     if (!event.target.files.item(0)) {
       return
@@ -290,6 +317,9 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.chatMessages.push(this.adjustMsg(data.message))
           this.scrollToBottom(100)
         })
+      }, (err) => {
+        const message = err?.error?.message || err?.error ||err?.statusText;
+        this.showErrorDialog(message, '');
       })
   }
   @HostListener("scroll", ["$event"])

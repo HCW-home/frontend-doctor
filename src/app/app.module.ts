@@ -73,6 +73,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {InviteExpertComponent} from "./invite-expoert/invite-expert.component";
 import {PeerVideoScreenComponent} from "./stream/peer-video-screen/peer-video-screen.component";
+import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 registerLocaleData(localeFr);
 
 const routes: Routes = [
@@ -246,6 +247,7 @@ const routes: Routes = [
         SelectLanguageComponent,
         ConfirmationDialogComponent,
         PlanConsultationComponent,
+        ErrorDialogComponent
     ],
     imports: [
         BrowserAnimationsModule,

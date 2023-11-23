@@ -38,7 +38,7 @@ export class TopNavComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.logout(true);
   }
 
   acceptNextConsultation() {

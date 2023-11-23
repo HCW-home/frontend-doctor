@@ -94,13 +94,17 @@ export class AuthService {
       }));
   }
 
-  logout() {
+  logout(hard = false) {
     // sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.socketEventsService.disconnect()
     this.http.get(`${environment.api}/logout`).subscribe(r => {
-      if (this.configService.config.method === "openid") {
-        window.location.href = this.configService.config.openIdLogoutUri;
+      if (hard) {
+        if (this.configService.config.method === "openid") {
+          window.location.href = this.configService.config.openIdLogoutUri;
+        } else {
+          this.router.navigate(["/login"]);
+        }
       } else {
         this.router.navigate(["/login"]);
       }

@@ -1,0 +1,25 @@
+.btn__cancel {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.image-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .icon {
+    width: 40px;
+    height: 40px
+  }
+}
+
+.error-message {
+  font-size: 18px;
+  font-style: normal;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
