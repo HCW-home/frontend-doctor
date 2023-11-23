@@ -119,7 +119,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
     }
 
-    async openDialog(pastConsultation) {
+    async openDialog(event,pastConsultation) {
+        event.stopPropagation();
         const consultation = pastConsultation.consultation;
         console.log(pastConsultation);
         const user = await this.userService.getUser(consultation.owner).toPromise();
@@ -141,7 +142,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         });
     }
 
-    resendInvite(invitationId) {
+    resendInvite(event,invitationId) {
+        event.stopPropagation();
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             id: "confirmation_dialog",
             data: {
@@ -236,7 +238,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         }
     }
 
-    exportPDF(consultation) {
+    exportPDF(event,consultation) {
+        event.stopPropagation();
         this.PDFConsultation = consultation;
     }
 

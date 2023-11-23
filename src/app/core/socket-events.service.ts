@@ -45,7 +45,6 @@ export class SocketEventsService {
       function socketConnected() {
         console.log('socket connected ...........')
         this.connection.next('connect')
-        this.connectionStatus = 'connect'
 
         this.socket.get('/api/v1/subscribe-to-socket', {}, function (
           resData,
