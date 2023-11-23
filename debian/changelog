@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.72) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * fix image upload issue, add error modal
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 23 Nov 2023 13:30:58 +0100
+
 hcw-athome-caregiver (0.4.3.71) focal; urgency=medium
 
   [ Olivier Bitsch ]
