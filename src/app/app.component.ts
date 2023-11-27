@@ -266,7 +266,7 @@ export class AppComponent implements OnInit {
           this.currentSnackBar &&
           this.lastConectionStatus === "connect_failed"
         ) {
-          this.openSnackBar("Vous êtes reconnecté", null);
+          this.openSnackBar( this.translate.instant("app.reconnected"),null);
         }
         this.lastConectionStatus = "connect";
       }
