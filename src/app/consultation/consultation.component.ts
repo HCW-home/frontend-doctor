@@ -1,5 +1,4 @@
-import {CallService} from "../core/call.service";
-import {Subscription, Subject} from "rxjs";
+import {Subscription} from "rxjs";
 import {OpenViduService} from "./../openvidu.service";
 import {Component, OnInit, Input, NgZone, ViewChild, ElementRef, OnDestroy} from "@angular/core";
 import {ConsultationService} from "../core/consultation.service";
@@ -7,6 +6,9 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {SocketEventsService} from "../core/socket-events.service";
 import {ConfirmationService} from "../core/confirmation.service";
 import {InviteService} from "../core/invite.service";
+import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -51,7 +53,8 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         private zone: NgZone,
         private confirmationServ: ConfirmationService,
         private openViduService: OpenViduService,
-        private callService: CallService
+        private translate: TranslateService,
+        public dialog: MatDialog,
     ) {
 
         this.callEvent = {};
@@ -151,7 +154,22 @@ export class ConsultationComponent implements OnInit, OnDestroy {
             this.incomingCall = true;
             this.currentCall = response.msg;
 
+        }, err => {
+            const message = err.error?.details || err.details || err.error?.message || err.statusText || err.message || err;
+            const errorMessage = `${this.translate.instant("consultation.callError")} ${message}`
+            this.showErrorDialog(errorMessage, '');
         })
+    }
+
+    showErrorDialog(message: string, title: string): void {
+        this.dialog.open(ErrorDialogComponent, {
+            width: '450px',
+            autoFocus: false,
+            data: {
+                title,
+                message
+            },
+        });
     }
 
     reject() {

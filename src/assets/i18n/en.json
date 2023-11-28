@@ -94,7 +94,8 @@
     "microAndCameraConfiguration": "Micro and camera configuration",
     "microSelection": "Micro selection",
     "cameraSelection": "Camera selection",
-    "close": "Close"
+    "close": "Close",
+    "callError": "Unable to initiate call, server returned"
   },
   "dashboard": {
     "dashboard": "Dashboard",
@@ -345,7 +346,8 @@
   "testMedia": {
     "microTest": "MICRO TEST",
     "aProperlyTuned": "A properly tuned microphone should put the VU meter in the green center area when speaking.",
-    "cameraTest": "CAMERA TEST"
+    "cameraTest": "CAMERA TEST",
+    "testError": "Testing failed, server returned"
   },
   "topNav": {
     "profile": "Profile",

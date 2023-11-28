@@ -9,6 +9,9 @@ import {
   OnDestroy,
 } from "@angular/core";
 import {Subscription} from "rxjs";
+import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: "app-test-media",
@@ -37,7 +40,9 @@ export class TestMediaComponent implements OnInit, OnDestroy {
     private openviduSev: OpenViduService,
     private authService: AuthService,
     private logger: LogService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    public dialog: MatDialog,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -141,8 +146,21 @@ export class TestMediaComponent implements OnInit, OnDestroy {
         this.showSpinner = false;
       });
     }, (err) => {
-      this.error = err.details || err.error?.message || err.statusText || err.message || err;
+      const message = err.error?.details || err.details || err.error?.message || err.statusText || err.message || err;
+      const errorMessage = `${this.translate.instant("testMedia.testError")} ${message}`
+      this.showErrorDialog(errorMessage, '');
       this.showSpinner  = false;
     })
+  }
+
+  showErrorDialog(message: string, title: string): void {
+    this.dialog.open(ErrorDialogComponent, {
+      width: '450px',
+      autoFocus: false,
+      data: {
+        title,
+        message
+      },
+    });
   }
 }
