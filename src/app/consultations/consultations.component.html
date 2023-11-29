@@ -72,6 +72,15 @@
           </ng-container>
         </td>
         <td>
+          <span class="tile-header">{{ 'consultations.requestedBy'| translate }}</span>
+          <span *ngIf="consultation?.nurse?.firstName || consultation?.nurse?.lastName; else emptyBlock">
+                      {{consultation?.nurse?.firstName}}   {{consultation?.nurse?.lastName}}
+          </span>
+          <ng-template #emptyBlock>
+            <span>-</span>
+          </ng-template>
+        </td>
+        <td>
           <span class="tile-header">{{
             "consultations.waitingQueue" | translate
           }}</span>
@@ -123,10 +132,10 @@
         </td>
         <!-- <ng-container
             ngIf="configService.config.metadata.length > 0; else notMetadata"
-            
+
             >  -->
 
-          <td 
+          <td
           *ngFor="let displayItem of configService.config.metadata">
 
             <ng-container *ngIf="status != 'closed'">
@@ -144,7 +153,7 @@
             </ng-container>
           </td>
         <!-- </ng-container> -->
-        
+
         <!-- <ng-template #notMetadata>
           <td>
           <span class="tile-header">
@@ -155,7 +164,7 @@
           </ng-template> -->
 
 
-          
+
         <td
           class="online-status-cell"
           *ngIf="status != 'closed'">

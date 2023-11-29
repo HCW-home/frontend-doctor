@@ -81,7 +81,8 @@
     "online": "Online",
     "inviteExpert": "Invite a colleague",
     "share": "Share invite by Email or mobile phone",
-    "shareBy": "Share invite by link"
+    "shareBy": "Share invite by link",
+    "requestedBy": "Requested by"
   },
   "consultation": {
     "start": "START",
