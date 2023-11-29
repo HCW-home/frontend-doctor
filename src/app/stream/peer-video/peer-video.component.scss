@@ -5,7 +5,6 @@
   z-index: 999;
 }
 
-
 video {
   -o-object-fit: cover;
   object-fit: cover;
@@ -56,17 +55,3 @@ video {
   overflow: hidden;
   z-index: -1;
 }
-
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
-  color: #ffffff !important;
-}
-
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline{
-  background-color: #d6d6d6d7 !important;
-}
-
-::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple{
-  background-color: #f5f5f5c2 !important;
-}
-
-

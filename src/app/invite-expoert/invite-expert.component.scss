@@ -1,5 +1,9 @@
 .invite-form {
 
+  .label {
+    color: black;
+  }
+
   .field-container {
     display: flex;
     width: 100%;
@@ -14,6 +18,7 @@
     border-top: 1px solid #cacaca;
     padding: 24px;
     background: #F2F7F7;
+
 
     button {
       margin: 10px 3%;

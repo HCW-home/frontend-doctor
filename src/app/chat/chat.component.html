@@ -25,7 +25,7 @@
                     </button>
                 </div>
 
-                <div class="c_info_wrap" *ngIf="consultation?.nurse">
+                <div class="c_info_wrap" *ngIf="consultation?.nurse?.firstName">
                     <div class="c_info_row_title">
                         {{ 'chat.requestedBy'| translate }}
                     </div>

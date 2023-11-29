@@ -95,7 +95,8 @@
     "microSelection": "Micro selection",
     "cameraSelection": "Camera selection",
     "close": "Close",
-    "callError": "Unable to initiate call, server returned"
+    "callError": "Unable to initiate call, server returned",
+    "expert_link": "Expert Link"
   },
   "dashboard": {
     "dashboard": "Dashboard",
