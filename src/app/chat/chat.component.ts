@@ -212,7 +212,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       direction: "outgoing",
       text: this.chatText,
       createdAt: Date.now(),
-      from: {
+      fromUserDetail: {
         firstName: this.currentUser?.firstName,
         lastName: this.currentUser?.lastName
       }
@@ -267,7 +267,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (msg.from.id === this.currentUser.id) {
+    if (msg.from === this.currentUser.id) {
       msg.direction = "outgoing"
     } else {
       msg.direction = "incoming"
