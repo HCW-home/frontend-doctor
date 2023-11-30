@@ -19,8 +19,9 @@ export class ConfigService {
     return this.http.get<any>(`${environment.api}/config`).toPromise().then(config=>{
       console.log('got config', config)
       this.config = config;
-      if (config.matomoUrl && config.matomoId)
+      if (config.matomoUrl && config.matomoId) {
         this.initializeMatomo(config.matomoUrl, config.matomoId);
+      }
         this.configSub.next(config)
     });
   }
