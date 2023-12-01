@@ -1,3 +1,15 @@
+hcw-athome-caregiver (0.4.3.75) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6250, White field name is almost invisible
+  * refs #6246, Incoming consultion has General queue name with websocket
+  * refs #6248, Add 'Requested by' column in new and opened consultation queue
+  * refs #6122, Implement Matomo (analytics)
+  * refs #6251,messages returns too many information relative to doctor
+  * config fix
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 01 Dec 2023 08:29:03 +0100
+
 hcw-athome-caregiver (0.4.3.74) focal; urgency=medium
 
   [ Gor Grigoryan ]
