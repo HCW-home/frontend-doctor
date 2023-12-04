@@ -30,7 +30,6 @@ export class SupportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('support component intitialized ', this.configService.config.branding);
     this.getUserIp();
     this.currentUser = this.authService.currentUserValue;
   }
@@ -44,13 +43,11 @@ export class SupportComponent implements OnInit {
 
   sendSupportRequest() {
 
-    console.log('send request ', this.lastActivity, this.description, this.userAgent, this.ip, this.currentUser.email);
     this.supportServ.sendSupportRequest({
       description: this.description,
       lastActivity: this.lastActivity,
       userAgent: this.userAgent
     }).subscribe(res => {
-      console.log('support res ', res);
       this.router.navigate([''], { state: {confirmed: true}});
     });
   }

@@ -54,7 +54,6 @@ export class OpenViduService {
           })
         )
         .subscribe(response => {
-          console.log('response >> ', response);
           resolve(response);
         });
     });
@@ -73,7 +72,6 @@ export class OpenViduService {
       };
       const subscription = this.http.post<any>(environment.api + '/consultation/' + consultation + '/' + message + '/reject-call', {}, options)
         .subscribe(response => {
-          console.log('response >> ', response);
           resolve(null);
           subscription.unsubscribe()
         });
@@ -93,7 +91,6 @@ export class OpenViduService {
       };
       const subscription = this.http.post<any>(environment.api + '/consultation/' + consultation + '/' + message + '/accept-call', {}, options)
         .subscribe(response => {
-          console.log('response >> ', response);
           resolve(null);
           subscription.unsubscribe()
         });
@@ -112,7 +109,6 @@ export class OpenViduService {
           })
         )
         .subscribe(response => {
-          console.log('response >> ', response);
           resolve(response);
         });
     });

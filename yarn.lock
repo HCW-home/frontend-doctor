@@ -4986,10 +4986,10 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
-hcw-stream-lib@0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/hcw-stream-lib/-/hcw-stream-lib-0.0.12.tgz#74b8521d29166a3efea4338d994165f0916bfe71"
-  integrity sha512-WUuFUTBy5jzPy2wtI2SUoClqXwEq8uTr4JaVWbHl//PEPlBwy6tw6FzMBD6anFfd6Bxu5GCGRcOTSyA0i0E77w==
+hcw-stream-lib@0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/hcw-stream-lib/-/hcw-stream-lib-0.0.14.tgz#58818cc269bd1502cf9f9a7578ae530f30d7d7d0"
+  integrity sha512-zCd13NwY3z8NZvmj5lRSdrvVAKK01hq3WxIHuaSgtc8a4gld7+1Hn6im+ZeO95JQ8QdIiXuidRASZ9aHylwx7Q==
   dependencies:
     bowser "^2.11.0"
     hark "^1.2.3"

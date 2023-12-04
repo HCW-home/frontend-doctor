@@ -43,7 +43,6 @@ export class SocketEventsService {
     this.socket.on(
       'connect',
       function socketConnected() {
-        console.log('socket connected ...........')
         this.connection.next('connect')
 
         this.socket.get('/api/v1/subscribe-to-socket', {}, function (
@@ -80,7 +79,6 @@ export class SocketEventsService {
           (c) => c.consultation.status === "pending"
         ).length
 
-        console.log('Pending count ', pendingCount)
         consultationsService.loadConsultationOverview().subscribe(consultations=>{
           const pendingCountAfterUpdate = consultations.filter(
             (c) => c.consultation.status === "pending"

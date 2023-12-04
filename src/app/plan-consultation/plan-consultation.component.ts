@@ -30,7 +30,6 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.token = this.GetParam("token");
-    console.log('Token ', this.token)
     // if not token show error invalid url
 
     this.planConsultationForm = this.formBuilder.group({
@@ -43,7 +42,6 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
       this.planConsultationService.getConsultationFromToken(this.token)
       // .pipe(catchError(this.handleError))
       .subscribe(consultation => {
-        console.log('Consultation ', consultation)
       this.consultation = consultation;
       this.loading = false;
       if(consultation.status !== 'pending') {
@@ -68,7 +66,6 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
       this.planConsultationService.planConsultation(this.token, this.consultation.id, this.planConsultationForm.get("delay").value)
 
       .subscribe(res => {
-        console.log('Response ', res)
         this.success = true;
         this.loading = false;
       },err=>{

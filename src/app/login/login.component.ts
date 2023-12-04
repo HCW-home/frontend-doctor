@@ -74,7 +74,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || "/dashboard";
-    console.log("login component ", this.returnUrl);
     // If the user is already logged in, redirect him
     if (this.authService.currentUserValue) {
       this.router.navigateByUrl(this.returnUrl);
@@ -95,15 +94,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   init() {
-    console.log("inti login TOKEN ", this.route.snapshot.queryParams);
     const token = this.route.snapshot.queryParams.token || this.route.snapshot.queryParams.tk;
     // If we have a token in the URL, the user has been redirected after the SAML login
     if (
       token
     ) {
-      console.log("token ", this.route.snapshot.queryParams.token);
-
-      console.log("return url ", this.route.snapshot.queryParams.returnUrl);
       this.returnUrl = this.route.snapshot.queryParams.returnUrl || "/dashboard";
 
       this.subscriptions.push(
@@ -126,7 +121,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
 
-    console.log(this.configService.config, 'this.configService.config');
     if (!("method" in this.configService.config)) {
       this.showPasswordLogin = true;
       this.showSamlLogin = true;
@@ -156,7 +150,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   // When the user submits the local form
   loginLocal() {
     this.error = "";
-    console.log("submit", this.email, this.password);
     this.loading = true;
     this.subscriptions.push(
       this.authService.loginLocal(this.email, this.password).subscribe(

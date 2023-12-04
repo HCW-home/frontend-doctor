@@ -74,7 +74,6 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
 
         this.subscriptions.push(this._socketEventsService.onEndCall().subscribe(e => {
-            console.log("end call event ", e)
             if (this.currentCall && this.currentCall.id === e.data.message.id) {
                 this.currentCall = null
                 this.token = null;
@@ -90,7 +89,6 @@ export class ConsultationComponent implements OnInit, OnDestroy {
             .then((stream) => {
                 stream.getTracks().forEach(track => track.stop());
                 this.openViduService.getDevices().then(devices => {
-                    console.log("devices ", devices);
                     this.videoDevices = devices.filter(device => device.kind === "videoinput");
                     if (this.videoDevices.length && this.videoDevices[0].deviceId !== "") {
                         this.videoDeviceId = this.videoDevices[0].deviceId;
@@ -127,12 +125,10 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
     getConsultation() {
         this.subscriptions.push(this.conServ.getConsultation(this.consultationId).subscribe(consultation => {
-            console.log("got consultation ", consultation);
 
             if (!this.consultation) {
 
                 this.subscriptions.push(this.inviteServ.getByConsultation(this.consultationId).subscribe(publicinvite => {
-                    console.log("got public invite ", publicinvite);
                     this.publicinvite = publicinvite;
                 }));
 
@@ -146,10 +142,8 @@ export class ConsultationComponent implements OnInit, OnDestroy {
     makeCall(audioOnly) {
 
         this.audioOnly = audioOnly;
-        console.log("make call ", this.consultation, this.currentCall);
         this.openViduService.getToken(this.consultationId, audioOnly).then((response) => {
 
-            console.log("got token ", response)
             this.token = response.token
             this.incomingCall = true;
             this.currentCall = response.msg;
@@ -180,7 +174,6 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         if (this.currentCall) {
             this.openViduService.rejectCall(this.consultationId, this.currentCall.id).then(r => {
                 this.currentCall = null;
-                console.log("call rejected DUDE!!!!")
             }).catch(err => {
                 console.log("error ", err);
             });

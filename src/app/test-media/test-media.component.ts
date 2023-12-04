@@ -53,7 +53,6 @@ export class TestMediaComponent implements OnInit, OnDestroy {
       .then((stream) => {
         stream.getTracks().forEach((track) => track.stop());
         this.openviduSev.getDevices().then((devices) => {
-          console.log("devices ", devices);
           this.videoDevices = devices.filter(
             (device) => device.kind === "videoinput"
           );

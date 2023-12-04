@@ -37,13 +37,9 @@ export class ProfileComponent implements OnInit {
     this.currentUser = this.authService.currentUserValue;
     this.currentNotifPhoneNumber = this.currentUser.notifPhoneNumber;
     this.enableNotif = this.currentUser.enableNotif;
-    console.log(this.currentUser);
   }
   onChange(ob: MatSlideToggleChange) {
     this.isLoading = true;
-    console.log(ob);
-    console.log(ob.checked + ' - ' + this.enableNotif);
-
     this.userService.updateEnableNotif(ob.checked).subscribe(res => {
       const text = this.translate.instant('profile.notifications') + (ob.checked ? this.translate.instant('profile.enabled') : this.translate.instant('profile.disabled'));
       this.currentUser.enableNotif = ob.checked;
@@ -71,7 +67,6 @@ export class ProfileComponent implements OnInit {
       this.isLoading = true;
 
       this.userService.updatePhoneNumberNotif(this.currentNotifPhoneNumber).subscribe(res => {
-        console.log(res);
         this.currentUser.notifPhoneNumber = this.currentNotifPhoneNumber
         this.openSnackBar(this.translate.instant('profile.numberSaved'), null);
         this.isLoading = false;

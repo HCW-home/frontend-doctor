@@ -412,7 +412,6 @@ export class OpenViduLayout {
     }
 
     initLayoutContainer(container, opts) {
-        console.log("INIT LAYOUT CONTAINER ", container)
         this.opts = {
             maxRatio: opts.maxRatio != null ? opts.maxRatio : 3 / 2,
             minRatio: opts.minRatio != null ? opts.minRatio : 9 / 16,

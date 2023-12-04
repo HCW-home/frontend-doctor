@@ -110,7 +110,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.consultationId = this.activeRoute.snapshot.params.id;
         this.currentUser = this.authService.currentUserValue;
-        console.log("current user ", this.currentUser);
 
         this.status = this.activatedRoute.snapshot.data.status;
         this.title = this.titles.find((t) => t.status === this.status);
@@ -122,7 +121,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     async openDialog(event,pastConsultation) {
         event.stopPropagation();
         const consultation = pastConsultation.consultation;
-        console.log(pastConsultation);
         const user = await this.userService.getUser(consultation.owner).toPromise();
         const data = {
             gender: consultation.gender,
@@ -171,7 +169,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         this.overviewSub = this.consultationService
             .getConsultationsOverview()
             .subscribe((consultations) => {
-                console.log("got consultation over ", consultations);
 
                 this.zone.run(() => {
                     this.consultations = consultations.filter(
@@ -182,7 +179,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                             return b.consultation.closedAt - a.consultation.closedAt;
                         });
                     }
-                    console.log(this.consultations);
                 });
             });
     }
@@ -247,7 +243,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         const filename = `${this.PDFConsultation._id}.pdf`;
         const pagesCount =
             Math.floor(this.chatHistory.nativeElement.offsetHeight / 2970) + 1;
-        console.log("pages count ", pagesCount);
         const pdf = new jsPDF("p", "mm", "a4", true);
         for (let page = 0; page < pagesCount; page++) {
             const canvas = await html2canvas(document.querySelector("#chatHistory"), {
@@ -272,7 +267,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
             if (page === pagesCount - 1) {
                 pdf.save(filename);
-                console.log(typeof pdf.output("arraybuffer"));
                 this.consultationService
                     .sendReport(
                         new File([pdf.output("arraybuffer")], "report.pdf", {
@@ -280,11 +274,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                         }),
                         this.PDFConsultation._id,
                     )
-                    .subscribe((r) => {
-                        console.log("file saved ");
-                    });
+                    .subscribe((r) => {});
                 this.PDFConsultation = null;
-                // console.log('pdf output ')
                 return;
             }
             pdf.addPage();

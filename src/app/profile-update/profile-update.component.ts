@@ -94,13 +94,11 @@ export class ProfileUpdateComponent implements OnDestroy, OnInit {
   }
   
   onSubmit() {
-    console.log('data ', this.data);
     if (this.loading) {
       return;
     }
     this.loading = true;
 
-    console.log('submit ', this.data, this.myForm.valid);
     if (this.myForm.pristine || !this.myForm.valid) {
       this.validateAllFormFields(this.myForm);
       this.loading = false;

@@ -50,7 +50,6 @@ export class ResetPasswordComponent implements OnInit {
         this.error = '';
         this.success = true;
       }).catch(err => {
-        console.log("GOT ERROR", err);
         switch (err) {
           case 'token-expired':
             this.error = err;
@@ -60,7 +59,6 @@ export class ResetPasswordComponent implements OnInit {
             break;
         }
       }).finally(() => {
-        console.log("complete");
         this.loading = false;
       })
     }

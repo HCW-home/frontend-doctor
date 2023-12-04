@@ -43,7 +43,6 @@ export class PeerVideoScreenComponent implements AfterViewInit, OnDestroy, OnCha
   }
 
   ngOnChanges(changes) {
-    // console.log("Peer video changes ", changes, this.elementRef);
     if (changes.stream) {
       this.stream = changes.stream.currentValue;
       this.updateVideoSrc();
@@ -55,7 +54,6 @@ export class PeerVideoScreenComponent implements AfterViewInit, OnDestroy, OnCha
       this.elementRef.nativeElement.srcObject = this.stream;
     }
     setTimeout(() => {
-      // console.log("elemref", this.elementRef, this.stream);
       if (this.elementRef) {
         this.elementRef.nativeElement.srcObject = this.stream;
       }

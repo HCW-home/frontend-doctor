@@ -100,12 +100,10 @@ export class InvitationsComponent implements OnInit {
       .getInvitations((this.page - 1) * 10, 10)
       .pipe(
         tap((resp) => {
-          console.log("response ", resp);
 
           this.totalCount = +(resp as HttpResponse<Invitation[]>).headers.get(
             "X-Total-Count"
           );
-          console.log("total cout ", this.totalCount);
           this.loading = false;
           this.currentInvites = (resp as HttpResponse<Invitation[]>).body;
           this.currentInvite = this.currentInvites.find(
@@ -116,8 +114,6 @@ export class InvitationsComponent implements OnInit {
           }
         }),
         map((resp) => {
-          console.log("response in map ", resp);
-
           return (resp as HttpResponse<Invitation[]>).body;
         })
       );

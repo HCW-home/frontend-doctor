@@ -20,7 +20,6 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit() {
     if (this.consultation) {
-      console.log('consultation in nav', this.consultation);
       this.title = this.consultation.nurse ? this.consultation.nurse.firstName + ' ' + this.consultation.nurse.lastName.toUpperCase() : '';
       this.icon = 'info';
     }

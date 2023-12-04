@@ -129,8 +129,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   listenToCallEvents() {
     this.subscriptions.push(
       this.socketEventsService.onRejectCall().subscribe((event) => {
-        console.log("call rejected .................", event)
-
         const message = this.chatMessages.find(
           (msg) => msg.id === event.data.message.id,
         )
@@ -141,7 +139,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     )
     this.subscriptions.push(
       this.socketEventsService.onAcceptCall().subscribe((event) => {
-        console.log("call accepted.................", event)
         const message = this.chatMessages.find(
           (msg) => msg.id === event.data.message.id,
         )
@@ -196,7 +193,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   scrollToBottom(after?): void {
     try {
       setTimeout(() => {
-        console.log("scroll to bottom")
         this.contentArea.nativeElement.scrollTop = this.contentArea?.nativeElement?.scrollHeight
       }, after || 10)
     } catch (err) { }
@@ -334,7 +330,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     let page = 1
     this.chatMessages.forEach((msg) => {
       const elem = document.getElementById(msg.id)
-      console.log("add divider ", elem, elem.offsetTop)
 
       if (!elem) {
         return

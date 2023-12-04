@@ -9,10 +9,7 @@ export class MsgTimePipe implements PipeTransform {
 
   constructor(
     private translateSer: TranslateService
-  ) {
-
-    console.log("current lang ", this.translateSer.currentLang)
-  }
+  ) {}
   datePipe = new DatePipe(this.translateSer.currentLang);
 
 

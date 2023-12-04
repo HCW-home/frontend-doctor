@@ -43,12 +43,6 @@ export class AppComponent implements OnInit {
   pendingConsultations;
   activeConsultations;
   currentSnackBar: MatSnackBarRef<SimpleSnackBar>;
-  returnUrl = "dashboard";
-  // @HostListener('window:beforeunload')
-  // unloadHandler(event) {
-  //   console.log('%capp.component.ts line:37 BEFORE UNLOAD', 'color: #007acc;', );
-  //   this.authService.logout()
-  // }
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -226,7 +220,6 @@ export class AppComponent implements OnInit {
     this.consultationService
       .getConsultationsOverview()
       .subscribe((consultations) => {
-        console.log("go consultations  in dashboard", consultations);
         this.zone.run(() => {
           this.pendingConsultations = consultations.filter((c) => {
             return c.consultation.status === "pending";

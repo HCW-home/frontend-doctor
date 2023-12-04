@@ -127,7 +127,6 @@ export class AuthService {
 
     return this.http.get<any>(`${environment.api}/current-user`, opts).pipe(map(res => {
 
-      console.log("%cauth.service.ts line:114 currentuser", "color: #007acc;", res);
       this.currentUserSubject.next(res.user);
 
       return res.user

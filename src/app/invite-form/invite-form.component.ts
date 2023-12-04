@@ -328,9 +328,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             filter(value => value !== null && value !== "" && value !== undefined && value.trim() !== "");
         }
 
-        console.log("submit ", this.data, this.myForm.valid, this.myForm);
-
-
         if (!this.myForm.valid || this.atLeastAGuestOrTranslator(this.myForm)) {
             // this to show error messages
             this.validateAllFormFields(this.myForm);
@@ -356,7 +353,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             if (this.data.inviteObj.guestInvite && !this.inviteGuest) {
                 cancelGuestInvite = true;
             }
-            console.log("this.data", this.data, this.inviteGuest, this.inviteTranslator)
 
             if (this.data.inviteObj.translationOrganization && !this.inviteTranslator) {
                 cancelTranslationRequestInvite = true;
