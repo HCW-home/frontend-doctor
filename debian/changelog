@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.76) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6152, Call hangup after 30 minutes
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 05 Dec 2023 10:44:34 +0100
+
 hcw-athome-caregiver (0.4.3.75) focal; urgency=medium
 
   [ Gor Grigoryan ]
