@@ -324,7 +324,7 @@
 
                     <div class="field-container" style="margin-top: 14px !important">
                         <mat-checkbox formControlName="inviteExpert" color="primary">
-                            Invite Expert
+                            {{"inviteForm.inviteExpert" | translate}}
                         </mat-checkbox>
                     </div>
                     <div *ngIf="myForm.controls.inviteExpert.value" class="field-container">
@@ -346,9 +346,7 @@
                                         >
                                             {{ "inviteForm.pleaseEnterValidEmailOrPhoneNumber" | translate }}
                                         </mat-error>
-                                        <mat-error
-                                                *ngIf="expertControl.hasError('required')"
-                                        >{{
+                                        <mat-error *ngIf="expertControl.hasError('required')">{{
                                             "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber"| translate}}
                                         </mat-error>
                                     </mat-form-field>

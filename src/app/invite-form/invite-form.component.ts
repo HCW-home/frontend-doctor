@@ -131,7 +131,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
     addExpert() {
         this.expertFormArray.push(this.fb.control("", [
-            emailOrPhoneValidator
+            emailOrPhoneValidator,
+            this.expertContactValidatorValidator.bind(this)
         ]));
     }
 
@@ -166,7 +167,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             inviteExpert: new UntypedFormControl(false),
             experts: this.fb.array([
                 this.fb.control("", [
-                    emailOrPhoneValidator
+                    emailOrPhoneValidator,
+                    this.expertContactValidatorValidator.bind(this)
                 ])
             ]),
             translationOrganizationFormControl: new UntypedFormControl(null, [this.translationOrganizationValidator.bind(this)]),
@@ -198,6 +200,13 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         }
         return null
 
+    }
+
+    expertContactValidatorValidator(control: AbstractControl) {
+        if (this.myForm?.get("inviteExpert")?.value && !control.value) {
+            return {required: {value: control.value}}
+        }
+        return null
     }
 
     changeTel() {
