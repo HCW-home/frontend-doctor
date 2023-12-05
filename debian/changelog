@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.4.3.77) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update default upload size to 20M
+
+  [ Gor Grigoryan ]
+  * refs #6259, Adding expert when patient info filled validate the modal
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 05 Dec 2023 13:40:28 +0100
+
 hcw-athome-caregiver (0.4.3.76) focal; urgency=medium
 
   [ Gor Grigoryan ]
