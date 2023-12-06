@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   currentUser;
   unreadActiveCount = 0;
   unreadPendingCount = 0;
-
+  imageError: boolean = false;
   token = "";
   callRunning = true;
   isLoggedIn = false;
@@ -288,5 +288,9 @@ export class AppComponent implements OnInit {
         horizontalPosition: "center",
       });
     });
+  }
+
+  onImageError() {
+    this.imageError = true;
   }
 }

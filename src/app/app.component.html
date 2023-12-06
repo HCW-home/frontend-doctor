@@ -3,7 +3,17 @@
     <app-side-chat class="overlay"></app-side-chat>
 
     <mat-sidenav opened #sidenav mode="side" class="sidenav">
-      <div class="at">@ <span> {{ 'login.home' | translate }}</span></div>
+      <div class="main-logo-wrapper">
+      <img class='main-logo'
+           *ngIf="configService.config.logo && !imageError; else defaultLogo"
+           [src]="configService.config.logo"
+           (error)="onImageError()"
+           alt="@"
+      />
+      </div>
+      <ng-template #defaultLogo>
+       <div class="at">@ <span> {{ 'login.home' | translate }}</span></div>
+      </ng-template>
       <mat-list class="menu-list">
         <mat-list-item class="list-item">
           <button

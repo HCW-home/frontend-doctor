@@ -1,13 +1,8 @@
 
-@import "variables.scss";
-
-
 mat-grid-list{
   background-color: #ffffff;
 }
-// mat-grid-tile{
-//   border-bottom: 1px solid gray;
-// }
+
 span.tile-header{
   font-size: 11px;
   color: #3f3f3f;
@@ -36,10 +31,7 @@ h4{
     font-size: 17px;
 }
 .desc{
-  // // margin-left: 80px;
-  // // margin-top: 80px;
 margin-bottom: 40px;
-  // width: 50%;
 }
 
 .submit-btn{

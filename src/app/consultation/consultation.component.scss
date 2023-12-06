@@ -1,4 +1,3 @@
-@import "variables.scss";
 
 .con-wrap {
   height: calc(100vh - 70px);
@@ -20,26 +19,16 @@
 }
 
 .bounds {
-  // background-color: #494949;
   overflow: hidden;
-  // position: absolute;
-  // left: 0;
-  // right: 0;
   top: 0px;
   bottom: 0;
-  height: inherit;
   max-width: 800px;
-  height: 100%;
   width: 100%;
   position: relative;
-  // min-width: 400px !important;
-  //width: inherit;
-  background-image: url("/assets/background.jpg");
-  background-size: 100%;
-  background-position: center;
+  background: var(--primary-color);
 }
+
 .submit-btn {
-  margin: auto;
   display: block;
   background-color: #ffff;
   border-radius: 60px;
@@ -53,11 +42,6 @@
 .submit-btn mat-icon {
   width: 16px;
 }
-// .submit-btn:first-child{
-//   margin-top: 26px;
-//   margin-bottom: 24px;
-
-// }
 
 .device--select {
   margin: auto;
@@ -107,11 +91,11 @@
     }
 
     p {
-      color: #2871bd;
+      color: var(--primary-color);
     }
 
     .submit-btn {
-      background: #2871BD;
+      background: var(--primary-color);
       color: #fff;
     }
   }

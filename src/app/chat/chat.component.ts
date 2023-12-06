@@ -43,6 +43,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   chatMessages = []
   chatText: string
 
+  isUploading = false;
   loadingMsgs = true
   @Input() noPagination = false
   @Output() loaded = new EventEmitter<boolean>()
@@ -303,6 +304,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!event.target.files.item(0)) {
       return
     }
+    this.isUploading = true;
     this.consultationService
       .postFile(
         event.target.files.item(0),
@@ -313,9 +315,11 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.chatMessages.push(this.adjustMsg(data.message))
           this.scrollToBottom(100)
         })
+        this.isUploading = false;
       }, (err) => {
         const message = err?.error?.message || err?.error ||err?.statusText;
         this.showErrorDialog(message, '');
+        this.isUploading = false;
       })
   }
   @HostListener("scroll", ["$event"])

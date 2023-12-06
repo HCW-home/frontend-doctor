@@ -2,10 +2,7 @@
         *ngIf="consultation && consultation.consultation"
         style="height: 100%; position: relative;"
 >
-    <div
-
-            (scroll)="handleScroll($event)"
-
+    <div (scroll)="handleScroll($event)"
             [ngClass]="{ withInput: showInput }"
             class="chat"
     >
@@ -282,20 +279,12 @@
                     />
 
                     <div class="bubble" *ngIf="msg.text || msg.isFile">
-                        <div size="10" [ngClass]="{ 'big-font': noPagination }">
-                            <p
-                                    style="overflow-wrap: normal;"
-                                    class="ion-no-padding ion-no-margin"
-                            >
+                        <div  [ngClass]="{ 'big-font': noPagination }">
+                            <p style="overflow-wrap: normal;" *ngIf="msg.text">
                                 {{ msg.text }}
                             </p>
                             <button
                                     *ngIf="msg.isFile"
-                                    style="
-                border-top: 1px solid rgb(195, 195, 195);
-                text-decoration: underline;
-                border-radius: 0;
-              "
                                     mat-button
                                     (click)="downloadPdf(msg.attachmentsURL, msg.fileName)"
                                     type="submit"
@@ -384,7 +373,10 @@
                         }}</span>
                 </div>
             </div>
+            <app-dot-spinner *ngIf="isUploading"></app-dot-spinner>
+
         </div>
+
     </div>
 
     <div *ngIf="showInput" class="inputCont">

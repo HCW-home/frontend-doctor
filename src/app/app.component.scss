@@ -1,4 +1,3 @@
-@import "variables.scss";
 
 .container {
   height: 100%;
@@ -8,6 +7,17 @@
 .sidenav {
   z-index: 1 !important;
   width: 100px;
+}
+
+.main-logo-wrapper {
+  padding: 8px;
+}
+
+.main-logo {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 16px auto;
 }
 
 .at {
@@ -71,7 +81,7 @@ span.btn-text {
   line-height: 1.2;
 }
 .menu-btn:hover {
-  background-color: #2871bd;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 
@@ -91,7 +101,7 @@ mat-toolbar {
 }
 
 button.active {
-  background-color: #2871bd;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 
