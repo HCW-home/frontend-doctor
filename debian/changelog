@@ -1,3 +1,14 @@
+hcw-athome-caregiver (0.4.3.79) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update translatipon
+
+  [ Gor Grigoryan ]
+  * minor style fixes
+  * remove footer
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 07 Dec 2023 11:16:52 +0100
+
 hcw-athome-caregiver (0.4.3.78) focal; urgency=medium
 
   [ Gor Grigoryan ]
