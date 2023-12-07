@@ -117,3 +117,11 @@ img.logo {
 .w-100 {
   width: 100%;
 }
+
+.pagination-control ul > li.current {
+  background-color: var(--primary-color);
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: var(--primary-color)
+}

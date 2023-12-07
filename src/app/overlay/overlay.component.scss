@@ -204,7 +204,7 @@ div.btns div:first-child {
   background-color: #e3393a;
 }
 div.btns div:last-child {
-  background-color: var(--primary-color);
+  background-color: var(--app-green) !important;
 }
 
 .btn {
@@ -289,6 +289,7 @@ textarea:focus {
 .submit-btn {
   background: var(--primary-color);
 }
+
 .discard-btn {
   background-color: #e3393a;
 }
