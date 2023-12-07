@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 
@@ -21,9 +21,16 @@ export class ConfigService {
       if (config.matomoUrl && config.matomoId) {
         this.initializeMatomo(config.matomoUrl, config.matomoId);
       }
+      if (config.doctorAppPrimaryColor) {
+          this.updatePrimaryColor(config.doctorAppPrimaryColor);
+      }
         this.configSub.next(config)
     });
   }
+
+    updatePrimaryColor(color: string) {
+        document.documentElement.style.setProperty('--primary-color', color);
+    }
 
 
     //Matomo
