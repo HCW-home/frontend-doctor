@@ -56,7 +56,7 @@
     "videoAudioFinished": "Video audio finished",
     "IMADTeam": "IMADTeam",
     "joinVideoCall": "Join video",
-    "inviteExpert": "Invite Expert",
+    "inviteExpert": "Invite a colleague",
     "requestedBy": "Requested by"
   },
   "consultations": {
@@ -172,7 +172,7 @@
     "pleaseChooseAWaitingQueue": "Please choose the queue",
     "patient": "Patient",
     "thirdParty": "Third party",
-    "inviteExpert": "Invite Expert",
+    "inviteExpert": "Invite a colleague",
     "dateTime": "",
     "ar": "Arabic",
     "fr": "French",

@@ -151,6 +151,8 @@
   "inviteForm.patient": "Patient",
   "inviteForm.thirdParty": "Tiers",
   "inviteForm.dateTime": "",
+  "inviteForm.inviteExpert": "Inviter un collègue",
+  "chat.inviteExpert": "Inviter un collègue",
   "inviteForm.ar": "Arabe",
   "inviteForm.fr": "Français",
   "inviteForm.fa": "Persan",
