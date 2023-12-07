@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.81) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * minor style fix
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 07 Dec 2023 22:15:04 +0100
+
 hcw-athome-caregiver (0.4.3.80) focal; urgency=medium
 
   [ Gor Grigoryan ]
