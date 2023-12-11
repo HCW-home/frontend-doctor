@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.82) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6243, Token not refreshed if expired and websocket disconnects
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 11 Dec 2023 10:16:00 +0100
+
 hcw-athome-caregiver (0.4.3.81) focal; urgency=medium
 
   [ Gor Grigoryan ]
