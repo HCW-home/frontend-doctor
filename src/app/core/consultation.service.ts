@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 })
 export class ConsultationService {
     public consultationsOverview: Array<any> = [];
+    public initialized = false;
     unreadActiveSub: BehaviorSubject<number> = new BehaviorSubject(
         this.unreadSum("active")
     );
@@ -22,7 +23,6 @@ export class ConsultationService {
     );
 
     currentUser;
-    initialized = false;
     consultationsOverviewSub: BehaviorSubject<any[]> = new BehaviorSubject(
         this.consultationsOverview
     );

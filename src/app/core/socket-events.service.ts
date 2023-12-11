@@ -15,7 +15,7 @@ sailsIo.sails.autoConnect = false;
 })
 export class SocketEventsService {
   socket
-  initialized = false
+  public initialized = false
   private connection: Subject<String> = new Subject()
   public consultationClosedSubj: Subject<any> = new Subject()
 
@@ -119,9 +119,11 @@ export class SocketEventsService {
 
     this.initialized = true
   }
+
   updateConnectionStatus(status) {
     this.connection.next(status)
   }
+
   connectionSub(): Subject<any> {
     return this.connection
   }
@@ -137,6 +139,7 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
+
   onConsultationClosed(): Subject<any> {
 
     const sub = new Subject()
@@ -149,6 +152,7 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
+
   onMessage(): Subject<any> {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
@@ -160,8 +164,6 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
-
-
 
   onOnlineStatusChange(): Subject<any> {
     const sub = new Subject()
@@ -188,6 +190,7 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
+
   onRejectCall(): Subject<any> {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
@@ -197,6 +200,7 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
+
   onAcceptCall() {
     const obs = Observable.create((observer) => {
       this.socket.on('acceptCall', (e) => {
@@ -207,6 +211,7 @@ export class SocketEventsService {
 
     return obs
   }
+
   onConsultationAccepted() {
     const obs = Observable.create((observer) => {
       this.socket.on('consultationAccepted', (e) => {
@@ -228,6 +233,7 @@ export class SocketEventsService {
 
     return obs
   }
+
   onEndCall(): Subject<any> {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
@@ -240,6 +246,7 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
+
   onConsultationUpdated(): Subject<any> {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
@@ -252,12 +259,14 @@ export class SocketEventsService {
     obs.subscribe(sub)
     return sub
   }
+
   playAudio() {
     const audio = new Audio()
     audio.src = '../assets/sounds/notification.mp3'
     audio.load()
     audio.play()
   }
+
   disconnect() {
     if (!this.socket || !this.socket.isConnected()) {
       return
