@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import io from 'socket.io-client';
 import sailsIOClient from 'sails.io.js'
 import { ConsultationService } from './consultation.service';
+import {AuthService} from "../auth/auth.service";
 const sailsIo = sailsIOClient(io);
 sailsIo.sails.autoConnect = false;
 
@@ -100,6 +101,16 @@ export class SocketEventsService {
 
     this.socket.on('reconnecting', (number) => {
       console.info('Reconnecting to server', number)
+      this.injector.get(AuthService).verifyRefreshToken().subscribe({
+        next: (res) => {}, error: (err) => {
+          if (err.status === 401) {
+            this.injector.get(AuthService).logout();
+          }
+        }
+      })
+      if (number > 9) {
+        this.injector.get(AuthService).logout();
+      }
     })
 
     this.socket.on('reconnect_error', (err) => {

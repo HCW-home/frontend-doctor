@@ -46,8 +46,14 @@ export class AuthService {
   }
   storeCurrentUser(user) {
     this.currentUserSubject.next(user);
-
   }
+
+  verifyRefreshToken() {
+    const currentUser = this.currentUserValue;
+    const refreshToken = currentUser?.refreshToken;
+    return this.http.post<any>(`${environment.api}/verify-refresh-token`,{ refreshToken });
+  }
+
 
   refreshTokens() {
     const currentUser = this.currentUserValue;
