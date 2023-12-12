@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.4.3.83) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * logout user adter 9 reconnect error
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 12 Dec 2023 10:41:04 +0100
+
 hcw-athome-caregiver (0.4.3.82) focal; urgency=medium
 
   [ Gor Grigoryan ]
