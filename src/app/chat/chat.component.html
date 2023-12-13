@@ -28,7 +28,11 @@
                     </div>
                     <div style="font-size: 1em; padding-top: 5px;">
                         {{consultation.nurse.firstName}}   {{consultation.nurse.lastName}}
+                        <img style="margin-bottom: -11px;"
+                             [src]=" consultation.consultation.flagPatientOnline === true  ? 'assets/img/online.png' : 'assets/img/offline.png' "
+                        />
                     </div>
+
                 </div>
                 <div class="c_info_wrap">
                     <div class="c_info_row_title">
@@ -46,21 +50,19 @@
                         }}
                     </span>
                         </ng-container>
-                        <img
-                                style="margin-bottom: -7px;"
-                                [src]="
-              consultation.consultation.flagPatientOnline === true
-                ? 'assets/img/online.png'
-                : 'assets/img/offline.png'
-            "
-                        />
-                        <button
-                                (click)="resendInvite(consultation.consultation.invite)"
-                                class="submit-btn" mat-button
-                                *ngIf="consultation.consultation.status !== 'closed' && !consultation.consultation.flagPatientOnline"
-                        >
-                            {{ "invitations.sendAgain" | translate }}
-                        </button>
+
+                        <ng-container *ngIf="!consultation?.nurse?.firstName">
+                            <img style="margin-bottom: -7px;"
+                                    [src]=" consultation.consultation.flagPatientOnline === true  ? 'assets/img/online.png' : 'assets/img/offline.png' "
+                            />
+                            <button
+                                    (click)="resendInvite(consultation.consultation.invite)"
+                                    class="submit-btn" mat-button
+                                    *ngIf="consultation.consultation.status !== 'closed' && !consultation.consultation.flagPatientOnline"
+                            >
+                                {{ "invitations.sendAgain" | translate }}
+                            </button>
+                        </ng-container>
                     </div>
                 </div>
 
