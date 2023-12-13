@@ -1,3 +1,11 @@
+hcw-athome-caregiver (0.4.3.84) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add ability to upload gif
+  * fix nurse online ofline status
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 13 Dec 2023 16:42:28 +0100
+
 hcw-athome-caregiver (0.4.3.83) focal; urgency=medium
 
   [ Gor Grigoryan ]
