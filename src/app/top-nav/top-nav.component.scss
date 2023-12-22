@@ -1,11 +1,11 @@
 .header {
   position: fixed;
-  width:100%;
+  width: 100%;
   border-bottom: 1px solid rgb(209, 209, 209);
   margin: 0;
   padding: 0;
   background-color: #ffffff;
-  top:0;
+  top: 0;
   height: 70px;
   z-index: 100;
   display: flex;
@@ -13,7 +13,7 @@
   // margin-right:100px;
 }
 
-.header h3{
+.header h3 {
   font-size: 1.3em;
   padding-top: 18px;
   padding-left: 20px;
@@ -21,24 +21,26 @@
 
 }
 
-.header > div{
+.header > div {
   height: 100%;
   display: inline-block;
 
   text-align: center;
   // line-height: 406%;
 }
-.header div.back-btn{
-  width:8.6666%;
+
+.header div.back-btn {
+  width: 8.6666%;
   cursor: pointer;
 }
-.header div.doctor{
+
+.header div.doctor {
   text-decoration: underline;
   text-align: left;
 }
 
-.header div.next-c-btn{
-  margin-right:100px;
+.header div.next-c-btn {
+  margin-right: 100px;
   text-align: center;
 
   display: inline-block;
@@ -48,61 +50,63 @@
   background-color: var(--primary-color);
   color: #ffffff;
   // line-height: 50%;
-  display:table-cell;
-  vertical-align:middle;
+  display: table-cell;
+  vertical-align: middle;
   cursor: pointer;
   line-height: 406%;
 
 }
 
-.doctor div{
+.doctor div {
   text-decoration: underline;
   text-align: left;
-  position: relative;
-
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    height: 70px;
-  line-height: 70px;
-}
-
-.title div{
   position: relative;
 
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   height: 70px;
-line-height: 70px;
+  line-height: 70px;
 }
-.doctor mat-icon , .title mat-icon{
+
+.title div {
+  position: relative;
+
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  height: 70px;
+  line-height: 70px;
+}
+
+.doctor mat-icon, .title mat-icon {
   height: 25px;
 }
-.icon{
+
+.icon {
   height: 57px !important;
   width: 32px !important;
 }
 
 
-.back-btn mat-icon{
+.back-btn mat-icon {
   height: 16px;
 
 }
 
-.doc-btn{
+.doc-btn {
   background-color: #F2F7F7;
 }
 
-.info{
+.info {
   position: fixed;
-  width:100%;
+  width: 100%;
   border-bottom: 1px solid rgb(209, 209, 209);
   margin: 0;
   padding: 0;
   background-color: #ffffff;
-  top:70;
+  top: 70;
   height: 70px;
   z-index: 100;
-  padding:5px;
+  padding: 5px;
   box-sizing: border-box;
   text-align: center;
 }
@@ -123,6 +127,7 @@ line-height: 70px;
     padding-bottom: 4px;
     width: 28px;
   }
+
   .items {
     position: absolute;
     bottom: -200%;
@@ -135,9 +140,25 @@ line-height: 70px;
       background: #fff;
       border: 1px solid #e4e4e4;
     }
+
     .logout {
       background: #E3393A;
       color: #fff;
     }
+  }
+}
+
+
+.new-consultation {
+  background: transparent;
+  flex: 4;
+  color: #000000de;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px;
+  cursor: pointer;
+
+  mat-icon {
+    line-height: initial;
   }
 }

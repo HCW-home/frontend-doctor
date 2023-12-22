@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, NgZone, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Location } from '@angular/common';
-import { ConsultationService } from '../core/consultation.service';
+import {ConfigService} from "../core/config.service";
+import {ConsultationService} from "../core/consultation.service";
+
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -16,7 +18,10 @@ export class TopNavComponent implements OnInit {
   infoToggle = false;
   @Input() showCloseConsBtn;
   @Output() closeCon = new EventEmitter<boolean>();
-  constructor(private authService: AuthService, private location: Location, private zone: NgZone, private consultationService: ConsultationService) { }
+  constructor(private authService: AuthService, private location: Location, private zone: NgZone,
+              private consultationService: ConsultationService,
+              public configService: ConfigService,
+  ) { }
 
   ngOnInit() {
     if (this.consultation) {
@@ -42,6 +47,12 @@ export class TopNavComponent implements OnInit {
 
   acceptNextConsultation() {
     this.consultationService.acceptNext();
+  }
+
+  openNurse() {
+      if (this.configService.config.nurseExternalLink) {
+        window.open(this.configService.config.nurseExternalLink, 'blank')
+      }
   }
 
   showCloseModal() {

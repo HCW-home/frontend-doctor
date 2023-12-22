@@ -359,7 +359,8 @@
     "terminateTheConsultation": "Terminate the consultation",
     "patientFirstnameAndLastname": "Patient name",
     "patientBirthday": "Patient birthday",
-    "nurse": "Nurse"
+    "nurse": "Nurse",
+    "new_consultation_form": "New consultation form"
   },
   "confirmationDialog": {
     "yesText": "Confirm",
