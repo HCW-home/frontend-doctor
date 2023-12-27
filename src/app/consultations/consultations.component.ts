@@ -17,12 +17,15 @@ import {InviteService} from "../core/invite.service";
 import html2canvas from "html2canvas";
 import {InviteFormComponent} from "./../invite-form/invite-form.component";
 
-import { jsPDF } from "jspdf";
+import {jsPDF} from "jspdf";
 import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "../core/user.service";
 import {SocketEventsService} from "../core/socket-events.service";
 import {ConfigService} from "../core/config.service";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {MessageService} from "../core/message.service";
+import {DatePipe} from "@angular/common";
+import {DurationPipe} from "../duration.pipe";
 
 
 @Component({
@@ -87,6 +90,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         private activeRoute: ActivatedRoute,
         private translate: TranslateService,
         public configService: ConfigService,
+        private msgServ: MessageService,
+        private datePipe: DatePipe,
+        private durationPipe: DurationPipe
     ) {
         this.titles = [
             {
@@ -118,7 +124,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
     }
 
-    async openDialog(event,pastConsultation) {
+    async openDialog(event, pastConsultation) {
         event.stopPropagation();
         const consultation = pastConsultation.consultation;
         const user = await this.userService.getUser(consultation.owner).toPromise();
@@ -140,7 +146,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         });
     }
 
-    resendInvite(event,invitationId) {
+    resendInvite(event, invitationId) {
         event.stopPropagation();
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             id: "confirmation_dialog",
@@ -234,10 +240,120 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         }
     }
 
-    exportPDF(event,consultation) {
+    exportPDF(event, consultation) {
         event.stopPropagation();
-        this.PDFConsultation = consultation;
+        this.generatePDF(consultation.consultation, consultation.nurse);
     }
+
+    generatePDF(data, nurse) {
+        this.msgServ
+            .getConsultationMessages(
+                data._id, undefined, true
+            )
+            .subscribe((messages) => {
+
+                const doc = new jsPDF();
+                const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+                const imageUrl = this.configService.config?.logo;
+                if (imageUrl) {
+                    doc.addImage(imageUrl, 'JPEG', (pageWidth / 2) - 25, 10, 50, 20, 'Logo', 'FAST');
+                }
+
+                doc.setFont("Helvetica", "normal", 400)
+                doc.setFontSize(22);
+                doc.text("Consultation report", 15, 40);
+
+                doc.setFontSize(14);
+                doc.setTextColor("#464F60");
+                doc.text("Patient information", 15, 50);
+                if (nurse?.firstName) {
+                    doc.text("Requester information", 108, 50);
+                }
+                if (data.experts?.length) {
+                    doc.text("Expert information", 108, 75);
+                }
+
+                doc.setFontSize(10);
+                doc.setTextColor("#000");
+                doc.setFont("Helvetica", "normal", 700);
+                doc.text("Firstname:", 15, 55);
+                doc.text("Lastname:", 15, 60);
+                doc.text("Gender:", 15, 65);
+
+                doc.setFont("Helvetica", "normal", 400);
+                doc.text(`${data.firstName}`, 34, 55);
+                doc.text(`${data.lastName}`, 34, 60);
+                doc.text(`${data.gender}`, 30, 65);
+
+                if (nurse?.firstName) {
+                    // Requester Information Column
+                    doc.setFont("Helvetica", "normal", 700);
+                    doc.text(`Firstname:`, 108, 55);
+                    doc.text(`Lastname:`, 108, 60);
+                    doc.setFont("Helvetica", "normal", 400);
+                    doc.text(`${nurse.firstName}`, 127, 55);
+                    doc.text(`${nurse.lastName}`, 127, 60);
+                }
+
+                if (data.experts?.length) {
+                    let currentExpertPosition = 80;
+                    data.experts.forEach((expert) => {
+                        doc.setFont("Helvetica", "normal", 700);
+                        doc.text(`Firstname:`, 108, currentExpertPosition);
+                        doc.text(`Lastname:`, 108, currentExpertPosition + 5);
+                        doc.setFont("Helvetica", "normal", 400);
+                        doc.text(`${expert.firstName}`, 127, currentExpertPosition );
+                        doc.text(`${expert.lastName}`, 127, currentExpertPosition + 5);
+                        currentExpertPosition += 10
+                    })
+                }
+
+                doc.setFontSize(14);
+                doc.setTextColor("#464F60");
+                doc.text("Consultation information", 15, 75);
+
+                doc.setFontSize(10);
+                doc.setTextColor("#000");
+                doc.setFont("Helvetica", "normal", 700);
+                doc.text(`Start date/time:`, 15, 80);
+                doc.text(`End date/time:`, 15, 85);
+                doc.text(`Duration:`, 15, 90);
+                const currentYPosition = 95;
+                if (data.metadata && Object.keys(data.metadata).length) {
+                    Object.keys(data.metadata).forEach((key, index) => {
+                        doc.text(`${key}:`, 15, currentYPosition + (index * 5));
+                    });
+                }
+
+                doc.setFont("Helvetica", "normal", 400);
+                doc.text(`${this.datePipe.transform(data.acceptedAt, "d MMM yyyy HH:mm")}`, 45, 80);
+                doc.text(`${this.datePipe.transform(data.closedAt, "d MMM yyyy HH:mm")}`, 45, 85);
+                doc.text(`${this.durationPipe.transform(data.createdAt - data.closedAt)}`, 45, 90);
+                // doc.text(`${data.lastName}`, 45, 95);
+                if (data.metadata && Object.keys(data.metadata).length) {
+                    Object.keys(data.metadata).forEach((key, index) => {
+                        doc.text(`${data.metadata[key]}`, 45, currentYPosition + (index * 5));
+                    });
+                }
+
+                doc.setFontSize(14);
+                doc.setTextColor("#464F60");
+                doc.text("Chat history", 15, currentYPosition + 30);
+
+                doc.setFontSize(10);
+                doc.setTextColor("#000");
+                doc.setFont("Helvetica", "normal", 700);
+                let chatYPosition = currentYPosition + 40;
+                messages.forEach(message => {
+                    const firstName = message.fromUserDetail.role === "patient" ? data?.firstName : message.fromUserDetail.firstName || ''
+                    const lastName = message.fromUserDetail.role === "patient" ? data?.lastName : message.fromUserDetail.lastName || ''
+                    doc.text(`${firstName} ${lastName}: ${message.text}`, 15, chatYPosition);
+                    chatYPosition += 5;
+                });
+                doc.save("consultation-report.pdf");
+            })
+    }
+
 
     async generateAndSavePDF() {
         const filename = `${this.PDFConsultation._id}.pdf`;
@@ -274,7 +390,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                         }),
                         this.PDFConsultation._id,
                     )
-                    .subscribe((r) => {});
+                    .subscribe((r) => {
+                    });
                 this.PDFConsultation = null;
                 return;
             }

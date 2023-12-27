@@ -287,6 +287,7 @@ const routes: Routes = [
         },
         { provide: OwlDateTimeIntl, useClass: DefaultIntl },
         ConfigService,
+        DurationPipe,
         {
             provide: APP_INITIALIZER,
             useFactory: (cs: ConfigService) => () => cs.getConfig(),

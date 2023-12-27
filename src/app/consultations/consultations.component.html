@@ -266,27 +266,4 @@
     </div>
   </div>
 
-  <!-- this will contain the chat history that will be used to create the pdf -->
-  <div
-    *ngIf="PDFConsultation"
-    #chatHistory
-    id="chatHistory"
-    style="
-      width: 2110px;
-      position: absolute;
-      top: 0;
-      left: -20000px;
-      z-index: 10000;
-    "
-  >
-    <mat-card style="height: 100%; display: flex; padding-top: 100px;">
-      <app-chat
-        (loaded)="generateAndSavePDF()"
-        [noPagination]="true"
-        style="margin: auto; margin-top: 0; width: 70%;"
-        [consultation]="PDFConsultation"
-        [showInput]="false"
-      ></app-chat>
-    </mat-card>
-  </div>
 </ng-container>
