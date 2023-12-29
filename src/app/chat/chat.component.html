@@ -395,7 +395,7 @@
                 #fileInput
                 style="display: none;"
                 type="file"
-                accept="application/pdf,image/jpeg,image/png,image/gif"
+                [accept]="acceptAll ? '*' :'application/pdf,image/jpeg,image/png,image/gif'"
                 (change)="handleFileInput($event)"
             />
 

@@ -46,12 +46,10 @@
         <mat-icon svgIcon="in-new-tab"></mat-icon>
     </div>
 
-  <div
-    *ngIf="!showCloseConsBtn"
+  <div *ngIf="!showCloseConsBtn"
     (click)="acceptNextConsultation()"
     class="next-c-btn"
-    style="flex:4"
-  >
+    style="flex:4">
     {{ 'topNav.startTheNextConsultation' | translate }}
   </div>
 
