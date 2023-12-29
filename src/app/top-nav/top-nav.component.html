@@ -41,7 +41,7 @@
     ></mat-icon>
   </div>
 
-    <div class="new-consultation" (click)="openNurse()" *ngIf="configService?.config?.nurseExternalLink">
+    <div class="new-consultation" (click)="openNurse()" *ngIf="configService?.config?.doctorExternalLink">
        <span>{{ 'topNav.new_consultation_form' | translate }}</span>
         <mat-icon svgIcon="in-new-tab"></mat-icon>
     </div>
