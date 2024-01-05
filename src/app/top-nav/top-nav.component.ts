@@ -50,8 +50,8 @@ export class TopNavComponent implements OnInit {
   }
 
   openNurse() {
-      if (this.configService.config.nurseExternalLink) {
-        window.open(this.configService.config.nurseExternalLink, 'blank')
+      if (this.configService.config.doctorExternalLink) {
+        window.open(this.configService.config.doctorExternalLink, '_blank')
       }
   }
 

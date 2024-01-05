@@ -48,7 +48,8 @@ export class ConfigService {
         })();
     }
 
-
-
+    checkMarkdownExists(markdownUrl: string) {
+        return this.http.get(markdownUrl, { responseType: 'text' })
+    }
 
 }

@@ -75,6 +75,7 @@ import {InviteExpertComponent} from "./invite-expoert/invite-expert.component";
 import {PeerVideoScreenComponent} from "./stream/peer-video-screen/peer-video-screen.component";
 import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 import {DotSpinnerComponent} from "./dot-spinner/dot-spinner.component";
+import {MarkdownModule} from "ngx-markdown";
 registerLocaleData(localeFr);
 
 const routes: Routes = [
@@ -264,6 +265,7 @@ const routes: Routes = [
         HugAngularLibModule,
         ClipboardModule,
         DragDropModule,
+        MarkdownModule.forRoot(),
     ],
     providers: [
         AuthService,
@@ -287,14 +289,13 @@ const routes: Routes = [
         },
         { provide: OwlDateTimeIntl, useClass: DefaultIntl },
         ConfigService,
+        DurationPipe,
         {
             provide: APP_INITIALIZER,
             useFactory: (cs: ConfigService) => () => cs.getConfig(),
             deps: [ConfigService],
             multi: true,
         },
-        // RoomService,
-        // Room2Service
     ],
     bootstrap: [AppComponent]
 })

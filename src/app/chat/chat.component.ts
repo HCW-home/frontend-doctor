@@ -24,6 +24,7 @@ import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-d
 import {InviteService} from "../core/invite.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
+import {ConfigService} from "../core/config.service";
 
 
 @Component({
@@ -53,13 +54,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   chatImagesCount
   subscriptions: Subscription[] = []
   consultations = [];
+  acceptAll: boolean;
 
   constructor(
     private msgServ: MessageService,
     private authService: AuthService,
     private socketEventsService: SocketEventsService,
-    private zone: NgZone,
+    private configService: ConfigService,
     private consultationService: ConsultationService,
+    private zone: NgZone,
     public dialog: MatDialog,
     private translate: TranslateService,
     private inviteService: InviteService,
@@ -72,7 +75,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.currentUser = this.authService.currentUserValue
+    this.currentUser = this.authService.currentUserValue;
+    this.acceptAll = !!this.configService.config?.extraMimeTypes
 
     this.getMessages()
     this.socketEventsService.onMessage().subscribe((msg) => {
