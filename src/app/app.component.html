@@ -117,9 +117,14 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <div class="content">
-        <router-outlet *ngIf="navigated"></router-outlet>
-      </div>
+        <div class="content">
+            <div>
+                <router-outlet *ngIf="navigated"></router-outlet>
+            </div>
+            <ng-container *ngIf="markdownExists">
+                <app-footer></app-footer>
+            </ng-container>
+        </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>

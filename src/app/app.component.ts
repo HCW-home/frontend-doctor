@@ -1,11 +1,9 @@
-import { environment } from "./../environments/environment";
 import {
   Component,
   OnInit,
   ElementRef,
   ViewChild,
   NgZone,
-  HostListener,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material/icon";
@@ -16,11 +14,9 @@ import {
 } from "@angular/material/snack-bar";
 import { SocketEventsService } from "./core/socket-events.service";
 import { ConsultationService } from "./core/consultation.service";
-
 import { AuthService } from "./auth/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ConfigService } from "./core/config.service";
-
 import { TranslateService } from "@ngx-translate/core";
 
 @Component({
@@ -33,16 +29,16 @@ export class AppComponent implements OnInit {
 
   lastConectionStatus = "";
   currentUser;
-  unreadActiveCount = 0;
-  unreadPendingCount = 0;
   imageError: boolean = false;
   token = "";
-  callRunning = true;
   isLoggedIn = false;
   navigated;
   pendingConsultations;
   activeConsultations;
   currentSnackBar: MatSnackBarRef<SimpleSnackBar>;
+  markdownExists: boolean = false;
+  markdownUrl: string = 'assets/footer.md';
+
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -186,6 +182,7 @@ export class AppComponent implements OnInit {
     //   sessionStorage.setItem('hasSession',"true")
     // }
     this.token = this.GetParam("tk");
+    this.checkMarkdown();
     this.currentUser = this.authService.currentUserValue;
     const isLoginPage = document.location.href.includes("/app/login");
     const isResetPawordPage = document.location.href.includes(
@@ -296,5 +293,15 @@ export class AppComponent implements OnInit {
 
   onImageError() {
     this.imageError = true;
+  }
+
+  checkMarkdown() {
+    this.configService.checkMarkdownExists(this.markdownUrl).subscribe({
+      next: (res) => {
+        this.markdownExists = true;
+      }, error: (err) => {
+        this.markdownExists = false;
+      }
+    })
   }
 }

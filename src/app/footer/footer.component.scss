@@ -1,19 +1,15 @@
-img {
-    margin-left: 10px;
-    width: 100px;
+.app-footer {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #fafafa;
+  color: #000000de;
+  width: 100%;
 }
 
-:host {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    color: white;
-    justify-content: center;
-    div {
-      display: flex;
-      align-content: center;
-      align-items: center;
-    }
-    width: 100%;
-    padding: 30px 0;
+.footer-content {
+  margin: auto;
+
+  markdown {
+    color: #000000de;
+  }
 }

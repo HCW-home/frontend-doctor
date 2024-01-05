@@ -92,7 +92,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         public configService: ConfigService,
         private msgServ: MessageService,
         private datePipe: DatePipe,
-        private durationPipe: DurationPipe
+        private durationPipe: DurationPipe,
     ) {
         this.titles = [
             {
@@ -340,16 +340,25 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                 doc.setTextColor("#464F60");
                 doc.text("Chat history", 15, currentYPosition + 30);
 
-                doc.setFontSize(10);
-                doc.setTextColor("#000");
-                doc.setFont("Helvetica", "normal", 700);
                 let chatYPosition = currentYPosition + 40;
                 messages.forEach(message => {
-                    const firstName = message.fromUserDetail.role === "patient" ? data?.firstName : message.fromUserDetail.firstName || ''
-                    const lastName = message.fromUserDetail.role === "patient" ? data?.lastName : message.fromUserDetail.lastName || ''
-                    doc.text(`${firstName} ${lastName}: ${message.text}`, 15, chatYPosition);
+                    doc.setFontSize(10);
+                    doc.setTextColor("#000");
+                    doc.setFont("Helvetica", "normal", 700);
+                    const firstName = message.fromUserDetail.role === "patient" ? data?.firstName : message.fromUserDetail.firstName || '';
+                    const lastName = message.fromUserDetail.role === "patient" ? data?.lastName : message.fromUserDetail.lastName || '';
+                    const {role} = message.fromUserDetail;
+                    const date = this.datePipe.transform(message.createdAt, "dd LLL HH:mm");
+                    doc.text(`${firstName} ${lastName} (${role}) - ${date}:`, 15, chatYPosition);
+
+                    doc.setFont("Helvetica", "normal", 400);
+                    doc.setTextColor("#464F60");
+                    chatYPosition += 5;
+                    doc.text(message.text, 15, chatYPosition);
+
                     chatYPosition += 5;
                 });
+
                 doc.save("consultation-report.pdf");
             })
     }
