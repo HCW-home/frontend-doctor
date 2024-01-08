@@ -76,8 +76,12 @@ import {PeerVideoScreenComponent} from "./stream/peer-video-screen/peer-video-sc
 import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 import {DotSpinnerComponent} from "./dot-spinner/dot-spinner.component";
 import {MarkdownModule} from "ngx-markdown";
+import {TranslateService} from "@ngx-translate/core";
 registerLocaleData(localeFr);
 
+export function LocaleIdFactory(translateService: TranslateService) {
+    return translateService.currentLang || 'en';
+}
 const routes: Routes = [
   {
     path: "",
@@ -285,7 +289,8 @@ const routes: Routes = [
         },
         {
             provide: LOCALE_ID,
-            useValue: "fr",
+            deps: [TranslateService],
+            useFactory: LocaleIdFactory
         },
         { provide: OwlDateTimeIntl, useClass: DefaultIntl },
         ConfigService,
