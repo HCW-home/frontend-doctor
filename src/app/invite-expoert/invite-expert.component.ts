@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {MyErrorStateMatcher} from "../profile-update/profile-update.component";
 import {DialogData} from "../confirmation-dialog/confirmation-dialog.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {ConsultationService} from "../core/consultation.service";
 import {emailOrPhoneValidator} from "../invite-form/invite-form.component";
 

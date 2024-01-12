@@ -18,7 +18,7 @@ import {AuthService} from "../auth/auth.service"
 import {SocketEventsService} from "../core/socket-events.service"
 import {ConsultationService} from "../core/consultation.service"
 import {environment} from "../../environments/environment"
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {InviteExpertComponent} from "../invite-expoert/invite-expert.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {InviteService} from "../core/invite.service";

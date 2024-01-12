@@ -8,10 +8,10 @@ import {
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material/icon";
 import {
-  MatSnackBar,
-  MatSnackBarRef,
-  SimpleSnackBar,
-} from "@angular/material/snack-bar";
+  MatLegacySnackBar as MatSnackBar,
+  MatLegacySnackBarRef as MatSnackBarRef,
+  LegacySimpleSnackBar as SimpleSnackBar,
+} from "@angular/material/legacy-snack-bar";
 import { SocketEventsService } from "./core/socket-events.service";
 import { ConsultationService } from "./core/consultation.service";
 import { AuthService } from "./auth/auth.service";

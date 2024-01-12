@@ -18,7 +18,7 @@ import html2canvas from "html2canvas";
 import {InviteFormComponent} from "./../invite-form/invite-form.component";
 
 import {jsPDF} from "jspdf";
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {UserService} from "../core/user.service";
 import {SocketEventsService} from "../core/socket-events.service";
 import {ConfigService} from "../core/config.service";
