@@ -5,32 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71723fb9-d804-4060-bc9b-547eb5e9e01e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/browserslist" beforeDir="false" afterPath="$PROJECT_DIR$/browserslist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/chat/chat.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/chat.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/confirmation-dialog/confirmation-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/confirmation-dialog/confirmation-dialog.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/consultation/consultation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultation/consultation.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/consultations/consultations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultations/consultations.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/footer/footer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/footer/footer.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/forgot-password/forgot-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/forgot-password/forgot-password.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/invitations/invitations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invitations/invitations.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/login.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/overlay/overlay.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/overlay/overlay.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/plan-consultation/plan-consultation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/plan-consultation/plan-consultation.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile-update/profile-update.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile-update/profile-update.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/profile.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/reset-password/reset-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/reset-password/reset-password.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/select-language/select-language.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/select-language/select-language.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/side-chat/side-chat.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/side-chat/side-chat.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/stream/peer-audio/peer-audio.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/stream/peer-audio/peer-audio.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/translated-gender.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/translated-gender.pipe.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +101,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/select-language/select-language.component.ts</url>
           <line>17</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

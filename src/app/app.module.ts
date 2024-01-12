@@ -261,7 +261,7 @@ const routes: Routes = [
         BrowserModule,
         SharedModule,
         HttpClientModule,
-        RouterModule.forRoot(routes, {relativeLinkResolution: "legacy"}),
+        RouterModule.forRoot(routes),
         NgxPaginationModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
