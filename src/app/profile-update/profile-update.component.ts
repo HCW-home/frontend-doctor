@@ -1,8 +1,7 @@
 import { Subscription } from 'rxjs';
 import { UserService } from '../core/user.service';
 import { Component, Inject, OnDestroy, OnInit,Input } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
-import { UntypedFormControl, FormGroupDirective, NgForm, Validators, ValidatorFn, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm, Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from '../auth/auth.service';
 
@@ -14,6 +13,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 interface DialogData {
   number: string;

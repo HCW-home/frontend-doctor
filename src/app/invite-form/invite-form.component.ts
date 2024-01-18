@@ -5,7 +5,6 @@ import {QueueService} from "../core/queue.service";
 import {Subscription} from "rxjs";
 import {InviteService} from "../core/invite.service";
 import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
-import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
 import {
     AbstractControl,
     FormArray,
@@ -19,6 +18,7 @@ import {
 } from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {ConfigService} from "../core/config.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 interface DialogData {
     phoneNumber: string;
@@ -443,6 +443,11 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
     languageSelectChanged(e) {
         this.data.translationOrganization = null;
+    }
+
+    onDateTimeSelected(dateTime: any) {
+        this.myForm.get('dateTimeFormControl').setValue(dateTime);
+        this.data.scheduledFor = dateTime;
     }
 
 }

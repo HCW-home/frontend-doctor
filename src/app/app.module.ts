@@ -13,8 +13,9 @@ import { NgModule, LOCALE_ID, APP_INITIALIZER } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
-  ErrorStateMatcher,
-  ShowOnDirtyErrorStateMatcher,
+    DateAdapter,
+    ErrorStateMatcher,
+    ShowOnDirtyErrorStateMatcher,
 } from "@angular/material/core";
 
 import { HttpClientModule } from "@angular/common/http";
@@ -49,18 +50,11 @@ import { OverlayComponent } from "./overlay/overlay.component";
 import { MsgTimePipe } from "./msg-time.pipe";
 import { DurationPipe } from "./duration.pipe";
 
-import { registerLocaleData } from "@angular/common";
+import {DatePipe, registerLocaleData} from "@angular/common";
 
 import { NgxPaginationModule } from "ngx-pagination"; // <-- import the module
-import {
-  OwlDateTimeModule,
-  OwlNativeDateTimeModule,
-  OwlDateTimeIntl,
-} from "ng-pick-datetime";
-
 import localeFr from "@angular/common/locales/fr";
 
-import { DefaultIntl } from "./OwlDefaultIntl";
 import { ProfileUpdateComponent } from "./profile-update/profile-update.component";
 import { TranslatedGenderPipe } from "./translated-gender.pipe";
 import { I18nModule } from "./i18n/i18n.module";
@@ -77,6 +71,11 @@ import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 import {DotSpinnerComponent} from "./dot-spinner/dot-spinner.component";
 import {MarkdownModule} from "ngx-markdown";
 import {TranslateService} from "@ngx-translate/core";
+import {DateTimePickerComponent} from "./date-time-picker/date-time-picker.component";
+import {CustomPaginationComponent} from "./custom-pagination/custom-pagination.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {CustomDateAdapter} from "./date-time-picker/custom-date-adapter";
+
 registerLocaleData(localeFr);
 
 export function LocaleIdFactory(translateService: TranslateService) {
@@ -254,7 +253,9 @@ const routes: Routes = [
         ConfirmationDialogComponent,
         PlanConsultationComponent,
         ErrorDialogComponent,
-        DotSpinnerComponent
+        DotSpinnerComponent,
+        DateTimePickerComponent,
+        CustomPaginationComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -263,13 +264,12 @@ const routes: Routes = [
         HttpClientModule,
         RouterModule.forRoot(routes),
         NgxPaginationModule,
-        OwlDateTimeModule,
-        OwlNativeDateTimeModule,
         I18nModule,
         HugAngularLibModule,
         ClipboardModule,
         DragDropModule,
         MarkdownModule.forRoot(),
+        MatAutocompleteModule,
     ],
     providers: [
         AuthService,
@@ -292,7 +292,8 @@ const routes: Routes = [
             deps: [TranslateService],
             useFactory: LocaleIdFactory
         },
-        { provide: OwlDateTimeIntl, useClass: DefaultIntl },
+        { provide: DateAdapter, useClass: CustomDateAdapter },
+        DatePipe,
         ConfigService,
         DurationPipe,
         {

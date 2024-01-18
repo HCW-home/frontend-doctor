@@ -1,8 +1,6 @@
 import { TranslateService } from "@ngx-translate/core";
 import { Component, Inject, OnInit } from "@angular/core";
-
-
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from "@angular/material/legacy-dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 export interface DialogData {
   question: string
@@ -22,7 +20,6 @@ export class ConfirmationDialogComponent implements OnInit {
   noText = ""
   title = ""
   constructor(
-    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public translate: TranslateService
 

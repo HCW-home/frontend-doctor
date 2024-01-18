@@ -234,7 +234,7 @@ h1 {
   justify-content: center;
 }
 form {
-  ::ng-deep #mat-dialog-title-0 {
+  #mat-dialog-title-0 {
     display: none !important;
   }
 }

@@ -9,7 +9,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Sanitizer,
   ViewChild,
 } from "@angular/core"
 import {TranslateService} from "@ngx-translate/core";
@@ -18,13 +17,13 @@ import {AuthService} from "../auth/auth.service"
 import {SocketEventsService} from "../core/socket-events.service"
 import {ConsultationService} from "../core/consultation.service"
 import {environment} from "../../environments/environment"
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {InviteExpertComponent} from "../invite-expoert/invite-expert.component";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {InviteService} from "../core/invite.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
 import {ConfigService} from "../core/config.service";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({

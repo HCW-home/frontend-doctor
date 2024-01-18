@@ -1,0 +1,79 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.next-icon {
+  height: 15px;
+}
+
+.prev-icon {
+  height: 15px;
+  transform: rotate(180deg);
+}
+
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 35px;
+  min-height: 35px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.page-link:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  color: #ccc;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+
+}
+
+@media (max-width: 576px) {
+  .page-link {
+    min-width: 45px;
+    min-height: 45px;
+    padding: 5px;
+  }
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+
+}
+
+.pagination li.page-number {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination li.page-number:hover .page-link {
+  background-color: #e9ecef;
+  color: var(--primary-color);
+}

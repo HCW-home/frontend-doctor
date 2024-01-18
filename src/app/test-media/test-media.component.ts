@@ -10,8 +10,8 @@ import {
 } from "@angular/core";
 import {Subscription} from "rxjs";
 import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {TranslateService} from "@ngx-translate/core";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: "app-test-media",

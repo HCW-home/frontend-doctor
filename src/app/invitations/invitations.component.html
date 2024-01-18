@@ -218,12 +218,6 @@
       </tr>
     </table>
 
-    <div *ngIf="totalCount" class="has-text-centered pagination-control">
-      <pagination-controls
-        (pageChange)="getInvites($event)"
-        previousLabel="{{ 'invitations.previous' | translate }}"
-        nextLabel="{{ 'invitations.next' | translate }}"
-      ></pagination-controls>
-    </div>
+     <app-custom-pagination [totalItems]="totalCount" [itemsPerPage]="10" (pageChange)="getInvites($event)"></app-custom-pagination>
   </div>
 </ng-container>

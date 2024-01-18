@@ -12,7 +12,7 @@
     [icon]="title.icon"
   ></app-top-nav>
 
-    <div class="desc">
+    <div class="desc" style="display: flex; justify-content: space-between; width: 90%">
     <h2
       style="display: inline;"
       [matBadge]="
@@ -23,6 +23,26 @@
     >
       {{ title.title | uppercase }}
     </h2>
+        <mat-form-field *ngIf="queues.length > 0">
+            <mat-label class="label">{{
+                    "inviteForm.waitingQueue" | translate
+                }}
+            </mat-label>
+            <mat-select
+                    (ngModelChange)="onSelectQueue($event)"
+                    [(ngModel)]="queue"
+            >
+                <mat-option [value]="undefined">{{
+                        "inviteForm.mySelf" | translate
+                    }}
+                </mat-option>
+                <span>
+                <mat-option *ngFor="let queue of queues" [value]="queue.id">
+                  {{ queue.name }}
+                </mat-option>
+              </span>
+            </mat-select>
+        </mat-form-field>
   </div>
 
   <div>
@@ -254,16 +274,18 @@
         </td>
       </tr>
     </table>
-    <div
-      *ngIf="consultations.length"
-      class="has-text-centered pagination-control"
-    >
-      <pagination-controls
-        (pageChange)="page = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      ></pagination-controls>
-    </div>
+<!--    <div-->
+<!--      *ngIf="consultations.length"-->
+<!--      class="has-text-centered pagination-control"-->
+<!--    >-->
+<!--      <pagination-controls-->
+<!--        (pageChange)="page = $event"-->
+<!--        previousLabel="Précédent"-->
+<!--        nextLabel="Suivant"-->
+<!--      ></pagination-controls>-->
+<!--    </div>-->
+      <app-custom-pagination [totalItems]="consultations.length" [itemsPerPage]="10" (pageChange)="page = $event"></app-custom-pagination>
+
   </div>
 
 </ng-container>

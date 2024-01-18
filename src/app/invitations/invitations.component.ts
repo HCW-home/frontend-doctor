@@ -1,16 +1,12 @@
 import { TranslateService } from "@ngx-translate/core";
 import { ConfirmationDialogComponent } from "./../confirmation-dialog/confirmation-dialog.component";
 import { Invitation } from "./../Invitation";
-import { HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpResponse } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { InviteService } from "../core/invite.service";
 import { InviteFormComponent } from "./../invite-form/invite-form.component";
 import { Component, OnInit, Pipe } from "@angular/core";
-import {
-  MatLegacyDialog as MatDialog,
-  MatLegacyDialogRef as MatDialogRef,
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-} from "@angular/material/legacy-dialog";
+import {MatDialog} from '@angular/material/dialog';
 import { tap, map } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -104,6 +100,7 @@ export class InvitationsComponent implements OnInit {
           this.totalCount = +(resp as HttpResponse<Invitation[]>).headers.get(
             "X-Total-Count"
           );
+          console.log(this.totalCount,'totalCount')
           this.loading = false;
           this.currentInvites = (resp as HttpResponse<Invitation[]>).body;
           this.currentInvite = this.currentInvites.find(

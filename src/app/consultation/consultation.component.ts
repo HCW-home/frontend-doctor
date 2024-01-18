@@ -1,14 +1,14 @@
 import {Subscription} from "rxjs";
-import {OpenViduService} from "./../openvidu.service";
-import {Component, OnInit, Input, NgZone, ViewChild, ElementRef, OnDestroy} from "@angular/core";
+import {OpenViduService} from "../openvidu.service";
+import {Component, OnInit, Input, NgZone, OnDestroy} from "@angular/core";
 import {ConsultationService} from "../core/consultation.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {SocketEventsService} from "../core/socket-events.service";
 import {ConfirmationService} from "../core/confirmation.service";
 import {InviteService} from "../core/invite.service";
 import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {TranslateService} from "@ngx-translate/core";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({

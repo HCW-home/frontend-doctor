@@ -7,17 +7,13 @@ import {
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material/icon";
-import {
-  MatLegacySnackBar as MatSnackBar,
-  MatLegacySnackBarRef as MatSnackBarRef,
-  LegacySimpleSnackBar as SimpleSnackBar,
-} from "@angular/material/legacy-snack-bar";
 import { SocketEventsService } from "./core/socket-events.service";
 import { ConsultationService } from "./core/consultation.service";
 import { AuthService } from "./auth/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ConfigService } from "./core/config.service";
 import { TranslateService } from "@ngx-translate/core";
+import {MatSnackBar, MatSnackBarRef, SimpleSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-root",

@@ -1,14 +1,13 @@
-import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../core/user.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { MatLegacySlideToggleChange as MatSlideToggleChange, MatLegacySlideToggle as MatSlideToggle } from '@angular/material/legacy-slide-toggle';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { ProfileUpdateComponent } from './../profile-update/profile-update.component';
+import { ProfileUpdateComponent } from "../profile-update/profile-update.component";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-profile',

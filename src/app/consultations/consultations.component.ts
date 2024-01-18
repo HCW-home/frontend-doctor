@@ -18,7 +18,7 @@ import html2canvas from "html2canvas";
 import {InviteFormComponent} from "./../invite-form/invite-form.component";
 
 import {jsPDF} from "jspdf";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import {MatDialog} from '@angular/material/dialog';
 import {UserService} from "../core/user.service";
 import {SocketEventsService} from "../core/socket-events.service";
 import {ConfigService} from "../core/config.service";
@@ -26,6 +26,7 @@ import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-d
 import {MessageService} from "../core/message.service";
 import {DatePipe} from "@angular/common";
 import {DurationPipe} from "../duration.pipe";
+import {QueueService} from "../core/queue.service";
 
 
 @Component({
@@ -36,8 +37,11 @@ import {DurationPipe} from "../duration.pipe";
 export class ConsultationsComponent implements OnInit, OnDestroy {
     @ViewChild("chatHistory") chatHistory: ElementRef;
 
+    queues = [];
+    queue = null;
     unreadPendingCount = 0;
     consultations = [];
+    allConsultations = [];
     unreadActiveCount = 0;
     page = 0;
     status;
@@ -93,6 +97,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         private msgServ: MessageService,
         private datePipe: DatePipe,
         private durationPipe: DurationPipe,
+        private queueServ: QueueService,
     ) {
         this.titles = [
             {
@@ -121,8 +126,30 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         this.title = this.titles.find((t) => t.status === this.status);
         this.getConsultations();
         this.getUnreadCount();
+        this.getQueues();
 
     }
+
+
+    getQueues() {
+        this.queueServ.getQueues().subscribe(queues => {
+            this.queues = queues;
+        });
+    }
+
+    onSelectQueue(queue: any) {
+        console.log(queue, 'queue')
+        console.log(this.consultations, 'this.consultations');
+        const consultations = [...this.allConsultations];
+        // if ()
+        if (queue) {
+            this.consultations = consultations.filter((cons) => cons.consultation?.queue === queue);
+        } else {
+            this.consultations = consultations;
+        }
+
+    }
+
 
     async openDialog(event, pastConsultation) {
         event.stopPropagation();
@@ -176,10 +203,12 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             .getConsultationsOverview()
             .subscribe((consultations) => {
 
+                console.log(this.consultations, 'this.consultations')
                 this.zone.run(() => {
                     this.consultations = consultations.filter(
                         (c) => c.consultation.status === this.status,
                     );
+                    this.allConsultations = this.consultations;
                     if (this.status === "closed") {
                         this.consultations = this.consultations.sort((a, b) => {
                             return b.consultation.closedAt - a.consultation.closedAt;
