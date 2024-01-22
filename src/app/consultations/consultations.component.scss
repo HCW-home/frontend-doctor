@@ -1,17 +1,23 @@
-
-// mat-grid-tile{
-//   border-bottom: 1px solid gray;
-// }
 span.tile-header {
   font-size: 11px;
   color: #3f3f3f;
 }
 
 .desc {
-  // margin-left: 80px;
-  // margin-top: 80px;
-  margin: 150px auto 40px 80px;
+  margin: 150px auto 0px 80px;
   width: 50%;
+}
+
+.filters-wrapper {
+  margin-left: 80px;
+  width: 90%;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 15px;
+
+  .filter-icon {
+    width: 18px;
+  }
 }
 
 // <div style="text-align:center;line-height:100%;width:33%;height:100%;">Text Content</div>
@@ -21,7 +27,7 @@ span.tile-header {
   width: 60%;
 
   tr {
-    border-bottom: 1px solid#b1b1b191;
+    border-bottom: 1px solid #b1b1b191;
 
     height: 143px;
   }
@@ -29,26 +35,27 @@ span.tile-header {
   th,
   td {
     margin: 10px auto;
-    border-bottom: 1px solid#b1b1b191;
+    border-bottom: 1px solid #b1b1b191;
     padding: 16px;
   }
 
   tr:first-child > th,
   tr:first-child > td {
-    border-top: 1px solid#b1b1b191;
+    border-top: 1px solid #b1b1b191;
   }
 
   th {
     margin-right: 20px;
     width: 503px;
-    border-left: 1px solid#b1b1b191;
-    border-right: 1px solid#b1b1b191;
+    border-left: 1px solid #b1b1b191;
+    border-right: 1px solid #b1b1b191;
   }
 
   td {
-    border-right: 1px solid#b1b1b191;
+    border-right: 1px solid #b1b1b191;
   }
 }
+
 .noCon {
   margin-left: 80px;
 }
@@ -61,29 +68,34 @@ span.tile-header {
   font-size: 14px;
   font-weight: 500;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
   tr {
     border-top: 1px solid #b1b1b191;
     border-left: 2px solid #fff;
     cursor: pointer;
+
     &:hover {
       border-left: 2px solid var(--primary-color);
     }
   }
+
   td {
     padding: 18px 1%;
   }
+
   .tile-header {
     display: block;
     margin-bottom: 10px;
     font-weight: 400;
   }
+
   .badge {
     position: relative;
     top: 9px;
     left: 11px;
   }
+
   .pdf {
     width: 40px;
     padding: 12px 12px;

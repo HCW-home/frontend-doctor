@@ -1,24 +1,17 @@
 import {Subscription} from "rxjs";
-import {
-    Component,
-    OnInit,
-    NgZone,
-    OnDestroy,
-    ViewChild,
-    ElementRef,
-} from "@angular/core";
+import {Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild,} from "@angular/core";
 
 import {TranslateService} from "@ngx-translate/core";
 
 import {ConsultationService} from "../core/consultation.service";
-import {Router, ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
 import {InviteService} from "../core/invite.service";
 import html2canvas from "html2canvas";
 import {InviteFormComponent} from "./../invite-form/invite-form.component";
 
 import {jsPDF} from "jspdf";
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "../core/user.service";
 import {SocketEventsService} from "../core/socket-events.service";
 import {ConfigService} from "../core/config.service";
@@ -27,6 +20,7 @@ import {MessageService} from "../core/message.service";
 import {DatePipe} from "@angular/common";
 import {DurationPipe} from "../duration.pipe";
 import {QueueService} from "../core/queue.service";
+import {FilterModalComponent} from "../filter-modal/filter-modal.component";
 
 
 @Component({
@@ -36,7 +30,9 @@ import {QueueService} from "../core/queue.service";
 })
 export class ConsultationsComponent implements OnInit, OnDestroy {
     @ViewChild("chatHistory") chatHistory: ElementRef;
-
+    @ViewChild('filterButton') filterButton;
+    appLiedFiltersCount = 0;
+    filterState = null;
     queues = [];
     queue = null;
     unreadPendingCount = 0;
@@ -137,17 +133,32 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         });
     }
 
-    onSelectQueue(queue: any) {
-        console.log(queue, 'queue')
-        console.log(this.consultations, 'this.consultations');
+    applyFilters(filters: { queues: any[], createdBy: { me: boolean, notMe: boolean } }) {
+        const selectedQueueIds = filters.queues
+            .filter(queue => queue.selected)
+            .map(queue => queue.id);
+
         const consultations = [...this.allConsultations];
-        // if ()
-        if (queue) {
-            this.consultations = consultations.filter((cons) => cons.consultation?.queue === queue);
-        } else {
-            this.consultations = consultations;
+
+        // Apply queue filter
+        let filteredConsultations = selectedQueueIds.length > 0
+            ? consultations.filter(cons => selectedQueueIds.includes(cons.consultation?.queue))
+            : consultations;
+
+        // Apply createdBy filter
+        if (filters.createdBy.me) {
+            filteredConsultations = filteredConsultations.filter(cons => !cons.nurse?.firstName);
         }
 
+        if (filters.createdBy.notMe) {
+            filteredConsultations = filteredConsultations.filter(cons => cons.nurse?.firstName);
+        }
+        this.appLiedFiltersCount = selectedQueueIds.length
+            + (filters.createdBy.me ? 1 : 0)
+            + (filters.createdBy.notMe ? 1 : 0);
+
+
+        this.consultations = filteredConsultations;
     }
 
 
@@ -267,6 +278,28 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                 this.unreadPendingCountSub.unsubscribe();
             }
         }
+    }
+
+    openFilterModal() {
+        const bodyRect = document.body.getBoundingClientRect();
+        const elemRect = this.filterButton._elementRef.nativeElement.getBoundingClientRect();
+        const right = bodyRect.right - elemRect.right;
+        const top = elemRect.top - bodyRect.top;
+
+        const dialogRef = this.dialog.open(FilterModalComponent, {
+            autoFocus: false,
+            width: '350px',
+            position: { right: right  + 'px', top: top + 37 + 'px' },
+            data: {queues: this.queues, filterState: this.filterState, appLiedFiltersCount: this.appLiedFiltersCount}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.filterState = result;
+                this.applyFilters(result);
+            }
+            console.log('The dialog was closed', result);
+        });
     }
 
     exportPDF(event, consultation) {

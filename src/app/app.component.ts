@@ -170,6 +170,10 @@ export class AppComponent implements OnInit {
       "in-new-tab",
       sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/in-new-tab.svg")
     );
+    iconRegistry.addSvgIcon(
+      "filter",
+      sanitizer.bypassSecurityTrustResourceUrl("../assets/svg/filter.svg")
+    );
   }
 
   ngOnInit() {

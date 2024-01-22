@@ -75,6 +75,9 @@ import {DateTimePickerComponent} from "./date-time-picker/date-time-picker.compo
 import {CustomPaginationComponent} from "./custom-pagination/custom-pagination.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {CustomDateAdapter} from "./date-time-picker/custom-date-adapter";
+import {FilterModalComponent} from "./filter-modal/filter-modal.component";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {BadgeComponent} from "./badge/badge.component";
 
 registerLocaleData(localeFr);
 
@@ -255,7 +258,9 @@ const routes: Routes = [
         ErrorDialogComponent,
         DotSpinnerComponent,
         DateTimePickerComponent,
-        CustomPaginationComponent
+        CustomPaginationComponent,
+        FilterModalComponent,
+        BadgeComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -270,6 +275,7 @@ const routes: Routes = [
         DragDropModule,
         MarkdownModule.forRoot(),
         MatAutocompleteModule,
+        MatExpansionModule,
     ],
     providers: [
         AuthService,

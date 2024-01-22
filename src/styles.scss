@@ -124,3 +124,8 @@ img.logo {
 .mat-progress-spinner circle, .mat-spinner circle {
   stroke: var(--primary-color)
 }
+
+.mat-expansion-panel-body {
+  display: flex;
+  flex-direction: column;
+}
