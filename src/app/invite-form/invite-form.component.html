@@ -200,7 +200,6 @@
                             <mat-checkbox
                                     formControlName="isScheduled"
                                     [(ngModel)]="schedule"
-                                    color="primary"
                             >{{ "inviteForm.schedulingLater" | translate }}</mat-checkbox
                             >
                             <mat-error
@@ -271,7 +270,6 @@
                         <mat-checkbox
                                 formControlName="inviteGuestFormControl"
                                 [(ngModel)]="inviteGuest"
-                                color="primary"
                         >{{
                             "inviteForm.inviteLovedOneOrProfessional" | translate
                             }}</mat-checkbox
@@ -314,7 +312,7 @@
 
 
                     <div class="field-container" style="margin-top: 14px !important">
-                        <mat-checkbox formControlName="inviteExpert" color="primary">
+                        <mat-checkbox formControlName="inviteExpert">
                             {{"inviteForm.inviteExpert" | translate}}
                         </mat-checkbox>
                     </div>
@@ -356,7 +354,6 @@
                         <mat-checkbox
                                 formControlName="inviteTranslatorFormControl"
                                 [(ngModel)]="inviteTranslator"
-                                color="primary"
                         >{{ "inviteForm.inviteTranslator" | translate }}</mat-checkbox
                         >
                     </div>

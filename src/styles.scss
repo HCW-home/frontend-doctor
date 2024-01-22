@@ -129,3 +129,15 @@ img.logo {
   display: flex;
   flex-direction: column;
 }
+
+.mat-checkbox-ripple .mat-ripple-element {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: var(--primary-color) !important;
+}

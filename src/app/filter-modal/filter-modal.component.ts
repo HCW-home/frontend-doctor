@@ -21,13 +21,10 @@ export class FilterModalComponent implements OnInit {
         this.queues = this.data.queues;
         this.appLiedFiltersCount = this.data.appLiedFiltersCount;
         this.initForm();
-
-        console.log(this.data, "data")
     }
 
     private initForm() {
         const savedState = this.data.filterState;
-        // Initialize form with saved state if available
         if (savedState) {
             this.queues = this.data.filterState.queues;
             this.createdByMe = this.data.filterState.createdBy.me;
@@ -45,6 +42,10 @@ export class FilterModalComponent implements OnInit {
                 notMe: this.createdByNotMe
             }
         };
+    }
+
+    clearFilters() {
+
     }
 
 }

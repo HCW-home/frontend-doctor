@@ -27,6 +27,17 @@
     "reconnected": "You are reconnected",
     "connectionFailed": "The connection to the server is not functioning properly, and you can no longer receive consultation requests. If the issue persists, please refresh your page."
   },
+  "filter": {
+    "filtersApplied": "Filters applied:",
+    "filters": "Filters",
+    "sent_by": "Invite sent by",
+    "queue": "Queue",
+    "myself": "Myself",
+    "somebodyElse": "Somebody else",
+    "clear": "Clear filters",
+    "cancel": "Cancel"
+
+  },
   "chat": {
     "generalInformation": "GENERAL INFORMATION",
     "nurse": "Nurse",
@@ -82,7 +93,8 @@
     "inviteExpert": "Invite a colleague",
     "share": "Share invite by Email or mobile phone",
     "shareBy": "Share invite by link",
-    "requestedBy": "Requested by"
+    "requestedBy": "Requested by",
+    "filters": "Filters"
   },
   "consultation": {
     "start": "START",

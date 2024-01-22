@@ -1,22 +1,23 @@
 <h2 mat-dialog-title *ngIf="appLiedFiltersCount">
     Filters applied:
+    {{'filter.filtersApplied' | translate}}
     <app-badge [text]="appLiedFiltersCount">{{appLiedFiltersCount}}</app-badge>
 </h2>
 <h2 mat-dialog-title *ngIf="!appLiedFiltersCount">
-    Filters
+    {{'filter.filters' | translate}}
 </h2>
 <mat-dialog-content>
     <div class="accordion-wrapper">
+        <button mat-button *ngIf="appLiedFiltersCount"  [mat-dialog-close]="'clear'" class="clear-btn">{{ 'filter.clear' | translate }}</button>
         <mat-accordion multi>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        Queue
+                        {{'filter.queue' | translate}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <ng-container *ngFor="let queue of queues; let i = index">
-                    <mat-checkbox color="primary"
-                                  [(ngModel)]="queue.selected">
+                    <mat-checkbox [(ngModel)]="queue.selected">
                         <mat-label class="label">{{ queue.name }}</mat-label>
                     </mat-checkbox>
                 </ng-container>
@@ -27,22 +28,17 @@
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Created by
+                            {{'filter.sent_by' | translate}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-checkbox color="primary"
-                                  [(ngModel)]="createdByMe">Me
-                    </mat-checkbox>
-                    <mat-checkbox color="primary"
-                                  [(ngModel)]="createdByNotMe">Not me
-                    </mat-checkbox>
-
+                    <mat-checkbox [(ngModel)]="createdByMe"> {{'filter.myself' | translate}} </mat-checkbox>
+                    <mat-checkbox [(ngModel)]="createdByNotMe"> {{'filter.somebodyElse' | translate}} </mat-checkbox>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions [align]="'end'">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button color="primary" [mat-dialog-close]="getSelectedFilters()">Apply</button>
+    <button mat-button mat-dialog-close>{{ 'filter.cancel' | translate }}</button>
+    <button mat-button class="apply-button" [mat-dialog-close]="getSelectedFilters()">Apply</button>
 </mat-dialog-actions>

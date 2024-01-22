@@ -1,9 +1,6 @@
 <div class="header">
-  <div (click)="goBack()" style="flex:1; cursor: pointer;">
-    <mat-icon style=" height: 18px;" svgIcon="back"></mat-icon>
-  </div>
   <div
-    style="vertical-align: middle; cursor: pointer;    min-width: 200px;"
+    style="vertical-align: middle; cursor: pointer;min-width: 200px;margin-left: 40px"
     (click)="toggleLogout()"
   >
     <div [ngClass]="{ 'doc-btn': logoutToggle }" id="user">
@@ -22,13 +19,7 @@
     </div>
   </div>
 
-  <div *ngIf="!consultation" style="flex:8;     vertical-align: middle;">
-    <mat-icon
-      style="text-align: left;padding-right: 15px;  vertical-align: middle; display: inline-flex;     height: 28px;     padding-bottom: 4px;
-    width: 28px;"
-      [svgIcon]="icon"
-    ></mat-icon>
-    {{ title }}
+  <div *ngIf="!consultation" style="flex:8;">
   </div>
 
   <div *ngIf="consultation" style="flex:8;     vertical-align: middle;">

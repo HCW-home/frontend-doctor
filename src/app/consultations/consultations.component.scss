@@ -4,7 +4,7 @@ span.tile-header {
 }
 
 .desc {
-  margin: 150px auto 0px 80px;
+  margin: 150px auto 0px 55px;
   width: 50%;
 }
 
@@ -70,12 +70,15 @@ span.tile-header {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
   0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
+  tr:not(.empty-row) {
+    cursor: pointer;
+  }
+
   tr {
     border-top: 1px solid #b1b1b191;
     border-left: 2px solid #fff;
-    cursor: pointer;
 
-    &:hover {
+    &:hover:not(.empty-row) {
       border-left: 2px solid var(--primary-color);
     }
   }

@@ -146,11 +146,11 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             : consultations;
 
         // Apply createdBy filter
-        if (filters.createdBy.me) {
+        if (filters.createdBy.me && !filters.createdBy.notMe) {
             filteredConsultations = filteredConsultations.filter(cons => !cons.nurse?.firstName);
         }
 
-        if (filters.createdBy.notMe) {
+        if (filters.createdBy.notMe && !filters.createdBy.me) {
             filteredConsultations = filteredConsultations.filter(cons => cons.nurse?.firstName);
         }
         this.appLiedFiltersCount = selectedQueueIds.length
@@ -294,9 +294,13 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            if (result) {
+            if (result.queues) {
                 this.filterState = result;
                 this.applyFilters(result);
+            } else if (result === 'clear') {
+                this.filterState = null;
+                this.appLiedFiltersCount = 0;
+                this.consultations = [...this.allConsultations];
             }
             console.log('The dialog was closed', result);
         });

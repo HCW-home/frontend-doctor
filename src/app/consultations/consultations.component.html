@@ -27,19 +27,15 @@
   </div>
 
   <div>
-    <h4 class="noCon" *ngIf="!consultations.length">
-      {{ "consultations.noConsultation" | translate }}
-    </h4>
       <div class="filters-wrapper">
           <button mat-raised-button #filterButton (click)="openFilterModal()">
               <mat-icon svgIcon="filter" class="filter-icon"></mat-icon>
-              More Filters
+              {{'consultations.filters' | translate}}
               <app-badge *ngIf="appLiedFiltersCount" [text]="appLiedFiltersCount"></app-badge>
-
           </button>
       </div>
 
-    <table class="consultations" *ngIf="consultations.length">
+    <table class="consultations">
       <tr (click)="showChat(consultation._id)"
         *ngFor="
           let consultation of consultations;
@@ -262,6 +258,14 @@
           <mat-icon svgIcon="next"></mat-icon>
         </td>
       </tr>
+
+        <tr class="empty-row"  *ngIf="!consultations.length">
+            <td rowspan="8">
+                <h4 >
+                    {{ "consultations.noConsultation" | translate }}
+                </h4>
+            </td>
+        </tr>
     </table>
 <!--    <div-->
 <!--      *ngIf="consultations.length"-->
