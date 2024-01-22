@@ -28,7 +28,7 @@
 
   <div>
       <div class="filters-wrapper">
-          <button mat-raised-button #filterButton (click)="openFilterModal()">
+          <button mat-raised-button class="secondary-button-outlined" #filterButton (click)="openFilterModal()">
               <mat-icon svgIcon="filter" class="filter-icon"></mat-icon>
               {{'consultations.filters' | translate}}
               <app-badge *ngIf="appLiedFiltersCount" [text]="appLiedFiltersCount"></app-badge>
@@ -227,7 +227,7 @@
         <td>
           <button
             (click)="openDialog($event,consultation)"
-            class="invite-btn"
+            class="secondary-button-outlined"
             mat-button
             *ngIf="status === 'closed'"
           >
@@ -235,7 +235,7 @@
           </button>
           <button
             (click)="resendInvite($event,consultation.consultation.invite)"
-            class="invite-btn"
+            class="secondary-button-outlined"
             mat-button
             *ngIf="status !== 'closed'"
           >

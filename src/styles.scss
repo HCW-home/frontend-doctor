@@ -141,3 +141,14 @@ img.logo {
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
   background-color: var(--primary-color) !important;
 }
+
+.secondary-button-outlined {
+  border-radius: 50px !important;
+  border: 1px solid #737373 !important;
+  box-shadow: none !important;
+}
+
+.primary-button {
+  border-radius: 50px !important;
+  box-shadow: none !important;
+}

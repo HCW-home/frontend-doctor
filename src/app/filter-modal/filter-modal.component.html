@@ -1,5 +1,4 @@
 <h2 mat-dialog-title *ngIf="appLiedFiltersCount">
-    Filters applied:
     {{'filter.filtersApplied' | translate}}
     <app-badge [text]="appLiedFiltersCount">{{appLiedFiltersCount}}</app-badge>
 </h2>
@@ -8,7 +7,7 @@
 </h2>
 <mat-dialog-content>
     <div class="accordion-wrapper">
-        <button mat-button *ngIf="appLiedFiltersCount"  [mat-dialog-close]="'clear'" class="clear-btn">{{ 'filter.clear' | translate }}</button>
+        <button mat-raised-button  *ngIf="appLiedFiltersCount"  [mat-dialog-close]="'clear'" class="clear-btn secondary-button-outlined">{{ 'filter.clear' | translate }}</button>
         <mat-accordion multi>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -39,6 +38,6 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions [align]="'end'">
-    <button mat-button mat-dialog-close>{{ 'filter.cancel' | translate }}</button>
-    <button mat-button class="apply-button" [mat-dialog-close]="getSelectedFilters()">Apply</button>
+    <button mat-raised-button mat-dialog-close class="secondary-button-outlined">{{ 'filter.cancel' | translate }}</button>
+    <button mat-button class="apply-button primary-button" [mat-dialog-close]="getSelectedFilters()">Apply</button>
 </mat-dialog-actions>

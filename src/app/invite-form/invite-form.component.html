@@ -16,7 +16,7 @@
                     {{ "inviteForm.patientTeleConsultationDescription" | translate }}
                 </p>
                 <button
-                        class="btn__send"
+                        class="btn__send primary-button"
                         [disabled]="loading"
                         (click)="showPatientForm()"
                         mat-button
@@ -30,7 +30,7 @@
                     {{ "inviteForm.thirdPartyConsultationDescription" | translate }}
                 </p>
                 <button
-                        class="btn__send"
+                        class="btn__send primary-button"
                         [disabled]="loading"
                         (click)="showTierFrom()"
                         mat-button
@@ -427,14 +427,14 @@
         <div class="submit__section">
             <div mat-dialog-actions>
                 <button
-                        class="btn__cancel"
-                        mat-button
+                        mat-raised-button
+                        class="secondary-button-outlined"
                         (click)="onNoClick()"
                         type="button"
                 >
                     {{ "inviteForm.cancel" | translate }}
                 </button>
-                <button class="btn__send btn_submit" [disabled]="loading" type="submit" mat-button>
+                <button class="btn__send btn_submit primary-button" [disabled]="loading" type="submit" mat-button>
                     <ng-container *ngIf="edit">
                         {{ "inviteForm.update" | translate }}
 
