@@ -323,7 +323,10 @@
     "invalidPhoneNumber": "Invalid phone number (eg: +41...)",
     "numberSaved": "Number saved",
     "numberNotSaved": "Number not saved",
-    "updateTheProfile": "Update the profile"
+    "updateTheProfile": "Update the profile",
+    "name": "Name",
+    "notification": "Notification",
+    "enablesNotification": "This enables notification when an new consultation is requested."
   },
   "resetPassword": {
     "changePassword": "Change password",

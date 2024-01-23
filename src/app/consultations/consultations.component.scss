@@ -12,7 +12,7 @@ span.tile-header {
   margin-left: 80px;
   width: 90%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-bottom: 15px;
 
   .filter-icon {
@@ -20,7 +20,6 @@ span.tile-header {
   }
 }
 
-// <div style="text-align:center;line-height:100%;width:33%;height:100%;">Text Content</div>
 .pdf-table {
   margin: auto;
   font-size: 40px;

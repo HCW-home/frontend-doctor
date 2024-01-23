@@ -84,6 +84,10 @@ body {
   justify-content: center;
 }
 
+.capitalize {
+  text-transform: uppercase;
+}
+
 img {
   image-orientation: from-image;
 }
@@ -139,6 +143,14 @@ img.logo {
 }
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: var(--primary-color) !important;
 }
 

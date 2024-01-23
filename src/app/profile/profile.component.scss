@@ -1,21 +1,18 @@
 
-mat-card {
-  background-image: url("/assets/img/bg-queue.png");
-  margin: 150px 7.5% 0 7.5%;
-}
 
 dl {
-  width: 600px;
   line-height: 2em;
 }
 dt {
-  width: 200px;
-  text-align: right;
-  color: var(--primary-color);
-  display: inline-block;
+  font-size: 14px;
+  color: #3f3f3f;
+  display: block;
+  font-weight: 400;
 }
 dd {
-  display: inline-block;
+  margin-inline-start: 10px;
+  font-size: 16px;
+  font-weight: 500;
   width: 350px;
   mat-form-field.mat-form-field-disabled {
     margin-left: 10px;
@@ -39,6 +36,43 @@ dd {
   background-color: var(--primary-color);
   color: #ffffff;
   border-radius: 50px;
-  // margin: 20px;
   font-size: 12px;
+}
+
+.desc {
+  margin: 20px auto 19px 20px;
+  width: 70%;
+}
+
+.card-left,
+.card-right {
+  padding-top: 31px;
+  padding-bottom: 31px;
+  display: inline;
+}
+
+@media screen and (max-width: 1079px) {
+  .cards-container {
+    flex-direction: column !important;
+  }
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  .card-left {
+    flex: 3;
+    margin: 40px;
+    background-image: url("/assets/img/bg-queue.png");
+  }
+  .card-right {
+    flex: 2;
+    margin: 40px;
+    background-image: url("/assets/img/bg-open.png");
+    min-width: 186px;
+  }
+}
+
+html[data-theme="accessibility"] {
+  font-family: "Source Sans Pro";
 }

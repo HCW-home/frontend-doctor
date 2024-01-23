@@ -6,11 +6,11 @@
 </div>
 <div mat-dialog-actions>
   <button
-    class="btn__cancel primary-button"
+    class="secondary-button-outlined"
     mat-button
     [mat-dialog-close]="false"
   >
     {{ this.noText }}
   </button>
-  <button *ngIf="yesText" mat-button class="secondary-button-outlined" [mat-dialog-close]="true">{{ this.yesText }}</button>
+  <button *ngIf="yesText" mat-button class="btn__cancel primary-button" [mat-dialog-close]="true">{{ this.yesText }}</button>
 </div>
