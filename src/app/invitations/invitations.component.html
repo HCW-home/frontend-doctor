@@ -29,11 +29,7 @@
         <table [style.display]="loading ? 'none' : 'table'" class="invitations">
             <tr
                     *ngFor="
-          let invite of invitations
-            | async
-            | paginate
-              : { itemsPerPage: 10, currentPage: page, totalItems: totalCount }
-        "
+          let invite of invitations| async"
             >
                 <td>
           <span class="tile-header" *ngIf="invite.emailAddress">{{

@@ -40,7 +40,7 @@
         *ngFor="
           let consultation of consultations;
           let i = index;
-          trackBy: trackItem | paginate: { itemsPerPage: 10, currentPage: page }">
+          trackBy: trackItem">
         <td
           (click)="exportPDF($event, consultation)"
           *ngIf="status === 'closed'"
