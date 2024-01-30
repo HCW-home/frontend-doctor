@@ -1,3 +1,23 @@
+hcw-athome-caregiver (0.5.0.3) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #6179, Improve PDF report
+  * add doctor external link
+  * refs #6268, Add new allowed mimetype parameters in backend
+  * Add footer.md into doctor, improve pdf report
+  * localeid based on translate
+  * update to 15
+  * update to 16
+  * updates
+  * update material
+  * custom pagination and date-time picker
+  * add filters
+  * translation and ui fixes
+  * changed buttons style
+  * profile page ui changes
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 30 Jan 2024 23:19:59 +0100
+
 hcw-athome-caregiver (5.0.2) focal; urgency=medium
 
   [ Gor Grigoryan ]
