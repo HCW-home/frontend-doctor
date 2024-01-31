@@ -52,7 +52,6 @@ import { DurationPipe } from "./duration.pipe";
 
 import {DatePipe, registerLocaleData} from "@angular/common";
 
-import { NgxPaginationModule } from "ngx-pagination"; // <-- import the module
 import localeFr from "@angular/common/locales/fr";
 
 import { ProfileUpdateComponent } from "./profile-update/profile-update.component";
@@ -268,7 +267,6 @@ const routes: Routes = [
         SharedModule,
         HttpClientModule,
         RouterModule.forRoot(routes),
-        NgxPaginationModule,
         I18nModule,
         HugAngularLibModule,
         ClipboardModule,
