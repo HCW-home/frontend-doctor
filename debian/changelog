@@ -1,3 +1,16 @@
+hcw-athome-caregiver (5.0.4) UNRELEASED; urgency=medium
+
+  [ Gor Grigoryan ]
+  * build fix
+
+  [ Weblate Admin ]
+  * Translated using Weblate (French)
+
+  [ Gor Grigoryan ]
+  * refs #6532, add button if no consultation to invite user to start by sending invite
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 05 Mar 2024 12:56:59 +0100
+
 hcw-athome-caregiver (5.0.3) focal; urgency=medium
 
   [ Gor Grigoryan ]
