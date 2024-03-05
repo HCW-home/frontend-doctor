@@ -33,6 +33,15 @@
         {{ "dashboard.noConsultation" | translate }}
       </h4>
 
+        <button *ngIf="!pendingConsultations.length"
+                (click)="openDialog()"
+                class="invite-btn"
+                mat-button
+                type="submit"
+                color="primary">
+            {{ "dashboard.sendNewInvite" | translate }}
+        </button>
+
       <table *ngIf="pendingConsultations.length" class="pending-consultations">
         <tr *ngFor="let pc of pendingConsultations" (click)="showChat(pc._id)">
           <td>

@@ -107,6 +107,13 @@ table {
     font-weight: 400;
   }
 }
+.invite-btn {
+  margin-left: 20px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-radius: 50px;
+  font-size: 12px;
+}
 .active-consultations {
   .unread,
   .arrow {

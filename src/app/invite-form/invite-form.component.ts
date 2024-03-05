@@ -407,7 +407,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         } else {
 
             this.createInviteSub = this.inviteService.createInvitation(this.data).subscribe(res => {
-                this.dialogRef.close();
+                this.dialogRef.close(true);
             }, err => {
                 this.loading = false;
 
