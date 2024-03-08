@@ -314,7 +314,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     generatePDF(data, nurse) {
         this.msgServ
             .getConsultationMessages(
-                data._id, undefined, true
+                data._id || data.id, undefined, true
             )
             .subscribe((messages) => {
 
