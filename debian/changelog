@@ -1,3 +1,11 @@
+hcw-athome-caregiver (5.0.5) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * fix pdf download issue
+  * refs #6482, Improve error when no SMS provider configured
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 26 Mar 2024 16:01:02 +0100
+
 hcw-athome-caregiver (5.0.4) focal; urgency=medium
 
   [ Gor Grigoryan ]
