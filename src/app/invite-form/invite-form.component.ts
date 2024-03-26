@@ -402,7 +402,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             }, err => {
                 this.loading = false;
 
-                this.error = err;
+                this.error = err.details || err.error?.message || err.statusText || err.message || err;
             });
         } else {
 
@@ -411,7 +411,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             }, err => {
                 this.loading = false;
 
-                this.error = err;
+                this.error = err.details || err.error?.message || err.statusText || err.message || err;
             });
         }
     }

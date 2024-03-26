@@ -1,11 +1,15 @@
 import {Component, Inject, OnInit} from "@angular/core";
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {MyErrorStateMatcher} from "../profile-update/profile-update.component";
-import {DialogData} from "../confirmation-dialog/confirmation-dialog.component";
 import {ConsultationService} from "../core/consultation.service";
 import {emailOrPhoneValidator} from "../invite-form/invite-form.component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+
+export interface DialogData {
+    expertLink: string
+    id: string
+}
 
 @Component({
     selector: "app-invite-expert",
@@ -30,7 +34,7 @@ export class InviteExpertComponent implements OnInit {
     createFormGroup() {
         this.myForm = this.formBuilder.group({
             email: new UntypedFormControl("", [emailOrPhoneValidator, Validators.required]),
-            link: new UntypedFormControl(this.data)
+            link: new UntypedFormControl(this.data.expertLink)
         });
     }
 
@@ -55,7 +59,8 @@ export class InviteExpertComponent implements OnInit {
             this.loading = true;
             const body = {
                 expertLink: this.data,
-                to: this.myForm.get("email").value
+                to: this.myForm.get("email").value,
+                consultationId: this.data.id
             }
             this.consultationService.sendExpertLink(body).subscribe({
                 next: (res) => {

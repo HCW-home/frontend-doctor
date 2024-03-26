@@ -99,7 +99,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   inviteExpert(expertLink: string) {
     const dialogRef = this.dialog.open(InviteExpertComponent, {
       width: "800px",
-      data: expertLink,
+      data: {expertLink, id: this.consultation._id || this.consultation.id},
       autoFocus: false
     });
   }
