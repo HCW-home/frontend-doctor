@@ -5,9 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71723fb9-d804-4060-bc9b-547eb5e9e01e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/consultation.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/consultation.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/invite.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/invite.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/error-dialog/error-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/error-dialog/error-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/shared.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/shared.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/i18n/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/environments/environment.prod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +37,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2JDWR6wbfoUbeavZxbbAlMZv2fs" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,17 +54,27 @@
     &quot;git-widget-placeholder&quot;: &quot;angular-update&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/grigoryan/react/hcw-doctor&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/grigoryan/react/hcw-doctor/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor.code.editing&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/grigoryan/react/hcw-doctor/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="Tests (hug-at-home)" type="JavaScriptTestRunnerKarma">
       <config-file value="$PROJECT_DIR$/src/karma.conf.js" />
+      <karma-package-dir value="$PROJECT_DIR$/node_modules/@angular/cli" />
       <working-directory value="$PROJECT_DIR$" />
       <node-interpreter value="project" />
       <envs />
@@ -72,6 +102,13 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -86,6 +123,36 @@
       <workItem from="1686301107672" duration="2110000" />
       <workItem from="1686579714318" duration="9718000" />
       <workItem from="1686681657143" duration="2346000" />
+      <workItem from="1710149405625" duration="1971000" />
+      <workItem from="1710187409246" duration="1219000" />
+      <workItem from="1710313459429" duration="615000" />
+      <workItem from="1710336465263" duration="1494000" />
+      <workItem from="1710403660980" duration="8211000" />
+      <workItem from="1710491722449" duration="1442000" />
+      <workItem from="1710583340212" duration="1073000" />
+      <workItem from="1710746685543" duration="634000" />
+      <workItem from="1711015198196" duration="654000" />
+      <workItem from="1711434459336" duration="628000" />
+      <workItem from="1711443624409" duration="4296000" />
+      <workItem from="1711476005250" duration="6000" />
+      <workItem from="1713535151098" duration="43000" />
+      <workItem from="1713535503093" duration="858000" />
+      <workItem from="1713779320658" duration="625000" />
+      <workItem from="1713819489291" duration="1000" />
+      <workItem from="1714115799178" duration="2667000" />
+      <workItem from="1714239479181" duration="3000" />
+      <workItem from="1714465035222" duration="2660000" />
+      <workItem from="1714469413847" duration="2048000" />
+      <workItem from="1714482146103" duration="2966000" />
+      <workItem from="1714555010913" duration="107000" />
+      <workItem from="1714555560031" duration="1591000" />
+      <workItem from="1714557308309" duration="5818000" />
+      <workItem from="1714591620186" duration="15000" />
+      <workItem from="1714639294143" duration="16577000" />
+      <workItem from="1714725934095" duration="1390000" />
+      <workItem from="1714730208430" duration="1439000" />
+      <workItem from="1714739814733" duration="756000" />
+      <workItem from="1714976218942" duration="19550000" />
     </task>
     <servers />
   </component>

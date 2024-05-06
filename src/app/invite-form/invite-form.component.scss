@@ -33,8 +33,9 @@
     gap: 12px;
 
     .expert-field {
-      display: flex;
       width: 100%;
+      display: flex;
+      flex-direction: column;
     }
   }
 
@@ -258,3 +259,39 @@ form {
   align-items: center;
   height: 100%;
 }
+
+.field-container-inner {
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.might-late-warning {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.provider-radio-group {
+  gap: 10px;
+  display: flex;
+  margin-left: 30px;
+}
+
+.radio-group-error {
+  display: flex;
+  font-size: 75%;
+  margin-top: 10px;
+  justify-content: center;
+
+}
+
+.success-message {
+  color: green;
+}
+
+.form-error {
+  font-size: 75%;
+  margin-left: 30px;
+}
+

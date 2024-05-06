@@ -4,6 +4,7 @@ html,
 body {
   height: 100%;
 }
+
 @import "@angular/material/theming";
 // Plus imports for other components in your app.
 
@@ -12,36 +13,36 @@ body {
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 $md-hug: (
-  50: #e5eef7,
-  100: #bfd4eb,
-  200: #94b8de,
-  300: #699cd1,
-  400: #4886c7,
-  500: #2871bd,
-  600: #2469b7,
-  700: #1e5eae,
-  800: #1854a6,
-  900: #0f4298,
-  A100: #c9daff,
-  A200: #96b8ff,
-  A400: #6396ff,
-  A700: #4985ff,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
-  ),
+        50: #e5eef7,
+        100: #bfd4eb,
+        200: #94b8de,
+        300: #699cd1,
+        400: #4886c7,
+        500: #2871bd,
+        600: #2469b7,
+        700: #1e5eae,
+        800: #1854a6,
+        900: #0f4298,
+        A100: #c9daff,
+        A200: #96b8ff,
+        A400: #6396ff,
+        A700: #4985ff,
+        contrast: (
+                50: #000000,
+                100: #000000,
+                200: #000000,
+                300: #000000,
+                400: #ffffff,
+                500: #ffffff,
+                600: #ffffff,
+                700: #ffffff,
+                800: #ffffff,
+                900: #ffffff,
+                A100: #000000,
+                A200: #000000,
+                A400: #000000,
+                A700: #000000,
+        ),
 );
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -74,6 +75,7 @@ body {
   right: -24px !important;
   top: -12px !important;
 }
+
 .mat-badge-content {
   background: #bd2828 !important;
 }
@@ -91,6 +93,7 @@ body {
 img {
   image-orientation: from-image;
 }
+
 .pagination-control {
   display: flex;
   width: 100%;
@@ -120,6 +123,35 @@ img.logo {
 .w-100 {
   width: 100%;
 }
+
+.d-flex {
+  display: flex;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.mt-14 {
+  margin-top: 14px;
+}
+
+.ml-40 {
+  margin-left: 40px;
+}
+
 
 .pagination-control ul > li.current {
   background-color: var(--primary-color);
@@ -152,6 +184,19 @@ img.logo {
 
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: var(--primary-color) !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--primary-color);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: var(--primary-color);
 }
 
 .secondary-button-outlined {

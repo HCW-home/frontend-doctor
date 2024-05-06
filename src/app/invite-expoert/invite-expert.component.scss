@@ -81,3 +81,18 @@
   padding-bottom: 0 !important;
 
 }
+
+.provider-radio-group {
+  gap: 10px;
+  display: flex;
+  margin-left: 30px;
+}
+
+.success-message {
+  color: green;
+}
+
+.form-error {
+  font-size: 75%;
+  margin-left: 30px;
+}

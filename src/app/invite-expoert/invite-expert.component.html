@@ -1,75 +1,97 @@
 <form
-        *ngIf="myForm"
-        (submit)="onSubmit()"
-        class="invite-form"
-        [formGroup]="myForm"
->
-    <h2 class="title">
-        {{ "consultations.inviteExpert" | translate }}
-    </h2>
-    <div mat-dialog-content class="dialog-content">
-        <div class="field-container">
-            <div class="send-link-wrapper">
-                <p>
-                    {{ "consultations.share" | translate }}
-                </p>
-                <mat-form-field class="w-100">
-                    <mat-label class="label">{{"inviteForm.emailOrSMS" | translate}}</mat-label>
-                    <input
-                            matInput
-                            [placeholder]="'inviteForm.emailOrSMS' | translate"
-                            formControlName="email"
-                            [errorStateMatcher]="matcher"
-                            required
-                    />
-                    <mat-error
-                            *ngIf="myForm.controls.email.hasError('emailOrPhoneControl' )"
-                    >
-                        {{ "inviteForm.pleaseEnterValidEmailOrPhoneNumber" | translate }}
-                    </mat-error>
-                    <mat-error
-                            *ngIf="myForm.controls.email.hasError('required')"
-                    >
-                        {{ 'Email is' | translate }}
-                        <strong>{{ 'profileUpdate.required' | translate }}</strong>
-                    </mat-error>
-                    <mat-error
-                            *ngIf="myForm.controls.email.hasError('email')"
-                    >
-                        Enter valid email
-                    </mat-error>
-                </mat-form-field>
-                <div *ngIf="loading" class="loading darkoverlay">
-                    <mat-spinner [diameter]="35"></mat-spinner>
-                </div>
-                <button class="btn__send" [disabled]="loading" type="submit" mat-raised-button>
-                    {{ 'profileUpdate.send' | translate }}
-                </button>
-            </div>
-            <div class="expert-link-wrapper">
-                <p>
-                    {{ 'consultations.shareBy' | translate }}
-                </p>
-                <div class="input-wrapper">
-                    <mat-form-field class="w-100">
-                        <mat-label class="label">{{"consultation.expert_link" | translate}}</mat-label>
-                        <input
-                                matInput
-                                [errorStateMatcher]="matcher"
-                                readonly
-                                formControlName="link"
-                        />
-                    </mat-form-field>
+  *ngIf="myForm"
+  (submit)="onSubmit()"
+  class="invite-form"
+  [formGroup]="myForm">
+  <h2 class="title">
+    {{ 'consultations.inviteExpert' | translate }}
+  </h2>
+  <div mat-dialog-content class="dialog-content">
+    <div class="field-container">
+      <div class="send-link-wrapper">
+        <p>
+          {{ 'consultations.share' | translate }}
+        </p>
+        <mat-form-field class="w-100">
+          <mat-label class="label">{{
+            'inviteForm.emailOrSMS' | translate
+          }}</mat-label>
+          <input
+            matInput
+            [placeholder]="'inviteForm.emailOrSMS' | translate"
+            formControlName="email"
+            [errorStateMatcher]="matcher"
+            required />
 
-                    <mat-icon svgIcon="copy" (click)="copy()" [cdkCopyToClipboard]="data.expertLink"></mat-icon>
-                </div>
+          <mat-hint class="success-message" *ngIf="showSuccessMessage">
+            {{ showSuccessMessage }}
+          </mat-hint>
+          <mat-error
+            *ngIf="myForm.controls?.email.hasError('emailOrPhoneControl')">
+            {{ 'inviteForm.pleaseEnterValidEmailOrPhoneNumber' | translate }}
+          </mat-error>
+          <mat-error *ngIf="myForm.controls?.email.hasError('required')">
+            {{
+              'inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber'
+                | translate
+            }}
+          </mat-error>
+          <mat-error *ngIf="myForm.controls?.email.hasError('email')">
+            {{ 'inviteForm.invalidEmailAddress' | translate }}
+          </mat-error>
+          <mat-error *ngIf="myForm.controls?.email.hasError('cantSend')">
+            {{ 'inviteForm.notPermitted' | translate }}
+          </mat-error>
+        </mat-form-field>
+        <mat-radio-group
+          formControlName="messageService"
+          class="provider-radio-group"
+          *ngIf="showRadioGroup">
+          <mat-radio-button value="1">Whatsapp</mat-radio-button>
+          <mat-radio-button value="2">SMS</mat-radio-button>
+        </mat-radio-group>
+        <mat-error
+          class="form-error"
+          *ngIf="myForm.controls?.messageService?.hasError('required')">
+          {{ 'inviteForm.required' | translate }}
+        </mat-error>
+        <div *ngIf="loading" class="loading darkoverlay">
+          <mat-spinner [diameter]="35"></mat-spinner>
+        </div>
+        <button
+          class="btn__send"
+          [disabled]="loading"
+          type="submit"
+          mat-raised-button>
+          {{ 'profileUpdate.send' | translate }}
+        </button>
+      </div>
+      <div class="expert-link-wrapper">
+        <p>
+          {{ 'consultations.shareBy' | translate }}
+        </p>
+        <div class="input-wrapper">
+          <mat-form-field class="w-100">
+            <mat-label class="label">{{
+              'consultation.expert_link' | translate
+            }}</mat-label>
+            <input
+              matInput
+              [errorStateMatcher]="matcher"
+              readonly
+              formControlName="link" />
+          </mat-form-field>
 
-                <button mat-button (click)="onNoClick()" type="button">
-                    {{ 'consultation.close' | translate }}
-                </button>
-
-            </div>
+          <mat-icon
+            svgIcon="copy"
+            (click)="copy()"
+            [cdkCopyToClipboard]="data.expertLink"></mat-icon>
         </div>
 
+        <button mat-button (click)="onNoClick()" type="button">
+          {{ 'consultation.close' | translate }}
+        </button>
+      </div>
     </div>
+  </div>
 </form>

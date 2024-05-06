@@ -27,8 +27,9 @@
               "bowser",
               "core-js",
               "rgbcolor",
+              "rgbcolor",
               "raf",
-              "rgbcolor"
+              "google-libphonenumber"
             ],
             "outputPath": "dist/hug-at-home",
             "index": "src/index.html",
