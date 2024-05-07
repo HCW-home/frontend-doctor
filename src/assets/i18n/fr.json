@@ -344,9 +344,38 @@
     "dateTimePicker.hour12AMLabel": "",
     "dateTimePicker.hour12PMLabel": "",
     "filter": {
-        "filtersApplied": "Filtres appliqués :"
+        "filtersApplied": "Filtres appliqués :",
+        "myself": "Moi-même",
+        "queue": "File d'attente",
+        "sent_by": "Invitation envoyée par",
+        "filters": "Filtres"
     },
     "app": {
         "reconnected": "Vous êtes reconnecté"
+    },
+    "topNav": {
+        "new_consultation_form": "Formulaire de demande de consultation"
+    },
+    "profile": {
+        "enablesNotification": "Cette option active l'envoi de notification SMS quand une consultation est demandée.",
+        "notification": "Notification",
+        "name": "Nom"
+    },
+    "inviteForm": {
+        "notPermitted": "Ce numéro de téléphone n'est pas autorisé sur cette plateforme.",
+        "invalidEmailAddress": "L'email est invalide",
+        "required": "Requis",
+        "anotherExpert": "Ajouter un autre expert",
+        "remove": "Supprimer"
+    },
+    "dashboard": {
+        "sendNewInvite": "Envoyer une nouvelle invitation"
+    },
+    "consultation": {
+        "expert_link": "Lien de l'expert"
+    },
+    "consultations": {
+        "filters": "Filtres",
+        "requestedBy": "Demandé par"
     }
 }
