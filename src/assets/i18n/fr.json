@@ -130,7 +130,7 @@
     "inviteForm.mySelf": "Aucun",
     "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumberEx": "Veuillez ne saisir qu'email ou un numéro de mobile (+41 ou +33)",
     "inviteForm.pleaseEnterValidEmailOrPhoneNumber": "Veuillez entrer un email ou un numéro de mobile au format +41 ou +33",
-    "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Veuillez renseigner uniquement un des deux champs email ou numéro de mobile",
+    "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Veuillez renseigner uniquement un email ou numéro de mobile.",
     "inviteForm.schedulingLater": "Planifier ultérieurement",
     "inviteForm.warningTranslatorMightBeLate": "L'interprète risque de répondre depuis un lieu  moins adapté si la demande est faite moins de 24h à l'avance.",
     "inviteForm.language": "Langue",
@@ -344,9 +344,44 @@
     "dateTimePicker.hour12AMLabel": "",
     "dateTimePicker.hour12PMLabel": "",
     "filter": {
-        "filtersApplied": "Filtres appliqués :"
+        "filtersApplied": "Filtres appliqués :",
+        "myself": "Moi-même",
+        "queue": "File d'attente",
+        "sent_by": "Invitation envoyée par",
+        "filters": "Filtres",
+        "cancel": "Annuler",
+        "clear": "Effacer les filtres",
+        "somebodyElse": "Aux autres"
     },
     "app": {
         "reconnected": "Vous êtes reconnecté"
+    },
+    "topNav": {
+        "new_consultation_form": "Formulaire de demande de consultation"
+    },
+    "profile": {
+        "enablesNotification": "Cette option active l'envoi de notification SMS quand une consultation est demandée.",
+        "notification": "Notification",
+        "name": "Nom"
+    },
+    "inviteForm": {
+        "notPermitted": "Ce numéro de téléphone n'est pas autorisé sur cette plateforme.",
+        "invalidEmailAddress": "L'email est invalide",
+        "required": "Requis",
+        "anotherExpert": "Ajouter un autre expert",
+        "remove": "Supprimer"
+    },
+    "dashboard": {
+        "sendNewInvite": "Envoyer une nouvelle invitation"
+    },
+    "consultation": {
+        "expert_link": "Lien de l'expert"
+    },
+    "consultations": {
+        "filters": "Filtres",
+        "requestedBy": "Demandé par"
+    },
+    "chat": {
+        "requestedBy": "Demandé par"
     }
 }
