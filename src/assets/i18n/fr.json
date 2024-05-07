@@ -130,7 +130,7 @@
     "inviteForm.mySelf": "Aucun",
     "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumberEx": "Veuillez ne saisir qu'email ou un numéro de mobile (+41 ou +33)",
     "inviteForm.pleaseEnterValidEmailOrPhoneNumber": "Veuillez entrer un email ou un numéro de mobile au format +41 ou +33",
-    "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Veuillez renseigner uniquement un des deux champs email ou numéro de mobile",
+    "inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Veuillez renseigner uniquement un email ou numéro de mobile.",
     "inviteForm.schedulingLater": "Planifier ultérieurement",
     "inviteForm.warningTranslatorMightBeLate": "L'interprète risque de répondre depuis un lieu  moins adapté si la demande est faite moins de 24h à l'avance.",
     "inviteForm.language": "Langue",
@@ -348,7 +348,10 @@
         "myself": "Moi-même",
         "queue": "File d'attente",
         "sent_by": "Invitation envoyée par",
-        "filters": "Filtres"
+        "filters": "Filtres",
+        "cancel": "Annuler",
+        "clear": "Effacer les filtres",
+        "somebodyElse": "Aux autres"
     },
     "app": {
         "reconnected": "Vous êtes reconnecté"
@@ -376,6 +379,9 @@
     },
     "consultations": {
         "filters": "Filtres",
+        "requestedBy": "Demandé par"
+    },
+    "chat": {
         "requestedBy": "Demandé par"
     }
 }
