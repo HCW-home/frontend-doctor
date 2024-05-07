@@ -1,3 +1,9 @@
+hcw-athome-caregiver (5.0.7) focal; urgency=medium
+
+  * Rollback change b7ecdf87
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 07 May 2024 09:40:19 +0200
+
 hcw-athome-caregiver (5.0.6) focal; urgency=medium
 
   [ Gor Grigoryan ]
