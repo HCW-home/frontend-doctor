@@ -1,3 +1,11 @@
+hcw-athome-caregiver (5.0.6) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * fix copy expert link
+  * add ability to send whatsapp sms
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 07 May 2024 09:20:26 +0200
+
 hcw-athome-caregiver (5.0.5) focal; urgency=medium
 
   [ Gor Grigoryan ]
