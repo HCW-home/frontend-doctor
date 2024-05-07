@@ -233,6 +233,12 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     );
     (window as any).myForm = this.myForm;
 
+    this.myForm.get('inviteExpert').valueChanges.subscribe(value => {
+      (this.myForm.get('experts') as FormArray).controls.forEach(control => {
+        control.get('expertContact').updateValueAndValidity();
+      });
+    });
+
     this.myForm
       .get('patientContactFormControl')
       .valueChanges.subscribe(value => {
@@ -393,9 +399,14 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   }
 
   expertContactValidatorValidator(control: AbstractControl) {
-    if (this.myForm?.get('inviteExpert')?.value && !control.value) {
-      return { required: { value: control.value } };
+    if (!this.myForm?.get('inviteExpert')?.value) {
+      return null;
     }
+
+    if (!control.value) {
+      return { required: true };
+    }
+
     return null;
   }
 
