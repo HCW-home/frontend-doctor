@@ -128,6 +128,12 @@
     "footer": {
         "supportedByThePrivateFoundation": "Supported by the private foundation"
     },
+    "cgu": {
+        "termsAndConditions": "Terms & Conditions (T&C)",
+        "backToHome": "Return to Home",
+        "selectCountry": "This terms applies to the country:",
+        "notConfigured": "Terms and conditions have not yet been configured."
+    },
     "forgotPassword": {
         "home": "HOME",
         "youForgotYourPassword": "You forgot your password:",

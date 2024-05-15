@@ -80,12 +80,14 @@ import { BadgeComponent } from './badge/badge.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
+import { CguComponent } from './cgu/cgu.component';
 
 registerLocaleData(localeFr);
 
 export function LocaleIdFactory(translateService: TranslateService) {
   return translateService.currentLang || 'en';
 }
+
 const routes: Routes = [
   {
     path: '',
@@ -199,6 +201,13 @@ const routes: Routes = [
     canActivate: [AuthGuard, RouterGuard],
   },
   {
+    path: 'cgu',
+    component: CguComponent,
+    data: {
+      title: 'Cgu',
+    },
+  },
+  {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     data: {
@@ -261,6 +270,7 @@ const routes: Routes = [
     CustomPaginationComponent,
     FilterModalComponent,
     BadgeComponent,
+    CguComponent,
   ],
   imports: [
     BrowserAnimationsModule,

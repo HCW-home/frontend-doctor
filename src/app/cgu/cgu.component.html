@@ -1,0 +1,39 @@
+<div class="center">
+  <div class="custom-card">
+    <div class="container">
+      <div class="title" *ngIf="!error">
+        {{ 'cgu.selectCountry' | translate }}
+        <div class="country-select">
+          <div class="sl-container">
+            <select
+              class="lang"
+              #langSelect
+              (change)="changeCountry(langSelect.value)">
+              <option *ngFor="let country of countries" [value]="country">
+                {{ country }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="back">
+        <button (click)="goBack()" class="secondary-button-outlined" mat-button>
+          {{ 'cgu.backToHome' | translate }}
+        </button>
+      </div>
+
+      <h2>{{ 'cgu.termsAndConditions' | translate }}</h2>
+
+      <markdown
+        [src]="error ? 'assets/terms.md' : 'assets/terms/' + selectedTermName">
+        <h2>{{ 'cgu.notConfigured' | translate }}</h2>
+      </markdown>
+
+      <div class="back">
+        <button (click)="goBack()" class="secondary-button-outlined" mat-button>
+          {{ 'cgu.backToHome' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
