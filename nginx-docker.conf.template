@@ -16,13 +16,6 @@ server {
     add_header Strict-Transport-Security "max-age=31536000;";
     add_header Content-Security-Policy "default-src 'self'; script-src 'self'; object-src 'self'; font-src 'self'";
 
-
-    location ~* ^.+\.(svg|svgz|otf|woff|ttf|css|js|jpg|jpeg|gif|png|ico|gz|woff2)$ {
-        access_log off;
-        log_not_found off;
-        add_header Cache-Control "public, max-age=31536000";
-    }
-
     location /healthcheck {
         access_log    off;
         log_not_found off;
@@ -43,12 +36,25 @@ server {
     }
 
     location /index.html {
-      expires     1m;
-      add_header  Cache-Control "private, no-cache, no-store";
+        expires     -1;
+        add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
     }
 
     location / {
-      try_files $uri $uri/ /index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~* ^.+\.md$ {
+        access_log off;
+        log_not_found off;
+        expires -1;
+        add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+    }
+
+    location ~* ^.+\.(svg|svgz|otf|woff|ttf|css|js|jpg|jpeg|gif|png|ico|gz|woff2)$ {
+        access_log off;
+        log_not_found off;
+        add_header Cache-Control "public, max-age=31536000";
     }
 
     error_page   500 502 503 504  /50x.html;
