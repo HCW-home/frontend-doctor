@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.0.9) focal; urgency=medium
+hcw-athome-caregiver (5.0.9) focal; urgency=medium
 
   * Fix cache policy for markdown files and add proxy-revalidate for index.html
 
