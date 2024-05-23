@@ -383,5 +383,11 @@
     },
     "chat": {
         "requestedBy": "Demandé par"
+    },
+    "cgu": {
+        "notConfigured": "Les termes et conditions n'ont pas encore été configurés.",
+        "selectCountry": "Ces conditions s'appliquent au pays :",
+        "backToHome": "J'ai compris",
+        "termsAndConditions": "Conditions Générales d'Utilisation (CGU)"
     }
 }
