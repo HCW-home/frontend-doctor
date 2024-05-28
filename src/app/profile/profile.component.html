@@ -1,90 +1,80 @@
 <app-top-nav
-        [title]="'profile.profile' | translate"
-        [icon]="'stat'"
-></app-top-nav>
+  [title]="'profile.profile' | translate"
+  [icon]="'stat'"></app-top-nav>
 
 <div style="margin-top: 110px" class="cards-container">
-    <mat-card class="card-left">
-        <div class="desc">
-            <h2 class="capitalize">
-                {{ "profile.profile" | translate }}
-            </h2>
-            <dl>
-                <dt>{{ "profile.name" | translate }}</dt>
-                <dd>{{ currentUser.firstName + " " + currentUser.lastName }}</dd>
+  <mat-card class="card-left">
+    <div class="desc">
+      <h2 class="capitalize">
+        {{ 'profile.profile' | translate }}
+      </h2>
+      <dl>
+        <dt>{{ 'profile.name' | translate }}</dt>
+        <dd>{{ currentUser.firstName + ' ' + currentUser.lastName }}</dd>
 
-                <ng-container *ngIf="currentUser.email">
-                    <dt>{{ "profile.addressEmail" | translate }}</dt>
-                    <dd>{{ currentUser.email }}</dd>
+        <ng-container *ngIf="currentUser.email">
+          <dt>{{ 'profile.addressEmail' | translate }}</dt>
+          <dd>{{ currentUser.email }}</dd>
+        </ng-container>
 
-                </ng-container>
+        <ng-container *ngIf="currentUser.phoneNumber">
+          <dt>{{ 'profile.phoneNumber' | translate }}</dt>
+          <dd>{{ currentUser.phoneNumber }}</dd>
+        </ng-container>
 
-                <ng-container *ngIf="currentUser.phoneNumber">
+        <ng-container *ngIf="currentUser.authPhoneNumber">
+          <dt>{{ 'profile.smsChallenge' | translate }}</dt>
+          <dd>{{ currentUser.authPhoneNumber }}</dd>
+        </ng-container>
+        <dt></dt>
+        <dd><app-language-selector></app-language-selector></dd>
+      </dl>
+    </div>
+  </mat-card>
 
-                    <dt>{{ "profile.phoneNumber" | translate }}</dt>
-                    <dd>{{ currentUser.phoneNumber }}</dd>
-                </ng-container>
+  <mat-card class="card-right">
+    <div class="desc">
+      <h2 class="capitalize">{{ 'profile.notification' | translate }}</h2>
+      <p>
+        {{ 'profile.enablesNotification' | translate }}
+      </p>
+      <dl>
+        <dt>{{ 'profile.smsNotification' | translate }}</dt>
+        <dd>
+          <mat-slide-toggle
+            #toggleElement
+            [disabled]="isLoading"
+            (change)="onChange($event)"
+            [checked]="enableNotif">
+            {{ 'profile.enable' | translate }}
+          </mat-slide-toggle>
+          <mat-form-field>
+            <mat-label class="label"
+              >{{ 'profile.mobilePhoneNumber' | translate }}
+            </mat-label>
 
-                <ng-container *ngIf="currentUser.authPhoneNumber">
-                    <dt>{{ "profile.smsChallenge" | translate }}</dt>
-                    <dd>{{ currentUser.authPhoneNumber }}</dd>
-
-                </ng-container>
-            </dl>
-        </div>
-
-    </mat-card>
-
-    <mat-card class="card-right">
-        <div class="desc">
-            <h2 class="capitalize">{{ "profile.notification" | translate }}</h2>
-            <p>
-                {{'profile.enablesNotification' | translate}}
-            </p>
-            <dl>
-                <dt>{{ "profile.smsNotification" | translate }}</dt>
-                <dd>
-                    <mat-slide-toggle
-                        #toggleElement
-                        [disabled]="isLoading"
-                        (change)="onChange($event)"
-                        [checked]="enableNotif"
-                    >
-                        {{ "profile.enable" | translate }}
-                    </mat-slide-toggle>
-                    <mat-form-field>
-                        <mat-label class="label">{{
-                                "profile.mobilePhoneNumber" | translate
-                            }}
-                        </mat-label>
-
-                        <input
-                                matInput
-                                [disabled]="isLoading"
-                                (ngModelChange)="onChangeNumber()"
-                                [(ngModel)]="currentNotifPhoneNumber"
-                                placeholder="+41..."
-                                type="text"
-                        />
-                        <mat-error>
-                            {{ "profile.invalidNumber" | translate }}
-                        </mat-error>
-                    </mat-form-field>
-                    <button
-                            mat-icon-button
-                            *ngIf="isSMSPhoneChanged && !isLoading"
-                            [disabled]="isLoading"
-                            (click)="onSave()"
-                    >
-                        {{ "profile.save" | translate }}
-                        <mat-icon>save</mat-icon>
-                    </button>
-                    <mat-spinner *ngIf="isLoading" [diameter]="35"></mat-spinner>
-                </dd>
-            </dl>
-
-        </div>
-
-
-    </mat-card>
+            <input
+              matInput
+              [disabled]="isLoading"
+              (ngModelChange)="onChangeNumber()"
+              [(ngModel)]="currentNotifPhoneNumber"
+              placeholder="+41..."
+              type="text" />
+            <mat-error>
+              {{ 'profile.invalidNumber' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <button
+            mat-icon-button
+            *ngIf="isSMSPhoneChanged && !isLoading"
+            [disabled]="isLoading"
+            (click)="onSave()">
+            {{ 'profile.save' | translate }}
+            <mat-icon>save</mat-icon>
+          </button>
+          <mat-spinner *ngIf="isLoading" [diameter]="35"></mat-spinner>
+        </dd>
+      </dl>
+    </div>
+  </mat-card>
 </div>

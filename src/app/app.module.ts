@@ -81,6 +81,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { CguComponent } from './cgu/cgu.component';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 
 registerLocaleData(localeFr);
 
@@ -262,6 +263,7 @@ const routes: Routes = [
     ProfileUpdateComponent,
     TranslatedGenderPipe,
     SelectLanguageComponent,
+    LanguageSelectorComponent,
     ConfirmationDialogComponent,
     PlanConsultationComponent,
     ErrorDialogComponent,
