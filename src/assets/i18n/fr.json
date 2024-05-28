@@ -85,8 +85,7 @@
     "consultation.close": "Fermer",
     "consultation.callError": "Imposible de démarrer l'appel, le serveur a retourné une erreur",
     "dashboard.dashboard": "Tableau de bord",
-    "dashboard.room": "SALLE",
-    "dashboard.waiting": "D'ATTENTE",
+    "dashboard.waitingRoom": "SALLE D'ATTENTE",
     "dashboard.consultationsListInAwaitingTreatment": "Liste des consultations en attente d'une prise en charge.",
     "dashboard.startNextConsultation": "Démarrer la consultation suivante",
     "dashboard.noConsultation": "Pas de consultation",
@@ -383,5 +382,11 @@
     },
     "chat": {
         "requestedBy": "Demandé par"
+    },
+    "cgu": {
+        "notConfigured": "Les termes et conditions n'ont pas encore été configurés.",
+        "selectCountry": "Ces conditions s'appliquent au pays :",
+        "backToHome": "J'ai compris",
+        "termsAndConditions": "Conditions Générales d'Utilisation (CGU)"
     }
 }
