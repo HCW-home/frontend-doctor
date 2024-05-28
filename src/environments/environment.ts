@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  // api: "https://doctor_hcw-athome.dev.oniabsis.com/api/v1",
-  // host: "https://doctor_hcw-athome.dev.oniabsis.com/",
+  api: "https://doctor_hcw-athome.dev.oniabsis.com/api/v1",
+  host: "https://doctor_hcw-athome.dev.oniabsis.com/",
 
-  api: "http://localhost:1337/api/v1",
-  host: "http://localhost:1337/",
+  // api: "http://localhost:1337/api/v1",
+  // host: "http://localhost:1337/",
 
   //   api: 'http://192.168.1.9:1337/api/v1',
   // host: 'http://192.168.1.9:1337/',
