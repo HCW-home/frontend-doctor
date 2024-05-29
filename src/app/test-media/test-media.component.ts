@@ -120,7 +120,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.volumeChangeSubscription?.unsubscribe();
-    this.roomService.close();
+    this.roomService?.close();
   }
 
   initMediaTests() {

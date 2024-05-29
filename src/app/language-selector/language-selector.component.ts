@@ -28,14 +28,6 @@ import { TranslateService } from '@ngx-translate/core';
           width: 100px;
         }
       }
-
-      .language-selector mat-icon {
-        margin-right: 8px;
-      }
-
-      .language-selector span {
-        margin-right: 8px;
-      }
     `,
   ],
 })

@@ -100,7 +100,6 @@ export class InvitationsComponent implements OnInit {
           this.totalCount = +(resp as HttpResponse<Invitation[]>).headers.get(
             "X-Total-Count"
           );
-          console.log(this.totalCount,'totalCount')
           this.loading = false;
           this.currentInvites = (resp as HttpResponse<Invitation[]>).body;
           this.currentInvite = this.currentInvites.find(
