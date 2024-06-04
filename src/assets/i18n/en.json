@@ -275,7 +275,7 @@
         "cancelThisInvitationToJoinAConsultation": "Cancel this invitation to join a consultation",
         "previous": "Previous",
         "next": "Next",
-        "confirmResend": "Are you sure you want to resend the invitation? The invitation should be resent the way it was sent originally using the same channel. This action also resets expired invitations.",
+        "confirmResend": "Are you sure you want to resend the invitation? The invitation will be resent the way it was sent originally using the same channel. This action also resets expired invitations.",
         "cancelSendAgain": "Do not send back",
         "resendConfirmTitle": "Resend link",
         "confirmRevoke": "Are you sure you want to revoke and delete this invitation? No message will be sent to the patient.",
