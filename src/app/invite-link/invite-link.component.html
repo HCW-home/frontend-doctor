@@ -9,9 +9,7 @@
       </p>
       <div class="input-wrapper">
         <mat-form-field class="w-100">
-          <mat-label class="label"
-            >{{ 'Share link' | translate }}
-          </mat-label>
+          <mat-label class="label">{{ 'Share link' | translate }} </mat-label>
           <input matInput readonly [(ngModel)]="data.link" />
         </mat-form-field>
 
@@ -21,7 +19,11 @@
           [cdkCopyToClipboard]="data.link"></mat-icon>
       </div>
 
-      <button mat-button class="secondary-button-outlined" (click)="onNoClick()" type="button">
+      <button
+        mat-button
+        class="secondary-button-outlined"
+        (click)="onNoClick()"
+        type="button">
         {{ 'consultation.close' | translate }}
       </button>
     </div>
