@@ -82,6 +82,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { CguComponent } from './cgu/cgu.component';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
+import {InviteLinkComponent} from "./invite-link/invite-link.component";
 
 registerLocaleData(localeFr);
 
@@ -273,6 +274,7 @@ const routes: Routes = [
     FilterModalComponent,
     BadgeComponent,
     CguComponent,
+    InviteLinkComponent,
   ],
   imports: [
     BrowserAnimationsModule,

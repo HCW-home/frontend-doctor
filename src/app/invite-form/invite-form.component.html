@@ -207,6 +207,14 @@
             </div>
           </div>
 
+          <ng-container *ngIf="isPatientInvite">
+            <div class="field-container">
+              <mat-checkbox formControlName="sendLinkManually">
+                I want to send the link manually
+              </mat-checkbox>
+            </div>
+          </ng-container>
+
           <div class="field-container">
             <div>
               <mat-checkbox formControlName="isScheduled" [(ngModel)]="schedule"

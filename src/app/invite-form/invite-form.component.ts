@@ -28,6 +28,8 @@ import {
   phoneOrEmailValidator,
 } from '../shared/validators/phone-number-validator';
 import { catchError, filter, switchMap } from 'rxjs/operators';
+import { InviteExpertComponent } from '../invite-expoert/invite-expert.component';
+import { InviteLinkComponent } from '../invite-link/invite-link.component';
 
 interface DialogData {
   phoneNumber: string;
@@ -52,6 +54,7 @@ interface DialogData {
   status: string;
   inviteObj: any;
   experts: string[];
+  sendLinkManually: boolean;
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -202,6 +205,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         ),
         dateTimeFormControl: new UntypedFormControl(''),
         isScheduled: new UntypedFormControl(false),
+        sendLinkManually: new UntypedFormControl(false),
         inviteTranslatorFormControl: new UntypedFormControl(false),
         inviteGuestFormControl: new UntypedFormControl(false),
         inviteExpert: new UntypedFormControl(false),
@@ -237,6 +241,20 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       (this.myForm.get('experts') as FormArray).controls.forEach(control => {
         control.get('expertContact').updateValueAndValidity();
       });
+    });
+
+    this.myForm.get('sendLinkManually').valueChanges.subscribe(value => {
+      const control = this.myForm.get('patientContactFormControl');
+      if (value) {
+        control.disable();
+        control.setValidators([]);
+        control.setValue('');
+        control.updateValueAndValidity();
+      } else {
+        control.enable();
+        control.setValidators([Validators.required, phoneOrEmailValidator()]);
+        control.updateValueAndValidity();
+      }
     });
 
     this.myForm
@@ -578,6 +596,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     }
 
     this.data.isPatientInvite = this.isPatientInvite;
+    this.data.sendLinkManually = this.myForm.get('sendLinkManually').value;
     if (this.edit) {
       let cancelScheduledFor = false;
       let cancelGuestInvite = false;
@@ -653,6 +672,14 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         .subscribe(
           res => {
             this.dialogRef.close(true);
+            console.log(res, 'res')
+            if (this.data.sendLinkManually && res?.invite?.patientURL) {
+              this.dialog.open(InviteLinkComponent, {
+                width: '600px',
+                data: { link: res.invite.patientURL },
+                autoFocus: false,
+              });
+            }
           },
           err => {
             this.loading = false;

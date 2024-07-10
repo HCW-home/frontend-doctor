@@ -1,0 +1,66 @@
+.invite-form {
+
+  .label {
+    color: black;
+  }
+
+  .field-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .title {
+    text-align: center;
+    margin-top: 0
+  }
+  .send-link-wrapper {
+    width: 50%;
+    border-top: 1px solid #cacaca;
+    padding: 24px;
+    background: #F2F7F7;
+
+
+    button {
+      margin: 10px 3%;
+      display: inline-block;
+      border-radius: 60px;
+      text-align: center;
+      width: 90%;
+      color: #fff;
+      font-size: 0.9em;
+      padding: 3px 30px 2px;
+    }
+  }
+
+  .expert-link-wrapper {
+    width: 50%;
+    background: #F2F7F7;
+    border-top: 1px solid #cacaca;
+    border-left: 1px solid #cacaca;
+    padding: 24px;
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      margin: 10px 3%;
+      display: inline-block;
+      border-radius: 60px;
+      text-align: center;
+      width: 90%;
+      font-size: 0.9em;
+      padding: 3px 30px 2px;
+      background: gray;
+      color: #FFFFFF;
+    }
+
+    mat-icon {
+      cursor: pointer;
+    }
+
+  }
+
+}
