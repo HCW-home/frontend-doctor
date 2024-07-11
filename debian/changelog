@@ -1,4 +1,4 @@
-hcw-athome-caregiver (5.0.12) focal; urgency=medium
+hcw-athome-caregiver (0.5.0.12) focal; urgency=medium
 
   [ Olivier Bitsch ]
   * Update translation
@@ -7,7 +7,11 @@ hcw-athome-caregiver (5.0.12) focal; urgency=medium
   * Translated using Weblate (English)
   * Translated using Weblate (French)
 
- -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 07 Jun 2024 08:36:47 +0200
+  [ Gor Grigoryan ]
+  * add invite with link modal
+  * ui imporovements
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 11 Jul 2024 10:14:30 +0200
 
 hcw-athome-caregiver (5.0.11) focal; urgency=medium
 
