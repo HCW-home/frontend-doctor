@@ -1,3 +1,18 @@
+hcw-athome-caregiver (0.5.0.12) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update translation
+
+  [ Weblate Admin ]
+  * Translated using Weblate (English)
+  * Translated using Weblate (French)
+
+  [ Gor Grigoryan ]
+  * add invite with link modal
+  * ui imporovements
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 11 Jul 2024 10:14:30 +0200
+
 hcw-athome-caregiver (5.0.11) focal; urgency=medium
 
   * Fix json formating for french
