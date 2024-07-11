@@ -1,15 +1,17 @@
 <h2 class="title">
-  {{ 'Send link' | translate }}
+  {{ 'sendInviteLink.title' | translate }}
 </h2>
 <div mat-dialog-content class="dialog-content">
   <div class="field-container">
     <div class="expert-link-wrapper">
       <p>
-        {{ 'Send link' | translate }}
+        {{ 'sendInviteLink.subTitle' | translate }}
       </p>
       <div class="input-wrapper">
         <mat-form-field class="w-100">
-          <mat-label class="label">{{ 'Share link' | translate }} </mat-label>
+          <mat-label class="label"
+            >{{ 'sendInviteLink.label' | translate }}
+          </mat-label>
           <input matInput readonly [(ngModel)]="data.link" />
         </mat-form-field>
 
@@ -24,7 +26,7 @@
         class="secondary-button-outlined"
         (click)="onNoClick()"
         type="button">
-        {{ 'consultation.close' | translate }}
+        {{ 'sendInviteLink.close' | translate }}
       </button>
     </div>
   </div>

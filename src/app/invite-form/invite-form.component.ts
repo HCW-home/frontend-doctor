@@ -672,7 +672,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         .subscribe(
           res => {
             this.dialogRef.close(true);
-            console.log(res, 'res')
             if (this.data.sendLinkManually && res?.invite?.patientURL) {
               this.dialog.open(InviteLinkComponent, {
                 width: '600px',

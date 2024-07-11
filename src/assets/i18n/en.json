@@ -416,5 +416,13 @@
         "rangeToLabel": "",
         "hour12AMLabel": "",
         "hour12PMLabel": ""
+    },
+    "sendInviteLink": {
+        "title": "Send link",
+        "subTitle": "Send link",
+        "label": "Share link",
+        "close": "Close",
+        "copied": "Copied to clipboard",
+        "sent": "The invite link has been sent successfully to participant"
     }
 }

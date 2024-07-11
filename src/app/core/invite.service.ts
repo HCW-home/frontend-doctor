@@ -23,7 +23,7 @@ export class InviteService {
   }
 
   resendInvite(id) {
-    return this.http.post<any[]>(
+    return this.http.post<any>(
       environment.api + `/invite/${id}/resend`,
       null
     );
