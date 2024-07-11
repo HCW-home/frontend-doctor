@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.5.0.13) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * New release 5.0.12
+
+  [ Gor Grigoryan ]
+  * add translations and toaster
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 11 Jul 2024 14:27:24 +0200
+
 hcw-athome-caregiver (0.5.0.12) focal; urgency=medium
 
   [ Olivier Bitsch ]
