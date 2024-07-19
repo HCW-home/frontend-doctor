@@ -20,7 +20,6 @@ export function phoneOrEmailValidator(): ValidatorFn {
       try {
         const number = phoneUtil.parse(control.value);
         const isValid = phoneUtil.isValidNumber(number);
-        console.log(isValid, 'isValid');
         return isValid ? null : { emailOrPhoneControl: true };
       } catch (error) {
         return { emailOrPhoneControl: true };
