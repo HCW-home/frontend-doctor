@@ -418,9 +418,9 @@
         "hour12PMLabel": ""
     },
     "sendInviteLink": {
-        "title": "Send link",
-        "subTitle": "Send link",
-        "label": "Share link",
+        "title": "Invite by link",
+        "subTitle": "Copy the link bellow and share with the patient with your prefered way. Warning, this link is usable only one time.",
+        "label": "Invite link",
         "close": "Close",
         "copied": "Copied to clipboard",
         "sent": "The invite link has been sent successfully to participant"
