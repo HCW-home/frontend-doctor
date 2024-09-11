@@ -10,6 +10,15 @@ span.tile-header {
 
 .edit-button {
   margin-top: 10px;
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
+}
+
+.send-again {
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
 }
 
 .pdf-table {
@@ -109,6 +118,11 @@ mat-card {
 }
 
 .btn__cancel {
-  background-color: rgb(255, 45, 45);
-  color: #ffffff;
+
+  background-color: var(--app-red);
+  color: var(--app-white);
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
 }

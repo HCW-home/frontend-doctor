@@ -24,7 +24,7 @@
     padding: 24px;
     background: #F2F7F7;
     @media (max-width: 600px) {
-      width: 100%;
+      width: -webkit-fill-available;
     }
 
     button {
@@ -47,7 +47,7 @@
     border-left: 1px solid #cacaca;
 
     @media (max-width: 600px) {
-      width: 100%;
+      width: -webkit-fill-available;
     }
     .input-wrapper {
       display: flex;
@@ -75,7 +75,7 @@
 
   .btn__send {
     background: var(--primary-color);
-    color: #FFFFFF;
+    color: var(--app-white);
   }
 
   .error {

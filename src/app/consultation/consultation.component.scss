@@ -11,11 +11,6 @@
 .call-wrap {
   flex: 1;
   min-height: 165px;
-
-
-  .submit-btn {
-    margin-bottom: 20px;
-  }
 }
 
 @media screen and (max-width: 600px) {
@@ -61,7 +56,6 @@
   }
 
   .title {
-    margin: 24px;
     text-align: center;
     font-weight: 200;
     color: var(--app-white);
@@ -77,13 +71,15 @@
 
 
 .actions-button-wrapper {
-  gap: 4px;
+  gap: 20px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
 
   @media (max-width: 600px) {
+    gap: 10px;
     flex-direction: row;
+
   }
 
 }

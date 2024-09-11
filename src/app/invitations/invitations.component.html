@@ -25,7 +25,7 @@
 
     <table [style.display]="loading ? 'none' : 'table'" class="invitations">
       <tr *ngFor="let invite of invitations | async">
-        <td>
+        <td class="hidden-mobile">
           <span class="tile-header" *ngIf="invite.emailAddress">{{
             'login.email' | translate
           }}</span>
@@ -70,7 +70,7 @@
               : 'Immédiatement'
           }}
         </td>
-        <td>
+        <td class="hidden-mobile">
           <span class="tile-header">{{
             'invitations.patient' | translate
           }}</span>
@@ -170,7 +170,7 @@
             {{ 'invitations.sendAgain' | translate }}
           </button>
           <button
-            class="secondary-button-outlined"
+            class="secondary-button-outlined send-again"
             (click)="openDialog(invite)"
             mat-raised-button
             *ngIf="
