@@ -57,6 +57,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   consultations = [];
   acceptAll: boolean;
   isMobile = false;
+  viewMore = false;
 
   constructor(
     private zone: NgZone,
