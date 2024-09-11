@@ -1,431 +1,424 @@
 <div
-        *ngIf="consultation && consultation.consultation"
-        style="height: 100%; position: relative;"
->
-    <div (scroll)="handleScroll($event)"
-            [ngClass]="{ withInput: showInput }"
-            class="chat"
-    >
-        <div #element style="background-color: #ffffff;padding: 20px 30px;"
-             [ngClass]="{ 'big-font': noPagination }"
-        >
-            <h4 style="margin-top: 0; padding: 16px 0;">
-                {{ "chat.generalInformation" | translate }}
-            </h4>
+  *ngIf="consultation && consultation.consultation"
+  class="consultation-wrapper">
+  <div
+    (scroll)="handleScroll($event)"
+    [ngClass]="{ withInput: showInput }"
+    class="chat">
+    <div
+      #generalInfo
+      class="general-info"
+      [ngClass]="{ 'big-font': noPagination }">
+      <h4 class="general-title">
+        {{ 'chat.generalInformation' | translate }}
+      </h4>
 
-            <div class="general-wrapper">
-
-                <div class="c_info_wrap" *ngIf="consultation.consultation.status !== 'closed'">
-                    <button class="submit-btn" mat-button
-                            (click)="inviteExpert(consultation.consultation.expertInvitationURL)">
-                        {{ 'chat.inviteExpert' | translate }}
-                    </button>
-                </div>
-
-                <div class="c_info_wrap" *ngIf="consultation?.nurse?.firstName">
-                    <div class="c_info_row_title">
-                        {{ 'chat.requestedBy'| translate }}
-                    </div>
-                    <div style="font-size: 1em; padding-top: 5px;">
-                        {{consultation.nurse.firstName}}   {{consultation.nurse.lastName}}
-                        <img style="margin-bottom: -11px;"
-                             [src]=" consultation.consultation.flagPatientOnline === true  ? 'assets/img/online.png' : 'assets/img/offline.png' "
-                        />
-                    </div>
-
-                </div>
-                <div class="c_info_wrap">
-                    <div class="c_info_row_title">
-                        {{ "chat.patientFirstnameAndLastname" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        <ng-container *ngIf="consultation.consultation.firstName !== 'No firstname'">
-                            {{ consultation.consultation.firstName + " " }}
-                            {{ consultation.consultation.lastName | uppercase }}
-                        </ng-container>
-                        <ng-container *ngIf="consultation.consultation.firstName === 'No firstname'">
-                    <span style="color: #8a8a8a;">
-                     {{
-                        "consultations.noPatientName" | translate
-                        }}
-                    </span>
-                        </ng-container>
-
-                        <ng-container *ngIf="!consultation?.nurse?.firstName">
-                            <img style="margin-bottom: -7px;"
-                                    [src]=" consultation.consultation.flagPatientOnline === true  ? 'assets/img/online.png' : 'assets/img/offline.png' "
-                            />
-                            <button
-                                    (click)="resendInvite(consultation.consultation.invite)"
-                                    class="submit-btn" mat-button
-                                    *ngIf="consultation.consultation.status !== 'closed' && !consultation.consultation.flagPatientOnline"
-                            >
-                                {{ "invitations.sendAgain" | translate }}
-                            </button>
-                        </ng-container>
-                    </div>
-                </div>
-
-                <div class="c_info_wrap" *ngIf="consultation.consultation?.experts?.length">
-                    <div class="c_info_row_title">
-                        {{ "Experts" | translate }}
-                    </div>
-                    <div class="experts_content" *ngFor="let expert of consultation.consultation?.experts">
-                        <ng-container>
-                            {{ expert.firstName + " " }}
-                            {{ expert.lastName | uppercase }}
-                        </ng-container>
-
-                        <img
-                                style="margin-bottom: -7px;"
-                                [src]="
-              getExpertStatusById(expert.id, consultation?.consultation?.flagExpertsOnline)
-                ? 'assets/img/online.png'
-                : 'assets/img/offline.png'
-            "
-                        />
-                    </div>
-                </div>
-
-                <div class="c_info_wrap" *ngIf="consultation.consultation.birthDate">
-                    <div class="c_info_row_title">
-                        {{ "chat.patientBirthday" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{consultation.consultation.birthDate | date: "d MMM yyyy"}}
-                    </div>
-                </div>
-                <div class="c_info_wrap">
-                    <div class="c_info_row_title">{{ "chat.sex" | translate }}</div>
-                    <div class="c_info_row_content">
-                        {{ consultation.consultation.gender | translatedGender }}
-                    </div>
-                </div>
-                <div
-                        class="c_info_wrap"
-                        *ngIf="publicinvite && publicinvite.emailAddress"
-                >
-                    <div class="c_info_row_title">{{ "chat.email" | translate }}</div>
-                    <div class="c_info_row_content">
-                        {{ publicinvite.emailAddress }}
-                    </div>
-                </div>
-                <div class="c_info_wrap" *ngIf="publicinvite && publicinvite.phoneNumber">
-                    <div class="c_info_row_title">{{ "chat.phoneNumber" | translate }}</div>
-                    <div class="c_info_row_content">
-                        {{ publicinvite.phoneNumber }}
-                    </div>
-                </div>
-
-                <div
-                        *ngIf="consultation.consultation.status === 'closed'"
-                        class="c_info_wrap"
-                >
-                    <div class="c_info_row_title">
-                        {{ "chat.doctor" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{ currentUser.firstName }}
-                        {{ currentUser.lastName | uppercase }}
-                    </div>
-                </div>
-
-                <div class="c_info_wrap">
-                    <div class="c_info_row_title">
-                        {{ "chat.patientInvitedAt" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{
-                        consultation.consultation.createdAt | date: "d MMM yyyy HH:mm":"fr"
-                        }}
-                    </div>
-                </div>
-
-                <div class="c_info_wrap" *ngIf="consultation && consultation.guest">
-                    <div class="c_info_row_title">
-                        {{ "chat.guest" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{ consultation.guest.email || consultation.guest.phoneNumber }}
-
-                        <img
-                                style="margin-bottom: -7px;"
-                                [src]="
-              consultation.consultation.flagGuestOnline === true
-                ? 'assets/img/online.png'
-                : 'assets/img/offline.png'
-            "
-                        />
-                    </div>
-                </div>
-
-                <div class="c_info_wrap" *ngIf="consultation && consultation.translator">
-                    <div class="c_info_row_title">
-                        {{ "chat.translator" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{ consultation.translator.firstName }}
-
-                        <img
-                                style="margin-bottom: -7px;"
-                                [src]="
-              consultation.consultation.flagTranslatorOnline === true
-                ? 'assets/img/online.png'
-                : 'assets/img/offline.png'
-            "
-                        />
-                    </div>
-                </div>
-                <div *ngIf="consultation && consultation.translator"
-                     class="c_info_wrap"
-                >
-                    <div class="c_info_row_title">
-                        {{ "chat.translatorContactDetails" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{ consultation.translator.email }} <br>
-                        {{ consultation.translator.direct }}
-                    </div>
-                </div>
-
-                <div
-                        *ngIf="consultation.consultation.status === 'closed'"
-                        class="c_info_wrap"
-                >
-                    <div class="c_info_row_title">
-                        {{ "chat.startDateTime" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{
-                        consultation.consultation.acceptedAt | date: "d MMM yyyy HH:mm":"fr"
-                        }}
-                    </div>
-                </div>
-                <!-- Here i put the metadata informations  -->
-
-                <div *ngFor="let item of consultation.consultation.metadata | keyvalue">
-                    <ng-container *ngIf="item.value">
-                        <div class="c_info_wrap">
-                            <div class="c_info_row_title">
-                                {{ item.key }}
-                            </div>
-                            <div class="c_info_row_content">
-                                {{ item.value }}
-                            </div>
-                        </div>
-                    </ng-container>
-                </div>
-                <!--  -->
-
-                <div
-                        *ngIf="consultation.consultation.status === 'closed'"
-                        class="c_info_wrap"
-                >
-                    <div class="c_info_row_title">
-                        {{ "chat.endDateTime" | translate }}
-                    </div>
-                    <div class="c_info_row_content">
-                        {{
-                        consultation.consultation.closedAt | date: "d MMM yyyy HH:mm":"fr"
-                        }}
-                    </div>
-                </div>
-
-                <div
-                        *ngIf="consultation.consultation.status === 'closed'"
-                        class="c_info_wrap"
-                >
-                    <div class="c_info_row_title">{{ "chat.duration" | translate }}</div>
-                    <div class="c_info_row_content">
-                        {{
-                        consultation.consultation.createdAt -
-                        consultation.consultation.closedAt | duration
-                        }}
-                    </div>
-                </div>
-
-
-            </div>
-
-
+      <div class="general-wrapper">
+        <div
+          class="c_info_wrap"
+          *ngIf="consultation.consultation.status !== 'closed'">
+          <button
+            class="submit-btn"
+            mat-button
+            (click)="
+              inviteExpert(consultation.consultation.expertInvitationURL)
+            ">
+            {{ 'chat.inviteExpert' | translate }}
+          </button>
         </div>
 
+        <div class="c_info_wrap" *ngIf="consultation?.nurse?.firstName">
+          <div class="c_info_row_title">
+            {{ 'chat.requestedBy' | translate }}
+          </div>
+          <div style="font-size: 1em; padding-top: 5px">
+            {{ consultation.nurse.firstName }} {{ consultation.nurse.lastName }}
+            <app-status
+              [type]="
+                consultation.consultation.flagPatientOnline
+                  ? 'online'
+                  : 'offline'
+              "></app-status>
+          </div>
+        </div>
+        <div class="c_info_wrap">
+          <div class="c_info_row_title">
+            {{ 'chat.patientFirstnameAndLastname' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            <ng-container
+              *ngIf="consultation.consultation.firstName !== 'No firstname'">
+              {{ consultation.consultation.firstName + ' ' }}
+              {{ consultation.consultation.lastName | uppercase }}
+            </ng-container>
+            <ng-container
+              *ngIf="consultation.consultation.firstName === 'No firstname'">
+              <span style="color: #8a8a8a">
+                {{ 'consultations.noPatientName' | translate }}
+              </span>
+            </ng-container>
 
-        <div #scoll [style.height]="chatHeight" class="chat-wrapper">
-            <div *ngIf="consultation.consultation.status !== 'closed'"
-                    style="padding: 20px 37px"
-                    [ngClass]="{ 'big-font': noPagination }"
-            >
-                <p style="background-color: #ffcc00; padding: 14px; font-size: 1.1em;">
-                    {{ "chat.textMessagesOnlySentToPatientWarning" | translate }}
-                </p>
-            </div>
-            <div
-                    *ngFor="let msg of chatMessages"
-                    id="{{ msg.id }}"
-                    class="m-chat"
-                    [ngClass]="{ reverse: msg.direction === 'outgoing' }"
-            >
-                <div style="grid-area: content;">
-                    <audio *ngIf="msg.isAudio" controls>
-                        <source [src]="msg.attachmentsURL" type="audio/mpeg"/>
-                        {{ "chat.yourBrowserDoesNotSupportTheAudioElement" | translate }}
-                    </audio>
-                    <img
-                            *ngIf="msg.isImage"
-                            (load)="imageLoaded()"
-                            (error)="imageLoaded()"
-                            style="width: 70%; display: block; float: left; max-height: 990px;"
-                            [src]="msg.attachmentsURL"
-                            alt="Couldn't load image"
-                    />
-
-                    <div class="bubble" *ngIf="msg.text || msg.isFile">
-                        <div  [ngClass]="{ 'big-font': noPagination }">
-                            <p style="overflow-wrap: normal;" *ngIf="msg.text">
-                                {{ msg.text }}
-                            </p>
-                            <button
-                                    *ngIf="msg.isFile"
-                                    mat-button
-                                    (click)="downloadPdf(msg.attachmentsURL, msg.fileName)"
-                                    type="submit"
-                            >
-                                <img
-                                        class="pdf"
-                                        src="../../assets/svg/icon-Pdf.svg"
-                                        style=""
-                                        svgIcon="pdf"
-                                />
-                                <!-- </mat-icon> -->
-                                {{ msg.fileName || "Attachment" }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div
-                        *ngIf="msg.type === 'videoCall'"
-                        style="grid-area: center; text-align: center;"
-                >
-                    <div style="margin: 22px auto;">
-                        {{
-                        msg.closedAt
-                            ? msg.acceptedAt
-                                ? ("chat.videoCallAccepted" | translate)
-                                : ("chat.videoCallMissed" | translate)
-                            : ("chat.videoCall" | translate)
-                        }}
-                        <span
-                                style="display: block; text-align: center; margin-top: 10px;"
-                                class="msg-time"
-                        >{{ msg.createdAt | date: "d MMMM HH:mm":"fr-fr" }}</span
-                        >
-                    </div>
-                    <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto;">
-                        {{ "chat.videoCallFinished" | translate }}
-                        <span
-                                style="display: block; text-align: center; margin-top: 10px;"
-                                class="msg-time"
-                        >{{ msg.closedAt | date: "d MMMM HH:mm":"fr-fr" }}</span
-                        >
-                    </div>
-                </div>
-
-                <div
-                        *ngIf="msg.type === 'audioCall'"
-                        style="text-align: center; grid-area: center;"
-                >
-                    <div style="margin-bottom: 22px;">
-                        {{
-                        msg.closedAt
-                            ? msg.acceptedAt
-                                ? ("chat.videoAudioAccepted" | translate)
-                                : ("chat.videoAudioMissed" | translate)
-                            : ("chat.videoAudioRequested" | translate)
-                        }}
-                        <span
-                                style="display: block; text-align: center; margin-top: 10px;"
-                                class="msg-time"
-                        >{{ msg.createdAt | date: "d MMMM HH:mm":"fr-fr" }}</span
-                        >
-                    </div>
-                    <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto;">
-                        {{ "chat.videoAudioFinished" | translate }}
-                        <span
-                                style="display: block; text-align: center; margin-top: 10px;"
-                                class="msg-time"
-                        >{{ msg.closedAt | date: "d MMMM HH:mm":"fr-fr" }}</span
-                        >
-                    </div>
-                </div>
-                <div
-                        *ngIf="msg.type !== 'videoCall' && msg.type !== 'audioCall'"
-                        style="grid-area: msgTime;"
-                        [ngClass]="{ 'big-font': noPagination }"
-                        class="msg-time"
-                >
-                    <span *ngIf="msg.fromUserDetail?.role !== 'patient'"
-                          class="msg-time">{{msg.fromUserDetail?.firstName}} {{msg.fromUserDetail?.lastName}} - </span>
-                    <span *ngIf="msg.fromUserDetail?.role === 'patient'" class="msg-time">
-          {{ consultation.consultation.firstName + " " }}
-                        {{ consultation.consultation.lastName | uppercase }}
-                        - </span>
-                    <span class="msg-time">
-          {{msg.createdAt | date: "d MMMM HH:mm":"fr-fr"
-                        }}</span>
-                </div>
-            </div>
-            <app-dot-spinner *ngIf="isUploading"></app-dot-spinner>
-
+            <ng-container *ngIf="!consultation?.nurse?.firstName">
+              <app-status
+                [type]="
+                  consultation.consultation.flagPatientOnline
+                    ? 'online'
+                    : 'offline'
+                "></app-status>
+              <button
+                (click)="resendInvite(consultation.consultation.invite)"
+                class="submit-btn"
+                mat-button
+                *ngIf="
+                  consultation.consultation.status !== 'closed' &&
+                  !consultation.consultation.flagPatientOnline
+                ">
+                {{ 'invitations.sendAgain' | translate }}
+              </button>
+            </ng-container>
+          </div>
         </div>
 
+        <div
+          class="c_info_wrap"
+          *ngIf="consultation.consultation?.experts?.length">
+          <div class="c_info_row_title">
+            {{ 'Experts' | translate }}
+          </div>
+          <div
+            class="experts_content"
+            *ngFor="let expert of consultation.consultation?.experts">
+            <ng-container>
+              {{ expert.firstName + ' ' }}
+              {{ expert.lastName | uppercase }}
+            </ng-container>
+
+            <app-status
+              [type]="
+                getExpertStatusById(
+                  expert.id,
+                  consultation?.consultation?.flagExpertsOnline
+                )
+                  ? 'online'
+                  : 'offline'
+              "></app-status>
+          </div>
+        </div>
+
+        <div class="c_info_wrap" *ngIf="consultation.consultation.birthDate">
+          <div class="c_info_row_title">
+            {{ 'chat.patientBirthday' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{ consultation.consultation.birthDate | date: 'd MMM yyyy' }}
+          </div>
+        </div>
+        <div class="c_info_wrap">
+          <div class="c_info_row_title">{{ 'chat.sex' | translate }}</div>
+          <div class="c_info_row_content">
+            {{ consultation.consultation.gender | translatedGender }}
+          </div>
+        </div>
+        <div
+          class="c_info_wrap"
+          *ngIf="publicinvite && publicinvite.emailAddress">
+          <div class="c_info_row_title">{{ 'chat.email' | translate }}</div>
+          <div class="c_info_row_content">
+            {{ publicinvite.emailAddress }}
+          </div>
+        </div>
+        <div
+          class="c_info_wrap"
+          *ngIf="publicinvite && publicinvite.phoneNumber">
+          <div class="c_info_row_title">
+            {{ 'chat.phoneNumber' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{ publicinvite.phoneNumber }}
+          </div>
+        </div>
+
+        <div
+          *ngIf="consultation.consultation.status === 'closed'"
+          class="c_info_wrap">
+          <div class="c_info_row_title">
+            {{ 'chat.doctor' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{ currentUser.firstName }}
+            {{ currentUser.lastName | uppercase }}
+          </div>
+        </div>
+
+        <div class="c_info_wrap">
+          <div class="c_info_row_title">
+            {{ 'chat.patientInvitedAt' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{
+              consultation.consultation.createdAt
+                | date: 'd MMM yyyy HH:mm' : 'fr'
+            }}
+          </div>
+        </div>
+
+        <div class="c_info_wrap" *ngIf="consultation && consultation.guest">
+          <div class="c_info_row_title">
+            {{ 'chat.guest' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{ consultation.guest.email || consultation.guest.phoneNumber }}
+
+            <app-status
+              [type]="
+                consultation.consultation.flagGuestOnline ? 'online' : 'offline'
+              "></app-status>
+          </div>
+        </div>
+
+        <div
+          class="c_info_wrap"
+          *ngIf="consultation && consultation.translator">
+          <div class="c_info_row_title">
+            {{ 'chat.translator' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{ consultation.translator.firstName }}
+
+            <app-status
+              [type]="
+                consultation.consultation.flagTranslatorOnline
+                  ? 'online'
+                  : 'offline'
+              "></app-status>
+          </div>
+        </div>
+        <div
+          *ngIf="consultation && consultation.translator"
+          class="c_info_wrap">
+          <div class="c_info_row_title">
+            {{ 'chat.translatorContactDetails' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{ consultation.translator.email }} <br />
+            {{ consultation.translator.direct }}
+          </div>
+        </div>
+
+        <div
+          *ngIf="consultation.consultation.status === 'closed'"
+          class="c_info_wrap">
+          <div class="c_info_row_title">
+            {{ 'chat.startDateTime' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{
+              consultation.consultation.acceptedAt
+                | date: 'd MMM yyyy HH:mm' : 'fr'
+            }}
+          </div>
+        </div>
+        <!-- Here i put the metadata informations  -->
+
+        <div *ngFor="let item of consultation.consultation.metadata | keyvalue">
+          <ng-container *ngIf="item.value">
+            <div class="c_info_wrap">
+              <div class="c_info_row_title">
+                {{ item.key }}
+              </div>
+              <div class="c_info_row_content">
+                {{ item.value }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <!--  -->
+
+        <div
+          *ngIf="consultation.consultation.status === 'closed'"
+          class="c_info_wrap">
+          <div class="c_info_row_title">
+            {{ 'chat.endDateTime' | translate }}
+          </div>
+          <div class="c_info_row_content">
+            {{
+              consultation.consultation.closedAt
+                | date: 'd MMM yyyy HH:mm' : 'fr'
+            }}
+          </div>
+        </div>
+
+        <div
+          *ngIf="consultation.consultation.status === 'closed'"
+          class="c_info_wrap">
+          <div class="c_info_row_title">{{ 'chat.duration' | translate }}</div>
+          <div class="c_info_row_content">
+            {{
+              consultation.consultation.createdAt -
+                consultation.consultation.closedAt | duration
+            }}
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div *ngIf="showInput" class="inputCont">
-        <form style="display: flex; flex: 1; align-items: center; height: 100%;">
-            <button
-                    (click)="showAttachBrowseDlg()"
-                    style="flex: 1; border: none; height: 100%;"
-                    class="send-btn"
-                    mat-button
-            >
-                <mat-icon svgIcon="attach"></mat-icon>
-            </button>
-            <input
-                #fileInput
-                style="display: none;"
-                type="file"
-                [accept]="acceptAll ? '*' :'application/pdf,image/jpeg,image/png,image/gif'"
-                (change)="handleFileInput($event)"
-            />
+    <div #scroll [style.height]="chatHeight" class="chat-wrapper">
+      <div
+        class="warning-wrapper"
+        *ngIf="consultation.consultation.status !== 'closed'"
+        [ngClass]="{ 'big-font': noPagination }">
+        <p style="background-color: #ffcc00; padding: 14px; font-size: 1.1em">
+          {{ 'chat.textMessagesOnlySentToPatientWarning' | translate }}
+        </p>
+      </div>
+      <div
+        *ngFor="let msg of chatMessages"
+        id="{{ msg.id }}"
+        class="m-chat"
+        [ngClass]="{ reverse: msg.direction === 'outgoing' }">
+        <div style="grid-area: content">
+          <audio *ngIf="msg.isAudio" controls>
+            <source [src]="msg.attachmentsURL" type="audio/mpeg" />
+            {{ 'chat.yourBrowserDoesNotSupportTheAudioElement' | translate }}
+          </audio>
+          <img
+            *ngIf="msg.isImage"
+            (load)="imageLoaded()"
+            (error)="imageLoaded()"
+            style="width: 70%; display: block; float: left; max-height: 990px"
+            [src]="msg.attachmentsURL"
+            alt="Couldn't load image" />
 
-            <textarea
-                    rows="1"
-                    style="
-          resize: none;
-          border: none;
-          border-left: 1px solid rgba(203, 203, 203, 0.93);
-          border-right: 1px solid rgba(203, 203, 203, 0.93);
-          font-size: 16px;
-          flex: 12;
-          padding: 7px 0;
-          padding-left: 10px;
+          <div class="bubble" *ngIf="msg.text || msg.isFile">
+            <div [ngClass]="{ 'big-font': noPagination }">
+              <p style="overflow-wrap: normal" *ngIf="msg.text">
+                {{ msg.text }}
+              </p>
+              <button
+                *ngIf="msg.isFile"
+                mat-button
+                (click)="downloadPdf(msg.attachmentsURL, msg.fileName)"
+                type="submit">
+                <img
+                  class="pdf"
+                  alt=""
+                  src="../../assets/svg/icon-Pdf.svg"
+                  svgIcon="pdf" />
+                {{ msg.fileName || 'Attachment' }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="msg.type === 'videoCall'"
+          style="grid-area: center; text-align: center">
+          <div style="margin: 22px auto">
+            {{
+              msg.closedAt
+                ? msg.acceptedAt
+                  ? ('chat.videoCallAccepted' | translate)
+                  : ('chat.videoCallMissed' | translate)
+                : ('chat.videoCall' | translate)
+            }}
+            <span
+              style="display: block; text-align: center; margin-top: 10px"
+              class="msg-time"
+              >{{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
+            >
+          </div>
+          <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto">
+            {{ 'chat.videoCallFinished' | translate }}
+            <span
+              style="display: block; text-align: center; margin-top: 10px"
+              class="msg-time"
+              >{{ msg.closedAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
+            >
+          </div>
+        </div>
+
+        <div
+          *ngIf="msg.type === 'audioCall'"
+          style="text-align: center; grid-area: center">
+          <div style="margin-bottom: 22px">
+            {{
+              msg.closedAt
+                ? msg.acceptedAt
+                  ? ('chat.videoAudioAccepted' | translate)
+                  : ('chat.videoAudioMissed' | translate)
+                : ('chat.videoAudioRequested' | translate)
+            }}
+            <span
+              style="display: block; text-align: center; margin-top: 10px"
+              class="msg-time"
+              >{{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
+            >
+          </div>
+          <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto">
+            {{ 'chat.videoAudioFinished' | translate }}
+            <span
+              style="display: block; text-align: center; margin-top: 10px"
+              class="msg-time"
+              >{{ msg.closedAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
+            >
+          </div>
+        </div>
+        <div
+          *ngIf="msg.type !== 'videoCall' && msg.type !== 'audioCall'"
+          style="grid-area: msgTime"
+          [ngClass]="{ 'big-font': noPagination }"
+          class="msg-time">
+          <span *ngIf="msg.fromUserDetail?.role !== 'patient'" class="msg-time"
+            >{{ msg.fromUserDetail?.firstName }}
+            {{ msg.fromUserDetail?.lastName }} -
+          </span>
+          <span *ngIf="msg.fromUserDetail?.role === 'patient'" class="msg-time">
+            {{ consultation.consultation.firstName + ' ' }}
+            {{ consultation.consultation.lastName | uppercase }}
+            -
+          </span>
+          <span class="msg-time">
+            {{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
+          >
+        </div>
+      </div>
+      <app-dot-spinner *ngIf="isUploading"></app-dot-spinner>
+    </div>
+  </div>
+
+  <div *ngIf="showInput" class="inputCont">
+    <form class="form-wrapper">
+      <button
+        (click)="showAttachBrowseDlg()"
+        style="flex: 1; border: none; height: 100%"
+        class="send-btn"
+        mat-button>
+        <mat-icon svgIcon="attach"></mat-icon>
+      </button>
+      <input
+        #fileInput
+        style="display: none"
+        type="file"
+        [accept]="
+          acceptAll ? '*' : 'application/pdf,image/jpeg,image/png,image/gif'
         "
-                    contenteditable
-                    (keypress)="sendMsg($event)"
-                    (click)="readMessages()"
-                    [(ngModel)]="chatText"
-                    name="chatInput"
-                    matInput
-            ></textarea>
-            <button
-                    (click)="send()"
-                    style="flex: 1; border: none; height: 100%;"
-                    class="send-btn"
-                    mat-button
-            >
-                <mat-icon svgIcon="send"></mat-icon>
-            </button>
-        </form>
-    </div>
+        (change)="handleFileInput($event)" />
+
+      <textarea
+        rows="1"
+        class="chat-input"
+        contenteditable
+        (keypress)="sendMsg($event)"
+        (click)="readMessages()"
+        [(ngModel)]="chatText"
+        name="chatInput"
+        matInput></textarea>
+      <button
+        (click)="send()"
+        style="flex: 1; border: none; height: 100%"
+        class="send-btn"
+        mat-button>
+        <mat-icon svgIcon="send"></mat-icon>
+      </button>
+    </form>
+  </div>
 </div>

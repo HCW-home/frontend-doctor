@@ -9,8 +9,22 @@
   width: 100px;
 }
 
+@media (max-width: 768px) {
+  mat-sidenav {
+    width: 250px;
+  }
+
+  mat-sidenav.opened {
+    display: block;
+  }
+}
+
 .main-logo-wrapper {
-  padding: 8px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgb(209, 209, 209);
 }
 
 .main-logo {
@@ -33,7 +47,10 @@
 }
 
 .menu-list {
-  margin-top: 80px;
+}
+
+.mat-list-base {
+  padding-top: 0 !important;
 }
 
 .list-item {

@@ -1,233 +1,216 @@
 <ng-container>
-    <app-top-nav title="invitations" icon="invite"></app-top-nav>
+  <app-top-nav title="invitations" icon="invite"></app-top-nav>
+  <div class="invitations-wrapper">
     <div class="desc">
-        <h2 style="display: inline;">{{ "invitations" | uppercase }}</h2>
+      <h2 class="d-inline">{{ 'invitations' | uppercase }}</h2>
     </div>
 
-    <div>
-        <div>
-            <button
-                    (click)="openDialog()"
-                    class="invite-btn"
-                    mat-button
-                    type="submit"
-                    color="primary"
-            >
-                {{ "invitations.newInvite" | translate }}
-            </button>
-        </div>
+    <button
+      (click)="openDialog()"
+      class="invite-btn"
+      mat-button
+      type="submit"
+      color="primary">
+      {{ 'invitations.newInvite' | translate }}
+    </button>
 
-        <h4 class="noCon" *ngIf="!loading && !totalCount">
-            {{ "invitations.noConsultationInvite" | translate }}
-        </h4>
-        <div *ngIf="loading" class="loading-wrapper">
-            <div class="loading">
-                <mat-spinner [diameter]="60"></mat-spinner>
-            </div>
-        </div>
+    <h4 class="noCon" *ngIf="!loading && !totalCount">
+      {{ 'invitations.noConsultationInvite' | translate }}
+    </h4>
+    <div *ngIf="loading" class="loading-wrapper">
+      <div class="loading">
+        <mat-spinner [diameter]="60"></mat-spinner>
+      </div>
+    </div>
 
-        <table [style.display]="loading ? 'none' : 'table'" class="invitations">
-            <tr
-                    *ngFor="
-          let invite of invitations| async"
-            >
-                <td>
+    <table [style.display]="loading ? 'none' : 'table'" class="invitations">
+      <tr *ngFor="let invite of invitations | async">
+        <td>
           <span class="tile-header" *ngIf="invite.emailAddress">{{
-                  "login.email" | translate
-              }}</span>
-                    <span class="tile-header" *ngIf="invite.phoneNumber">{{
-                            "invitations.phoneNumber" | translate
-                        }}</span>
-                    <span
-                            class="tile-header"
-                            *ngIf="!invite.phoneNumber && !invite.emailAddress"
-                    >{{ "login.email" | translate }}</span
-                    >
-                    <span *ngIf="invite.emailAddress">{{ invite.emailAddress }}</span>
-                    <span *ngIf="invite.phoneNumber">{{ invite.phoneNumber }}</span>
-                    <span *ngIf="!invite.phoneNumber && !invite.emailAddress">
-            {{ "invitations.notDefined" | translate }}
+            'login.email' | translate
+          }}</span>
+          <span class="tile-header" *ngIf="invite.phoneNumber">{{
+            'invitations.phoneNumber' | translate
+          }}</span>
+          <span
+            class="tile-header"
+            *ngIf="!invite.phoneNumber && !invite.emailAddress"
+            >{{ 'login.email' | translate }}</span
+          >
+          <span *ngIf="invite.emailAddress">{{ invite.emailAddress }}</span>
+          <span *ngIf="invite.phoneNumber">{{ invite.phoneNumber }}</span>
+          <span *ngIf="!invite.phoneNumber && !invite.emailAddress">
+            {{ 'invitations.notDefined' | translate }}
           </span>
-                </td>
-                <td>
+        </td>
+        <td>
           <span class="tile-header">{{
-                  "invitations.lastname" | translate
-              }}</span>
-                    <div *ngIf="invite.firstName || invite.lastName">
-                        {{ invite.firstName + " " + invite.lastName }}
-                    </div>
-                    <div *ngIf="!invite.firstName && !invite.lastName">
-                        {{ "invitations.notDefined" | translate }}
-                    </div>
-                </td>
-                <td>
+            'invitations.lastname' | translate
+          }}</span>
+          <div *ngIf="invite.firstName || invite.lastName">
+            {{ invite.firstName + ' ' + invite.lastName }}
+          </div>
+          <div *ngIf="!invite.firstName && !invite.lastName">
+            {{ 'invitations.notDefined' | translate }}
+          </div>
+        </td>
+        <td class="hidden-mobile">
           <span class="tile-header">{{
-                  "invitations.creationDate" | translate
-              }}</span>
-                    {{ invite.createdAt | date: "d MMM yyyy HH:mm":"fr" }}
-                </td>
-                <!-- <td>
-                  <span class="tile-header">
-                    metadata
-                  </span>
-                  {{ invite.metadata }}
-                </td> -->
-                <td>
+            'invitations.creationDate' | translate
+          }}</span>
+          {{ invite.createdAt | date: 'd MMM yyyy HH:mm' : 'fr' }}
+        </td>
+        <td>
           <span class="tile-header">{{
-                  "invitations.scheduledDate" | translate
-              }}</span>
-                    {{
-                        invite.scheduledFor
-                            ? (invite.scheduledFor | date: "d MMM yyyy HH:mm")
-                            : "Immédiatement"
-                    }}
-                </td>
-                <td>
+            'invitations.scheduledDate' | translate
+          }}</span>
+          {{
+            invite.scheduledFor
+              ? (invite.scheduledFor | date: 'd MMM yyyy HH:mm')
+              : 'Immédiatement'
+          }}
+        </td>
+        <td>
           <span class="tile-header">{{
-                  "invitations.patient" | translate
-              }}</span>
+            'invitations.patient' | translate
+          }}</span>
 
-                    <ng-container *ngIf="invite.status === 'SENT'">{{
-                            "invitations.sent" | translate
-                        }}
-                    </ng-container>
-                    <ng-container *ngIf="invite.status === 'ACCEPTED'">
-                        <span style='color: green'> {{ "invitations.accepted" | translate }}</span>
-                    </ng-container>
-                    <ng-container *ngIf="invite.status === 'COMPLETE'">{{
-                            "invitations.closed" | translate
-                        }}
-                    </ng-container>
-                    <ng-container *ngIf="invite.status === 'CANCELED'">{{
-                            "invitations.canceled" | translate
-                        }}
-                    </ng-container>
-                </td>
-                <td>
+          <ng-container *ngIf="invite.status === 'SENT'"
+            >{{ 'invitations.sent' | translate }}
+          </ng-container>
+          <ng-container *ngIf="invite.status === 'ACCEPTED'">
+            <span style="color: green">
+              {{ 'invitations.accepted' | translate }}</span
+            >
+          </ng-container>
+          <ng-container *ngIf="invite.status === 'COMPLETE'"
+            >{{ 'invitations.closed' | translate }}
+          </ng-container>
+          <ng-container *ngIf="invite.status === 'CANCELED'"
+            >{{ 'invitations.canceled' | translate }}
+          </ng-container>
+        </td>
+        <td class="hidden-mobile">
           <span class="tile-header">{{
-                  "invitations.guestInvite" | translate
-              }}</span>
+            'invitations.guestInvite' | translate
+          }}</span>
 
-                    <ng-container *ngIf="invite.guestInvite">
-                        <ng-container *ngIf="invite.guestInvite.status === 'SENT'">{{
-                                "invitations.sent" | translate
-                            }}
-                        </ng-container>
-                        <ng-container *ngIf="invite.guestInvite.status === 'ACCEPTED'">
-                            <span style='color: green'> {{ "invitations.accepted" | translate }}</span>
-                        </ng-container>
-                        <ng-container *ngIf="invite.guestInvite.status === 'COMPLETE'">{{
-                                "invitations.closed" | translate
-                            }}
-                        </ng-container>
-                        <ng-container *ngIf="invite.guestInvite.status === 'CANCELED'">{{
-                                "invitations.canceled" | translate
-                            }}
-                        </ng-container>
-                    </ng-container>
+          <ng-container *ngIf="invite.guestInvite">
+            <ng-container *ngIf="invite.guestInvite.status === 'SENT'"
+              >{{ 'invitations.sent' | translate }}
+            </ng-container>
+            <ng-container *ngIf="invite.guestInvite.status === 'ACCEPTED'">
+              <span style="color: green">
+                {{ 'invitations.accepted' | translate }}</span
+              >
+            </ng-container>
+            <ng-container *ngIf="invite.guestInvite.status === 'COMPLETE'"
+              >{{ 'invitations.closed' | translate }}
+            </ng-container>
+            <ng-container *ngIf="invite.guestInvite.status === 'CANCELED'"
+              >{{ 'invitations.canceled' | translate }}
+            </ng-container>
+          </ng-container>
 
-                    <ng-container *ngIf="!invite.guestInvite">{{
-                            "invitations.none" | translate
-                        }}
-                    </ng-container>
-                </td>
-                <td>
+          <ng-container *ngIf="!invite.guestInvite"
+            >{{ 'invitations.none' | translate }}
+          </ng-container>
+        </td>
+        <td class="hidden-mobile">
           <span class="tile-header">{{
-                  "invitations.translatorRequestInvite" | translate
+            'invitations.translatorRequestInvite' | translate
+          }}</span>
+          <ng-container *ngIf="invite.translatorRequestInvite">
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'SENT'"
+              >{{ 'invitations.sent' | translate }}
+            </ng-container>
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'ACCEPTED'">
+              <span style="color: green">
+                {{ 'invitations.accepted' | translate }}</span
+              >
+            </ng-container>
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'COMPLETE'"
+              >{{ 'invitations.closed' | translate }}
+            </ng-container>
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'CANCELED'"
+              >{{ 'invitations.canceled' | translate }}
+            </ng-container>
+            <ng-container
+              *ngIf="invite.translatorRequestInvite.status === 'REFUSED'">
+              <span style="color: red">{{
+                'invitations.refused' | translate
               }}</span>
-                    <ng-container *ngIf="invite.translatorRequestInvite">
-                        <ng-container
-                                *ngIf="invite.translatorRequestInvite.status === 'SENT'"
-                        >{{ "invitations.sent" | translate }}
-                        </ng-container
-                        >
-                        <ng-container
-                                *ngIf="invite.translatorRequestInvite.status === 'ACCEPTED'">
-                            <span style='color: green'> {{ "invitations.accepted" | translate }}</span>
-                        </ng-container
-                        >
-                        <ng-container
-                                *ngIf="invite.translatorRequestInvite.status === 'COMPLETE'"
-                        >{{ "invitations.closed" | translate }}
-                        </ng-container
-                        >
-                        <ng-container
-                                *ngIf="invite.translatorRequestInvite.status === 'CANCELED'"
-                        >{{ "invitations.canceled" | translate }}
-                        </ng-container
-                        >
-                        <ng-container
-                                *ngIf="invite.translatorRequestInvite.status === 'REFUSED'"
-                        >
-                            <span style="color: red;">{{ "invitations.refused" | translate }}</span>
-                        </ng-container
-                        >
-                    </ng-container>
-                    <ng-container *ngIf="!invite.translatorRequestInvite">{{
-                            "invitations.none" | translate
-                        }}
-                    </ng-container>
-                </td>
-                <td style="display: flex; flex-direction: column;">
-                    <span class="tile-header"></span>
-                    <div *ngIf="invite.resending" class="loading">
-                        <mat-spinner [diameter]="35"></mat-spinner>
-                    </div>
-                    <button
-                            class="secondary-button-outlined"
-                            *ngIf="
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!invite.translatorRequestInvite"
+            >{{ 'invitations.none' | translate }}
+          </ng-container>
+        </td>
+        <td style="display: flex; flex-direction: column">
+          <span class="tile-header"></span>
+          <div *ngIf="invite.resending" class="loading">
+            <mat-spinner [diameter]="35"></mat-spinner>
+          </div>
+          <button
+            class="secondary-button-outlined"
+            *ngIf="
               !invite.resending &&
               (!invite.translatorRequestInvite ||
                 invite.translatorRequestInvite.status === 'ACCEPTED')
             "
-                            (click)="resendInvite(invite.id)"
-                            mat-raised-button
-                            title="{{ 'invitations.sendAgainTheSMSOrEmailInvite' | translate }}"
-                    >
-                        {{ "invitations.sendAgain" | translate }}
-                    </button>
-                    <button
-                            class="secondary-button-outlined"
-
-                            (click)="openDialog(invite)"
-                            mat-raised-button
-                            *ngIf="
+            (click)="resendInvite(invite.id)"
+            mat-raised-button
+            title="{{
+              'invitations.sendAgainTheSMSOrEmailInvite' | translate
+            }}">
+            {{ 'invitations.sendAgain' | translate }}
+          </button>
+          <button
+            class="secondary-button-outlined"
+            (click)="openDialog(invite)"
+            mat-raised-button
+            *ngIf="
               invite.translatorRequestInvite &&
-              invite.translatorRequestInvite.status == 'REFUSED'
-            "
-                    >
-                        {{ "consultations.sendAgainANewInvitation" | translate }}
-                    </button>
-                    <button class="secondary-button-outlined edit-button"
-                            mat-raised-button
-                            [routerLink]="['/invitations/' + invite.id ]">
-                        Edit
-                    </button>
-                </td>
-                <td>
-                    <ng-container *ngIf="invite.status !== 'ACCEPTED'">
-                        <span class="tile-header"></span>
-                        <div *ngIf="invite.revoking" class="loading">
-                            <mat-spinner [diameter]="35"></mat-spinner>
-                        </div>
-                        <button
-                                class="primary-button btn__cancel"
-                                *ngIf="!invite.revoking"
-                                (click)="revokeInvite(invite.id)"
-                                mat-raised-button
-                                title="{{
+              invite.translatorRequestInvite.status === 'REFUSED'
+            ">
+            {{ 'consultations.sendAgainANewInvitation' | translate }}
+          </button>
+          <button
+            class="secondary-button-outlined edit-button"
+            mat-raised-button
+            [routerLink]="['/invitations/' + invite.id]">
+            Edit
+          </button>
+        </td>
+        <td>
+          <ng-container *ngIf="invite.status !== 'ACCEPTED'">
+            <span class="tile-header"></span>
+            <div *ngIf="invite.revoking" class="loading">
+              <mat-spinner [diameter]="35"></mat-spinner>
+            </div>
+            <button
+              class="primary-button btn__cancel"
+              *ngIf="!invite.revoking"
+              (click)="revokeInvite(invite.id)"
+              mat-raised-button
+              title="{{
                 'invitations.cancelThisInvitationToJoinAConsultation'
                   | translate
-              }}"
-                        >
-                            {{ "invitations.cancel" | translate }}
-                        </button>
-                    </ng-container>
-                </td>
-            </tr>
-        </table>
+              }}">
+              {{ 'invitations.cancel' | translate }}
+            </button>
+          </ng-container>
+        </td>
+      </tr>
+    </table>
 
-        <app-custom-pagination [totalItems]="totalCount" [itemsPerPage]="10"
-                               (pageChange)="getInvites($event)"></app-custom-pagination>
-    </div>
+    <app-custom-pagination
+      [totalItems]="totalCount"
+      [itemsPerPage]="10"
+      (pageChange)="getInvites($event)"></app-custom-pagination>
+  </div>
 </ng-container>

@@ -28,7 +28,6 @@ import {
   phoneOrEmailValidator,
 } from '../shared/validators/phone-number-validator';
 import { catchError, filter, switchMap } from 'rxjs/operators';
-import { InviteExpertComponent } from '../invite-expoert/invite-expert.component';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 
 interface DialogData {
@@ -111,6 +110,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     public dialogRef: MatDialogRef<InviteFormComponent>,
     private translationOrganizationService: TranslationOrganizationService
   ) {
+    this.dialogRef.updateSize('100%', '100%');
     this.edit = data.edit;
     if (!this.data.emailAddress) {
       this.data.emailAddress = '';

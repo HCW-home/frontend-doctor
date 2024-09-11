@@ -1,18 +1,23 @@
 <ng-container *ngIf="isLoggedIn">
   <mat-sidenav-container class="container">
-    <app-side-chat class="overlay"></app-side-chat>
-
-    <mat-sidenav opened #sidenav mode="side" class="sidenav">
+    <mat-sidenav
+      #sidenav
+      mode="side"
+      class="sidenav"
+      [mode]="isMobile ? 'over' : 'side'"
+      [opened]="!isMobile">
       <div class="main-logo-wrapper">
-      <img class='main-logo'
-           *ngIf="configService.config.logo && !imageError; else defaultLogo"
-           [src]="configService.config.logo"
-           (error)="onImageError()"
-           alt="@"
-      />
+        <img
+          class="main-logo"
+          *ngIf="configService.config.logo && !imageError; else defaultLogo"
+          [src]="configService.config.logo"
+          (error)="onImageError()"
+          alt="@" />
       </div>
       <ng-template #defaultLogo>
-       <div class="at">@ <span> {{ 'login.home' | translate }}</span></div>
+        <div class="at">
+          @ <span>{{ 'login.home' | translate }}</span>
+        </div>
       </ng-template>
       <mat-list class="menu-list">
         <mat-list-item class="list-item">
@@ -20,10 +25,9 @@
             routerLink="/dashboard"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
-          >
+            mat-button>
             <mat-icon svgIcon="dashboard"></mat-icon>
-            <span class="btn-text">{{ "app.dashboard" | translate }}</span>
+            <span class="btn-text">{{ 'app.dashboard' | translate }}</span>
           </button>
         </mat-list-item>
         <mat-list-item class="list-item">
@@ -31,15 +35,13 @@
             routerLink="/pending-consultations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
-          >
+            mat-button>
             <mat-icon
               svgIcon="queue"
               [matBadge]="pendingConsultations || ''"
               matBadgePosition="after"
-              matBadgeColor="danger"
-            ></mat-icon>
-            <span class="btn-text">{{ "app.waitingRoom" | translate }}</span>
+              matBadgeColor="danger"></mat-icon>
+            <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
           </button>
         </mat-list-item>
         <mat-list-item class="list-item">
@@ -47,16 +49,14 @@
             routerLink="/active-consultations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
-          >
+            mat-button>
             <mat-icon
               svgIcon="chat"
               [matBadge]="activeConsultations || ''"
               matBadgePosition="after"
-              matBadgeColor="danger"
-            ></mat-icon>
+              matBadgeColor="danger"></mat-icon>
             <span class="btn-text">{{
-              "app.openedConsultation" | translate
+              'app.openedConsultation' | translate
             }}</span>
           </button>
         </mat-list-item>
@@ -65,16 +65,14 @@
             routerLink="/closed-consultations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
-          >
+            mat-button>
             <mat-icon
               svgIcon="history"
               [matBadge]="''"
               matBadgePosition="after"
-              matBadgeColor="warn"
-            ></mat-icon>
+              matBadgeColor="warn"></mat-icon>
             <span class="btn-text">{{
-              "app.consultationHistory" | translate
+              'app.consultationHistory' | translate
             }}</span>
           </button>
         </mat-list-item>
@@ -84,15 +82,13 @@
             routerLink="/invitations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
-          >
+            mat-button>
             <mat-icon
               svgIcon="invite"
               [matBadge]="''"
               matBadgePosition="after"
-              matBadgeColor="warn"
-            ></mat-icon>
-            <span class="btn-text">{{ "app.invites" | translate }}</span>
+              matBadgeColor="warn"></mat-icon>
+            <span class="btn-text">{{ 'app.invites' | translate }}</span>
           </button>
         </mat-list-item>
 
@@ -101,30 +97,27 @@
             routerLink="/test-media"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button
-          >
+            mat-button>
             <mat-icon
               svgIcon="selfcheck"
               [matBadge]="''"
               matBadgePosition="after"
-              matBadgeColor="danger"
-            ></mat-icon>
-            <span class="btn-text">{{ "app.testVideoSound" | translate }}</span>
+              matBadgeColor="danger"></mat-icon>
+            <span class="btn-text">{{ 'app.testVideoSound' | translate }}</span>
           </button>
         </mat-list-item>
-
       </mat-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <div class="content">
-            <div>
-                <router-outlet *ngIf="navigated"></router-outlet>
-            </div>
-            <ng-container *ngIf="markdownExists">
-                <app-footer></app-footer>
-            </ng-container>
+      <div class="content">
+        <div>
+          <router-outlet *ngIf="navigated"></router-outlet>
         </div>
+        <ng-container *ngIf="markdownExists">
+          <app-footer></app-footer>
+        </ng-container>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>

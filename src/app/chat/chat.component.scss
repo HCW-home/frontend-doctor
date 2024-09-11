@@ -1,82 +1,35 @@
-.overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: block; /* Hidden by default */
-  width: 100vw; /* Full width (cover the whole page) */
-  height: 100vh; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75); /* Black background with opacity */
-  z-index: 110; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
-}
-.chat-cont {
-  // width:33.33%;
-  // height: 100%;
-  // position: fixed;
-  z-index: 112;
-  background-color: #fafafa;
-  // min-width: 400px;
-  // right: 0;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.btn-div {
-  width: 66.6%;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+.consultation-wrapper {
   height: 100%;
-  position: fixed;
-  // z-index: 112;
-  // background-color: #ffffff;
-  max-width: calc(100% - 400px);
-  left: 0;
-}
-
-.header {
-  position: fixed;
-  width: 33.33%;
-  min-width: 400px;
-  border-bottom: 1px solid rgb(170, 170, 170);
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-  top: 0;
-  height: 70px;
-  z-index: 100;
-  margin-right: 100px;
-}
-
-.header h3 {
-  font-size: 1.3em;
-  padding-top: 18px;
-  padding-left: 20px;
-  font-weight: 500;
-}
-
-.header div {
-  height: 100%;
-  display: inline-block;
-  width: 24.333%;
-  text-align: center;
-  // line-height: 406%;
+  position: relative;
 }
 
 .bubble {
   border-radius: 6px;
   word-break: break-word;
-  // min-width:270px;
-}
-div.bubble {
-  background-color: var(--primary-color);
-  color: #ffffff;
-
+  color: var(--app-white);
   padding: 8px 14px 8px 14px;
+  background-color: var(--primary-color);
 }
+
 .reverse div.bubble {
   padding: 8px 14px 8px 14px !important;
   color: rgb(58, 58, 58) !important;
   background-color: #ffffff !important;
-
-  //  float: right;
 }
 
 span.msg-time {
@@ -89,23 +42,15 @@ div.msg-time {
   min-width: 80%;
   flex-direction: row-reverse;
 }
+
 .outgoing,
 .incoming {
-  // min-width:270px;
-  // width:70%;
   display: inline-block;
   margin-top: 16px;
   max-width: 50%;
 }
 
-// .outgoing:first-child, .incoming:first-child{
-//   margin-top:0;
-// }
-// .bubble{
-//   width:70%;
-// }
 
-//   div.outgoingTime{justify-content: flex-end;}
 .outgoingTime span.msg-time {
   text-align: right;
   float: right;
@@ -117,66 +62,64 @@ div.msg-time {
 }
 
 div.chat {
-  height: 100%;
   margin: 0;
-  padding: 0;
-  margin-bottom: 0;
-  // margin-top:80px;
-  width: calc(100% - 32px);
-  padding: 0 16px;
+
+  @media (max-width: 600px) {
+    height: 100%;
+  }
+
 }
 
 .withInput {
-  height: calc(100% - 68px) !important;
+  height: calc(100% - 68px);
 }
-div.resume-c-btn {
-  text-align: center;
 
-  display: inline-block;
-  // display: table;
-  width: 21.333%;
+.general-info {
+  z-index: 9;
+  padding: 20px 30px;
+  position: relative;
+  background-color: var(--app-white);
+  box-shadow: 0 9px 5px 0 rgba(212, 210, 212, 1);
 
-  background-color: var(--primary-color);
-  color: #ffffff;
-  // line-height: 50%;
-  display: table-cell;
-  vertical-align: middle;
-  cursor: pointer;
-  line-height: 406%;
+  .general-title {
+    margin-top: 0;
+    padding: 16px 0;
 
-  right: 0;
-  position: fixed;
-  width: 33.33%;
-  min-width: 400px;
+    @media (max-width: 600px) {
+      margin: 0;
+      padding: 0;
+    }
+  }
 
-  margin: 0;
-  padding: 0;
-
-  bottom: 0;
-  height: 70px;
-  z-index: 120;
-  // margin-right:100px;
 }
 
 div.inputCont {
-  position: absolute;
-  bottom: 4px;
+  bottom: 0;
   width: 100%;
-  float: left;
-  background-color: white;
   height: 60px;
   display: flex;
+  position: sticky;
   align-items: center;
+  background-color: var(--app-white);
+}
+
+.form-wrapper {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 -6px 5px 0px rgba(212,210,212,1);
 }
 
 .text-input {
   width: 80%;
   float: left;
 }
+
 .send-btn {
-  // display: inline;
   float: right;
 }
+
 .left-img {
   margin-right: 40%;
 }
@@ -193,26 +136,6 @@ textarea {
 textarea:focus {
   outline: none !important;
 }
-
-// div.pdf {
-
-//       color: var(--primary-color) ;
-//       -webkit-mask: url(../../assets/svg/icon-Pdf.svg);
-
-//      background-color:var(--primary-color) ;
-//      width:28px;
-//      height:28px;
-//      filter: brightness(0) invert(1);
-
-//      display: block;
-//      margin:auto;
-//      background-size: contain;
-//      background-position: 50% 50%;
-//      background-repeat: no-repeat;
-//      width: 1em;
-//      height: 1em;
-
-// }
 
 .outgoing img.pdf {
   background-color: black;
@@ -235,17 +158,32 @@ textarea:focus {
 }
 
 .m-chat {
+  margin-top: 20px;
   margin-bottom: 16px;
   display: grid;
   grid-template-areas:
     " content . ."
     ".. center .."
     " msgTime . .";
-  margin-top: 20px;
+
+  @media (max-width: 600px) {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
 }
 
 .chat-wrapper {
   overflow: auto;
+  padding: 0 16px;
+
+  .warning-wrapper {
+    padding: 20px 37px;
+
+    @media (max-width: 600px) {
+      padding: 5px;
+    }
+  }
+
 }
 
 .reverse {
@@ -265,6 +203,7 @@ textarea:focus {
   font-size: 0.7em;
   color: rgb(146, 146, 146);
 }
+
 .c_info_row_content {
   height: 62%;
   font-size: 1em;
@@ -282,6 +221,7 @@ textarea:focus {
     width: 50%;
   }
   @media (max-width: 600px) {
+    margin-top: 6px;
     width: 100%;
   }
 }
@@ -291,11 +231,32 @@ textarea:focus {
   border-radius: 60px;
   height: 37px;
   margin: auto;
-  color: #ffff ;
+  color: #ffff;
 }
 
 .general-wrapper {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.hide-on-mobile {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .hide-on-mobile {
+    display: block !important;
+  }
+}
+
+.chat-input {
+  flex: 12;
+  resize: none;
+  border: none;
+  padding: 7px 0;
+  font-size: 16px;
+  border-right: 1px solid rgba(203, 203, 203, 0.93);
+  border-left: 1px solid rgba(203, 203, 203, 0.93);
+
 }

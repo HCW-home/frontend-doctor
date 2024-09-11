@@ -16,14 +16,21 @@
 }
 
 .field-container {
+  display: flex;
+  flex-wrap: wrap;
   margin: 4px 10px;
   place-items: center;
-  display: flex;
   justify-content: space-around;
+
   mat-form-field,
   mat-checkbox {
     margin: 16px 30px;
     flex: 1;
+
+    @media (max-width: 600px) {
+      margin: 0;
+    }
+
   }
 
   .experts-wrapper {
@@ -39,9 +46,7 @@
     }
   }
 
-  // ::ng-deep .mat-input-wrapper {
-  //   width: 180px !important;
-  // }
+
   // ::ng-deep .mat-form-field-infix {
   //   width: 180px !important;
   // }
@@ -155,10 +160,6 @@
   margin-top: 0 !important;
   padding: 10px !important;
 }
-// ::ng-deep .md-dialog-container {
-//   width: 970px !important;
-//   height: 800px !important;
-// }
 
 p {
   text-align: center;
@@ -211,6 +212,7 @@ h1 {
   & > div {
     justify-content: space-around !important;
     align-items: center !important;
+    max-width: 300px;
   }
 
   h4 {
@@ -223,7 +225,6 @@ h1 {
 }
 
 .on-premise-container {
-  height: 276px;
   display: flex;
   align-items: center;
   text-align: center;

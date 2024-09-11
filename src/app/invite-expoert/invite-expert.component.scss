@@ -7,6 +7,10 @@
   .field-container {
     display: flex;
     width: 100%;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
   }
 
   .title {
@@ -14,11 +18,14 @@
     margin-top: 0
   }
   .send-link-wrapper {
+
     width: 50%;
     border-top: 1px solid #cacaca;
     padding: 24px;
     background: #F2F7F7;
-
+    @media (max-width: 600px) {
+      width: 100%;
+    }
 
     button {
       margin: 10px 3%;
@@ -34,11 +41,14 @@
 
   .expert-link-wrapper {
     width: 50%;
+    padding: 24px;
     background: #F2F7F7;
     border-top: 1px solid #cacaca;
     border-left: 1px solid #cacaca;
-    padding: 24px;
 
+    @media (max-width: 600px) {
+      width: 100%;
+    }
     .input-wrapper {
       display: flex;
       align-items: center;
@@ -75,11 +85,6 @@
 
 .mat-dialog-content {
   padding: 0;
-}
-
-::ng-deep .mat-dialog-container {
-  padding-bottom: 0 !important;
-
 }
 
 .provider-radio-group {

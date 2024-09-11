@@ -49,6 +49,12 @@ dd {
   padding-top: 31px;
   padding-bottom: 31px;
   display: inline;
+
+
+  @media screen and (max-width: 600px) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 @media screen and (max-width: 1079px) {
@@ -59,17 +65,26 @@ dd {
 
 .cards-container {
   display: flex;
+  margin-top: 30px;
   flex-direction: row;
   .card-left {
     flex: 3;
-    margin: 40px;
+    margin: 30px;
     background-image: url("/assets/img/bg-queue.png");
+
+
+    @media screen and (max-width: 600px) {
+        margin: 10px;
+    }
   }
   .card-right {
     flex: 2;
     margin: 40px;
     background-image: url("/assets/img/bg-open.png");
     min-width: 186px;
+    @media screen and (max-width: 600px) {
+        margin: 10px;
+    }
   }
 }
 

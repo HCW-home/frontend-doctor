@@ -18,22 +18,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./invitations.component.scss'],
 })
 export class InvitationsComponent implements OnInit {
-  animal: string;
-  name: string;
   page = 0;
+  name: string;
   loading = false;
-  invitations: Observable<Invitation[] | HttpResponse<Invitation[]>> = of([]);
-  totalCount: number;
-  currentInvites: Invitation[] = [];
   inviteId: string;
+  totalCount: number;
   currentInvite: Invitation;
+  currentInvites: Invitation[] = [];
+  invitations: Observable<Invitation[] | HttpResponse<Invitation[]>> = of([]);
+
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private inviteService: InviteService,
     private translate: TranslateService,
     private activeRoute: ActivatedRoute,
-    private router: Router
+    private inviteService: InviteService
   ) {}
 
   ngOnInit() {
@@ -79,8 +79,8 @@ export class InvitationsComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(InviteFormComponent, {
       id: 'invite_form_dialog',
-      width: '500px',
-      height: '700px',
+      // width: '500px',
+      // height: '700px',
       data,
     });
 

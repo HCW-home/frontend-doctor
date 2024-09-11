@@ -1,100 +1,36 @@
 <div class="header">
-  <div
-    style="vertical-align: middle; cursor: pointer;min-width: 200px;margin-left: 40px"
-    (click)="toggleLogout()"
-  >
-    <div [ngClass]="{ 'doc-btn': logoutToggle }" id="user">
-      <mat-icon svgIcon="stat"></mat-icon>
-      {{ currentUser.firstName + " " + currentUser.lastName }}
-      <div class="items" *ngIf="logoutToggle">
-        <div routerLink="/profile">
-          <mat-icon svgIcon="stat"></mat-icon>
-          {{ 'topNav.profile' | translate }}
-        </div>
-        <div class="logout" (click)="logout()">
-          <mat-icon svgIcon="logout"></mat-icon>
-          {{ 'topNav.logout' | translate }}
+  <button class="menu" mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="header-items">
+    <div
+      class="new-consultation"
+      (click)="openNurse()"
+      *ngIf="configService?.config?.doctorExternalLink">
+      <span>{{ 'topNav.new_consultation_form' | translate }}</span>
+      <mat-icon svgIcon="in-new-tab"></mat-icon>
+    </div>
+
+    <div *ngIf="showCloseConsBtn" (click)="showCloseModal()" class="terminate-consultation">
+      {{ 'topNav.terminateTheConsultation' | translate }}
+    </div>
+
+    <div class="user-wrapper" (click)="toggleLogout()">
+      <div [ngClass]="{ 'doc-btn': logoutToggle }" id="user">
+        <mat-icon svgIcon="stat"></mat-icon>
+        {{ currentUser.firstName + ' ' + currentUser.lastName }}
+        <div class="items" *ngIf="logoutToggle">
+          <div routerLink="/profile">
+            <mat-icon svgIcon="stat"></mat-icon>
+            {{ 'topNav.profile' | translate }}
+          </div>
+          <div class="logout" (click)="logout()">
+            <mat-icon svgIcon="logout"></mat-icon>
+            {{ 'topNav.logout' | translate }}
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div *ngIf="!consultation" style="flex:8;">
-  </div>
-
-  <div *ngIf="consultation" style="flex:8;     vertical-align: middle;">
-
-  </div>
-
-    <div class="new-consultation" (click)="openNurse()" *ngIf="configService?.config?.doctorExternalLink">
-       <span>{{ 'topNav.new_consultation_form' | translate }}</span>
-        <mat-icon svgIcon="in-new-tab"></mat-icon>
-    </div>
-
-  <div *ngIf="!showCloseConsBtn"
-    (click)="acceptNextConsultation()"
-    class="next-c-btn"
-    style="flex:4">
-    {{ 'topNav.startTheNextConsultation' | translate }}
-  </div>
-
-  <div
-    *ngIf="showCloseConsBtn"
-    (click)="showCloseModal()"
-    class="next-c-btn"
-    style="flex:4; background-color: #E3393A;"
-  >
-    {{ 'topNav.terminateTheConsultation' | translate }}
-  </div>
-</div>
-
-<div
-  *ngIf="consultation && infoToggle"
-  class="info"
-  style="display: flex; line-height: 40px; top:70px; border-top: 1px solid #F2F7F7; ;"
->
-  <div style="flex:1; ">
-    <div style="height: 20%; font-size: 0.7em; color: rgb(146, 146, 146);">
-      {{ 'topNav.patientFirstnameAndLastname' | translate }}
-    </div>
-    <div
-      style="height: 62%; font-size: 1em;    padding-top: 5px;
-"
-    >
-    <ng-container *ngIf="consultation.consultation.firstName !== 'No firstname'">
-      {{ consultation.consultation.firstName + " " }}
-      {{ consultation.consultation.lastName | uppercase }}
-    </ng-container>
-             <ng-container  *ngIf="consultation.consultation.firstName === 'No firstname'">
-              <span style="color: #8a8a8a;" >
-               {{
-                 "consultations.noPatientName" | translate
-               }}
-              </span>
-             </ng-container>
-    </div>
-  </div>
-  <div style="flex:1; ">
-    <div style="height: 20%; font-size: 0.7em; color: rgb(146, 146, 146);">
-      {{ 'topNav.patientBirthday' | translate }}
-    </div>
-    <div
-      style="height: 62%; font-size: 1em;    padding-top: 5px;"
-    >
-      {{
-        consultation.consultation.birthDate
-          ? (consultation.consultation.birthDate | date: "d MMM yyyy")
-          : "None"
-      }}
-    </div>
-  </div>
-  <div style="flex:1; ">
-    <div style="height: 20%; font-size: 0.7em; color: rgb(146, 146, 146);">
-      {{ 'topNav.nurse' | translate }}
-    </div>
-    <div style="height: 62%; font-size: 1em;    padding-top: 5px;">
-      {{ consultation.nurse ? consultation.nurse.firstName + " " : "None"}}
-      {{ consultation.nurse ? (consultation.nurse.lastName | uppercase) : "" }}
     </div>
   </div>
 </div>

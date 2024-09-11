@@ -1,15 +1,15 @@
 import { Subscription } from 'rxjs';
 import {
+  Input,
+  OnInit,
+  NgZone,
+  Output,
   Component,
+  OnDestroy,
+  ViewChild,
   ElementRef,
   EventEmitter,
   HostListener,
-  Input,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from '../core/message.service';
@@ -26,6 +26,7 @@ import { ConfigService } from '../core/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-chat',
@@ -36,9 +37,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   @Input() consultation;
   @Input() publicinvite;
   @Input() showInput: boolean;
-  @ViewChild('scoll') contentArea: ElementRef;
+  @ViewChild('scroll') contentArea: ElementRef;
   @ViewChild('fileInput') fileInput: ElementRef;
-  @ViewChild('element') element: ElementRef;
+  @ViewChild('generalInfo') element: ElementRef;
 
   currentUser;
   chatMessages = [];
@@ -55,19 +56,21 @@ export class ChatComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   consultations = [];
   acceptAll: boolean;
+  isMobile = false;
 
   constructor(
+    private zone: NgZone,
+    public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private msgServ: MessageService,
     private authService: AuthService,
-    private socketEventsService: SocketEventsService,
-    private configService: ConfigService,
-    private consultationService: ConsultationService,
-    private zone: NgZone,
-    public dialog: MatDialog,
+    private _sanitizer: DomSanitizer,
     private translate: TranslateService,
     private inviteService: InviteService,
-    private _sanitizer: DomSanitizer
+    private configService: ConfigService,
+    private breakpointObserver: BreakpointObserver,
+    private socketEventsService: SocketEventsService,
+    private consultationService: ConsultationService
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -96,10 +99,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     this.listenToCallEvents();
+    this.breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => {
+      this.isMobile = result.matches;
+    });
   }
 
   inviteExpert(expertLink: string) {
-    const dialogRef = this.dialog.open(InviteExpertComponent, {
+    this.dialog.open(InviteExpertComponent, {
       width: '800px',
       data: { expertLink, id: this.consultation._id || this.consultation.id },
       autoFocus: false,
@@ -224,7 +230,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.contentArea.nativeElement.scrollTop =
           this.contentArea?.nativeElement?.scrollHeight;
       }, after || 10);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err, 'err');
+    }
   }
 
   send() {
@@ -246,7 +254,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.scrollToBottom();
     this.msgServ
       .sendMessage(this.consultation.id || this.consultation._id, this.chatText)
-      .subscribe(r => {});
+      .subscribe();
 
     this.chatText = '';
   }
@@ -397,6 +405,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   calculateHeight(): void {
-    this.chatHeight = `calc(100% - ${this.element?.nativeElement?.offsetHeight}px)`;
+    this.chatHeight =
+      this.isMobile && this.showInput
+        ? `calc(100vh - ${this.element?.nativeElement?.offsetHeight}px - 300px)`
+        : `calc(100% - ${this.element?.nativeElement?.offsetHeight}px)`;
   }
 }
