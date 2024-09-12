@@ -1,3 +1,12 @@
+hcw-athome-caregiver (0.5.1.2) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * add responsive styles
+  * update chat general information
+  * minor mobile ui issues
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 12 Sep 2024 10:19:47 +0200
+
 hcw-athome-caregiver (5.1.1) focal; urgency=medium
 
   [ Gor Grigoryan ]
