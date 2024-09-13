@@ -30,6 +30,7 @@ import {
 import { catchError, filter, switchMap } from 'rxjs/operators';
 import { InviteExpertComponent } from '../invite-expoert/invite-expert.component';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
+import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
 
 interface DialogData {
   phoneNumber: string;
@@ -260,31 +261,61 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.myForm
       .get('patientContactFormControl')
       .valueChanges.subscribe(value => {
-        const control = this.myForm.get('patientContactFormControl');
-        const messageServiceControl = this.myForm.get('messageService');
-        if (phoneNumberRegex.test(value)) {
-          if (control.valid) {
-            setTimeout(() => {
-              const { value } = this.myForm.get('patientContactFormControl');
-              this.inviteService.checkPrefix(value).subscribe({
+        this.valueChangesPatientContactAndScheduled();
+      });
+
+    this.myForm.get('isScheduled').valueChanges.subscribe(value => {
+      this.valueChangesPatientContactAndScheduled();
+    });
+
+    this.myForm.get('guestContactFormControl').valueChanges.subscribe(value => {
+    this.valueChangesGuestContactFormControl()
+    });
+
+    this.myForm.get('languageFormControl').valueChanges.subscribe(value => {
+      this.valueChangesPatientContactAndScheduled();
+      this.sendInviteExperts();
+      this.valueChangesGuestContactFormControl();
+    });
+
+    this.handleValueChanges();
+  }
+
+  valueChangesGuestContactFormControl() :void{
+    const guestContactFormControl = this.myForm.get('guestContactFormControl');
+    const languageFormControl = this.myForm.get('languageFormControl');
+    const isScheduledControl = this.myForm.get('isScheduled');
+    const messageServiceControl = this.myForm.get(
+        'guestContactMessageService'
+    );
+    const type = isScheduledControl.value
+        ? TwilioWhatsappConfig.scheduledGuestInvite
+        : TwilioWhatsappConfig.guestInvite;
+    if (phoneNumberRegex.test(guestContactFormControl.value)) {
+      if (guestContactFormControl.valid) {
+        setTimeout(() => {
+          const { value } = this.myForm.get('guestContactFormControl');
+          this.inviteService
+              .checkPrefix(value, languageFormControl.value, type)
+              .subscribe({
                 next: res => {
                   switch (res.status) {
                     case 0:
-                      control.setErrors({ cantSend: true });
+                      guestContactFormControl.setErrors({ cantSend: true });
                       break;
                     case 1:
-                      this.showSuccessMessage = res.message;
-                      this.resetValidators(true, 'messageService');
-                      this.showRadioGroup = true;
+                      this.showGuestSuccessMessage = res.message;
+                      this.resetValidators(true, 'guestContactMessageService');
+                      this.showGuestRadioGroup = true;
                       break;
                     case 2:
-                      this.showSuccessMessage = res.message;
+                      this.showGuestSuccessMessage = res.message;
                       messageServiceControl.setValidators([]);
                       messageServiceControl.setValue('1');
                       messageServiceControl.updateValueAndValidity();
                       break;
                     case 3:
-                      this.showSuccessMessage = res.message;
+                      this.showGuestSuccessMessage = res.message;
                       messageServiceControl.setValidators([]);
                       messageServiceControl.setValue('2');
                       messageServiceControl.updateValueAndValidity();
@@ -292,42 +323,46 @@ export class InviteFormComponent implements OnDestroy, OnInit {
                   }
                 },
               });
-            }, 100);
-          }
-          this.resetValidators(false, 'messageService');
-          this.showRadioGroup = false;
-          this.showSuccessMessage = '';
-        }
-      });
-
-    this.myForm.get('guestContactFormControl').valueChanges.subscribe(value => {
-      const control = this.myForm.get('guestContactFormControl');
-      const messageServiceControl = this.myForm.get(
-        'guestContactMessageService'
-      );
-      if (phoneNumberRegex.test(value)) {
-        if (control.valid) {
-          setTimeout(() => {
-            const { value } = this.myForm.get('guestContactFormControl');
-            this.inviteService.checkPrefix(value).subscribe({
+        }, 100);
+      }
+      this.resetValidators(false, 'guestContactMessageService');
+      this.showGuestRadioGroup = false;
+      this.showGuestSuccessMessage = '';
+    }
+  }
+  valueChangesPatientContactAndScheduled(): void {
+    const controlPatientContact = this.myForm.get('patientContactFormControl');
+    const languageFormControl = this.myForm.get('languageFormControl');
+    const controlScheduledCheckbox = this.myForm.get('isScheduled');
+    const messageServiceControl = this.myForm.get('messageService');
+    const type = controlScheduledCheckbox.value
+      ? TwilioWhatsappConfig.scheduledPatientInvite
+      : TwilioWhatsappConfig.patientInvite;
+    if (phoneNumberRegex.test(controlPatientContact.value)) {
+      if (controlPatientContact.valid) {
+        setTimeout(() => {
+          const { value } = this.myForm.get('patientContactFormControl');
+          this.inviteService
+            .checkPrefix(value, languageFormControl.value, type)
+            .subscribe({
               next: res => {
                 switch (res.status) {
                   case 0:
-                    control.setErrors({ cantSend: true });
+                    controlPatientContact.setErrors({ cantSend: true });
                     break;
                   case 1:
-                    this.showGuestSuccessMessage = res.message;
-                    this.resetValidators(true, 'guestContactMessageService');
-                    this.showGuestRadioGroup = true;
+                    this.showSuccessMessage = res.message;
+                    this.resetValidators(true, 'messageService');
+                    this.showRadioGroup = true;
                     break;
                   case 2:
-                    this.showGuestSuccessMessage = res.message;
+                    this.showSuccessMessage = res.message;
                     messageServiceControl.setValidators([]);
                     messageServiceControl.setValue('1');
                     messageServiceControl.updateValueAndValidity();
                     break;
                   case 3:
-                    this.showGuestSuccessMessage = res.message;
+                    this.showSuccessMessage = res.message;
                     messageServiceControl.setValidators([]);
                     messageServiceControl.setValue('2');
                     messageServiceControl.updateValueAndValidity();
@@ -335,15 +370,71 @@ export class InviteFormComponent implements OnDestroy, OnInit {
                 }
               },
             });
-          }, 100);
-        }
-        this.resetValidators(false, 'guestContactMessageService');
-        this.showGuestRadioGroup = false;
-        this.showGuestSuccessMessage = '';
+        }, 100);
+      }
+      this.resetValidators(false, 'messageService');
+      this.showRadioGroup = false;
+      this.showSuccessMessage = '';
+    }
+  }
+
+  sendInviteExperts(): void {
+    this.expertsFormArray.controls.forEach((group: FormGroup, index) => {
+      const expertControl = group.get('expertContact');
+      const showRadio = group.get('showRadioGroup');
+      const showSuccessMessage = group.get('showSuccessMessage');
+      const messageService = group.get('messageService');
+      const languageFormControl = this.myForm.get('languageFormControl');
+
+      showRadio.setValue(false);
+      showSuccessMessage.setValue('');
+      messageService.setValue('');
+      messageService.setValidators([]);
+      messageService.updateValueAndValidity();
+
+      const value = expertControl.value;
+      if (phoneNumberRegex.test(value) && expertControl.valid) {
+        this.inviteService
+          .checkPrefix(
+            value,
+            languageFormControl.value,
+            TwilioWhatsappConfig.pleaseUseThisLink
+          )
+          .pipe(
+            catchError(err => {
+              console.error(err);
+              return of(null);
+            })
+          )
+          .subscribe(res => {
+            if (res) {
+              switch (res.status) {
+                case 0:
+                  expertControl.setErrors({ cantSend: true });
+                  break;
+                case 1:
+                  showSuccessMessage.setValue(res.message);
+                  showRadio.setValue(true, { emitEvent: false });
+                  messageService.setValidators([Validators.required]);
+                  messageService.updateValueAndValidity();
+                  break;
+                case 2:
+                  showSuccessMessage.setValue(res.message);
+                  messageService.setValidators([]);
+                  messageService.setValue('1');
+                  messageService.updateValueAndValidity();
+                  break;
+                case 3:
+                  showSuccessMessage.setValue(res.message);
+                  messageService.setValidators([]);
+                  messageService.setValue('2');
+                  messageService.updateValueAndValidity();
+                  break;
+              }
+            }
+          });
       }
     });
-
-    this.handleValueChanges();
   }
 
   handleValueChanges(): void {
@@ -352,6 +443,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       const showRadio = group.get('showRadioGroup');
       const showSuccessMessage = group.get('showSuccessMessage');
       const messageService = group.get('messageService');
+      const languageFormControl = this.myForm.get('languageFormControl');
 
       expertControl.valueChanges
         .pipe(
@@ -364,12 +456,18 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             return phoneNumberRegex.test(value) && expertControl.valid;
           }),
           switchMap(value =>
-            this.inviteService.checkPrefix(value).pipe(
-              catchError(err => {
-                console.error(err);
-                return of(null);
-              })
-            )
+            this.inviteService
+              .checkPrefix(
+                value,
+                languageFormControl.value,
+                TwilioWhatsappConfig.pleaseUseThisLink
+              )
+              .pipe(
+                catchError(err => {
+                  console.error(err);
+                  return of(null);
+                })
+              )
           )
         )
         .subscribe(res => {
