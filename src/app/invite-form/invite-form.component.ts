@@ -638,6 +638,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     //     return result;
     //   },{});
     // }
+    if(!this.myForm.valid){
+      return;
+    }
 
     if (this.loading) {
       return;
