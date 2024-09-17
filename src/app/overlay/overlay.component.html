@@ -1,55 +1,75 @@
-<div *ngIf="!showCloseOverlay" (click)="onClose($event)" id="overlay" class="overlay">
+<div
+  *ngIf="!showCloseOverlay"
+  (click)="onClose($event)"
+  id="overlay"
+  class="overlay">
   <div class="chat-cont">
-    <div class="header"></div>
+    <div class="header">
+      <mat-icon class="close-icon" (click)="closeOverlay()">close</mat-icon>
+    </div>
 
-    <div style="position: absolute;
-    top: 74px;
-    width: 100%;
-    height: calc(100% - 150px);" [style.height]="consultation.consultation.status === 'closed'? 'calc(100% - 70px);':'calc(100% - 150px);'">
+    <div
+      class="overlay-wrapper"
+      [style.height]="
+        consultation.consultation.status === 'closed'
+          ? 'calc(100% - 70px);'
+          : 'calc(100% - 150px);'
+      ">
       <app-chat [consultation]="consultation" [showInput]="false"></app-chat>
     </div>
   </div>
-  <div *ngIf="consultation.consultation.status === 'pending'" class="resume-c-btn" (click)="acceptConsultation()">
+  <div
+    *ngIf="consultation.consultation.status === 'pending'"
+    class="resume-c-btn"
+    (click)="acceptConsultation()">
     {{ 'sideChat.startTheConsultation' | translate }}
   </div>
 
-  <div *ngIf="consultation.consultation.status === 'active'" class="btns" style="display: flex;">
-    <!-- <div style="flex:1; " (click)="closeConsultation()">Close</div> -->
-    <div style="flex:1; " (click)="showCloseOverlay = true">{{ 'overlay.close' | translate }}</div>
-    <div style="flex:1;" (click)="resumeConsultation()">{{ 'overlay.resume' | translate }}</div>
+  <div *ngIf="consultation.consultation.status === 'active'" class="btns">
+    <div (click)="showCloseOverlay = true" class="close">
+      {{ 'overlay.close' | translate }}
+    </div>
+    <div (click)="resumeConsultation()" class="resume">
+      {{ 'overlay.resume' | translate }}
+    </div>
   </div>
 </div>
 
-<div *ngIf="showCloseOverlay && !showFeedbackOverlay" (click)="onClose($event)" id="overlay" class="overlay">
-  <div class="close-cont">
-    <div style="position: absolute;
-      top: 20%;
-      width: 70%;
-      right: 15%;
-      height: 33.333%;
-      min-height: 300px;
-      z-index: 130;
-      background-color: white;
-     ">
-      <div class="header" style=" position: static; width: 100%; min-width: 100%; margin-right: 0; text-align: center; height: 50px;">
-        <h2 style="font-weight: 200;">{{ 'overlay.terminate' | translate }} <strong>{{ 'overlay.theConsultation' | translate }}</strong></h2>
+<div
+  *ngIf="showCloseOverlay && !showFeedbackOverlay"
+  (click)="onClose($event)"
+  class="overlay">
+  <div class="close-content">
+    <div class="close-content-inner">
+      <div class="header">
+        <h2>
+          {{ 'overlay.terminate' | translate }}
+          <strong>{{ 'overlay.theConsultation' | translate }}</strong>
+        </h2>
       </div>
-      <div style="display: flex;     height: 100%; background-color: #F2F7F7;">
-        <div class="act-cont" style=" border-right: 1px solid #cacaca;">
+      <div class="actions-wrapper">
+        <div class="act-cont">
           <h3>{{ 'overlay.close' | translate }}</h3>
           <p>
-            {{ 'overlay.theConsultationWillBeDisplayedIntoHistoryDuring24Hours' | translate }}
+            {{
+              'overlay.theConsultationWillBeDisplayedIntoHistoryDuring24Hours'
+                | translate
+            }}
           </p>
           <button (click)="closeConsultation()" class="btn danger" mat-button>
             {{ 'overlay.close' | translate }}
           </button>
         </div>
-        <div *ngIf="showFinishOption" class="act-cont" style=" border-right: 1px solid #cacaca;">
+        <div *ngIf="showFinishOption" class="act-cont">
           <h3>{{ 'overlay.terminateButKeepOpened' | translate }}</h3>
           <p>
-            {{ 'overlay.youWillbeAbleToResumeTheConsultationLater' | translate }}
+            {{
+              'overlay.youWillbeAbleToResumeTheConsultationLater' | translate
+            }}
           </p>
-          <button (click)="finishConsultation()" class="btn" mat-button> {{ 'overlay.terminateButKeepOpened' | translate }}</button>
+          <button (click)="finishConsultation()" class="btn" mat-button>
+            {{ 'overlay.terminateButKeepOpened' | translate }}
+          </button>
         </div>
         <div class="act-cont">
           <h3>{{ 'overlay.staryInTheCurrentConsultation' | translate }}</h3>
@@ -59,28 +79,40 @@
           <button (click)="onClose($event, true)" class="btn" mat-button>
             {{ 'overlay.staryInTheCurrentConsultation' | translate }}
           </button>
-
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="showFeedbackOverlay" (click)="onClose($event,'closeConsultationSession')" id="overlay" class="overlay">
+<div
+  *ngIf="showFeedbackOverlay"
+  (click)="onClose($event, 'closeConsultationSession')"
+  class="overlay feedback-overlay">
   <div class="close-cont">
-    <div class="overlay-content">
+    <div class="overlay-content feedback-overlay-content">
       <div class="overlay-header" [ngClass]="{ 'big-font': noPagination }">
-        <h4 style="    margin-top: 0;margin-bottom: 5px">
+        <h4 style="margin-top: 0; margin-bottom: 5px">
           {{ 'overlay.consultationSummary' | translate }}
         </h4>
-        <div>
-          <div *ngIf="consultation.nurse && consultation.nurse.firstName" class="resume-element">
+        <div class="elements-wrapper">
+          <div
+            *ngIf="consultation.nurse && consultation.nurse.firstName"
+            class="resume-element">
             <div class="resume-label">
               {{ 'overlay.nurse' | translate }}
             </div>
             <div class="resume-value">
-              {{(consultation.nurse && consultation.nurse.firstName) ? consultation.nurse.firstName + " " : ('overlay.none' | translate )}}
-              {{consultation.nurse ? (consultation.nurse.lastName | uppercase) : "" }}
+              {{
+                consultation.nurse && consultation.nurse.firstName
+                  ? consultation.nurse.firstName + ' '
+                  : ('overlay.none' | translate)
+              }}
+              {{
+                consultation.nurse
+                  ? (consultation.nurse.lastName | uppercase)
+                  : ''
+              }}
             </div>
           </div>
 
@@ -89,96 +121,139 @@
               {{ 'overlay.patientFirstnameAndLastname' | translate }}
             </div>
             <div class="resume-value">
-              <ng-container *ngIf="consultation.consultation.firstName !== 'No firstname'">
-                {{ consultation.consultation.firstName + " " }}
+              <ng-container
+                *ngIf="consultation.consultation.firstName !== 'No firstname'">
+                {{ consultation.consultation.firstName + ' ' }}
                 {{ consultation.consultation.lastName | uppercase }}
               </ng-container>
-                       <ng-container  *ngIf="consultation.consultation.firstName === 'No firstname'">
-                        <span style="color: #8a8a8a;" >
-                         {{
-                           "consultations.noPatientName" | translate
-                         }}
-                        </span>
-                       </ng-container>
-
+              <ng-container
+                *ngIf="consultation.consultation.firstName === 'No firstname'">
+                <span style="color: #8a8a8a">
+                  {{ 'consultations.noPatientName' | translate }}
+                </span>
+              </ng-container>
             </div>
           </div>
-          <div class="resume-element" *ngIf="consultation.consultation.birthDate">
+          <div
+            class="resume-element"
+            *ngIf="consultation.consultation.birthDate">
             <div class="resume-label">
               {{ 'overlay.patientBirthday' | translate }}
             </div>
             <div class="resume-value">
               {{
-            consultation.consultation.birthDate
-              ? (consultation.consultation.birthDate | date: "d MMM yyyy")
-              : ( "overlay.notdefined" | translate )
-          }}
+                consultation.consultation.birthDate
+                  ? (consultation.consultation.birthDate | date: 'd MMM yyyy')
+                  : ('overlay.notdefined' | translate)
+              }}
             </div>
           </div>
           <div class="resume-element">
             <div class="resume-label">{{ 'overlay.sex' | translate }}</div>
             <div class="resume-value">
-              {{ consultation.consultation.gender|translatedGender }}
+              {{ consultation.consultation.gender | translatedGender }}
             </div>
           </div>
-          <div class="resume-element" *ngIf="publicinvite && publicinvite.emailAddress">
+          <div
+            class="resume-element"
+            *ngIf="publicinvite && publicinvite.emailAddress">
             <div class="resume-label">{{ 'overlay.email' | translate }}</div>
             <div class="resume-value">
               {{ publicinvite.emailAddress }}
             </div>
           </div>
-          <div class="resume-element" *ngIf="publicinvite && publicinvite.phoneNumber">
-            <div class="resume-label">{{ 'overlay.phoneNumber' | translate }}</div>
+          <div
+            class="resume-element"
+            *ngIf="publicinvite && publicinvite.phoneNumber">
+            <div class="resume-label">
+              {{ 'overlay.phoneNumber' | translate }}
+            </div>
             <div class="resume-value">
               {{ publicinvite.phoneNumber }}
             </div>
           </div>
-          <div *ngIf="consultation.consultation.status === 'closed'" class="resume-element">
+          <div
+            *ngIf="consultation.consultation.status === 'closed'"
+            class="resume-element">
             <div class="resume-label">
               {{ 'overlay.startDateTime' | translate }}
             </div>
             <div class="resume-value">
-              {{ consultation.consultation.acceptedAt | date: "d MMM yyyy HH:mm":"fr" }}
+              {{
+                consultation.consultation.acceptedAt
+                  | date: 'd MMM yyyy HH:mm' : 'fr'
+              }}
             </div>
           </div>
 
-          <div *ngIf="consultation.consultation.status === 'closed'" class="resume-element">
+          <div
+            *ngIf="consultation.consultation.status === 'closed'"
+            class="resume-element">
             <div class="resume-label">
               {{ 'overlay.endDateTime' | translate }}
             </div>
             <div class="resume-value">
-              {{ consultation.consultation.closedAt | date: "d MMM yyyy HH:mm":"fr" }}
+              {{
+                consultation.consultation.closedAt
+                  | date: 'd MMM yyyy HH:mm' : 'fr'
+              }}
             </div>
           </div>
 
-          <div *ngIf="consultation.consultation.status === 'closed'" class="resume-element">
+          <div
+            *ngIf="consultation.consultation.status === 'closed'"
+            class="resume-element">
             <div class="resume-label">{{ 'overlay.duration' | translate }}</div>
             <div class="resume-value">
-              {{ consultation.consultation.createdAt - consultation.consultation.closedAt | duration }}
+              {{
+                consultation.consultation.createdAt -
+                  consultation.consultation.closedAt | duration
+              }}
             </div>
           </div>
         </div>
       </div>
 
-      <div style="height: 100%; background-color: #F2F7F7; padding: 1px 3%;">
-        <div style="height: 315px">
+      <div style="height: 100%; background-color: #f2f7f7; padding: 1px 3%">
+        <div>
           <ng-container *ngIf="!feedbackSent">
-            <p>{{ 'overlay.areYouSatisfiedWithTheHomeApp' | translate:configService.config }}</p>
+            <p>
+              {{
+                'overlay.areYouSatisfiedWithTheHomeApp'
+                  | translate: configService.config
+              }}
+            </p>
             <div class="ratings">
               <ng-container *ngFor="let rating of ratings">
-                <div class="rating" [class]="rating" [class.selected]="rating===doctorRating" (click)="onRatingClick(rating)">
-                  <img [src]="'/assets/img/smileys/' + rating + '.png'" [alt]="rating" />
+                <div
+                  class="rating"
+                  [class]="rating"
+                  [class.selected]="rating === doctorRating"
+                  (click)="onRatingClick(rating)">
+                  <img
+                    [src]="'/assets/img/smileys/' + rating + '.png'"
+                    [alt]="rating" />
                 </div>
               </ng-container>
             </div>
 
             <p>{{ 'overlay.doYouWantToLeaveUsAComment' | translate }}</p>
-            <textarea [(ngModel)]="doctorComment" name="doctorComment" type="string" placeholder="{{ 'overlay.yourComment' | translate }}"></textarea>
+            <textarea
+              [(ngModel)]="doctorComment"
+              name="doctorComment"
+              type="string"
+              placeholder="{{ 'overlay.yourComment' | translate }}"></textarea>
           </ng-container>
-          <p class="feedback-saved" *ngIf="feedbackSent"><span>✓</span> {{ 'overlay.thanksForYourFeedback' | translate }}</p>
+          <p class="feedback-saved" *ngIf="feedbackSent">
+            <span>✓</span> {{ 'overlay.thanksForYourFeedback' | translate }}
+          </p>
         </div>
         <div class="buttons">
-          <button class="submit-btn" mat-button (click)="onSubmitFeedback()" *ngIf="!feedbackSent">
+          <button
+            class="submit-btn"
+            mat-button
+            (click)="onSubmitFeedback()"
+            *ngIf="!feedbackSent">
             {{ 'overlay.sendMyFeedback' | translate }}
           </button>
           <button class="discard-btn" mat-button (click)="onCloseFeedback()">
@@ -187,3 +262,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>

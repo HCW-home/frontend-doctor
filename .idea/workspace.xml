@@ -5,10 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71723fb9-d804-4060-bc9b-547eb5e9e01e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/invite.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/invite.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/badge/badge.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/badge/badge.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/cgu/cgu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/cgu/cgu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/chat.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/chat.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/chat.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/chat.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/chat/chat.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/chat/chat.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultation/consultation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultation/consultation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultation/consultation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultation/consultation.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultation/consultation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultation/consultation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultations/consultations.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultations/consultations.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultations/consultations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultations/consultations.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/consultations/consultations.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/consultations/consultations.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/filter-modal/filter-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/filter-modal/filter-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/filter-modal/filter-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/filter-modal/filter-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/footer/footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/footer/footer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/footer/footer.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/forgot-password/forgot-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/forgot-password/forgot-password.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/i18n/i18n.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/i18n/i18n.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invitations/invitation-already-accepted-dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invitations/invitation-already-accepted-dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invitations/invitations.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invitations/invitations.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invitations/invitations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invitations/invitations.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invitations/invitations.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invitations/invitations.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-expoert/invite-expert.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/invite-form/invite-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/login/login.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/overlay/overlay.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/overlay/overlay.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/overlay/overlay.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/overlay/overlay.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/overlay/overlay.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/overlay/overlay.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/profile.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/test-media/test-media.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-media/test-media.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/test-media/test-media.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-media/test-media.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/test-media/test-media.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-media/test-media.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/top-nav/top-nav.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/video-room/video-room.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/video-room/video-room.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/video-room/video-room.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/video-room/video-room.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/video-room/video-room.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/video-room/video-room.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/variables.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,9 +87,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< HEAD
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/arayiksuqiasyan/Desktop/iabsis/hcw-doctor",
+=======
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/grigoryan/react/hcw-doctor/src/assets/svg",
+>>>>>>> responsive-interface
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -52,15 +102,28 @@
     "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
+<<<<<<< HEAD
     "prettierjs.PrettierConfiguration.Package": "/Users/arayiksuqiasyan/Desktop/iabsis/hcw-doctor/node_modules/prettier",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "/Users/arayiksuqiasyan/Desktop/iabsis/hcw-doctor/node_modules/typescript/lib",
+=======
+    "prettierjs.PrettierConfiguration.Package": "/Users/grigoryan/react/hcw-doctor/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.editor.code.editing",
+    "ts.external.directory.path": "/Users/grigoryan/react/hcw-doctor/node_modules/typescript/lib",
+>>>>>>> responsive-interface
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/svg" />
+      <recent name="$PROJECT_DIR$/src/app" />
+      <recent name="$PROJECT_DIR$/src/assets/footer" />
+      <recent name="$PROJECT_DIR$/src/assets" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
@@ -96,7 +159,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-WS-242.20224.426" />
       </set>
     </attachedChunks>
   </component>
@@ -147,7 +210,12 @@
       <workItem from="1714730208430" duration="1439000" />
       <workItem from="1714739814733" duration="756000" />
       <workItem from="1714976218942" duration="19550000" />
+<<<<<<< HEAD
       <workItem from="1726214975948" duration="13787000" />
+=======
+      <workItem from="1725431113954" duration="19910000" />
+      <workItem from="1725812003137" duration="54197000" />
+>>>>>>> responsive-interface
     </task>
     <servers />
   </component>

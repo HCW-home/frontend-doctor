@@ -2,283 +2,256 @@
   <app-overlay
     (close)="chatOpen = false"
     *ngIf="chatOpen"
-    [consultation]="currentConsultation"
-  >
+    [consultation]="currentConsultation">
   </app-overlay>
 
   <app-top-nav
     *ngIf="title"
     [title]="title.title"
-    [icon]="title.icon"
-  ></app-top-nav>
+    [icon]="title.icon"></app-top-nav>
 
+  <div class="consultations-wrapper">
     <div class="desc">
-    <h2
-      style="display: inline;"
-      [matBadge]="
-        status === 'closed' || !consultations.length ? '' : consultations.length
-      "
-      matBadgePosition="after"
-      matBadgeColor="danger"
-    >
-      {{ title.title | uppercase }}
-    </h2>
+      <h2
+        class="d-inline"
+        [matBadge]="
+          status === 'closed' || !consultations.length
+            ? ''
+            : consultations.length
+        "
+        matBadgePosition="after">
+        {{ title.title | uppercase }}
+      </h2>
+    </div>
 
-  </div>
-
-  <div>
+    <div>
       <div class="filters-wrapper">
-          <button mat-raised-button class="secondary-button-outlined" #filterButton (click)="openFilterModal()">
-              <mat-icon svgIcon="filter" class="filter-icon"></mat-icon>
-              {{'consultations.filters' | translate}}
-              <app-badge *ngIf="appLiedFiltersCount" [text]="appLiedFiltersCount"></app-badge>
-          </button>
+        <button
+          mat-raised-button
+          class="secondary-button-outlined"
+          #filterButton
+          (click)="openFilterModal()">
+          <mat-icon svgIcon="filter" class="filter-icon"></mat-icon>
+          {{ 'consultations.filters' | translate }}
+          <app-badge
+            *ngIf="appLiedFiltersCount"
+            [text]="appLiedFiltersCount"></app-badge>
+        </button>
       </div>
 
-    <table class="consultations">
-      <tr (click)="showChat(consultation._id)"
-        *ngFor="
-          let consultation of consultations;
-          let i = index;
-          trackBy: trackItem">
-        <td
-          (click)="exportPDF($event, consultation)"
-          *ngIf="status === 'closed'"
-          class="pdf"
-        >
-          <div *ngIf="PDFConsultation && PDFConsultation._id === consultation._id">
-            <mat-spinner [diameter]="35"></mat-spinner>
-          </div>
-
-          <div *ngIf="!PDFConsultation || PDFConsultation._id !== consultation._id">
-            <mat-icon
-              svgIcon="pdf"
-              style="width: 25px; height: 25px;"
-            ></mat-icon>
-          </div>
-        </td>
-        <td>
-          <span class="tile-header">{{
-            "consultations.patient" | translate
-          }}</span>
-
-          <ng-container *ngIf="consultation.consultation.firstName !== 'No firstname'">
-            {{
-              consultation.consultation.firstName  +
-                " " +
-                consultation.consultation.lastName
-            }}
-          </ng-container>
-          <ng-container  *ngIf="consultation.consultation.firstName === 'No firstname'">
-           <span style="color: #8a8a8a;" >
-            {{
-              "consultations.noPatientName" | translate
-            }}
-           </span>
-          </ng-container>
-        </td>
-        <td>
-          <span class="tile-header">{{ 'consultations.requestedBy'| translate }}</span>
-          <span *ngIf="consultation?.nurse?.firstName || consultation?.nurse?.lastName; else emptyBlock">
-                      {{consultation?.nurse?.firstName}}   {{consultation?.nurse?.lastName}}
-          </span>
-          <ng-template #emptyBlock>
-            <span>-</span>
-          </ng-template>
-        </td>
-        <td>
-          <span class="tile-header">{{
-            "consultations.waitingQueue" | translate
-          }}</span>
-          {{
-            consultation.queue && consultation.queue.name
-              ? consultation.queue.name
-              : "-"
-          }}
-        </td>
-        <td *ngIf="status != 'closed'">
-          <span class="tile-header">{{
-            "consultations.message" | translate
-          }}</span>
-          {{
-            (consultation.lastMsg
-              ? consultation.lastMsg.text ||
-                ("consultations.attachement" | translate)
-              : ("consultations.newConsultation" | translate)
-            ) | slice: 0:25
-          }}
-        </td>
-        <td *ngIf="status === 'closed'">
-          <span class="tile-header">{{
-            "consultations.startDateTime" | translate
-          }}</span>
-          {{
-            consultation.consultation.createdAt | date: "d MMM yyyy HH:mm":"fr"
-          }}
-        </td>
-        <td *ngIf="status != 'closed'">
-          <span class="tile-header">{{
-            "consultations.time" | translate
-          }}</span>
-          {{
-            (consultation.lastMsg
-              ? consultation.lastMsg.createdAt
-              : consultation.consultation.createdAt
-            ) | msgTime
-          }}
-        </td>
-        <td *ngIf="status === 'closed'">
-          <span class="tile-header">{{
-            "consultations.duration" | translate
-          }}</span>
-          {{
-            consultation.consultation.createdAt -
-              consultation.consultation.closedAt | duration
-          }}
-        </td>
-        <!-- <ng-container
-            ngIf="configService.config.metadata.length > 0; else notMetadata"
-
-            >  -->
-
+      <table class="consultations">
+        <tr
+          (click)="showChat(consultation._id)"
+          *ngFor="
+            let consultation of consultations;
+            let i = index;
+            trackBy: trackItem
+          ">
           <td
-          *ngFor="let displayItem of configService.config.metadata">
-
-            <ng-container *ngIf="status != 'closed'">
-            <span
-              class="tile-header">
-              {{ displayItem }}
-             </span>
-             <ng-container *ngIf="consultation.consultation.metadata === null; else metanull">
-              -
-             </ng-container>
-             <ng-template #metanull>
-              {{   consultation.consultation.metadata[displayItem]  ? consultation.consultation.metadata[displayItem]  : "-" }}
-            </ng-template>
-
-            </ng-container>
-          </td>
-        <!-- </ng-container> -->
-
-        <!-- <ng-template #notMetadata>
-          <td>
-          <span class="tile-header">
-              -
-            </span>
-            -
-          </td>
-          </ng-template> -->
-
-
-
-        <td
-          class="online-status-cell"
-          *ngIf="status != 'closed'">
-          <span
-            class="tile-header"
-            style="margin-bottom: 0px !important; margin-top: 8px;"
-            >{{ "consultations.patient" | translate }}</span
-          >
-          <img
-            [src]="
-              consultation.consultation.flagPatientOnline === true
-                ? 'assets/img/online.png'
-                : 'assets/img/offline.png'
-            "
-          />
-        </td>
-        <td class="online-status-cell">
-          <ng-container
-            *ngIf="status != 'closed' && consultation.consultation.translator">
-            <span
-              class="tile-header"
-              style="margin-bottom: 0px !important; margin-top: 8px;"
-              >{{ "consultations.translator" | translate }}</span
-            >
-            <img
-              [src]="
-                consultation.consultation.flagTranslatorOnline === true
-                  ? 'assets/img/online.png'
-                  : 'assets/img/offline.png'
-              "
-            />
-          </ng-container>
-        </td>
-        <td class="online-status-cell">
-          <ng-container
-            *ngIf="status != 'closed' && consultation.consultation.guest"
-            (click)="showChat(consultation._id)"
-          >
-            <span
-              class="tile-header"
-              style="margin-bottom: 0px !important; margin-top: 8px;"
-              >{{ "consultations.guest" | translate }}</span
-            >
-            <img
-              [src]="
-                consultation.consultation.flagGuestOnline === true
-                  ? 'assets/img/online.png'
-                  : 'assets/img/offline.png'
-              "
-            />
-          </ng-container>
-        </td>
-
-        <td>
-          <button
-            (click)="openDialog($event,consultation)"
-            class="secondary-button-outlined"
-            mat-button
+            (click)="exportPDF($event, consultation)"
             *ngIf="status === 'closed'"
-          >
-            {{ "consultations.sendAgainANewInvitation" | translate }}
-          </button>
-          <button
-            (click)="resendInvite($event,consultation.consultation.invite)"
-            class="secondary-button-outlined"
-            mat-button
-            *ngIf="status !== 'closed'"
-          >
-            {{ "consultations.sendAgainTheInvitation" | translate }}
-          </button>
-        </td>
-        <td *ngIf="status != 'closed'">
-          <span class="tile-header" *ngIf="consultation.unreadCount">{{
-            "consultations.unread" | translate
-          }}</span>
-          <mat-icon
-            *ngIf="consultation.unreadCount"
-            class="badge"
-            matBadgePosition="before"
-            [matBadge]="consultation.unreadCount"
-            matBadgeColor="warn"
-          ></mat-icon>
-        </td>
-        <td>
-          <mat-icon svgIcon="next"></mat-icon>
-        </td>
-      </tr>
+            class="pdf">
+            <div
+              *ngIf="
+                PDFConsultation && PDFConsultation._id === consultation._id
+              ">
+              <mat-spinner [diameter]="35"></mat-spinner>
+            </div>
 
-        <tr class="empty-row"  *ngIf="!consultations.length">
-            <td rowspan="8">
-                <h4 >
-                    {{ "consultations.noConsultation" | translate }}
-                </h4>
+            <div
+              *ngIf="
+                !PDFConsultation || PDFConsultation._id !== consultation._id
+              ">
+              <mat-icon
+                svgIcon="pdf"
+                style="width: 25px; height: 25px"></mat-icon>
+            </div>
+          </td>
+          <td>
+            <span class="tile-header">{{
+              'consultations.patient' | translate
+            }}</span>
+
+            <ng-container
+              *ngIf="consultation.consultation.firstName !== 'No firstname'">
+              {{
+                consultation.consultation.firstName +
+                  ' ' +
+                  consultation.consultation.lastName
+              }}
+            </ng-container>
+
+            <ng-container
+              *ngIf="consultation.consultation.firstName === 'No firstname'">
+              <span style="color: #8a8a8a">
+                {{ 'consultations.noPatientName' | translate }}
+              </span>
+            </ng-container>
+            <div *ngIf="status !== 'closed'">
+              <app-status
+                [type]="
+                  consultation.consultation.flagPatientOnline
+                    ? 'online'
+                    : 'offline'
+                "></app-status>
+            </div>
+          </td>
+          <td class="hidden-mobile">
+            <span class="tile-header">{{
+              'consultations.requestedBy' | translate
+            }}</span>
+            <span
+              *ngIf="
+                consultation?.nurse?.firstName || consultation?.nurse?.lastName;
+                else emptyBlock
+              ">
+              {{ consultation?.nurse?.firstName }}
+              {{ consultation?.nurse?.lastName }}
+            </span>
+            <ng-template #emptyBlock>
+              <span>-</span>
+            </ng-template>
+          </td>
+          <td class="hidden-mobile">
+            <span class="tile-header">{{
+              'consultations.waitingQueue' | translate
+            }}</span>
+            {{
+              consultation.queue && consultation.queue.name
+                ? consultation.queue.name
+                : '-'
+            }}
+          </td>
+          <td *ngIf="status !== 'closed'" class="hidden-mobile">
+            <span class="tile-header">{{
+              'consultations.message' | translate
+            }}</span>
+            {{
+              (consultation.lastMsg
+                ? consultation.lastMsg.text ||
+                  ('consultations.attachement' | translate)
+                : ('consultations.newConsultation' | translate)
+              ) | slice: 0 : 25
+            }}
+          </td>
+          <td *ngIf="status === 'closed'">
+            <span class="tile-header">{{
+              'consultations.startDateTime' | translate
+            }}</span>
+            {{
+              consultation.consultation.createdAt
+                | date: 'd MMM yyyy HH:mm' : 'fr'
+            }}
+          </td>
+          <td *ngIf="status !== 'closed'">
+            <span class="tile-header">{{
+              'consultations.time' | translate
+            }}</span>
+            {{
+              (consultation.lastMsg
+                ? consultation.lastMsg.createdAt
+                : consultation.consultation.createdAt
+              ) | msgTime
+            }}
+          </td>
+          <td *ngIf="status === 'closed'" class="hidden-mobile">
+            <span class="tile-header">{{
+              'consultations.duration' | translate
+            }}</span>
+            {{
+              consultation.consultation.createdAt -
+                consultation.consultation.closedAt | duration
+            }}
+          </td>
+          <ng-container *ngIf="configService.config?.metadata?.length">
+            <td
+              *ngFor="let displayItem of configService.config.metadata"
+              class="hidden-mobile">
+              <ng-container *ngIf="status !== 'closed'">
+                <span class="tile-header">
+                  {{ displayItem }}
+                </span>
+                <ng-container
+                  *ngIf="
+                    consultation.consultation.metadata === null;
+                    else metanull
+                  ">
+                  -
+                </ng-container>
+                <ng-template #metanull>
+                  {{
+                    consultation.consultation.metadata[displayItem]
+                      ? consultation.consultation.metadata[displayItem]
+                      : '-'
+                  }}
+                </ng-template>
+              </ng-container>
             </td>
+          </ng-container>
+          <ng-container
+            *ngIf="status !== 'closed' && consultation.consultation.guest"
+            (click)="showChat(consultation._id)">
+            <td class="online-status-cell" class="hidden-mobile">
+              <span
+                class="tile-header"
+                style="margin-bottom: 0px !important; margin-top: 8px"
+                >{{ 'consultations.guest' | translate }}</span
+              >
+              <img
+                alt=""
+                [src]="
+                  consultation.consultation.flagGuestOnline === true
+                    ? 'assets/img/online.png'
+                    : 'assets/img/offline.png'
+                " />
+            </td>
+          </ng-container>
+
+          <td>
+            <button
+              (click)="openDialog($event, consultation)"
+              class="secondary-button-outlined"
+              mat-button
+              *ngIf="status === 'closed'">
+              {{ 'consultations.sendAgainANewInvitation' | translate }}
+            </button>
+            <button
+              (click)="resendInvite($event, consultation.consultation.invite)"
+              class="secondary-button-outlined"
+              mat-raised-button
+              *ngIf="status !== 'closed'">
+              {{ 'consultations.sendAgainTheInvitation' | translate }}
+            </button>
+          </td>
+          <td *ngIf="status !== 'closed'" class="hidden-mobile">
+            <span class="tile-header" *ngIf="consultation.unreadCount">{{
+              'consultations.unread' | translate
+            }}</span>
+            <mat-icon
+              *ngIf="consultation.unreadCount"
+              class="badge"
+              matBadgePosition="before"
+              [matBadge]="consultation.unreadCount"
+              matBadgeColor="warn"></mat-icon>
+          </td>
+          <td>
+            <mat-icon svgIcon="next"></mat-icon>
+          </td>
         </tr>
-    </table>
-<!--    <div-->
-<!--      *ngIf="consultations.length"-->
-<!--      class="has-text-centered pagination-control"-->
-<!--    >-->
-<!--      <pagination-controls-->
-<!--        (pageChange)="page = $event"-->
-<!--        previousLabel="Précédent"-->
-<!--        nextLabel="Suivant"-->
-<!--      ></pagination-controls>-->
-<!--    </div>-->
-      <app-custom-pagination [totalItems]="consultations.length" [itemsPerPage]="10" (pageChange)="page = $event"></app-custom-pagination>
 
+        <tr class="empty-row" *ngIf="!consultations.length">
+          <td rowspan="8">
+            <h4>
+              {{ 'consultations.noConsultation' | translate }}
+            </h4>
+          </td>
+        </tr>
+      </table>
+
+      <app-custom-pagination
+        [totalItems]="consultations.length"
+        [itemsPerPage]="10"
+        (pageChange)="page = $event"></app-custom-pagination>
+    </div>
   </div>
-
 </ng-container>

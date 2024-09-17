@@ -3,17 +3,24 @@ span.tile-header {
   color: #3f3f3f;
 }
 
-.desc {
-  margin: 150px auto 0px 55px;
-  width: 50%;
+.consultations-wrapper {
+  margin: 60px 30px 30px 30px;
+
+  @media (max-width: 600px) {
+    margin: 30px 10px;
+  }
 }
 
 .filters-wrapper {
-  margin-left: 80px;
-  width: 90%;
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
   margin-bottom: 15px;
+  justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    margin-top: 20px;
+    justify-content: flex-start;
+  }
 
   .filter-icon {
     width: 18px;
@@ -60,12 +67,11 @@ span.tile-header {
 }
 
 .consultations {
-  background: #fff;
-  border-collapse: collapse;
-  width: 92%;
-  margin: auto;
+  width: 100%;
   font-size: 14px;
   font-weight: 500;
+  border-collapse: collapse;
+  background: var(--app-white);
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
   0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
@@ -79,6 +85,12 @@ span.tile-header {
 
     &:hover:not(.empty-row) {
       border-left: 2px solid var(--primary-color);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .hidden-mobile {
+      display: none;
     }
   }
 

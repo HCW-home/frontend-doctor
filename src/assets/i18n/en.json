@@ -67,7 +67,9 @@
         "IMADTeam": "IMADTeam",
         "joinVideoCall": "Join video",
         "inviteExpert": "Invite a colleague",
-        "requestedBy": "Requested by"
+        "requestedBy": "Requested by",
+        "viewMore": "View more",
+        "viewLess": "View less"
     },
     "consultations": {
         "noPatientName": "Undefined",

@@ -1,0 +1,39 @@
+.status {
+  margin: 5px 0;
+  padding: 2px 10px;
+  line-height: 16px;
+  font-size: 9px;
+  min-height: 16px;
+  border-radius: 6px;
+  display: inline-block;
+  box-shadow: 0 0 5px #0003;
+  text-transform: capitalize;
+  transition: background .3s ease, transform .3s ease;
+}
+
+.online {
+  background: var(--app-green-2);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+  animation: pulse 1.5s ease-in;
+  color: var(--app-white);
+}
+
+.offline {
+  background: var(--app-gray-2);
+  opacity: 0.6;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+  }
+}

@@ -8,13 +8,17 @@ span.tile-header {
   color: #3f3f3f;
 }
 
-.desc {
-  margin: 150px auto 20px 55px;
-  width: 50%;
-}
-
 .edit-button {
   margin-top: 10px;
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
+}
+
+.send-again {
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
 }
 
 .pdf-table {
@@ -51,16 +55,12 @@ span.tile-header {
     border-right: 1px solid#b1b1b191;
   }
 }
-.noCon,
+
 .invite-btn {
-  margin-left: 80px;
-}
-.invite-btn {
-  margin: 20px 55px;
+  margin: 20px 0;
   background-color: var(--primary-color);
   color: #ffffff;
   border-radius: 50px;
-  // margin: 20px;
   font-size: 12px;
 }
 mat-card {
@@ -77,13 +77,20 @@ mat-card {
   justify-content: center;
 }
 
+.invitations-wrapper {
+  margin: 60px 30px 30px 30px;
+
+  @media screen and (max-width: 600px) {
+    margin: 30px 10px;
+  }
+}
+
 .invitations {
-  background: #fff;
-  border-collapse: collapse;
-  width: 92%;
-  margin: auto;
+  width: 100%;
   font-size: 13px;
   font-weight: 500;
+  border-collapse: collapse;
+  background: var(--app-white);
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
@@ -92,6 +99,12 @@ mat-card {
     border-left: 2px solid #fff;
     &:hover {
       border-left: 2px solid var(--primary-color);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .hidden-mobile {
+      display: none;
     }
   }
   td {
@@ -105,6 +118,11 @@ mat-card {
 }
 
 .btn__cancel {
-  background-color: rgb(255, 45, 45);
-  color: #ffffff;
+
+  background-color: var(--app-red);
+  color: var(--app-white);
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
 }

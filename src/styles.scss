@@ -124,6 +124,10 @@ img.logo {
   width: 100%;
 }
 
+.d-inline {
+  display: inline;
+}
+
 .d-flex {
   display: flex;
 }
@@ -209,3 +213,11 @@ img.logo {
   border-radius: 50px !important;
   box-shadow: none !important;
 }
+
+.cdk-overlay-pane {
+  width: auto !important;
+  height: auto !important;
+  max-width: 90vw !important;
+  overflow-y: auto !important;
+}
+

@@ -1,27 +1,27 @@
-import { RoomService, LogService } from "hcw-stream-lib";
-import { AuthService } from "./../auth/auth.service";
-import { OpenViduService } from "./../openvidu.service";
+import { RoomService, LogService } from 'hcw-stream-lib';
+import { AuthService } from './../auth/auth.service';
+import { OpenViduService } from './../openvidu.service';
 import {
   Component,
   OnInit,
   ViewChild,
   ElementRef,
   OnDestroy,
-} from "@angular/core";
-import {Subscription} from "rxjs";
-import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
-import {TranslateService} from "@ngx-translate/core";
-import {MatDialog} from "@angular/material/dialog";
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: "app-test-media",
-  templateUrl: "./test-media.component.html",
-  styleUrls: ["./test-media.component.scss"],
+  selector: 'app-test-media',
+  templateUrl: './test-media.component.html',
+  styleUrls: ['./test-media.component.scss'],
 })
 export class TestMediaComponent implements OnInit, OnDestroy {
   title: {
-    title: "Test son & vidéo";
-    icon: "chat";
+    title: 'Test son & vidéo';
+    icon: 'chat';
   };
 
   videoDeviceId: string;
@@ -34,7 +34,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   error;
   peerId: string;
   private volumeChangeSubscription: Subscription;
-  @ViewChild("videoElement") videoElement: ElementRef;
+  @ViewChild('videoElement') videoElement: ElementRef;
 
   constructor(
     private openviduSev: OpenViduService,
@@ -42,7 +42,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
     private logger: LogService,
     private roomService: RoomService,
     public dialog: MatDialog,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -50,69 +50,69 @@ export class TestMediaComponent implements OnInit, OnDestroy {
     this.showSpinner = true;
     navigator.mediaDevices
       .getUserMedia({ audio: true, video: true })
-      .then((stream) => {
-        stream.getTracks().forEach((track) => track.stop());
-        this.openviduSev.getDevices().then((devices) => {
+      .then(stream => {
+        stream.getTracks().forEach(track => track.stop());
+        this.openviduSev.getDevices().then(devices => {
           this.videoDevices = devices.filter(
-            (device) => device.kind === "videoinput"
+            device => device.kind === 'videoinput'
           );
           if (
             this.videoDevices.length &&
-            this.videoDevices[0].deviceId !== ""
+            this.videoDevices[0].deviceId !== ''
           ) {
             this.videoDeviceId = this.videoDevices[0].deviceId;
           }
           this.audioDevices = devices.filter(
-            (device) => device.kind === "audioinput"
+            device => device.kind === 'audioinput'
           );
           if (
             this.audioDevices.length &&
-            this.audioDevices[0].deviceId !== ""
+            this.audioDevices[0].deviceId !== ''
           ) {
             this.audioDeviceId = this.audioDevices[0].deviceId;
           }
           this.initMediaTests();
         });
       })
-      .catch((error) => {
+      .catch(error => {
         navigator.mediaDevices
           .getUserMedia({ video: true })
-          .then((stream) => {
-            stream.getTracks().forEach((track) => track.stop());
-            this.openviduSev.getDevices().then((devices) => {
+          .then(stream => {
+            stream.getTracks().forEach(track => track.stop());
+            this.openviduSev.getDevices().then(devices => {
               this.videoDevices = devices.filter(
-                (device) => device.kind === "videoinput"
+                device => device.kind === 'videoinput'
               );
               if (
                 this.videoDevices.length &&
-                this.videoDevices[0].deviceId !== ""
+                this.videoDevices[0].deviceId !== ''
               ) {
                 this.videoDeviceId = this.videoDevices[0].deviceId;
               }
               this.initMediaTests();
             });
           })
-          .catch((error) => {
+          .catch(error => {
             this.showSpinner = false;
           });
         navigator.mediaDevices
           .getUserMedia({ audio: true })
-          .then((stream) => {
-            stream.getTracks().forEach((track) => track.stop());
-            this.openviduSev.getDevices().then((devices) => {
+          .then(stream => {
+            stream.getTracks().forEach(track => track.stop());
+            this.openviduSev.getDevices().then(devices => {
               this.audioDevices = devices.filter(
-                (device) => device.kind === "audioinput"
+                device => device.kind === 'audioinput'
               );
               if (
                 this.audioDevices.length &&
-                this.audioDevices[0].deviceId !== ""
+                this.audioDevices[0].deviceId !== ''
               ) {
                 this.audioDeviceId = this.audioDevices[0].deviceId;
               }
               this.initMediaTests();
             });
           })
-          .catch((err) => {
+          .catch(err => {
             this.showSpinner = false;
           });
       });
@@ -124,32 +124,43 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   }
 
   initMediaTests() {
-    this.volumeChangeSubscription = this.roomService.onVolumeChange.subscribe((change) => {
-      this.volumeLevel = change.volume * 1000;
-    });
+    this.volumeChangeSubscription = this.roomService.onVolumeChange.subscribe(
+      change => {
+        this.volumeLevel = change.volume * 1000;
+      }
+    );
 
-    this.openviduSev.getTestToken().then(({ token }) => {
-      this.roomService.init({ peerId: this.peerId });
+    this.openviduSev.getTestToken().then(
+      ({ token }) => {
+        this.roomService.init({ peerId: this.peerId });
 
-      this.roomService.join({
-        roomId: this.peerId,
-        joinVideo: true,
-        joinAudio: true,
-        token,
-      });
+        this.roomService.join({
+          roomId: this.peerId,
+          joinVideo: true,
+          joinAudio: true,
+          token,
+        });
 
-      this.roomService.onCamProducing.subscribe((stream) => {
-        this.logger.debug("Cam producing ", stream);
-        this.myCamStream = stream;
+        this.roomService.onCamProducing.subscribe(stream => {
+          this.logger.debug('Cam producing ', stream);
+          this.myCamStream = stream;
 
+          this.showSpinner = false;
+        });
+      },
+      err => {
+        const message =
+          err.error?.details ||
+          err.details ||
+          err.error?.message ||
+          err.statusText ||
+          err.message ||
+          err;
+        const errorMessage = `${this.translate.instant('testMedia.testError')} ${message}`;
+        this.showErrorDialog(errorMessage, '');
         this.showSpinner = false;
-      });
-    }, (err) => {
-      const message = err.error?.details || err.details || err.error?.message || err.statusText || err.message || err;
-      const errorMessage = `${this.translate.instant("testMedia.testError")} ${message}`
-      this.showErrorDialog(errorMessage, '');
-      this.showSpinner  = false;
-    })
+      }
+    );
   }
 
   showErrorDialog(message: string, title: string): void {
@@ -158,7 +169,7 @@ export class TestMediaComponent implements OnInit, OnDestroy {
       autoFocus: false,
       data: {
         title,
-        message
+        message,
       },
     });
   }
