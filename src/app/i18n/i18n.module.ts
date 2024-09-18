@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
@@ -11,17 +15,17 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
       loader: {
         provide: TranslateLoader,
         useFactory: translateLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
   ],
-  exports: [TranslateModule]
+  exports: [TranslateModule],
 })
-
 export class I18nModule {
   constructor(translate: TranslateService) {
     translate.addLangs(['en', 'fr']);
-    const userLang = window.localStorage.getItem('hhw-lang') || translate.getBrowserLang();
+    const userLang =
+      window.localStorage.getItem('hhw-lang') || translate.getBrowserLang();
     translate.use(userLang.match(/en|fr/) ? userLang : 'en');
   }
 }

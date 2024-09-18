@@ -14,8 +14,7 @@ import { ConsultationService } from '../core/consultation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { InviteService } from '../core/invite.service';
-import html2canvas from 'html2canvas';
-import { InviteFormComponent } from './../invite-form/invite-form.component';
+import { InviteFormComponent } from '../invite-form/invite-form.component';
 
 import { jsPDF } from 'jspdf';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,6 +29,7 @@ import { QueueService } from '../core/queue.service';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-consultations',
@@ -43,10 +43,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   filterState = null;
   queues = [];
   queue = null;
-  unreadPendingCount = 0;
   consultations = [];
   allConsultations = [];
-  unreadActiveCount = 0;
   page = 0;
   status;
   overviewSub;
@@ -55,12 +53,10 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   unreadCount;
   currentConsultation;
   chatOpen;
-  unreadClosedCountSub;
   title: {
     title;
     icon;
   };
-  exportedCon;
   titles = [
     {
       status: 'pending',
@@ -81,9 +77,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
   currentUser;
   consultationId;
-  onlineStaus;
   PDFConsultation;
   subscriptions: Subscription[] = [];
+  isMobile = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -102,7 +98,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     private msgServ: MessageService,
     private datePipe: DatePipe,
     private durationPipe: DurationPipe,
-    private queueServ: QueueService
+    private queueServ: QueueService,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.titles = [
       {
@@ -132,6 +129,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     this.getConsultations();
     this.getUnreadCount();
     this.getQueues();
+    this.breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => {
+      this.isMobile = result.matches;
+    });
   }
 
   getQueues() {
@@ -187,8 +187,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       queue: consultation.queue,
       firstName: consultation.firstName,
       lastName: consultation.lastName,
-      emailAddress: user.email,
-      phoneNumber: user.phoneNumber,
+      emailAddress: user?.email,
+      phoneNumber: user?.phoneNumber,
       metadata: consultation.metadata, // ! metadata
     };
     const dialogRef = this.dialog.open(InviteFormComponent, {
@@ -321,12 +321,15 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     const elemRect =
       this.filterButton._elementRef.nativeElement.getBoundingClientRect();
     const right = bodyRect.right - elemRect.right;
+    const left = bodyRect.left - elemRect.left;
     const top = elemRect.top - bodyRect.top;
 
     const dialogRef = this.dialog.open(FilterModalComponent, {
       autoFocus: false,
-      width: '350px',
-      position: { right: right + 'px', top: top + 37 + 'px' },
+      minWidth: '340px',
+      position: this.isMobile
+        ? { left: left + 37 + 'px', top: top + 37 + 'px' }
+        : { right: right + 'px', top: top + 37 + 'px' },
       data: {
         queues: this.queues,
         filterState: this.filterState,
@@ -502,46 +505,4 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       });
   }
 
-  async generateAndSavePDF() {
-    const filename = `${this.PDFConsultation._id}.pdf`;
-    const pagesCount =
-      Math.floor(this.chatHistory.nativeElement.offsetHeight / 2970) + 1;
-    const pdf = new jsPDF('p', 'mm', 'a4', true);
-    for (let page = 0; page < pagesCount; page++) {
-      const canvas = await html2canvas(document.querySelector('#chatHistory'), {
-        // letterRendering: 1,
-        y:
-          page * 2970 -
-          document.querySelector('.mat-drawer-content.mat-sidenav-content')
-            .scrollTop,
-        height: 2970,
-        useCORS: true,
-      });
-      pdf.addImage(
-        canvas.toDataURL('image/png'),
-        'PNG',
-        0,
-        0,
-        211,
-        297,
-        '',
-        'MEDIUM'
-      );
-
-      if (page === pagesCount - 1) {
-        pdf.save(filename);
-        this.consultationService
-          .sendReport(
-            new File([pdf.output('arraybuffer')], 'report.pdf', {
-              type: 'application/pdf',
-            }),
-            this.PDFConsultation._id
-          )
-          .subscribe(r => {});
-        this.PDFConsultation = null;
-        return;
-      }
-      pdf.addPage();
-    }
-  }
 }

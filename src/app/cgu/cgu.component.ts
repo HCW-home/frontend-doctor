@@ -11,7 +11,7 @@ export class CguComponent {
   error = false;
   selectedCountry = 'Any';
   selectedTermName = 'terms.md';
-  countries = ['Any', 'France', 'Switzerland'];
+  countries = [];
 
   constructor(
     private locationStrategy: LocationStrategy,
@@ -28,10 +28,10 @@ export class CguComponent {
         if (res) {
           res.unshift('Any');
           this.countries = res;
+          this.error = false;
         }
       },
       error => {
-        console.log(error, 'error');
         this.error = true;
       }
     );

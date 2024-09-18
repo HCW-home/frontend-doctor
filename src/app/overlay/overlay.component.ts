@@ -6,13 +6,14 @@ import { ConfigService } from '../core/config.service';
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
-  styleUrls: ['./overlay.component.scss']
+  styleUrls: ['./overlay.component.scss'],
 })
 export class OverlayComponent implements OnInit {
-
-  constructor(private conServ: ConsultationService,
+  constructor(
+    private conServ: ConsultationService,
     private router: Router,
-    public configService: ConfigService) { }
+    public configService: ConfigService
+  ) {}
 
   @Input() consultation;
   @Input() redirect;
@@ -38,11 +39,10 @@ export class OverlayComponent implements OnInit {
   // Whether or not the feedback has been sent
   public feedbackSent = false;
   closingConsultation = false;
-  publicinvite
-  noPagination
-  ngOnInit() {
+  publicinvite;
+  noPagination;
 
-  }
+  ngOnInit() {}
 
   onClose(event, force) {
     event.stopPropagation();
@@ -51,11 +51,19 @@ export class OverlayComponent implements OnInit {
       this.close.emit(null);
 
       if (this.router.url !== '/active-consultations') {
-        this.router.navigate(['/dashboard'], { replaceUrl: true, state: { confirmed: true } });
+        this.router.navigate(['/dashboard'], {
+          replaceUrl: true,
+          state: { confirmed: true },
+        });
       }
     }
 
-    if (event.target.id !== 'overlay' && (!force || force == 'closeConsultationSession')) { return; }
+    if (
+      event.target.id !== 'overlay' &&
+      (!force || force == 'closeConsultationSession')
+    ) {
+      return;
+    }
     this.close.emit(null);
   }
 
@@ -64,20 +72,23 @@ export class OverlayComponent implements OnInit {
       this.router.navigate(['/consultation/' + this.consultation._id]);
     });
   }
+
   closeConsultation() {
     if (!this.closingConsultation) {
       this.closingConsultation = true;
-      this.conServ.closeConsultation(this.consultation._id).subscribe(res => {
-        this.consultation.consultation = res;
-        this.showFeedbackOverlay = true;
-        this.closingConsultation = false;
-      }, err => {
-        this.loading = false;
-        this.error = err;
-        this.closingConsultation = false;
-      });
+      this.conServ.closeConsultation(this.consultation._id).subscribe(
+        res => {
+          this.consultation.consultation = res;
+          this.showFeedbackOverlay = true;
+          this.closingConsultation = false;
+        },
+        err => {
+          this.loading = false;
+          this.error = err;
+          this.closingConsultation = false;
+        }
+      );
     }
-
   }
 
   finishConsultation() {
@@ -87,6 +98,7 @@ export class OverlayComponent implements OnInit {
       this.router.navigate(['/dashboard'], { state: { confirmed: true } });
     }
   }
+
   resumeConsultation() {
     this.router.navigate(['/consultation/' + this.consultation._id]);
   }
@@ -113,22 +125,34 @@ export class OverlayComponent implements OnInit {
       return;
     }
     this.feedbackSubmitted = true;
-    this.conServ.saveConsultationFeedback(this.consultation._id, this.doctorRating, this.doctorComment).subscribe(
-      (res) => {
-        this.feedbackSent = true;
-      },
-      (err) => {
-        this.feedbackSubmitted = false;
-      }
-    );
+    this.conServ
+      .saveConsultationFeedback(
+        this.consultation._id,
+        this.doctorRating,
+        this.doctorComment
+      )
+      .subscribe(
+        res => {
+          this.feedbackSent = true;
+        },
+        err => {
+          this.feedbackSubmitted = false;
+        }
+      );
   }
 
   onCloseFeedback() {
     this.conServ.closeConsultationFeedback(this.consultation._id);
     this.close.emit(null);
     if (this.router.url !== '/active-consultations') {
-      this.router.navigate(['/dashboard'], { replaceUrl: true, state: { confirmed: true } });
+      this.router.navigate(['/dashboard'], {
+        replaceUrl: true,
+        state: { confirmed: true },
+      });
     }
   }
-}
 
+  closeOverlay() {
+    this.close.emit(null);
+  }
+}

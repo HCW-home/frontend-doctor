@@ -1,38 +1,13 @@
-<div
-  *ngIf="!accepted"
-  class="bounds"
->
-  <div style="width: 100%; height: 32%"></div>
-
-  <mat-icon
-    svgIcon="incoming"
-    style="
-      display: block;
-      width: 180px;
-      height: 180px;
-      margin: auto;
-      margin-bottom: 30px;
-      font-size: 20px;
-      color: #ffffff;
-    "
-  ></mat-icon>
-  <!-- <h3 style="text-align: center; fonts-weight: 200; margin: 24px; color: white;">
-    <strong>{{ "videoRoom.consultation" | translate }} </strong> <br />
-    {{ patient.firstName + " " + patient.lastName | uppercase }}
-  </h3> -->
-  <div style="width: 170px; margin: auto; margin-top: 40px">
+<div *ngIf="!accepted" class="bounds">
+  <div class="fixed-height"></div>
+  <mat-icon class="ringing-icon" svgIcon="incoming"></mat-icon>
+  <div class="ringing-buttons-wrapper">
     <button (click)="joinToSession()" class="fab accept-btn" mat-button>
       <mat-icon svgIcon="camera"></mat-icon>
     </button>
-    <button
-      (click)="rejectCall()"
-      color="danger"
-      class="fab reject-btn"
-      mat-button
-    >
+    <button (click)="rejectCall()" class="fab reject-btn" mat-button>
       <mat-icon svgIcon="hangup"></mat-icon>
     </button>
-
   </div>
 </div>
 
@@ -41,43 +16,37 @@
     [ngClass]="{ ringing: !this.remoteUsers.length }"
     id="layout"
     class="bounds"
-    style="height: 100%; display: flex"
-    (click)="toggleButtons()"
-  >
+    style="height: 100%; display: flex">
     <ng-container *ngIf="accepted">
-      <!-- Main video -->
       <div
-        *ngIf="camStatus === 'on' && !webCamDisabled"
+        *ngIf="camStatus === 'on'"
         #mainStream
         cdkDrag
         class="OT_root OT_publisher OT_main custom-class"
-        id="localUser"
-      >
+        id="localUser">
         <app-peer-video
           #streamComponentLocal
           *ngIf="myCamStream"
           [stream]="myCamStream"
-          [id]="myCamStream.mediaStream.id"
-        ></app-peer-video>
+          [id]="myCamStream.mediaStream.id"></app-peer-video>
       </div>
 
       <div *ngIf="screenStream">
-        <app-peer-video-screen [stream]="screenStream" [id]="screenStream.id"></app-peer-video-screen>
+        <app-peer-video-screen
+          [stream]="screenStream"
+          [id]="screenStream.id"></app-peer-video-screen>
       </div>
 
       <!-- Remotes -->
       <div
         *ngFor="let user of this.remoteUsers"
-        style="height: 100%; top: 0px; flex: 1"
         class="OT_root OT_publisher OT_remote custom-class OV_big"
-        id="remoteUsers"
-      >
+        id="remoteUsers">
         <ng-container *ngFor="let stream of user.streams">
           <app-peer-video
             *ngIf="stream.kind === 'video'"
             [stream]="stream"
-            [id]="stream.mediaStream.id"
-          ></app-peer-video>
+            [id]="stream.mediaStream.id"></app-peer-video>
 
           <app-peer-audio *ngIf="stream.kind === 'audio'" [stream]="stream">
           </app-peer-audio>
@@ -86,39 +55,29 @@
     </ng-container>
   </div>
 
-  <div
-    style="
-      position: absolute;
-      bottom: 50px;
-      right: 0;
-      z-index: 1005;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      justify-content: center"
-  >
+  <div class="control-buttons-wrapper">
     <button (click)="camStatusChanged()" class="fab accept-btn" mat-button>
-      <mat-icon *ngIf="camStatus === 'on'"  svgIcon="camera"></mat-icon>
-      <mat-icon *ngIf="camStatus === 'off'"  svgIcon="cameraOff"></mat-icon>
+      <mat-icon *ngIf="camStatus === 'on'" svgIcon="camera"></mat-icon>
+      <mat-icon *ngIf="camStatus === 'off'" svgIcon="cameraOff"></mat-icon>
     </button>
     <button
       (click)="rejectCall()"
-      color="danger"
       class="fab reject-btn"
-      mat-button
-    >
+      mat-button>
       <mat-icon svgIcon="hangup"></mat-icon>
     </button>
     <button (click)="muteStatusChanged()" class="fab accept-btn" mat-button>
-      <mat-icon *ngIf="muteStatus === 'on'"  svgIcon="mic"></mat-icon>
+      <mat-icon *ngIf="muteStatus === 'on'" svgIcon="mic"></mat-icon>
       <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
     </button>
-<!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->
-<!--      <mat-icon svgIcon="shareScreen"></mat-icon>-->
-<!--    </button>-->
-<!--    <button (click)="stopScreenSharing()" class="fab accept-btn" mat-button *ngIf="screenStream">-->
-<!--      <mat-icon svgIcon="stopShareScreen"></mat-icon>-->
-<!--    </button>-->
-
+    <button (click)="resize()" class="fab resize-button" mat-button>
+      <mat-icon svgIcon="enlarge"></mat-icon>
+    </button>
+    <!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->
+    <!--      <mat-icon svgIcon="shareScreen"></mat-icon>-->
+    <!--    </button>-->
+    <!--    <button (click)="stopScreenSharing()" class="fab accept-btn" mat-button *ngIf="screenStream">-->
+    <!--      <mat-icon svgIcon="stopShareScreen"></mat-icon>-->
+    <!--    </button>-->
   </div>
 </div>
