@@ -161,7 +161,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (err) => {
           this.loading = false;
-          this.error = err;
+          this.error =
+              err.details ||
+              err.error?.message ||
+              err.statusText ||
+              err.message ||
+              err;
         },
       ),
     );
@@ -183,7 +188,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             err == this.translate.instant("login.youReachedTheMaximumAttemptAmount");
           }
           this.loading = false;
-          this.error = err;
+          this.error =
+              err.details ||
+              err.error?.message ||
+              err.statusText ||
+              err.message ||
+              err;
         },
       ),
     );
@@ -200,7 +210,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           },
           (err) => {
             this.loading = false;
-            this.error = err;
+            this.error =
+                err.details ||
+                err.error?.message ||
+                err.statusText ||
+                err.message ||
+                err;
           },
         ),
     );
