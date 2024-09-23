@@ -7,4 +7,5 @@ export class User {
   token?: string;
   phoneNumber: string;
   refreshToken: string
+  doctorTermsVersion: string
 }

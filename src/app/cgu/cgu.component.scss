@@ -1,11 +1,11 @@
 .center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
   background: #fafafa;
-
+  justify-content: center;
 }
 
 .custom-card {
@@ -90,6 +90,11 @@ markdown ::ng-deep {
       padding: 4px;
     }
   }
+}
+
+.btn__send {
+  background-color: var(--primary-color);
+  color: var(--app-white);
 }
 
 .country-select {

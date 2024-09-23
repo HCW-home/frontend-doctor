@@ -132,6 +132,8 @@
     "cgu": {
         "termsAndConditions": "Terms & Conditions (T&C)",
         "backToHome": "Return to Home",
+        "submit": "Submit",
+        "pleaseAccept": "Please accept",
         "selectCountry": "This terms applies to the country:",
         "notConfigured": "Terms and conditions have not yet been configured."
     },

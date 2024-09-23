@@ -3,14 +3,14 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
-  NgZone,
-} from '@angular/core';
+  NgZone, OnDestroy,
+} from "@angular/core";
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { SocketEventsService } from './core/socket-events.service';
 import { ConsultationService } from './core/consultation.service';
 import { AuthService } from './auth/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, NavigationStart} from "@angular/router";
 import { ConfigService } from './core/config.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -21,16 +21,18 @@ import {
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { SidenavToggleService } from './core/sidenav-toggle.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('unreadBadge') unreadBadge: ElementRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
   isMobile = false;
+  private routerSubscription: Subscription;
 
   lastConectionStatus = '';
   currentUser;
@@ -49,18 +51,17 @@ export class AppComponent implements OnInit {
   ];
 
   constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-    private _socketEventsService: SocketEventsService,
-    private consultationService: ConsultationService,
     private zone: NgZone,
-    private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
+    sanitizer: DomSanitizer,
+    iconRegistry: MatIconRegistry,
     private _snackBar: MatSnackBar,
-    public configService: ConfigService,
+    private authService: AuthService,
     private translate: TranslateService,
+    public configService: ConfigService,
     private breakpointObserver: BreakpointObserver,
+    private consultationService: ConsultationService,
+    private _socketEventsService: SocketEventsService,
     private sidenavToggleService: SidenavToggleService
   ) {
     iconRegistry.addSvgIcon(
@@ -202,6 +203,13 @@ export class AppComponent implements OnInit {
     //   this.authService.logout()
     //   sessionStorage.setItem('hasSession',"true")
     // }
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        if (event.url !== '/cgu') {
+          this.checkTermsAndNavigate();
+        }
+      }
+    });
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
       this.isMobile = result.matches;
     });
@@ -297,6 +305,26 @@ export class AppComponent implements OnInit {
     this.getConsultationsOverview();
   }
 
+  checkTermsAndNavigate() {
+    this.authService.currentUserSubject.subscribe({
+      next: user => {
+        const config = this.configService.config;
+        if (user && config) {
+          if (
+            Number(config.doctorTermsVersion) > Number(user.doctorTermsVersion)
+          ) {
+            this.router.navigate(['/cgu']);
+          } else if (
+            Number(config.doctorTermsVersion) &&
+            !user.doctorTermsVersion
+          ) {
+            this.router.navigate(['/cgu']);
+          }
+        }
+      },
+    });
+  }
+
   GetParam(name) {
     const results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(
       window.location.href
@@ -342,5 +370,11 @@ export class AppComponent implements OnInit {
         },
       });
     });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 }
