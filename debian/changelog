@@ -1,3 +1,11 @@
+hcw-athome-caregiver (5.1.9) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * handle login errors
+  * refs   #6829,  Add Terms acceptance for Doctor
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 24 Sep 2024 08:24:55 +0200
+
 hcw-athome-caregiver (0.5.1.8) focal; urgency=medium
 
   [ Aram ]
