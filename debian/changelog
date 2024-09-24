@@ -1,3 +1,16 @@
+hcw-athome-caregiver (5.1.10) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * hide go home from terms
+
+  [ Weblate Admin ]
+  * Translated using Weblate (French)
+
+  [ Gor Grigoryan ]
+  * change cgu page
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 24 Sep 2024 11:08:54 +0200
+
 hcw-athome-caregiver (5.1.9) focal; urgency=medium
 
   [ Gor Grigoryan ]
