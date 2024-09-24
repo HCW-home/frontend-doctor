@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="back">
+            <div class="back" *ngIf="!showCheckbox">
                 <button (click)="goBack()" class="secondary-button-outlined" mat-button>
                     {{ 'cgu.backToHome' | translate }}
                 </button>
@@ -46,7 +46,7 @@
                 </div>
             </ng-container>
 
-            <div class="back">
+            <div class="back" *ngIf="!showCheckbox">
                 <button (click)="goBack()" class="secondary-button-outlined" mat-button>
                     {{ 'cgu.backToHome' | translate }}
                 </button>
