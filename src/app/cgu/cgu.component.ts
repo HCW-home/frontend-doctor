@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from "@angular/core";
 import { LocationStrategy } from '@angular/common';
 import { ConfigService } from '../core/config.service';
 import { AuthService } from '../auth/auth.service';
-import { UserService } from '../core/user.service';
-import { Router } from '@angular/router';
 import {User} from "../user";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-cgu',
@@ -17,33 +16,23 @@ export class CguComponent {
   selectedCountry = 'Any';
   selectedTermName = 'terms.md';
   countries = [];
-  showCheckbox = false;
-  checked = false;
 
   constructor(
-    private router: Router,
-    private userService: UserService,
-    private authService: AuthService,
     public configService: ConfigService,
-    private locationStrategy: LocationStrategy
+    private locationStrategy: LocationStrategy,
+    public dialogRef: MatDialogRef<CguComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+
+
+
 
   ngOnInit() {
     this.getCountries();
-    this.authService.getCurrentUser().subscribe(user => {
-      const config = this.configService.config;
-      if (user && config) {
-        this.currentUser = user;
-        if (
-          Number(config.doctorTermsVersion) > Number(user.doctorTermsVersion)
-        ) {
-          this.showCheckbox = true;
-        }
-        if (Number(config.doctorTermsVersion) && !user.doctorTermsVersion) {
-          this.showCheckbox = true;
-        }
-      }
-    });
+  }
+
+  onClose(): void {
+    this.dialogRef.close();
   }
 
   getCountries() {
@@ -62,7 +51,11 @@ export class CguComponent {
   }
 
   goBack() {
-    this.locationStrategy.historyGo(-1);
+    if (this.data?.showCloseButton) {
+      this.onClose()
+    } else {
+      this.locationStrategy.historyGo(-1);
+    }
   }
 
   changeCountry(country: string) {

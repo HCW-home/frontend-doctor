@@ -75,6 +75,11 @@ export class TermsAcceptanceComponent {
     event.stopPropagation();
     this.dialog.open(CguComponent, {
       autoFocus: false,
+      minWidth: '80vw',
+      maxHeight: '80vh',
+      data: {
+        showCloseButton: true
+      }
     });
   }
 }
