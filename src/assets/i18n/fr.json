@@ -72,7 +72,9 @@
         "videoAudioRequested": "Appel audio demandé",
         "videoAudioFinished": "Appel audio terminé",
         "IMADTeam": "IMADTeam",
-        "joinVideoCall": "Rejoindre vidéo"
+        "joinVideoCall": "Rejoindre vidéo",
+        "viewLess": "Voir moins",
+        "viewMore": "Voir plus"
     },
     "consultations": {
         "filters": "Filtres",
@@ -417,7 +419,8 @@
         "notConfigured": "Les termes et conditions n'ont pas encore été configurés.",
         "selectCountry": "Ces conditions s'appliquent au pays :",
         "backToHome": "J'ai compris",
-        "termsAndConditions": "Conditions Générales d'Utilisation (CGU)"
+        "termsAndConditions": "Conditions Générales d'Utilisation (CGU)",
+        "submit": "Soumettre"
     },
     "support": {
         "thisFormAllowsYouToReportAProblem": "Ce formulaire vous permet de remonter un problème rencontré pendant l'utilisation de {{branding}}. Avant de rapporter un incident, merci de vérifier que vous utilisez bien {{branding}} dans les conditions optimales :",
