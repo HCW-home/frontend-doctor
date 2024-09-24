@@ -418,9 +418,12 @@
     "cgu": {
         "notConfigured": "Les termes et conditions n'ont pas encore été configurés.",
         "selectCountry": "Ces conditions s'appliquent au pays :",
-        "backToHome": "J'ai compris",
+        "backToHome": "Retour",
         "termsAndConditions": "Conditions Générales d'Utilisation (CGU)",
-        "submit": "Soumettre"
+        "submit": "Soumettre",
+        "before": "avant de pouvoir utiliser HCW@Home.",
+        "terms": "les conditions d'utilisation",
+        "youHaveTo": "Vous devez accepter"
     },
     "support": {
         "thisFormAllowsYouToReportAProblem": "Ce formulaire vous permet de remonter un problème rencontré pendant l'utilisation de {{branding}}. Avant de rapporter un incident, merci de vérifier que vous utilisez bien {{branding}} dans les conditions optimales :",
