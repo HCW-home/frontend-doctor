@@ -221,3 +221,8 @@ img.logo {
   overflow-y: auto !important;
 }
 
+
+.mat-button.mat-button-disabled.mat-button-disabled {
+  color: var(--app-white);
+  opacity: 0.7;
+}

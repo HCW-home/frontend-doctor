@@ -43,12 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
   pendingConsultations;
   activeConsultations;
   currentSnackBar: MatSnackBarRef<SimpleSnackBar>;
-  markdownExists = false;
-  markdownUrl = [
-    'assets/footer.md',
-    'assets/footer.fr.md',
-    'assets/footer.en.md',
-  ];
+  markdownExists: boolean = false;
+  markdownUrl: string = 'assets/footer.md';
+  currentLang: string = 'en';
+
 
   constructor(
     private zone: NgZone,
@@ -64,6 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private _socketEventsService: SocketEventsService,
     private sidenavToggleService: SidenavToggleService
   ) {
+    this.currentLang = this.translate.currentLang;
     iconRegistry.addSvgIcon(
       'dashboard',
       sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icon-dashboard.svg')
@@ -205,7 +204,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // }
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        if (event.url !== '/cgu') {
+        if (event.url !== '/cgu' && event.url !== '/terms-acceptance') {
           this.checkTermsAndNavigate();
         }
       }
@@ -313,12 +312,12 @@ export class AppComponent implements OnInit, OnDestroy {
           if (
             Number(config.doctorTermsVersion) > Number(user.doctorTermsVersion)
           ) {
-            this.router.navigate(['/cgu']);
+            this.router.navigate(['/terms-acceptance']);
           } else if (
             Number(config.doctorTermsVersion) &&
             !user.doctorTermsVersion
           ) {
-            this.router.navigate(['/cgu']);
+            this.router.navigate(['/terms-acceptance']);
           }
         }
       },
@@ -353,22 +352,24 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   checkMarkdown() {
-    const requests = this.markdownUrl.map(url =>
-      this.configService.checkMarkdownExists(url)
-    );
+    const langSpecificMarkdownUrl = `assets/footer.${this.currentLang}.md`;
 
-    requests.forEach(request => {
-      request.subscribe({
-        next: res => {
-          if (res) {
+    this.configService.checkMarkdownExists(langSpecificMarkdownUrl).subscribe({
+      next: (res) => {
+        this.markdownUrl = langSpecificMarkdownUrl;
+        this.markdownExists = true;
+      },
+      error: (err) => {
+        this.configService.checkMarkdownExists('assets/footer.md').subscribe({
+          next: (res) => {
+            this.markdownUrl = 'assets/footer.md';
             this.markdownExists = true;
-            return;
+          },
+          error: (err) => {
+            this.markdownExists = false;
           }
-        },
-        error: err => {
-          // do nothing
-        },
-      });
+        });
+      }
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConfigService } from '../core/config.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -9,19 +9,13 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class FooterComponent implements OnInit {
   error = false;
-  markdownUrl = '';
-  userLang = window.localStorage.getItem('hhw-lang');
+  @Input('markdownUrl') markdownUrl = '';
 
   constructor(
-    private translate: TranslateService,
     public configService: ConfigService
   ) {
-    this.userLang =
-      window.localStorage.getItem('hhw-lang') ||
-      this.translate.getBrowserLang();
   }
 
   ngOnInit() {
-    this.markdownUrl = 'assets/footer.' + this.userLang + '.md';
   }
 }

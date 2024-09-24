@@ -133,9 +133,13 @@
         "termsAndConditions": "Terms & Conditions (T&C)",
         "backToHome": "Return to Home",
         "submit": "Submit",
-        "pleaseAccept": "Please accept",
+        "youHaveTo": "You have to accept",
+        "terms": "Terms and Condition",
+        "before": "before",
+        "pleaseAccept": "You have to accept {{terms}}  before",
         "selectCountry": "This terms applies to the country:",
-        "notConfigured": "Terms and conditions have not yet been configured."
+        "notConfigured": "Terms and conditions have not yet been configured.",
+        "description": "Some description"
     },
     "forgotPassword": {
         "home": "HOME",

@@ -115,7 +115,7 @@
           <router-outlet *ngIf="navigated"></router-outlet>
         </div>
         <ng-container *ngIf="markdownExists">
-          <app-footer></app-footer>
+          <app-footer [markdownUrl]="markdownUrl"></app-footer>
         </ng-container>
       </div>
     </mat-sidenav-content>

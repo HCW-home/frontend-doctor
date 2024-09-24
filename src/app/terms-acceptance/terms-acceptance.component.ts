@@ -5,23 +5,24 @@ import { AuthService } from '../auth/auth.service';
 import { UserService } from '../core/user.service';
 import { Router } from '@angular/router';
 import {User} from "../user";
+import {MatDialog} from "@angular/material/dialog";
+import {CguComponent} from "../cgu/cgu.component";
 
 @Component({
-  selector: 'app-cgu',
-  templateUrl: './cgu.component.html',
-  styleUrls: ['./cgu.component.scss'],
+  selector: 'app-terms-acceptance',
+  templateUrl: './terms-acceptance.component.html',
+  styleUrls: ['./terms-acceptance.component.scss'],
 })
-export class CguComponent {
+export class TermsAcceptanceComponent {
   currentUser: User;
   error = false;
-  selectedCountry = 'Any';
-  selectedTermName = 'terms.md';
-  countries = [];
   showCheckbox = false;
   checked = false;
+  termsLink = `<span class="terms-link" (click)="openTerms($event)">Terms and Conditions</span>`;
 
   constructor(
     private router: Router,
+    public dialog: MatDialog,
     private userService: UserService,
     private authService: AuthService,
     public configService: ConfigService,
@@ -29,7 +30,6 @@ export class CguComponent {
   ) {}
 
   ngOnInit() {
-    this.getCountries();
     this.authService.getCurrentUser().subscribe(user => {
       const config = this.configService.config;
       if (user && config) {
@@ -46,31 +46,35 @@ export class CguComponent {
     });
   }
 
-  getCountries() {
-    this.configService.getCountries().subscribe(
-      res => {
-        if (res) {
-          res.unshift('Any');
-          this.countries = res;
-          this.error = false;
-        }
-      },
-      error => {
-        this.error = true;
-      }
-    );
-  }
 
   goBack() {
     this.locationStrategy.historyGo(-1);
   }
 
-  changeCountry(country: string) {
-    this.selectedCountry = country;
-    if (country === 'Any') {
-      this.selectedTermName = 'terms.md';
-    } else {
-      this.selectedTermName = `terms.${country}.md`;
-    }
+  submit() {
+    const body = {
+      doctorTermsVersion: this.configService.config.doctorTermsVersion,
+    };
+    this.userService.updateUserTerms(body).subscribe({
+      next: res => {
+        this.authService.currentUserSubject.next({
+          ...this.currentUser,
+          doctorTermsVersion: res.doctorTermsVersion,
+        });
+        this.router.navigate(['/dashboard']);
+      },
+      error: err => {
+        console.log(err, 'err');
+      },
+    });
+  }
+
+
+  openTerms(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.dialog.open(CguComponent, {
+      autoFocus: false,
+    });
   }
 }

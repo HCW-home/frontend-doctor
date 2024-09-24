@@ -1,0 +1,126 @@
+.center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  background: #fafafa;
+  justify-content: center;
+}
+
+.terms-link {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.custom-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: auto;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+::ng-deep {
+  html[data-theme="accessibility"] {
+    .wrap {
+      background-image: unset !important;
+    }
+  }
+}
+
+.container {
+  display: block;
+  margin: 30px auto;
+  width: 70%;
+}
+
+.custom-card {
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+  @media (max-width: 598px) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+markdown ::ng-deep {
+  ol {
+    counter-reset: item;
+    list-style: none;
+  }
+  li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
+    margin-left: -40px;
+    margin-right: 10px;
+  }
+
+  li > p {
+    display: inline;
+  }
+
+  li {
+    padding-top: 19px;
+    padding-bottom: 10px;
+  }
+
+  a {
+    color: var(--primary-color);
+  }
+}
+
+.title {
+  text-align: center;
+  margin: 80px auto 40px;
+  font-size: 1.2em;
+}
+
+.back {
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    width: 92%;
+  }
+  .title {
+    margin: 40px auto 40px;
+  }
+  table {
+    td {
+      padding: 4px;
+    }
+  }
+}
+
+.btn__send {
+  background-color: var(--primary-color);
+  color: var(--app-white);
+}
+
+.country-select {
+  margin-top: 10px;
+  cursor: pointer;
+  left: calc(50% - 21px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .sl-container {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    position: relative;
+  }
+
+  .lang {
+    background-color: #FFFFFF;
+    outline: none;
+    border: 0;
+  }
+
+}

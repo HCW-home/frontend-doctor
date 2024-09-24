@@ -84,6 +84,7 @@ import { CguComponent } from './cgu/cgu.component';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { InviteLinkComponent } from './invite-link/invite-link.component';
 import {StatusComponent} from "./status/status.component";
+import {TermsAcceptanceComponent} from "./terms-acceptance/terms-acceptance.component";
 
 registerLocaleData(localeFr);
 
@@ -211,6 +212,13 @@ const routes: Routes = [
     },
   },
   {
+    path: 'terms-acceptance',
+    component: TermsAcceptanceComponent,
+    data: {
+      title: 'Terms Acceptance',
+    },
+  },
+  {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     data: {
@@ -276,6 +284,7 @@ const routes: Routes = [
     BadgeComponent,
     StatusComponent,
     CguComponent,
+    TermsAcceptanceComponent,
     InviteLinkComponent,
   ],
   imports: [
