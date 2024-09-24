@@ -291,6 +291,7 @@
             <mat-checkbox
               formControlName="inviteGuestFormControl"
               [(ngModel)]="inviteGuest"
+              (ngModelChange)="myForm.get('guestContactFormControl')?.updateValueAndValidity()"
               >{{ 'inviteForm.inviteLovedOneOrProfessional' | translate }}
             </mat-checkbox>
           </div>

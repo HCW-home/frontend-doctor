@@ -269,7 +269,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     });
 
     this.myForm.get('guestContactFormControl').valueChanges.subscribe(value => {
-    this.valueChangesGuestContactFormControl()
+      this.valueChangesGuestContactFormControl();
     });
 
     this.myForm.get('languageFormControl').valueChanges.subscribe(value => {
@@ -281,48 +281,46 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.handleValueChanges();
   }
 
-  valueChangesGuestContactFormControl() :void{
+  valueChangesGuestContactFormControl(): void {
     const guestContactFormControl = this.myForm.get('guestContactFormControl');
     const languageFormControl = this.myForm.get('languageFormControl');
     const isScheduledControl = this.myForm.get('isScheduled');
-    const messageServiceControl = this.myForm.get(
-        'guestContactMessageService'
-    );
+    const messageServiceControl = this.myForm.get('guestContactMessageService');
     const type = isScheduledControl.value
-        ? TwilioWhatsappConfig.scheduledGuestInvite
-        : TwilioWhatsappConfig.guestInvite;
+      ? TwilioWhatsappConfig.scheduledGuestInvite
+      : TwilioWhatsappConfig.guestInvite;
     if (phoneNumberRegex.test(guestContactFormControl.value)) {
       if (guestContactFormControl.valid) {
         setTimeout(() => {
           const { value } = this.myForm.get('guestContactFormControl');
           this.inviteService
-              .checkPrefix(value, languageFormControl.value, type)
-              .subscribe({
-                next: res => {
-                  switch (res.status) {
-                    case 0:
-                      guestContactFormControl.setErrors({ cantSend: true });
-                      break;
-                    case 1:
-                      this.showGuestSuccessMessage = res.message;
-                      this.resetValidators(true, 'guestContactMessageService');
-                      this.showGuestRadioGroup = true;
-                      break;
-                    case 2:
-                      this.showGuestSuccessMessage = res.message;
-                      messageServiceControl.setValidators([]);
-                      messageServiceControl.setValue('1');
-                      messageServiceControl.updateValueAndValidity();
-                      break;
-                    case 3:
-                      this.showGuestSuccessMessage = res.message;
-                      messageServiceControl.setValidators([]);
-                      messageServiceControl.setValue('2');
-                      messageServiceControl.updateValueAndValidity();
-                      break;
-                  }
-                },
-              });
+            .checkPrefix(value, languageFormControl.value, type)
+            .subscribe({
+              next: res => {
+                switch (res.status) {
+                  case 0:
+                    guestContactFormControl.setErrors({ cantSend: true });
+                    break;
+                  case 1:
+                    this.showGuestSuccessMessage = res.message;
+                    this.resetValidators(true, 'guestContactMessageService');
+                    this.showGuestRadioGroup = true;
+                    break;
+                  case 2:
+                    this.showGuestSuccessMessage = res.message;
+                    messageServiceControl.setValidators([]);
+                    messageServiceControl.setValue('1');
+                    messageServiceControl.updateValueAndValidity();
+                    break;
+                  case 3:
+                    this.showGuestSuccessMessage = res.message;
+                    messageServiceControl.setValidators([]);
+                    messageServiceControl.setValue('2');
+                    messageServiceControl.updateValueAndValidity();
+                    break;
+                }
+              },
+            });
         }, 100);
       }
       this.resetValidators(false, 'guestContactMessageService');
@@ -330,6 +328,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.showGuestSuccessMessage = '';
     }
   }
+
   valueChangesPatientContactAndScheduled(): void {
     const controlPatientContact = this.myForm.get('patientContactFormControl');
     const languageFormControl = this.myForm.get('languageFormControl');
@@ -508,9 +507,13 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   }
 
   guestContactValidatorValidator(control: AbstractControl) {
-    if (this.inviteGuest && !control.value) {
-      return { required: { value: control.value } };
+    if (!this.inviteGuest) {
+      return null;
     }
+    if (!control.value) {
+      return { required: true };
+    }
+
     return null;
   }
 
@@ -638,7 +641,10 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     //     return result;
     //   },{});
     // }
-    if(!this.myForm.valid){
+
+    console.log(this.myForm.valid, 'valid')
+    console.log(this.myForm, 'this.myForm')
+    if (!this.myForm.valid) {
       return;
     }
 
