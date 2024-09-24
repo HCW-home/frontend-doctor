@@ -1,3 +1,13 @@
+hcw-athome-caregiver (5.1.12) focal; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update translation
+
+  [ Weblate Admin ]
+  * Translated using Weblate (French)
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 24 Sep 2024 11:55:18 +0200
+
 hcw-athome-caregiver (5.1.11) focal; urgency=medium
 
   [ Gor Grigoryan ]
