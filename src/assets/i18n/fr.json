@@ -423,7 +423,9 @@
         "submit": "Soumettre",
         "before": "avant de pouvoir utiliser HCW@Home.",
         "terms": "les conditions d'utilisation",
-        "youHaveTo": "Vous devez accepter"
+        "youHaveTo": "Vous devez accepter",
+        "description": "Conditions d'accès",
+        "pleaseAccept": "Vous devez accepter {{terms}} avant de pouvoir utiliser HCW@Home"
     },
     "support": {
         "thisFormAllowsYouToReportAProblem": "Ce formulaire vous permet de remonter un problème rencontré pendant l'utilisation de {{branding}}. Avant de rapporter un incident, merci de vérifier que vous utilisez bien {{branding}} dans les conditions optimales :",
@@ -440,5 +442,13 @@
         "youTriedThePageTestAudioSound": "Vous avez tenté d'ouvrir la page Test son/vidéo afin de tenter de résoudre le problème par vous-même.",
         "yourBrowserIsUpToDate": "Votre navigateur est à jour.",
         "incidentReportHome": "Rapport d'incident {{branding}}"
+    },
+    "sendInviteLink": {
+        "sent": "Le lien d'invitation a été envoyé avec succès au participant",
+        "copied": "Copié dans le presse-papiers",
+        "close": "Fermer",
+        "label": "Lien d'invitation",
+        "subTitle": "Copiez le lien ci-dessous et partagez-le avec le patient de la manière qui vous convient. Attention, ce lien n'est utilisable qu'une seule fois.",
+        "title": "Inviter via un lien"
     }
 }
