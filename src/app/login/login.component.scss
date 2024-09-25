@@ -18,10 +18,12 @@
 .container {
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+  /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   ::ng-deep .mat-focused .mat-form-field-label {
     /*change color of label*/
     color: white !important;
   }
+  /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   ::ng-deep.mat-form-field-underline {
@@ -30,10 +32,12 @@
   }
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+  /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   ::ng-deep.mat-form-field-ripple {
     /*change color of underline when focused*/
     background-color: white !important;
   }
+  /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   ::ng-deep .mat-form-field-label {
@@ -183,6 +187,7 @@ input:-webkit-autofill {
   display: flex;
   align-items: center;
   mat-form-field {
+    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     ::ng-deep .mat-form-field-label {
