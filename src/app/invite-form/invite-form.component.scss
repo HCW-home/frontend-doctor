@@ -51,18 +51,20 @@
   //   width: 180px !important;
   // }
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   ::ng-deep .mat-form-field-label {
     left: 0 !important;
   }
 
   ::ng-deep
-    .mat-mdc-form-field.mat-form-field-invalid
+    .mat-mdc-form-field.mat-mdc-form-field-invalid
     .mat-form-field-label.mat-accent,
   .mat-form-field.mat-form-field-invalid
     .mat-form-field-label
     .mat-form-field-required-marker {
     color: #f44336 !important;
   }
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
     color: black !important;
@@ -236,6 +238,7 @@ h1 {
   justify-content: center;
 }
 form {
+  /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
   /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
   #mat-dialog-title-0 {
     display: none !important;

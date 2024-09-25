@@ -17,6 +17,7 @@ dd {
   mat-form-field.mat-form-field-disabled {
     margin-left: 10px;
     /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     ::ng-deep .mat-form-field-label  {
       color: grey !important;
     }
@@ -24,6 +25,7 @@ dd {
   }
   mat-form-field {
     margin-left: 10px;
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     ::ng-deep .mat-form-field-label {
       left: 0 !important;
