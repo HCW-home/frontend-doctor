@@ -1,4 +1,4 @@
-hcw-athome-caregiver (5.1.13) focal; urgency=medium
+hcw-athome-caregiver (5.2.0) focal; urgency=medium
 
   [ Gor Grigoryan ]
   * refs ##6555, Enable some options in invite break the form
