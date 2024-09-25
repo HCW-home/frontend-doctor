@@ -126,8 +126,8 @@ input:-webkit-autofill {
   align-items: center;
   justify-content: center;
 
-  &::ng-deep .mat-progress-spinner circle,
-  .mat-spinner circle {
+  &::ng-deep .mat-mdc-progress-spinner circle,
+  .mat-mdc-progress-spinner circle {
     stroke: white !important;
   }
 }
@@ -169,6 +169,7 @@ input:-webkit-autofill {
   align-items: center;
 
   mat-form-field {
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     ::ng-deep .mat-form-field-label {
       left: 0 !important;
     }
@@ -213,6 +214,7 @@ input:-webkit-autofill {
 
 .plan-consultation-form {
   ::ng-deep {
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     .mat-form-field-label {
       left: 0 !important;
       color: white;
