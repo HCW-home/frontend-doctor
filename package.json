@@ -34,7 +34,7 @@
     "hcw-stream-lib": "0.0.15",
     "html2canvas": "^1.0.0-rc.1",
     "jspdf": "^2.5.1",
-    "ngx-markdown": "^14.0.1",
+    "ngx-markdown": "^16.0.0",
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
     "rxjs": "~6.6.3",
