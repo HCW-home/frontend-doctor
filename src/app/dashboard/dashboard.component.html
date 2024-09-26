@@ -32,10 +32,9 @@
       <button
         *ngIf="!pendingConsultations.length"
         (click)="openDialog()"
-        class="invite-btn"
-        mat-button
-        type="submit"
-        color="primary">
+        class="primary-button invite-btn"
+        mat-flat-button
+        type="submit">
         {{ 'dashboard.sendNewInvite' | translate }}
       </button>
 

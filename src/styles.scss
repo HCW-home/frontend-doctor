@@ -1,51 +1,10 @@
+@use '@angular/material' as mat;
 
-
-@import "@angular/material/theming";
+@include mat.core();
 @import "assets/fonts/fonts";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-@include mat-core();
-$md-hug: (
-        50: #e5eef7,
-        100: #bfd4eb,
-        200: #94b8de,
-        300: #699cd1,
-        400: #4886c7,
-        500: #2871bd,
-        600: #2469b7,
-        700: #1e5eae,
-        800: #1854a6,
-        900: #0f4298,
-        A100: #c9daff,
-        A200: #96b8ff,
-        A400: #6396ff,
-        A700: #4985ff,
-        contrast: (
-                50: #000000,
-                100: #000000,
-                200: #000000,
-                300: #000000,
-                400: #ffffff,
-                500: #ffffff,
-                600: #ffffff,
-                700: #ffffff,
-                800: #ffffff,
-                900: #ffffff,
-                A100: #000000,
-                A200: #000000,
-                A400: #000000,
-                A700: #000000,
-        ),
-);
-$app-primary: mat-palette($md-hug);
-$app-accent: mat-palette($mat-pink, A200, A100, A400);
-
-$app-warn: mat-palette($mat-red);
-
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
-
-@include angular-material-theme($app-theme);
-
-
+//@import "@angular/material/theming";
 html,
 body {
   height: 100%;
@@ -250,4 +209,9 @@ img.logo {
 .mat-mdc-button.mat-button-disabled.mat-button-disabled {
   color: var(--app-white);
   opacity: 0.7;
+}
+
+
+.mat-mdc-button:not(:disabled) {
+  color: var(--app-white);
 }

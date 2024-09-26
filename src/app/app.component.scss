@@ -1,4 +1,3 @@
-
 .container {
   height: 100%;
   width: 100%;
@@ -46,94 +45,48 @@
   font-size: 12px;
 }
 
-.menu-list {
-}
-
 .mat-mdc-list-base {
   padding-top: 0 !important;
 }
 
-.list-item {
-  margin: 0;
-  padding-top: 0 !important;
-  height: 99px !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-mat-list-item,
 .menu-btn {
-  padding-left: 4px;
-  padding-right: 4px;
-  // padding-top: 10px !important;
+  gap: 4px;
+  display: flex;
+  padding: 25px;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+  flex-direction: column;
+  vertical-align: middle;
+  justify-content: center;
+  color: var(--app-black);
+  height: auto !important;
+  cursor: pointer !important;
 
-  margin: 0;
-  // padding: 0;
-  width: 100%;
-  border-radius: 0;
-}
-.menu-btn {
-  padding-bottom: 20px !important;
-  padding-top: 20px !important;
-  height: 100%;
-}
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-mat-list-item:nth-child(2) .menu-btn {
-  padding-left: 10px;
-  padding-right: 10px;
+  .btn-text {
+    margin: auto;
+    display: block;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  &:hover {
+    background-color: var(--primary-color);
+    .btn-text, mat-icon {
+      color: var(--app-white);
+    }
+  }
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-mat-list-item:nth-child(1) .menu-btn {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-// mat-list-item{
-//   padding:14px 0 14px 0px !important;
-// }
-span.btn-text {
-  width: 80%;
-  margin: auto;
-  font-size: 11px;
-  white-space: normal;
-  display: block;
-  word-wrap: break-word;
-  line-height: 1.2;
-}
-.menu-btn:hover {
+.active {
   background-color: var(--primary-color);
-  color: #ffffff;
+  .btn-text, mat-icon {
+    color: var(--app-white);
+  }
 }
 
-mat-toolbar {
-  background-color: white !important;
-}
-.header {
-  border-bottom: 1px solid rgb(209, 209, 209);
-  margin: 10px 0 10px 0;
-}
-
-.header h3 {
-  font-size: 1.3em;
-  padding-top: 18px;
-  padding-left: 20px;
-  font-weight: 500;
-}
-
-button.active {
-  background-color: var(--primary-color);
-  color: #ffffff;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
 mat-list-item {
   margin-bottom: 8px;
 }

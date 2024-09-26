@@ -1,6 +1,6 @@
 <ng-container *ngIf="isLoggedIn">
-  <mat-sidenav-container class="container">
-    <mat-sidenav
+  <mat-drawer-container class="container">
+    <mat-drawer
       #sidenav
       mode="side"
       class="sidenav"
@@ -20,52 +20,47 @@
         </div>
       </ng-template>
       <mat-list class="menu-list">
-        <mat-list-item class="list-item">
-          <button
+          <a mat-list-item
             routerLink="/dashboard"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button>
+            >
             <mat-icon svgIcon="dashboard"></mat-icon>
             <span class="btn-text">{{ 'app.dashboard' | translate }}</span>
-          </button>
-        </mat-list-item>
-        <mat-list-item class="list-item">
-          <button
+          </a>
+          <a
+                  mat-list-item
             routerLink="/pending-consultations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button>
+          >
             <mat-icon
               svgIcon="queue"
               [matBadge]="pendingConsultations || ''"
               matBadgePosition="after"
               matBadgeColor="danger"></mat-icon>
             <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
-          </button>
-        </mat-list-item>
-        <mat-list-item class="list-item">
-          <button
+          </a>
+          <a
+                  mat-list-item
             routerLink="/active-consultations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button>
+          >
             <mat-icon
               svgIcon="chat"
               [matBadge]="activeConsultations || ''"
               matBadgePosition="after"
-              matBadgeColor="danger"></mat-icon>
+              matBadgeColor="warn"></mat-icon>
             <span class="btn-text">{{
               'app.openedConsultation' | translate
             }}</span>
-          </button>
-        </mat-list-item>
-        <mat-list-item class="list-item">
-          <button
+          </a>
+          <a
+                  mat-list-item
             routerLink="/closed-consultations"
             routerLinkActive="active"
-            class="menu-btn"
-            mat-button>
+            class="menu-btn">
             <mat-icon
               svgIcon="history"
               [matBadge]="''"
@@ -74,42 +69,35 @@
             <span class="btn-text">{{
               'app.consultationHistory' | translate
             }}</span>
-          </button>
-        </mat-list-item>
+          </a>
 
-        <mat-list-item class="list-item">
-          <button
+          <a
+                  mat-list-item
             routerLink="/invitations"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button>
+          >
             <mat-icon
               svgIcon="invite"
               [matBadge]="''"
               matBadgePosition="after"
               matBadgeColor="warn"></mat-icon>
             <span class="btn-text">{{ 'app.invites' | translate }}</span>
-          </button>
-        </mat-list-item>
+          </a>
 
-        <mat-list-item class="list-item">
-          <button
+          <a
+                  mat-list-item
             routerLink="/test-media"
             routerLinkActive="active"
             class="menu-btn"
-            mat-button>
-            <mat-icon
-              svgIcon="selfcheck"
-              [matBadge]="''"
-              matBadgePosition="after"
-              matBadgeColor="danger"></mat-icon>
+          >
+            <mat-icon svgIcon="selfcheck"></mat-icon>
             <span class="btn-text">{{ 'app.testVideoSound' | translate }}</span>
-          </button>
-        </mat-list-item>
+          </a>
       </mat-list>
-    </mat-sidenav>
+    </mat-drawer>
 
-    <mat-sidenav-content>
+    <mat-drawer-content>
       <div class="content">
         <div>
           <router-outlet *ngIf="navigated"></router-outlet>
@@ -118,8 +106,8 @@
           <app-footer [markdownUrl]="markdownUrl"></app-footer>
         </ng-container>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </ng-container>
 
 <router-outlet *ngIf="!isLoggedIn"></router-outlet>

@@ -46,7 +46,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": ["src/styles.scss", "src/variables.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/variables.scss",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+            ],
             "scripts": [],
             "aot": true
           },
@@ -137,9 +141,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/variables.scss",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css"
+              "src/variables.scss"
             ],
             "scripts": [],
             "assets": [
@@ -156,7 +160,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -188,6 +195,8 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

@@ -91,8 +91,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     openDialog(): void {
         const dialogRef = this.dialog.open(InviteFormComponent, {
             id: "invite_form_dialog",
-            width: "500px",
-            height: "700px",
             data: {}
         });
 
