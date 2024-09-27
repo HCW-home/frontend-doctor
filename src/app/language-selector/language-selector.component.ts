@@ -23,10 +23,6 @@ import { TranslateService } from '@ngx-translate/core';
                         gap: 6px;
                         display: flex;
                         align-items: center;
-                
-                        :is(mat-form-field) {
-                          width: 100px;
-                        }
                       }
                     `,
   ],

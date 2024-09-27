@@ -2,11 +2,13 @@
 .phone-num {
   display: flex;
 }
+
 .country-code {
   display: flex;
   align-items: center;
   margin-right: 4px;
 }
+
 .phone-num-field {
   padding-top: 4px;
 }
@@ -16,6 +18,7 @@
 }
 
 .field-container {
+  gap: 8px;
   display: flex;
   flex-wrap: wrap;
   margin: 4px 10px;
@@ -24,7 +27,7 @@
 
   mat-form-field,
   mat-checkbox {
-    margin: 16px 30px;
+    //margin: 16px 30px;
     flex: 1;
 
     @media (max-width: 600px) {
@@ -58,13 +61,14 @@
   }
 
   ::ng-deep
-    .mat-mdc-form-field.mat-mdc-form-field-invalid
-    .mat-mdc-form-field-label.mat-accent,
+  .mat-mdc-form-field.mat-mdc-form-field-invalid
+  .mat-mdc-form-field-label.mat-accent,
   .mat-form-field.mat-form-field-invalid
-    .mat-form-field-label
-    .mat-form-field-required-marker {
+  .mat-form-field-label
+  .mat-form-field-required-marker {
     color: #f44336 !important;
   }
+
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
@@ -72,39 +76,42 @@
     color: black !important;
   }
 }
+
 .invite-form {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* flex-grow: 1; */
   height: 100%;
-  div:last-child {
-    margin-top: auto;
-  }
   padding: 30px;
+
   h1 {
     margin-bottom: 0px;
     text-align: center;
   }
+
 }
+
 .dialog-title {
   display: block !important;
 }
+
 .error {
   margin-top: 28px;
   color: rgb(255, 45, 45);
   text-align: center;
 }
+
 .dialog-content {
   height: 100%;
-  // display: flex;
-  // flex-direction: column;
+  padding-top: 20px !important;
 }
+
 .btn__send {
   background-color: var(--primary-color);
   color: #ffffff;
 }
+
 .btn_submit {
   background-color: var(--primary-color);
   color: #ffffff;
@@ -114,6 +121,7 @@
   background-color: rgb(255, 45, 45);
   color: #ffffff;
 }
+
 .mat-form-field-disabled .label {
   color: #bbb !important;
 }
@@ -131,6 +139,7 @@
 .form-container > div {
   margin: 16px;
 }
+
 .interpreter__form {
   flex: 1 1 234px !important;
   border-left: 1px solid rgb(182, 182, 182);
@@ -191,9 +200,11 @@ h1 {
   display: flex;
   flex-direction: column;
 }
+
 .invite-type-header {
   padding: 23px;
   border-bottom: 1px solid #b6b6b6;
+
   h1 {
     text-align: center;
     margin-bottom: 0;
@@ -201,10 +212,12 @@ h1 {
     padding: 10px;
   }
 }
+
 .invite-type-content {
   display: flex;
   flex: 1;
   text-align: center;
+
   & > div {
     justify-content: space-around !important;
     align-items: center !important;
@@ -215,6 +228,7 @@ h1 {
     margin: 4px auto;
     font-weight: 500;
   }
+
   p {
     font-weight: 200;
   }
@@ -231,6 +245,7 @@ h1 {
   display: flex;
   justify-content: center;
 }
+
 form {
   /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
   /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
@@ -239,6 +254,7 @@ form {
     display: none !important;
   }
 }
+
 // .invite-type-content {
 //   margin-right: -23px;
 //   margin-left: -23px;
@@ -253,7 +269,7 @@ form {
 //  padding: 0 !important;
 //  overflow-x: hidden;
 //}
-.accepted-invite-error{
+.accepted-invite-error {
   display: flex;
   justify-content: center;
   align-items: center;

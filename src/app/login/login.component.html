@@ -3,17 +3,13 @@
     <div class="container">
       <div class="at">&#64;</div>
 
-      <p class="saml-login" *ngIf="showSamlLogin">
-        <a [href]="samlLoginUrl" class="redirect-btn" mat-button>
+        <a *ngIf="showSamlLogin" [href]="samlLoginUrl" class="redirect-btn" mat-flat-button>
           {{ 'login.institutionalConnection' | translate }}
         </a>
-      </p>
 
-      <p class="saml-login" *ngIf="showOpenIdLogin">
-        <a [href]="openIdLoginUrl" class="redirect-btn" mat-button>
+        <a *ngIf="showOpenIdLogin" [href]="openIdLoginUrl" mat-flat-button>
           {{ 'login.institutionalConnection' | translate }}
         </a>
-      </p>
 
       <form
         *ngIf="!localLoginToken && showPasswordLogin"

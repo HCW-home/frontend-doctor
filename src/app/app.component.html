@@ -20,80 +20,77 @@
         </div>
       </ng-template>
       <mat-list class="menu-list">
-          <a mat-list-item
-            routerLink="/dashboard"
-            routerLinkActive="active"
-            class="menu-btn"
-            >
-            <mat-icon svgIcon="dashboard"></mat-icon>
-            <span class="btn-text">{{ 'app.dashboard' | translate }}</span>
-          </a>
-          <a
-                  mat-list-item
-            routerLink="/pending-consultations"
-            routerLinkActive="active"
-            class="menu-btn"
-          >
-            <mat-icon
-              svgIcon="queue"
-              [matBadge]="pendingConsultations || ''"
-              matBadgePosition="after"
-              matBadgeColor="danger"></mat-icon>
-            <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
-          </a>
-          <a
-                  mat-list-item
-            routerLink="/active-consultations"
-            routerLinkActive="active"
-            class="menu-btn"
-          >
-            <mat-icon
-              svgIcon="chat"
-              [matBadge]="activeConsultations || ''"
-              matBadgePosition="after"
-              matBadgeColor="warn"></mat-icon>
-            <span class="btn-text">{{
-              'app.openedConsultation' | translate
-            }}</span>
-          </a>
-          <a
-                  mat-list-item
-            routerLink="/closed-consultations"
-            routerLinkActive="active"
-            class="menu-btn">
-            <mat-icon
-              svgIcon="history"
-              [matBadge]="''"
-              matBadgePosition="after"
-              matBadgeColor="warn"></mat-icon>
-            <span class="btn-text">{{
-              'app.consultationHistory' | translate
-            }}</span>
-          </a>
+        <a
+          mat-list-item
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          class="menu-btn">
+          <mat-icon svgIcon="dashboard"></mat-icon>
+          <span class="btn-text">{{ 'app.dashboard' | translate }}</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/pending-consultations"
+          routerLinkActive="active"
+          class="menu-btn">
+          <mat-icon
+            svgIcon="queue"
+            [matBadge]="pendingConsultations || ''"
+            matBadgeColor="warn"
+          ></mat-icon>
+          <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/active-consultations"
+          routerLinkActive="active"
+          class="menu-btn">
+          <mat-icon
+            svgIcon="chat"
+            [matBadgeHidden]="false"
+            [matBadge]="activeConsultations || ''"
+            matBadgeColor="warn"></mat-icon>
+          <span class="btn-text">{{
+            'app.openedConsultation' | translate
+          }}</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/closed-consultations"
+          routerLinkActive="active"
+          class="menu-btn">
+          <mat-icon
+            svgIcon="history"
+            [matBadge]="''"
+            [matBadgeHidden]="false"
+            matBadgePosition="after"
+            matBadgeColor="warn"></mat-icon>
+          <span class="btn-text">{{
+            'app.consultationHistory' | translate
+          }}</span>
+        </a>
 
-          <a
-                  mat-list-item
-            routerLink="/invitations"
-            routerLinkActive="active"
-            class="menu-btn"
-          >
-            <mat-icon
-              svgIcon="invite"
-              [matBadge]="''"
-              matBadgePosition="after"
-              matBadgeColor="warn"></mat-icon>
-            <span class="btn-text">{{ 'app.invites' | translate }}</span>
-          </a>
+        <a
+          mat-list-item
+          routerLink="/invitations"
+          routerLinkActive="active"
+          class="menu-btn">
+          <mat-icon
+            svgIcon="invite"
+            [matBadge]="''"
+            matBadgePosition="after"
+            matBadgeColor="warn"></mat-icon>
+          <span class="btn-text">{{ 'app.invites' | translate }}</span>
+        </a>
 
-          <a
-                  mat-list-item
-            routerLink="/test-media"
-            routerLinkActive="active"
-            class="menu-btn"
-          >
-            <mat-icon svgIcon="selfcheck"></mat-icon>
-            <span class="btn-text">{{ 'app.testVideoSound' | translate }}</span>
-          </a>
+        <a
+          mat-list-item
+          routerLink="/test-media"
+          routerLinkActive="active"
+          class="menu-btn">
+          <mat-icon svgIcon="selfcheck"></mat-icon>
+          <span class="btn-text">{{ 'app.testVideoSound' | translate }}</span>
+        </a>
       </mat-list>
     </mat-drawer>
 

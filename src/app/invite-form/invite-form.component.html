@@ -52,7 +52,6 @@
                 'inviteForm.consultationWillBeOnPremise' | translate
               "></p>
           </div>
-          <!-- <p>Send an invitation</p> -->
           <div *ngIf="isPatientInvite" class="field-container">
             <mat-form-field>
               <mat-label class="label">
@@ -115,7 +114,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field *ngIf="queues.length > 0">
+            <mat-form-field *ngIf="queues?.length > 0">
               <mat-label class="label"
                 >{{ 'inviteForm.waitingQueue' | translate }}
               </mat-label>
@@ -210,15 +209,15 @@
           <ng-container *ngIf="isPatientInvite">
             <div class="field-container">
               <mat-checkbox formControlName="sendLinkManually">
-                I want to send the link manually
+                  {{ 'inviteForm.sendLinkManually' | translate }}
               </mat-checkbox>
             </div>
           </ng-container>
 
           <div class="field-container">
             <div>
-              <mat-checkbox formControlName="isScheduled" [(ngModel)]="schedule"
-                >{{ 'inviteForm.schedulingLater' | translate }}
+              <mat-checkbox formControlName="isScheduled" [(ngModel)]="schedule">
+                  {{ 'inviteForm.schedulingLater' | translate }}
               </mat-checkbox>
               <mat-error
                 class="might-late-warning"
@@ -227,9 +226,9 @@
               </mat-error>
             </div>
 
+
             <mat-form-field>
-              <mat-label class="label"
-                >{{ 'inviteForm.language' | translate }}
+              <mat-label class="label">{{ 'inviteForm.language' | translate }}
               </mat-label>
               <mat-select
                 formControlName="languageFormControl"
@@ -237,19 +236,17 @@
                 [(ngModel)]="data.language"
                 [errorStateMatcher]="matcher"
                 (selectionChange)="languageSelectChanged()">
-                <mat-select-trigger>
-                  <span class="language__option">
-                    <span>
-                      {{ 'inviteForm.' + data.language | translate }}</span
-                    >
-                  </span>
-                </mat-select-trigger>
+<!--                <mat-select-trigger>-->
+<!--                  <span class="language__option">-->
+<!--                    <span>-->
+<!--                      {{ 'inviteForm.' + data.language | translate }}</span-->
+<!--                    >-->
+<!--                  </span>-->
+<!--                </mat-select-trigger>-->
 
                 <mat-option>--</mat-option>
                 <mat-option *ngFor="let lang of languages" [value]="lang.code">
-                  <span class="language__option">
-                    <span>{{ lang.translated }}</span>
-                  </span>
+                    {{ lang.translated }}
                 </mat-option>
               </mat-select>
               <mat-error
@@ -285,7 +282,6 @@
           {{ 'inviteForm.guests' | translate }}
         </h1>
         <div mat-dialog-content class="dialog-content">
-          <!-- <p>Send an invitation</p> -->
 
           <div class="field-container mt-14">
             <mat-checkbox
@@ -375,7 +371,7 @@
                   "
                   class="expert-field">
                   <ng-container [formGroupName]="i">
-                    <div class="w-100 d-flex justify-content-between gap-10">
+                    <div class="w-100 d-flex justify-content-between align-items-center gap-10">
                       <mat-form-field class="w-100">
                         <mat-label
                           >{{ 'inviteForm.emailOrSMS' | translate }}
@@ -432,7 +428,7 @@
                       </mat-form-field>
 
                       <button
-                        mat-button
+                              mat-flat-button color="warn"
                         *ngIf="i > 0"
                         (click)="removeExpert(i)">
                         {{ 'inviteForm.remove' | translate }}
@@ -460,7 +456,7 @@
                   </ng-container>
                 </div>
               </div>
-              <button type="button" mat-button (click)="addExpert()">
+              <button type="button" mat-raised-button (click)="addExpert()">
                 {{ 'inviteForm.anotherExpert' | translate }}
               </button>
             </div>
@@ -472,7 +468,8 @@
             <mat-checkbox
               formControlName="inviteTranslatorFormControl"
               [(ngModel)]="inviteTranslator"
-              >{{ 'inviteForm.inviteTranslator' | translate }}
+              >
+                {{ 'inviteForm.inviteTranslator' | translate }}
             </mat-checkbox>
           </div>
           <ng-container

@@ -83,7 +83,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   createInviteSub: Subscription;
   error = '';
   myForm;
-  queues;
+  queues = [];
   getQueuesSub;
   schedule = false;
   inviteTranslator = false;

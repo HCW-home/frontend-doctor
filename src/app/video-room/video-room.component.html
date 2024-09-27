@@ -56,21 +56,21 @@
   </div>
 
   <div class="control-buttons-wrapper">
-    <button (click)="camStatusChanged()" class="fab accept-btn" mat-button>
+    <button (click)="camStatusChanged()" class="fab accept-btn" mat-icon-button>
       <mat-icon *ngIf="camStatus === 'on'" svgIcon="camera"></mat-icon>
       <mat-icon *ngIf="camStatus === 'off'" svgIcon="cameraOff"></mat-icon>
     </button>
     <button
       (click)="rejectCall()"
       class="fab reject-btn"
-      mat-button>
+      mat-icon-button>
       <mat-icon svgIcon="hangup"></mat-icon>
     </button>
-    <button (click)="muteStatusChanged()" class="fab accept-btn" mat-button>
+    <button (click)="muteStatusChanged()" class="fab accept-btn" mat-icon-button>
       <mat-icon *ngIf="muteStatus === 'on'" svgIcon="mic"></mat-icon>
       <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
     </button>
-    <button (click)="resize()" class="fab resize-button" mat-button>
+    <button (click)="resize()" class="fab resize-button" mat-icon-button>
       <mat-icon svgIcon="enlarge"></mat-icon>
     </button>
     <!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->

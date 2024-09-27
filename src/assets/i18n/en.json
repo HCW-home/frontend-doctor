@@ -175,6 +175,7 @@
         "pleaseChooseTheSex": "Please choose gender",
         "waitingQueue": "Shared waiting queue",
         "mySelf": "None",
+        "sendLinkManually": "I want to send the link manually",
         "pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumberEx": "Please enter only email or mobile number (+41 or +33)",
         "pleaseEnterValidEmailOrPhoneNumber": "Please enter an email or mobile number in the format +41 or +33",
         "pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Please fill in only one  email or mobile number.",
