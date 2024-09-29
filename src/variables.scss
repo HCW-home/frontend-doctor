@@ -1,11 +1,93 @@
 :root {
   --primary-color: #2871BD;
+  --app-red: #e3393a;
   --app-green: #007f00;
   --app-green-2: #80BE03FF;
   --app-white: #FFF;
   --app-black: rgba(0, 0, 0, 0.87);
-  --app-red: #e3393a;
   --app-gray: #464F60FF;
   --app-gray-2: #909090FF;
+}
 
+.mat-primary.mat-mdc-button-base {
+  --mdc-text-button-label-text-color: var(--primary-color) !important;
+  --mdc-text-button-disabled-label-text-color: rgba(26, 27, 31, .38);
+  --mdc-protected-button-container-color: #fdfbff;
+  --mdc-protected-button-label-text-color: var(--primary-color) !important;
+  --mdc-protected-button-disabled-container-color: rgba(26, 27, 31, .12);
+  --mdc-protected-button-disabled-label-text-color: rgba(26, 27, 31, .38);
+  --mdc-protected-button-container-elevation-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+  --mdc-protected-button-disabled-container-elevation-shadow: 0px 0px 0px 0px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12);
+  --mdc-protected-button-focus-container-elevation-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+  --mdc-protected-button-hover-container-elevation-shadow: 0px 3px 3px -2px rgba(0, 0, 0, .2), 0px 3px 4px 0px rgba(0, 0, 0, .14), 0px 1px 8px 0px rgba(0, 0, 0, .12);
+  --mdc-protected-button-pressed-container-elevation-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+  --mdc-protected-button-container-shadow-color: #000000;
+  --mdc-filled-button-container-color: var(--primary-color) !important;
+  --mdc-filled-button-label-text-color: #ffffff;
+  --mdc-filled-button-disabled-container-color: rgba(26, 27, 31, .12);
+  --mdc-filled-button-disabled-label-text-color: rgba(26, 27, 31, .38);
+  --mdc-outlined-button-disabled-outline-color: rgba(26, 27, 31, .12);
+  --mdc-outlined-button-disabled-label-text-color: rgba(26, 27, 31, .38);
+  --mdc-outlined-button-label-text-color: var(--primary-color) !important;
+  --mdc-outlined-button-outline-color: #74777f;
+  --mat-text-button-state-layer-color: var(--primary-color) !important;
+  --mat-text-button-disabled-state-layer-color: #44474e;
+  --mat-text-button-ripple-color: rgba(0, 92, 187, .12);
+  --mat-text-button-hover-state-layer-opacity: .08;
+  --mat-text-button-focus-state-layer-opacity: .12;
+  --mat-text-button-pressed-state-layer-opacity: .12;
+  --mat-protected-button-state-layer-color: var(--primary-color) !important;
+  --mat-protected-button-disabled-state-layer-color: #44474e;
+  --mat-protected-button-ripple-color: rgba(0, 92, 187, .12);
+  --mat-protected-button-hover-state-layer-opacity: .08;
+  --mat-protected-button-focus-state-layer-opacity: .12;
+  --mat-protected-button-pressed-state-layer-opacity: .12;
+  --mat-filled-button-state-layer-color: #ffffff;
+  --mat-filled-button-disabled-state-layer-color: #44474e;
+  --mat-filled-button-ripple-color: rgba(255, 255, 255, .12);
+  --mat-filled-button-hover-state-layer-opacity: .08;
+  --mat-filled-button-focus-state-layer-opacity: .12;
+  --mat-filled-button-pressed-state-layer-opacity: .12;
+  --mat-outlined-button-state-layer-color: var(--primary-color) !important;
+  --mat-outlined-button-disabled-state-layer-color: #44474e;
+  --mat-outlined-button-ripple-color: rgba(0, 92, 187, .12);
+  --mat-outlined-button-hover-state-layer-opacity: .08;
+  --mat-outlined-button-focus-state-layer-opacity: .12;
+  --mat-outlined-button-pressed-state-layer-opacity: .12;
+}
+
+.mat-accent.mat-mdc-slide-toggle {
+  --mdc-switch-selected-track-color: var(--primary-color) !important;
+  --mdc-switch-selected-pressed-track-color: var(--primary-color) !important;
+  --mdc-switch-selected-focus-track-color: var(--primary-color) !important;
+  --mdc-switch-selected-hover-track-color: var(--primary-color) !important;
+}
+
+.mat-accent.mat-mdc-checkbox {
+  --mdc-checkbox-disabled-selected-checkmark-color: #fdfbff;
+  --mdc-checkbox-selected-focus-state-layer-opacity: .12;
+  --mdc-checkbox-selected-hover-state-layer-opacity: .08;
+  --mdc-checkbox-selected-pressed-state-layer-opacity: .12;
+  --mdc-checkbox-unselected-focus-state-layer-opacity: .12;
+  --mdc-checkbox-unselected-hover-state-layer-opacity: .08;
+  --mdc-checkbox-unselected-pressed-state-layer-opacity: .12;
+  --mdc-checkbox-disabled-selected-icon-color: rgba(26, 27, 31, .38);
+  --mdc-checkbox-disabled-unselected-icon-color: rgba(26, 27, 31, .38);
+  --mdc-checkbox-selected-checkmark-color: #ffffff;
+  --mdc-checkbox-selected-focus-icon-color: var(--primary-color) !important;
+  --mdc-checkbox-selected-hover-icon-color: var(--primary-color) !important;
+  --mdc-checkbox-selected-icon-color: var(--primary-color) !important;
+  --mdc-checkbox-selected-pressed-icon-color: var(--primary-color) !important;
+  --mdc-checkbox-unselected-focus-icon-color: #1a1b1f;
+  --mdc-checkbox-unselected-hover-icon-color: #1a1b1f;
+  --mdc-checkbox-unselected-icon-color: #44474e;
+  --mdc-checkbox-unselected-pressed-icon-color: #1a1b1f;
+  --mdc-checkbox-selected-focus-state-layer-color: var(--primary-color) !important;
+  --mdc-checkbox-selected-hover-state-layer-color: var(--primary-color) !important;
+  --mdc-checkbox-selected-pressed-state-layer-color: #1a1b1f;
+  --mdc-checkbox-unselected-focus-state-layer-color: #1a1b1f;
+  --mdc-checkbox-unselected-hover-state-layer-color: #1a1b1f;
+  --mdc-checkbox-unselected-pressed-state-layer-color: var(--primary-color) !important;
+  --mdc-form-field-label-text-color: #1a1b1f;
+  --mat-checkbox-disabled-label-color: rgba(26, 27, 31, .38)
 }

@@ -168,14 +168,6 @@ input:-webkit-autofill {
   display: flex;
   align-items: center;
 
-  mat-form-field {
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    ::ng-deep .mat-form-field-label {
-      left: 0 !important;
-    }
-  }
 }
 
 .row {
@@ -214,17 +206,6 @@ input:-webkit-autofill {
   color: var(--primary-color);
 }
 
-.plan-consultation-form {
-  ::ng-deep {
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    .mat-form-field-label {
-      left: 0 !important;
-      color: white;
-    }
-  }
-}
 .logo {
   width: 150px;
   margin: 42px;

@@ -18,9 +18,8 @@
           <div
             class="c_info_wrap"
             *ngIf="consultation.consultation.status !== 'closed'">
-            <button
-              class="submit-btn"
-              mat-button
+            <button color="primary"
+              mat-flat-button
               (click)="
                 inviteExpert(consultation.consultation.expertInvitationURL)
               ">
@@ -69,8 +68,9 @@
                   "></app-status>
                 <button
                   (click)="resendInvite(consultation.consultation.invite)"
-                  class="submit-btn"
-                  mat-button
+                  mat-raised-button
+                  class="ml-12"
+                  color="primary"
                   *ngIf="
                     consultation.consultation.status !== 'closed' &&
                     !consultation.consultation.flagPatientOnline
@@ -415,9 +415,7 @@
     <form class="form-wrapper">
       <button
         (click)="showAttachBrowseDlg()"
-        style="flex: 1; border: none; height: 100%"
-        class="send-btn"
-        mat-button>
+        mat-mini-fab color="primary">
         <mat-icon svgIcon="attach"></mat-icon>
       </button>
       <input
@@ -440,9 +438,8 @@
         matInput></textarea>
       <button
         (click)="send()"
-        style="flex: 1; border: none; height: 100%"
-        class="send-btn"
-        mat-button>
+        color="primary"
+        mat-mini-fab>
         <mat-icon svgIcon="send"></mat-icon>
       </button>
     </form>

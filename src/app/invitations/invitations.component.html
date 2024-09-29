@@ -7,9 +7,9 @@
 
     <button
       (click)="openDialog()"
-      class="invite-btn"
-      mat-button
+      mat-flat-button
       type="submit"
+      class="mt-12 mb-12"
       color="primary">
       {{ 'invitations.newInvite' | translate }}
     </button>
@@ -156,32 +156,29 @@
             <mat-spinner [diameter]="35"></mat-spinner>
           </div>
           <button
-            class="secondary-button-outlined"
             *ngIf="
               !invite.resending &&
               (!invite.translatorRequestInvite ||
                 invite.translatorRequestInvite.status === 'ACCEPTED')
             "
+            mat-stroked-button color="primary"
             (click)="resendInvite(invite.id)"
-            mat-raised-button
+            class="mb-12"
             title="{{
               'invitations.sendAgainTheSMSOrEmailInvite' | translate
             }}">
             {{ 'invitations.sendAgain' | translate }}
           </button>
           <button
-            class="secondary-button-outlined send-again"
             (click)="openDialog(invite)"
-            mat-raised-button
+            mat-stroked-button color="primary"
             *ngIf="
               invite.translatorRequestInvite &&
               invite.translatorRequestInvite.status === 'REFUSED'
             ">
             {{ 'consultations.sendAgainANewInvitation' | translate }}
           </button>
-          <button
-            class="secondary-button-outlined edit-button"
-            mat-raised-button
+          <button mat-stroked-button color="primary"
             [routerLink]="['/invitations/' + invite.id]">
             Edit
           </button>
@@ -193,10 +190,10 @@
               <mat-spinner [diameter]="35"></mat-spinner>
             </div>
             <button
-              class="primary-button btn__cancel"
               *ngIf="!invite.revoking"
               (click)="revokeInvite(invite.id)"
-              mat-raised-button
+              color="warn"
+              mat-flat-button
               title="{{
                 'invitations.cancelThisInvitationToJoinAConsultation'
                   | translate

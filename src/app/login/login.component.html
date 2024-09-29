@@ -3,17 +3,18 @@
     <div class="container">
       <div class="at">&#64;</div>
 
-        <a *ngIf="showSamlLogin" [href]="samlLoginUrl" class="redirect-btn" mat-flat-button>
+        <a *ngIf="showSamlLogin" [href]="samlLoginUrl" mat-stroked-button color="primary">
           {{ 'login.institutionalConnection' | translate }}
         </a>
 
-        <a *ngIf="showOpenIdLogin" [href]="openIdLoginUrl" mat-flat-button>
+        <a *ngIf="showOpenIdLogin" [href]="openIdLoginUrl" mat-stroked-button color="primary">
           {{ 'login.institutionalConnection' | translate }}
         </a>
 
       <form
         *ngIf="!localLoginToken && showPasswordLogin"
         (submit)="loginLocal()"
+        class="form-wrapper"
         [class.separated]="showSamlLogin">
         <h4 class="login-local-header">
           {{ 'login.loginWithALocalAccount' | translate }}
@@ -52,7 +53,7 @@
           </mat-error>
         </mat-form-field>
 
-        <button class="submit-btn" mat-button type="submit">
+        <button class="" color="primary" mat-flat-button type="submit">
           {{ 'login.login' | translate }}
         </button>
 
@@ -83,7 +84,7 @@
           </mat-form-field>
         </div>
 
-        <button class="submit-btn" mat-button type="submit">
+        <button color="primary" mat-flat-button type="submit">
           {{ 'login.send' | translate }}
         </button>
       </form>

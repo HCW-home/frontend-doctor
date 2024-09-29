@@ -50,31 +50,7 @@
   }
 
 
-  // ::ng-deep .mat-form-field-infix {
-  //   width: 180px !important;
-  // }
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  ::ng-deep .mat-form-field-label {
-    left: 0 !important;
-  }
 
-  ::ng-deep
-  .mat-mdc-form-field.mat-mdc-form-field-invalid
-  .mat-mdc-form-field-label.mat-accent,
-  .mat-form-field.mat-form-field-invalid
-  .mat-form-field-label
-  .mat-form-field-required-marker {
-    color: #f44336 !important;
-  }
-
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
-    color: black !important;
-  }
 }
 
 .invite-form {
@@ -141,15 +117,16 @@
 }
 
 .interpreter__form {
+  margin: 0 !important;
   flex: 1 1 234px !important;
-  border-left: 1px solid rgb(182, 182, 182);
-  background-color: #f2f7f7;
+  height: auto;
   display: flex;
   align-items: stretch;
-  height: auto !important;
+  background-color: #f2f7f7;
 
-  // max-width: 400px;
-  margin: 0 !important;
+  &:last-child {
+    border-left: 1px solid rgb(182, 182, 182);
+  }
 }
 
 .patient__form {
@@ -246,29 +223,6 @@ h1 {
   justify-content: center;
 }
 
-form {
-  /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
-  /* TODO(mdc-migration): The following rule targets internal classes of dialog that may no longer apply for the MDC version.*/
-  #mat-dialog-title-0 {
-    display: none !important;
-  }
-}
-
-// .invite-type-content {
-//   margin-right: -23px;
-//   margin-left: -23px;
-//   margin-bottom: -23px;
-// }
-// .invite-type-header {
-//   margin-right: -23px;
-//   margin-left: -23px;
-// }
-
-//::ng-deep #invite_form_dialog {
-//  padding: 0 !important;
-//  overflow-x: hidden;
-//}
 .accepted-invite-error {
   display: flex;
   justify-content: center;

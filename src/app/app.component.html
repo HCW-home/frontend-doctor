@@ -35,9 +35,9 @@
           class="menu-btn">
           <mat-icon
             svgIcon="queue"
+            matBadgePosition="below after"
             [matBadge]="pendingConsultations || ''"
-            matBadgeColor="warn"
-          ></mat-icon>
+            matBadgeColor="warn"></mat-icon>
           <span class="btn-text">{{ 'app.waitingRoom' | translate }}</span>
         </a>
         <a
@@ -48,6 +48,7 @@
           <mat-icon
             svgIcon="chat"
             [matBadgeHidden]="false"
+            matBadgePosition="below after"
             [matBadge]="activeConsultations || ''"
             matBadgeColor="warn"></mat-icon>
           <span class="btn-text">{{
@@ -59,12 +60,7 @@
           routerLink="/closed-consultations"
           routerLinkActive="active"
           class="menu-btn">
-          <mat-icon
-            svgIcon="history"
-            [matBadge]="''"
-            [matBadgeHidden]="false"
-            matBadgePosition="after"
-            matBadgeColor="warn"></mat-icon>
+          <mat-icon svgIcon="history"></mat-icon>
           <span class="btn-text">{{
             'app.consultationHistory' | translate
           }}</span>
@@ -75,11 +71,7 @@
           routerLink="/invitations"
           routerLinkActive="active"
           class="menu-btn">
-          <mat-icon
-            svgIcon="invite"
-            [matBadge]="''"
-            matBadgePosition="after"
-            matBadgeColor="warn"></mat-icon>
+          <mat-icon svgIcon="invite"></mat-icon>
           <span class="btn-text">{{ 'app.invites' | translate }}</span>
         </a>
 

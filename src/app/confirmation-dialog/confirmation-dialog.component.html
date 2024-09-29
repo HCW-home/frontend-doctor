@@ -1,16 +1,16 @@
-<h1 mat-dialog-title>
+<h1 mat-dialog-title >
   {{ title }}
 </h1>
 <div mat-dialog-content>
-  <p>{{ question }}</p>
+  <p class="question">{{ question }}</p>
 </div>
 <div mat-dialog-actions>
   <button
-    class="secondary-button-outlined"
-    mat-button
+    mat-stroked-button
+    color="primary"
     [mat-dialog-close]="false"
   >
     {{ this.noText }}
   </button>
-  <button *ngIf="yesText" mat-button class="btn__cancel primary-button" [mat-dialog-close]="true">{{ this.yesText }}</button>
+  <button *ngIf="yesText" mat-flat-button color="warn" [mat-dialog-close]="true">{{ this.yesText }}</button>
 </div>

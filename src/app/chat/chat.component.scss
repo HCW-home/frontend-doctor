@@ -79,6 +79,8 @@ div.chat {
   padding: 20px 30px;
   position: relative;
   background-color: var(--app-white);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   box-shadow: 0 9px 5px 0 rgba(212, 210, 212, 1);
 
   .general-title {
@@ -107,7 +109,10 @@ div.inputCont {
   flex: 1;
   height: 100%;
   display: flex;
+  padding: 0 16px;
   align-items: center;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   box-shadow: 0 -6px 5px 0px rgba(212,210,212,1);
 }
 
@@ -226,14 +231,6 @@ textarea:focus {
   }
 }
 
-.submit-btn {
-  background-color: var(--primary-color);
-  border-radius: 60px;
-  height: 37px;
-  margin: auto;
-  color: #ffff;
-}
-
 .general-wrapper {
   display: flex;
   justify-content: space-between;
@@ -254,7 +251,8 @@ textarea:focus {
   flex: 12;
   resize: none;
   border: none;
-  padding: 7px 0;
+  padding: 8px;
+  margin: 0 16px;
   font-size: 16px;
   border-right: 1px solid rgba(203, 203, 203, 0.93);
   border-left: 1px solid rgba(203, 203, 203, 0.93);

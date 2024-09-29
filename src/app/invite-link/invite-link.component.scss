@@ -1,37 +1,25 @@
+.label {
+  color: var(--app-black);
+}
 
-  .label {
-    color: black;
-  }
+.input-wrapper {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}
 
+.expert-link-wrapper {
+  max-width: 432px;
 
   .input-wrapper {
+    gap: 10px;
     display: flex;
     align-items: center;
-    gap: 20px;
   }
 
-  .title {
-    text-align: center;
-    margin-top: 0
+  mat-icon {
+    cursor: pointer;
   }
 
-  .expert-link-wrapper {
-    padding: 24px;
-
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-    }
-
-    mat-icon {
-      cursor: pointer;
-    }
-
-  }
+}
 

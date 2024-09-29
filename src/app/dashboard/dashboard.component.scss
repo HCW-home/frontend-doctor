@@ -4,17 +4,6 @@ span.tile-header {
   color: #3f3f3f;
 }
 
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
-mat-card {
-  padding: 0;
-}
-
-mat-icon {
-  height: 15px;
-}
-
 .desc {
   margin: 20px auto 19px 20px;
   width: 70%;
@@ -60,14 +49,6 @@ mat-icon {
   }
 }
 
-.next-con-btn {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border-radius: 50px;
-  margin: 20px;
-  font-size: 12px;
-}
-
 .view-more-btn {
   border-radius: 50px;
   margin: 20px;
@@ -75,38 +56,21 @@ mat-icon {
   border: 1px solid #737373;
 }
 
-.badge {
-  height: 0px;
-}
-
-//#BD2828
-
-.total-badge {
-  display: inline;
-  position: absolute;
-  top: 25px;
-  right: 39px;
-}
-
-.last-msg {
-  color: #3f3f3f;
-}
-
 .noCon {
-  margin-left: 21px;
+  margin-left: 20px;
 }
 
 table {
   width: 100%;
   font-size: 14px;
   font-weight: 500;
-  border-bottom: 1px solid #b1b1b16b;
-  border-collapse: collapse;
   padding-right: 1%;
+  border-collapse: collapse;
+  border-bottom: 1px solid #b1b1b16b;
 
   tr {
     border-top: 1px solid #b1b1b16b;
-    border-left: 2px solid #ffffff;
+    border-left: 2px solid var(--app-white);
     cursor: pointer;
     &:hover {
       border-left: 2px solid var(--primary-color);
@@ -120,13 +84,6 @@ table {
     margin-bottom: 10px;
     font-weight: 400;
   }
-}
-.invite-btn {
-  color: #ffffff;
-  font-size: 12px;
-  margin-left: 20px;
-  border-radius: 50px;
-  background-color: var(--primary-color);
 }
 .active-consultations {
   .unread,

@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -18,7 +19,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
@@ -36,11 +37,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatInputModule,
     MatGridListModule,
     MatCardModule,
+    MatRippleModule,
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatDividerModule,
     MatNativeDateModule,
     MatDatepickerModule,
   ],
@@ -54,6 +57,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatIconModule,
     MatBadgeModule,
     FormsModule,
+    MatRippleModule,
     ReactiveFormsModule,
     MatInputModule,
     MatGridListModule,
@@ -61,6 +65,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
+    MatDividerModule,
     MatSlideToggleModule,
     MatSnackBarModule,
     MatNativeDateModule,

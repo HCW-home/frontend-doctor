@@ -56,7 +56,7 @@
                 | translate
             }}
           </p>
-          <button (click)="closeConsultation()" class="btn danger" mat-button>
+          <button (click)="closeConsultation()" mat-flat-button color="warn">
             {{ 'overlay.close' | translate }}
           </button>
         </div>
@@ -67,7 +67,7 @@
               'overlay.youWillbeAbleToResumeTheConsultationLater' | translate
             }}
           </p>
-          <button (click)="finishConsultation()" class="btn" mat-button>
+          <button (click)="finishConsultation()"  color="primary" mat-flat-button>
             {{ 'overlay.terminateButKeepOpened' | translate }}
           </button>
         </div>
@@ -76,7 +76,7 @@
           <p>
             {{ 'overlay.doNotCloseTheConsultation' | translate }}
           </p>
-          <button (click)="onClose($event, true)" class="btn" mat-button>
+          <button (click)="onClose($event, true)"  mat-raised-button color="primary">
             {{ 'overlay.staryInTheCurrentConsultation' | translate }}
           </button>
         </div>
@@ -250,13 +250,13 @@
         </div>
         <div class="buttons">
           <button
-            class="submit-btn"
-            mat-button
+            mat-flat-button
+            color="primary"
             (click)="onSubmitFeedback()"
             *ngIf="!feedbackSent">
             {{ 'overlay.sendMyFeedback' | translate }}
           </button>
-          <button class="discard-btn" mat-button (click)="onCloseFeedback()">
+          <button mat-flat-button color="warn" class="ml-12" (click)="onCloseFeedback()">
             {{ 'consultation.close' | translate }}
           </button>
         </div>

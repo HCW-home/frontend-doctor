@@ -1,47 +1,13 @@
-@use '@angular/material' as mat;
-
-@include mat.core();
 @import "assets/fonts/fonts";
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-//@import "@angular/material/theming";
-html,
 body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+}
+
+html, body {
   height: 100%;
 }
 
-
-body {
-  margin: 0;
-  font-family: 'Roboto', "Helvetica Neue", sans-serif;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
-.mat-list-item-content {
-  padding: 0px !important;
-}
-
-.mat-badge-after .mat-badge-content {
-  // background: #bd2828 !important;
-  z-index: 20;
-  right: -24px !important;
-  top: -12px !important;
-}
-
-.mat-badge-content {
-  background: #bd2828 !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
-.mat-form-field-label {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-}
 
 .capitalize {
   text-transform: uppercase;
@@ -52,20 +18,16 @@ img {
 }
 
 .pagination-control {
-  display: flex;
   width: 100%;
-  align-items: center;
-  justify-content: center;
+  display: flex;
   margin-top: 30px;
+  align-items: center;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .list-card {
   margin-bottom: 28px;
-}
-
-.owl-dt-control-content.owl-dt-control-button-content {
-  color: var(--primary-color);
 }
 
 .red-snackbar {
@@ -109,8 +71,24 @@ img.logo {
   gap: 10px;
 }
 
+.mt-12 {
+  margin-top: 12px;
+}
+
 .mt-14 {
   margin-top: 14px;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.ml-12 {
+  margin-left: 12px;
 }
 
 .ml-40 {
@@ -131,63 +109,6 @@ img.logo {
   flex-direction: column;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-.mat-checkbox-ripple .mat-ripple-element {
-  background-color: var(--primary-color) !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-.mat-checkbox-checked.mat-accent .mat-checkbox-background {
-  background-color: var(--primary-color) !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-  background-color: var(--primary-color) !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
-.mat-mdc-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-  background-color: var(--primary-color) !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
-.mat-mdc-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-  background-color: var(--primary-color) !important;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-.mat-mdc-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-  border-color: var(--primary-color);
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-.mat-mdc-radio-button.mat-accent .mat-radio-inner-circle {
-  color: var(--primary-color);
-  background-color: var(--primary-color);
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
-.mat-mdc-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: var(--primary-color);
-}
-
 .secondary-button-outlined {
   border-radius: 50px !important;
   border: 1px solid #737373 !important;
@@ -205,16 +126,6 @@ img.logo {
   max-width: 90vw !important;
   overflow-y: auto !important;
 }
-
-
-/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
-.mat-mdc-button.mat-button-disabled.mat-button-disabled {
-  color: var(--app-white);
-  opacity: 0.7;
-}
-
 
 .mat-mdc-button:not(:disabled) {
   color: var(--app-white);

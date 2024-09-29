@@ -2,10 +2,10 @@
   <div class="fixed-height"></div>
   <mat-icon class="ringing-icon" svgIcon="incoming"></mat-icon>
   <div class="ringing-buttons-wrapper">
-    <button (click)="joinToSession()" class="fab accept-btn" mat-button>
+    <button (click)="joinToSession()" color="primary" mat-fab>
       <mat-icon svgIcon="camera"></mat-icon>
     </button>
-    <button (click)="rejectCall()" class="fab reject-btn" mat-button>
+    <button (click)="rejectCall()"  color="warn" mat-fab class="reject-btn ml-12">
       <mat-icon svgIcon="hangup"></mat-icon>
     </button>
   </div>
@@ -56,21 +56,20 @@
   </div>
 
   <div class="control-buttons-wrapper">
-    <button (click)="camStatusChanged()" class="fab accept-btn" mat-icon-button>
+    <button (click)="camStatusChanged()" color="primary" mat-fab>
       <mat-icon *ngIf="camStatus === 'on'" svgIcon="camera"></mat-icon>
       <mat-icon *ngIf="camStatus === 'off'" svgIcon="cameraOff"></mat-icon>
     </button>
     <button
       (click)="rejectCall()"
-      class="fab reject-btn"
-      mat-icon-button>
+      color="warn" mat-fab class="reject-btn">
       <mat-icon svgIcon="hangup"></mat-icon>
     </button>
-    <button (click)="muteStatusChanged()" class="fab accept-btn" mat-icon-button>
+    <button (click)="muteStatusChanged()" color="primary" mat-fab>
       <mat-icon *ngIf="muteStatus === 'on'" svgIcon="mic"></mat-icon>
       <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
     </button>
-    <button (click)="resize()" class="fab resize-button" mat-icon-button>
+    <button (click)="resize()" class="fab resize-button"  color="primary" mat-fab>
       <mat-icon svgIcon="enlarge"></mat-icon>
     </button>
     <!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->

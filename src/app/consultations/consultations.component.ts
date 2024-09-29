@@ -210,6 +210,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         noText: this.translate.instant('invitations.cancelSendAgain'),
         title: this.translate.instant('invitations.resendConfirmTitle'),
       },
+      autoFocus: false
     });
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
@@ -346,7 +347,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         this.appLiedFiltersCount = 0;
         this.consultations = [...this.allConsultations];
       }
-      console.log('The dialog was closed', result);
     });
   }
 

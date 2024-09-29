@@ -122,6 +122,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         noText: this.translate.instant('invitations.cancelSendAgain'),
         title: this.translate.instant('invitations.resendConfirmTitle'),
       },
+      autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {

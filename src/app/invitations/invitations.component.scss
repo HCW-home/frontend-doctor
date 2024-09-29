@@ -63,15 +63,6 @@ span.tile-header {
   border-radius: 50px;
   font-size: 12px;
 }
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card {
-  ::ng-deep .mat-grid-tile .mat-figure {
-    justify-content: start;
-    padding-left: 1em;
-  }
-}
 
 .loading-wrapper {
   height: 300px;

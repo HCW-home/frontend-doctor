@@ -3,10 +3,10 @@
   (submit)="onSubmit()"
   class="invite-form"
   [formGroup]="myForm">
-  <h2 class="title">
+  <h2 class="title" mat-dialog-title>
     {{ 'consultations.inviteExpert' | translate }}
   </h2>
-  <div mat-dialog-content class="dialog-content">
+  <div mat-dialog-content>
     <div class="field-container">
       <div class="send-link-wrapper">
         <p>
@@ -59,10 +59,10 @@
           <mat-spinner [diameter]="35"></mat-spinner>
         </div>
         <button
-          class="btn__send"
           [disabled]="loading"
           type="submit"
-          mat-raised-button>
+          color="primary"
+          mat-flat-button>
           {{ 'profileUpdate.send' | translate }}
         </button>
       </div>
@@ -88,7 +88,7 @@
             [cdkCopyToClipboard]="data.expertLink"></mat-icon>
         </div>
 
-        <button mat-button (click)="onNoClick()" type="button">
+        <button color="primary" mat-raised-button (click)="onNoClick()" type="button">
           {{ 'consultation.close' | translate }}
         </button>
       </div>

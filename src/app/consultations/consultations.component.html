@@ -19,7 +19,8 @@
             ? ''
             : consultations.length
         "
-        matBadgePosition="after">
+        [matBadgeColor]="'warn'"
+        matBadgeOverlap="false">
         {{ title.title | uppercase }}
       </h2>
     </div>
@@ -28,8 +29,8 @@
       <div class="filters-wrapper">
         <button
           mat-raised-button
-          class="secondary-button-outlined"
           #filterButton
+          color="primary"
           (click)="openFilterModal()">
           <mat-icon svgIcon="filter" class="filter-icon"></mat-icon>
           {{ 'consultations.filters' | translate }}
@@ -210,15 +211,14 @@
           <td>
             <button
               (click)="openDialog($event, consultation)"
-              class="secondary-button-outlined"
-              mat-button
+              mat-stroked-button
+              color="primary"
               *ngIf="status === 'closed'">
               {{ 'consultations.sendAgainANewInvitation' | translate }}
             </button>
             <button
               (click)="resendInvite($event, consultation.consultation.invite)"
-              class="secondary-button-outlined"
-              mat-raised-button
+              mat-stroked-button color="primary"
               *ngIf="status !== 'closed'">
               {{ 'consultations.sendAgainTheInvitation' | translate }}
             </button>
@@ -229,8 +229,6 @@
             }}</span>
             <mat-icon
               *ngIf="consultation.unreadCount"
-              class="badge"
-              matBadgePosition="before"
               [matBadge]="consultation.unreadCount"
               matBadgeColor="warn"></mat-icon>
           </td>

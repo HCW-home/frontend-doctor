@@ -47,7 +47,9 @@ export class InvitationsComponent implements OnInit {
       invite?.translatorRequestInvite?.status === 'ACCEPTED'
     ) {
       this.dialog
-        .open(InvitationAlreadyAcceptedComponent)
+        .open(InvitationAlreadyAcceptedComponent, {
+          autoFocus: false,
+        })
         .afterClosed()
         .subscribe(result => {
           this.router.navigate(['/invitations/']);
@@ -125,6 +127,7 @@ export class InvitationsComponent implements OnInit {
         noText: this.translate.instant('invitations.cancelSendAgain'),
         title: this.translate.instant('invitations.resendConfirmTitle'),
       },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
@@ -173,6 +176,7 @@ export class InvitationsComponent implements OnInit {
         noText: this.translate.instant('invitations.cancelRevoke'),
         title: this.translate.instant('invitations.revokeConfirmTitle'),
       },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(confirm => {

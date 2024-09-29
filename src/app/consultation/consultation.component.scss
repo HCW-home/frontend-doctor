@@ -70,31 +70,23 @@
 }
 
 
-.actions-button-wrapper {
-  gap: 20px;
+.buttons {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  justify-content: center;
 
-  @media (max-width: 600px) {
-    gap: 10px;
-    flex-direction: row;
+  .actions-button-wrapper {
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    @media (max-width: 600px) {
+      gap: 10px;
+      flex-direction: row;
+
+    }
 
   }
-
-}
-
-.submit-btn {
-  display: block;
-  background-color: var(--app-white);
-  border-radius: 60px;
-  text-align: center;
-  margin: auto;
-  color: var(--primary-color);
-}
-
-.submit-btn mat-icon {
-  width: 16px;
 }
 
 .device--select {
@@ -122,13 +114,12 @@
   }
 
   .container {
-    margin-top: 5%;
-    padding-top: 20px;
-    padding-bottom: 20px;
     width: 80%;
+    padding:20px;
+    margin-top: 5%;
     margin-left: 10%;
     min-height: 300px;
-    background: #fff;
+    background: var(--app-white);
 
     h2 {
       text-align: center;
@@ -149,10 +140,6 @@
       color: var(--primary-color);
     }
 
-    .submit-btn {
-      background: var(--primary-color);
-      color: #fff;
-    }
   }
 }
 

@@ -237,10 +237,13 @@ div.btns {
 
 div.btns .close {
   background-color: var(--app-red);
+  border-top-left-radius: 16px;
 }
 
 div.btns .resume {
   background-color: var(--app-green);
+  border-top-right-radius: 16px;
+
 }
 
 .btn {
@@ -314,25 +317,8 @@ textarea:focus {
 }
 
 .buttons {
+  margin-top: 16px;
   text-align: center;
-
-  button {
-    margin: 10px 3%;
-    font-size: 0.9em;
-    text-align: center;
-    border-radius: 60px;
-    display: inline-block;
-    padding: 3px 30px 2px;
-    color: var(--app-white);
-  }
-}
-
-.submit-btn {
-  background: var(--primary-color);
-}
-
-.discard-btn {
-  background-color: #e3393a;
 }
 
 .feedback-saved {

@@ -21,8 +21,9 @@
       <button
         *ngIf="pendingConsultations.length"
         (click)="acceptNextConsultation()"
-        class="next-con-btn"
-        mat-button>
+        class="ml-20 mb-12"
+        color="primary"
+        mat-flat-button>
         {{ 'dashboard.startNextConsultation' | translate }}
       </button>
       <h4 class="noCon" *ngIf="!pendingConsultations.length">
@@ -32,9 +33,9 @@
       <button
         *ngIf="!pendingConsultations.length"
         (click)="openDialog()"
-        class="primary-button invite-btn"
         mat-flat-button
-        type="submit">
+        class="ml-20"
+        color="primary">
         {{ 'dashboard.sendNewInvite' | translate }}
       </button>
 
@@ -65,15 +66,14 @@
       <button
         *ngIf="pendingConsultations.length"
         routerLink="/pending-consultations"
-        mat-button
-        class="view-more-btn">
+        color="primary"
+        class="ml-20 mt-12"
+        [matBadgeHidden]="!pendingConsultationsCount"
+        [matBadge]="pendingConsultationsCount"
+        matBadgeColor="warn"
+        mat-stroked-button>
         {{ 'dashboard.displayTheList' | translate }}
       </button>
-      <mat-icon
-        *ngIf="pendingConsultationsCount"
-        class="badge total-badge"
-        [matBadge]="pendingConsultationsCount"
-        matBadgeColor="warn"></mat-icon>
     </mat-card>
 
     <mat-card appearance="outlined" class="card-right">
@@ -113,7 +113,6 @@
           <td class="unread">
             <mat-icon
               *ngIf="ac.unreadCount"
-              class="badge"
               matBadgePosition="before"
               [matBadge]="ac.unreadCount"
               matBadgeColor="warn"></mat-icon>
@@ -127,14 +126,13 @@
       <button
         *ngIf="activeConsultations.length"
         routerLink="/active-consultations"
-        mat-button
-        class="view-more-btn">
+        mat-stroked-button
+        class="ml-20 mt-14"
+        [matBadge]="activeConsultationsCount"
+        matBadgeColor="warn"
+        color="primary">
         {{ 'dashboard.displayTheList' | translate }}
       </button>
-      <mat-icon
-        class="badge total-badge"
-        [matBadge]="activeConsultationsCount"
-        matBadgeColor="warn"></mat-icon>
     </mat-card>
   </div>
 </ng-container>
