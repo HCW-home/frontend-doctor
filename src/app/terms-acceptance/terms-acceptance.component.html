@@ -18,14 +18,14 @@
                     </mat-checkbox>
                 </section>
                 <div class="back">
-                    <button [disabled]="!checked" (click)="submit()" class="btn__send primary-button" mat-button>
+                    <button [disabled]="!checked" (click)="submit()" color="primary" mat-stroked-button>
                         {{ 'cgu.submit' | translate }}
                     </button>
                 </div>
             </ng-container>
 
             <div class="back" *ngIf="!showCheckbox">
-                <button (click)="goBack()" class="secondary-button-outlined" mat-button>
+                <button (click)="goBack()" color="primary" mat-stroked-button>
                     {{ 'cgu.backToHome' | translate }}
                 </button>
             </div>

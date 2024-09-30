@@ -56,7 +56,7 @@
                 | translate
             }}
           </p>
-          <button (click)="closeConsultation()" mat-flat-button color="warn">
+          <button (click)="closeConsultation()" class="mt-auto" mat-flat-button color="warn">
             {{ 'overlay.close' | translate }}
           </button>
         </div>
@@ -67,7 +67,7 @@
               'overlay.youWillbeAbleToResumeTheConsultationLater' | translate
             }}
           </p>
-          <button (click)="finishConsultation()"  color="primary" mat-flat-button>
+          <button (click)="finishConsultation()" class="mt-auto"  color="primary" mat-flat-button>
             {{ 'overlay.terminateButKeepOpened' | translate }}
           </button>
         </div>
@@ -76,7 +76,7 @@
           <p>
             {{ 'overlay.doNotCloseTheConsultation' | translate }}
           </p>
-          <button (click)="onClose($event, true)"  mat-raised-button color="primary">
+          <button (click)="onClose($event, true)" class="mt-auto" mat-raised-button color="primary">
             {{ 'overlay.staryInTheCurrentConsultation' | translate }}
           </button>
         </div>

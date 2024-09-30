@@ -71,6 +71,10 @@ img.logo {
   gap: 10px;
 }
 
+.mt-auto {
+  margin-top: auto;
+}
+
 .mt-12 {
   margin-top: 12px;
 }
@@ -107,17 +111,6 @@ img.logo {
 .mat-expansion-panel-body {
   display: flex;
   flex-direction: column;
-}
-
-.secondary-button-outlined {
-  border-radius: 50px !important;
-  border: 1px solid #737373 !important;
-  box-shadow: none !important;
-}
-
-.primary-button {
-  border-radius: 50px !important;
-  box-shadow: none !important;
 }
 
 .cdk-overlay-pane {

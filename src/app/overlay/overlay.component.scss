@@ -17,8 +17,8 @@
 }
 
 .resume-label {
-  font-size: 0.7em;
   color: #ccc;
+  font-size: 0.7em;
 }
 
 .overlay {
@@ -36,20 +36,20 @@
 }
 
 .overlay-content {
-  position: absolute;
   top: 10px;
   width: 70%;
   right: 15%;
   height: 50%;
-  min-height: 400px;
   z-index: 130;
+  min-height: 400px;
+  position: absolute;
   background-color: white;
 }
 
 .overlay-header {
-  background-color: #266eb7;
   padding: 30px;
-  color: white;
+  color: var(--app-white);
+  background-color: var(--primary-color);
 }
 
 .chat-cont {
@@ -65,16 +65,6 @@
     width: 100%;
     overflow: auto;
   }
-}
-
-.btn-div {
-  width: 66.6%;
-  height: 100%;
-  position: fixed;
-  // z-index: 112;
-  // background-color: #ffffff;
-  max-width: calc(100% - 400px);
-  left: 0;
 }
 
 .header {
@@ -148,7 +138,6 @@ div.msg-time {
 
 .outgoing,
 .incoming {
-  // min-width:270px;
   width: 70%;
   margin-top: 16px;
 }
@@ -161,7 +150,7 @@ div.msg-time {
   padding: 8px 14px 8px 14px;
 
   color: rgb(58, 58, 58);
-  background-color: #ffffff;
+  background-color: var(--app-white);
 
   margin-right: 0;
 }
@@ -292,7 +281,7 @@ div.act-cont {
     background: var(--app-white);
 
     &.selected {
-      border-color: #086baf;
+      border-color: var(--primary-color);
     }
 
     img {
@@ -313,7 +302,7 @@ textarea {
 }
 
 textarea:focus {
-  border-color: #086baf;
+  border-color: var(--primary-color);
 }
 
 .buttons {
