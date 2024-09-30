@@ -16,9 +16,9 @@
       <mat-icon svgIcon="in-new-tab"></mat-icon>
     </div>
 
-    <div *ngIf="showCloseConsBtn" (click)="showCloseModal()" class="terminate-consultation">
+    <button mat-flat-button color="warn" *ngIf="showCloseConsBtn" (click)="showCloseModal()" class="terminate-consultation">
       {{ 'topNav.terminateTheConsultation' | translate }}
-    </div>
+    </button>
 
     <div class="user-wrapper" (click)="toggleLogout()">
       <div [ngClass]="{ 'doc-btn': logoutToggle }" id="user">

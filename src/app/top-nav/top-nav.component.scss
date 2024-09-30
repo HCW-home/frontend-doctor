@@ -22,16 +22,13 @@
 }
 
 .terminate-consultation {
-  height: 100%;
   display: flex;
-  padding: 0 10px;
   cursor: pointer;
+  margin-left: 12px;
   text-align: center;
   align-items: center;
   vertical-align: middle;
   justify-content: center;
-  color: var(--app-white);
-  background-color: var(--app-red);
 
 
   @media (max-width: 600px) {
