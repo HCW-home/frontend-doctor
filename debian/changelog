@@ -1,3 +1,21 @@
+hcw-athome-caregiver (0.5.1.13) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs ##6555, Enable some options in invite break the form
+  * update to 15
+  * migration
+  * migration
+  * remove unused code
+  * ui update
+  * update ngx-markdown
+  * update to 17
+  * some ui updates
+  * ui imporovements
+  * implement angular material 17
+  * remove unused styles
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 30 Sep 2024 13:00:51 +0200
+
 hcw-athome-caregiver (5.1.12) focal; urgency=medium
 
   [ Olivier Bitsch ]
