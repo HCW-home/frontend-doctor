@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.1.16) focal; urgency=medium
+hcw-athome-caregiver (5.2.1) focal; urgency=medium
 
   [ Olivier Bitsch ]
   * Switch to node 20
@@ -6,7 +6,7 @@ hcw-athome-caregiver (0.5.1.16) focal; urgency=medium
   [ Gor Grigoryan ]
   * change terminate consultation button design
 
- -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 01 Oct 2024 09:49:11 +0200
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 02 Oct 2024 13:53:34 +0200
 
 hcw-athome-caregiver (0.5.1.15) focal; urgency=medium
 
