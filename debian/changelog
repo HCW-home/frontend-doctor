@@ -1,3 +1,9 @@
+hcw-athome-caregiver (5.2.2) focal; urgency=medium
+
+  * refs #7621 - fix cache management by adding hash of files
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 02 Oct 2024 14:35:08 +0200
+
 hcw-athome-caregiver (5.2.1) focal; urgency=medium
 
   [ Olivier Bitsch ]
