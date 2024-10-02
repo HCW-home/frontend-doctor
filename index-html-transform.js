@@ -11,7 +11,6 @@ module.exports = (targetOptions, indexHtml) =>{
         if(file.indexOf('main-')===0){
                 vendorScripts+=addScript(file);
         }
-        console.log(file);
     });
 
     const mainScriptStr = `</body`;

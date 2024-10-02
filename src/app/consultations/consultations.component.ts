@@ -251,7 +251,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     this.overviewSub = this.consultationService
       .getConsultationsOverview()
       .subscribe(consultations => {
-        console.log(this.consultations, 'this.consultations');
         this.zone.run(() => {
           this.consultations = consultations.filter(
             c => c.consultation.status === this.status

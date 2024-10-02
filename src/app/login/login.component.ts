@@ -182,7 +182,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.login2FA();
         },
         (err) => {
-          console.log(err);
           if (err == "MAX_ATTEMPTS") {
             this.localLoginToken = "";
             err == this.translate.instant("login.youReachedTheMaximumAttemptAmount");

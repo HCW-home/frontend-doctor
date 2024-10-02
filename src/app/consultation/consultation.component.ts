@@ -63,7 +63,6 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.consultation, 'consultation');
     this.consultationId = this.activeRoute.snapshot.params.id;
     this.getConsultation();
     this.callEvent.id = this.callEvent._id = this.consultationId;

@@ -265,7 +265,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       });
 
     this.myForm.get('isScheduled').valueChanges.subscribe(value => {
-      this.valueChangesPatientContactAndScheduled();
+      if (!this.showRadioGroup) {
+        this.valueChangesPatientContactAndScheduled();
+      }
     });
 
     this.myForm.get('guestContactFormControl').valueChanges.subscribe(value => {
@@ -642,8 +644,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     //   },{});
     // }
 
-    console.log(this.myForm.valid, 'valid')
-    console.log(this.myForm, 'this.myForm')
     if (!this.myForm.valid) {
       return;
     }

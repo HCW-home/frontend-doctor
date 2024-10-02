@@ -233,7 +233,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.contentArea?.nativeElement?.scrollHeight;
       }, after || 10);
     } catch (err) {
-      console.log(err, 'err');
+        //    do nothing
     }
   }
 
