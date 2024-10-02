@@ -40,6 +40,13 @@ hcw-athome-caregiver (0.5.1.13) focal; urgency=medium
 
  -- Olivier Bitsch <olivier.b@iabsis.com>  Mon, 30 Sep 2024 13:00:51 +0200
 
+hcw-athome-caregiver (5.2.0) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs ##6555, Enable some options in invite break the form
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 24 Sep 2024 16:38:02 +0200
+
 hcw-athome-caregiver (5.1.12) focal; urgency=medium
 
   [ Olivier Bitsch ]
