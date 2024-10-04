@@ -44,7 +44,7 @@ server {
         try_files $uri $uri/ /index.html;
     }
 
-    location ~* ^.+\.md$ {
+    location ~* ^.+\.(md|json)$ {
         access_log off;
         log_not_found off;
         expires -1;

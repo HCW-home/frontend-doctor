@@ -11,4 +11,5 @@ FROM nginxinc/nginx-unprivileged:latest
 COPY --from=builder /usr/src/app/dist/hug-at-home/ /usr/share/nginx/html/
 COPY nginx-docker.conf.template /etc/nginx/templates/default.conf.template
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY .version /usr/share/nginx/html/version
 #RUN sed -i  's/\(default_type.*\)/\1\n    proxy_headers_hash_bucket_size 128;/g' /etc/nginx/nginx.conf
