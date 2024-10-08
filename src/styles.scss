@@ -55,6 +55,14 @@ img.logo {
   display: block !important;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 .justify-content-center {
   justify-content: center;
 }

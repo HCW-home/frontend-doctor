@@ -205,6 +205,9 @@
         "thirdParty": "Third party",
         "inviteExpert": "Invite a colleague",
         "dateTime": "",
+        "chooseDate": "Choose a date",
+        "selectTimezone": "Select Timezone",
+        "chooseTime": "Choose a time",
         "ar": "Arabic",
         "fr": "French",
         "fa": "Persian",
@@ -291,7 +294,8 @@
         "revoke": "Remove",
         "cancelRevoke": "Do not delete",
         "revokeConfirmTitle": "Delete an invitation",
-        "status": "State"
+        "status": "State",
+        "immediately": "Immediately"
     },
     "sideChat": {
         "startTheConsultation": "Start the consultation"

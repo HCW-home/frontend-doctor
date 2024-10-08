@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-date-time-picker',
@@ -10,16 +11,23 @@ export class DateTimePickerComponent  implements OnInit {
   time: string;
   times: string[] = this.generateTimes();
   filteredTimes: string[];
+  timezones: string[] = [];
+  filteredTimezones: string[] = [];
 
+  @Input() selectedTimezone: string = '';
   @Output() dateTimeSelected = new EventEmitter<Date>();
+  @Output() timeZoneSelected = new EventEmitter<string>();
 
   constructor() {
     const currentTime = new Date();
     const minutes = currentTime.getMinutes() < 30 ? '00' : '30';
     const hours = currentTime.getHours();
     this.time = `${hours < 10 ? '0' : ''}${hours}:${minutes}`;
+    this.timezones = moment.tz.names();
+    this.filteredTimezones = [...this.timezones];
 
     this.emitDateTime();
+    this.emitTimeZone();
   }
 
   ngOnInit() {
@@ -68,6 +76,17 @@ export class DateTimePickerComponent  implements OnInit {
     this.emitDateTime();
   }
 
+  onTimezoneChange(timezone: string): void {
+    this.emitTimeZone();
+  }
+
+  filterTimezones() {
+    const filterValue = this.selectedTimezone ? this.selectedTimezone.toLowerCase() : '';
+    this.filteredTimezones = this.timezones.filter(tz =>
+        tz.toLowerCase().includes(filterValue)
+    );
+  }
+
   filterTimes(val: string): void {
     this.filteredTimes = this.times.filter(option =>
         option.toLowerCase().includes(val ? val.toLowerCase() : ''));
@@ -90,6 +109,10 @@ export class DateTimePickerComponent  implements OnInit {
       dateTime.setHours(hours, minutes, 0);
       this.dateTimeSelected.emit(dateTime);
     }
+  }
+
+  emitTimeZone(): void {
+    this.timeZoneSelected.emit(this.selectedTimezone)
   }
 }
 

@@ -11,17 +11,18 @@ import {
   Validators,
   FormBuilder,
   AbstractControl,
-  FormGroupDirective,
-  UntypedFormBuilder,
   UntypedFormGroup,
   UntypedFormControl,
+  UntypedFormBuilder,
+  FormGroupDirective,
 } from '@angular/forms';
+import * as moment from 'moment-timezone';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ConfigService } from '../core/config.service';
 import {
-  MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import {
   phoneNumberRegex,
@@ -55,6 +56,7 @@ interface DialogData {
   inviteObj: any;
   experts: string[];
   sendLinkManually: boolean;
+  patientTZ: string
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -98,6 +100,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   showSuccessMessage = '';
   showGuestRadioGroup = false;
   showGuestSuccessMessage = '';
+  selectedTimezone = '';
 
   constructor(
     private fb: FormBuilder,
@@ -124,6 +127,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.schedule = true;
     } else {
       this.data.scheduledFor = '';
+      this.data.patientTZ = '';
     }
 
     this.data.language = this.data.language || 'fr';
@@ -135,6 +139,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     if (this.data.translationOrganization) {
       this.inviteTranslator = true;
     }
+
+    console.log(this.data.patientTZ, 'this.data.patientTZ')
+    this.selectedTimezone = this.data.patientTZ || moment.tz.guess()
   }
 
   get expertsFormArray() {
@@ -205,6 +212,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
           this.isPatientInvite ? [Validators.required] : []
         ),
         dateTimeFormControl: new UntypedFormControl(''),
+        patientTZ: new UntypedFormControl(this.data.patientTZ || this.selectedTimezone),
         isScheduled: new UntypedFormControl(false),
         sendLinkManually: new UntypedFormControl(false),
         inviteTranslatorFormControl: new UntypedFormControl(false),
@@ -680,6 +688,10 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.data.translationOrganization = undefined;
     }
 
+    if (this.schedule) {
+      this.data.patientTZ = this.myForm.get('patientTZ').value;
+    }
+
     if (this.myForm.get('inviteExpert').value) {
       this.data.experts = this.myForm.get('experts').value.filter(expert => {
         const value = expert.expertContact;
@@ -832,5 +844,11 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   onDateTimeSelected(dateTime: any) {
     this.myForm.get('dateTimeFormControl').setValue(dateTime);
     this.data.scheduledFor = dateTime;
+  }
+
+  onTimeZoneSelect(timezone: string) {
+    this.data.patientTZ = timezone;
+    this.selectedTimezone = timezone;
+    this.myForm.get('patientTZ').setValue(timezone);
   }
 }

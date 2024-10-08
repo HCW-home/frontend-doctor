@@ -215,8 +215,7 @@
           </ng-container>
 
           <div class="field-container" style="max-width: 400px">
-            <mat-error
-              *ngIf="!schedule && inviteTranslator">
+            <mat-error *ngIf="!schedule && inviteTranslator">
               {{ 'inviteForm.warningTranslatorMightBeLate' | translate }}
             </mat-error>
           </div>
@@ -260,13 +259,15 @@
             </mat-form-field>
           </div>
 
-          <div class="field-container mt-14">
+          <div class="field-container flex-column mt-14">
             <ng-container *ngIf="schedule">
               <mat-label class="label"
                 >{{ 'inviteForm.scheduledAt' | translate }}
               </mat-label>
 
               <app-date-time-picker
+                      [selectedTimezone]="selectedTimezone"
+                      (timeZoneSelected)="onTimeZoneSelect($event)"
                 (dateTimeSelected)="
                   onDateTimeSelected($event)
                 "></app-date-time-picker>
@@ -523,17 +524,15 @@
                   >{{ 'inviteForm.pleaseChooseOrganization' | translate }}
                 </mat-error>
               </mat-form-field>
-
             </div>
-              <div class="field-container">
-                  <mat-error *ngIf="inviteTranslator" style="max-width: 285px">
-                      {{
-                          'inviteForm.patientInvitationWillBeAfterTranslatorIsValidated'
-                              | translate
-                      }}
-                  </mat-error>
-              </div>
-
+            <div class="field-container">
+              <mat-error *ngIf="inviteTranslator" style="max-width: 285px">
+                {{
+                  'inviteForm.patientInvitationWillBeAfterTranslatorIsValidated'
+                    | translate
+                }}
+              </mat-error>
+            </div>
           </ng-container>
           <mat-error
             class="field-container"

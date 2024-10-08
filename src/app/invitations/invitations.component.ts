@@ -77,6 +77,7 @@ export class InvitationsComponent implements OnInit {
         status: invite.status,
         metadata: invite.metadata,
         inviteObj: invite,
+        patinetTz: invite.patinetTz,
       };
     }
     const dialogRef = this.dialog.open(InviteFormComponent, {

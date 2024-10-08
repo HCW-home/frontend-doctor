@@ -17,5 +17,6 @@ export interface Invitation {
   translatorRequestInvite: any
   resending: boolean
   revoking: boolean
-  metadata: object
+  metadata: object;
+  patientTZ: string;
 }

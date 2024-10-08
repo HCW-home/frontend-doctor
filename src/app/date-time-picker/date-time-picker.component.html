@@ -1,19 +1,45 @@
 <div class="wrapper">
-<mat-form-field style="width: 250px">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="datepicker" [matDatepickerFilter]="filterDates" [(ngModel)]="date" (dateChange)="onDateChange($event)">
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker #datepicker></mat-datepicker>
-</mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>{{'inviteForm.chooseDate' | translate}}</mat-label>
+        <input matInput [matDatepicker]="datepicker" [matDatepickerFilter]="filterDates" [(ngModel)]="date"
+               (dateChange)="onDateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
 
-<mat-form-field>
-    <mat-label>Choose a time</mat-label>
-    <input matInput  [matAutocomplete]="auto" [(ngModel)]="time" (ngModelChange)="onTimeChange($event)">
+    <div class="d-flex gap-10 flex-wrap">
+        <mat-form-field appearance="fill">
+            <mat-label>{{'inviteForm.selectTimezone' | translate}}</mat-label>
+            <input type="text"
+                    matInput
+                    [(ngModel)]="selectedTimezone"
+                    (ngModelChange)="filterTimezones()"
+                    [matAutocomplete]="timezoneAuto"
+                    placeholder="Search and select a timezone"
+            />
+            <mat-autocomplete #timezoneAuto="matAutocomplete" (optionSelected)="onTimezoneChange($event.option.value)">
+                <mat-option *ngFor="let timezone of filteredTimezones" [value]="timezone">
+                    {{ timezone }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
 
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let timeOption of filteredTimes" [value]="timeOption">
-            {{ timeOption }}
-        </mat-option>
-    </mat-autocomplete>
-</mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>{{'inviteForm.chooseTime' | translate}}</mat-label>
+            <input
+                    type="text"
+                    matInput
+                    [(ngModel)]="time"
+                    (ngModelChange)="onTimeChange($event)"
+                    [matAutocomplete]="timeAuto"
+                    placeholder="Choose a time"
+            />
+            <mat-autocomplete #timeAuto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let timeOption of filteredTimes" [value]="timeOption">
+                    {{ timeOption }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+
 </div>

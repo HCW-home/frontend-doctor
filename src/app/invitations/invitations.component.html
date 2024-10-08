@@ -64,11 +64,14 @@
           <span class="tile-header">{{
             'invitations.scheduledDate' | translate
           }}</span>
-          {{
-            invite.scheduledFor
-              ? (invite.scheduledFor | date: 'd MMM yyyy HH:mm')
-              : 'Immédiatement'
-          }}
+            @if (invite.scheduledFor) {
+                {{invite.scheduledFor | date: 'd MMM yyyy HH:mm' }}
+                @if (invite.patientTZ) {
+                   ( {{invite.patientTZ}} )
+                }
+            } @else {
+                {{'invitations.immediately' | translate}}
+            }
         </td>
         <td class="hidden-mobile">
           <span class="tile-header">{{
