@@ -1,4 +1,4 @@
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, Optional} from "@angular/core";
 import { LocationStrategy } from '@angular/common';
 import { ConfigService } from '../core/config.service';
 import {User} from "../user";
@@ -22,8 +22,8 @@ export class CguComponent {
     public configService: ConfigService,
     private translate: TranslateService,
     private locationStrategy: LocationStrategy,
-    public dialogRef: MatDialogRef<CguComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() public dialogRef: MatDialogRef<CguComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.currentLang = this.translate.currentLang;
   }
