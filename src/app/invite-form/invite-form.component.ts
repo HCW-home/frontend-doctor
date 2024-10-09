@@ -10,12 +10,13 @@ import {
   FormGroup,
   Validators,
   FormBuilder,
+  FormControl,
   AbstractControl,
   UntypedFormGroup,
   UntypedFormControl,
   UntypedFormBuilder,
   FormGroupDirective,
-} from '@angular/forms';
+} from "@angular/forms";
 import * as moment from 'moment-timezone';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ConfigService } from '../core/config.service';
@@ -31,6 +32,7 @@ import {
 import { catchError, filter, switchMap } from 'rxjs/operators';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
+import {validateIf} from "../shared/validators/validate-if.validator";
 
 interface DialogData {
   phoneNumber: string;
@@ -232,7 +234,10 @@ export class InviteFormComponent implements OnDestroy, OnInit {
           }),
         ]),
         translationOrganizationFormControl: new UntypedFormControl(null, [
-          this.translationOrganizationValidator.bind(this),
+          validateIf(
+              (group: FormControl) => group.value.inviteTranslatorFormControl,
+              Validators.compose([Validators.required]),
+          ),
         ]),
         queueFormControl,
         // metadataFormControl: new FormControl(''),
@@ -506,13 +511,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
           }
         });
     });
-  }
-
-  translationOrganizationValidator(control: AbstractControl) {
-    if (this.inviteTranslator && !control.value) {
-      return { required: { value: control.value } };
-    }
-    return null;
   }
 
   guestContactValidatorValidator(control: AbstractControl) {

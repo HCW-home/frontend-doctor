@@ -68,13 +68,14 @@
                 *ngIf="
                   myForm.controls.firstNameFormControl.hasError('required')
                 "
-                [innerHTML]="'inviteForm.firstNameIsRequired' | translate">
-              </mat-error>
+                [innerHTML]="
+                  'inviteForm.firstNameIsRequired' | translate
+                "></mat-error>
             </mat-form-field>
 
             <mat-form-field>
-              <mat-label class="label"
-                >{{ 'inviteForm.lastName' | translate }}
+              <mat-label class="label">
+                {{ 'inviteForm.lastName' | translate }}
               </mat-label>
               <input
                 [(ngModel)]="data.lastName"
@@ -86,14 +87,15 @@
 
               <mat-error
                 *ngIf="myForm.controls.lastNameFormControl.hasError('required')"
-                [innerHTML]="'inviteForm.lastNameIsRequired' | translate">
-              </mat-error>
+                [innerHTML]="
+                  'inviteForm.lastNameIsRequired' | translate
+                "></mat-error>
             </mat-form-field>
           </div>
           <div *ngIf="isPatientInvite" class="field-container">
             <mat-form-field>
-              <mat-label class="label"
-                >{{ 'inviteForm.sex' | translate }}
+              <mat-label class="label">
+                {{ 'inviteForm.sex' | translate }}
               </mat-label>
               <mat-select
                 formControlName="genderFormControl"
@@ -101,29 +103,29 @@
                 [(ngModel)]="data.gender"
                 [errorStateMatcher]="matcher">
                 <mat-option>--</mat-option>
-                <mat-option value="male"
-                  >{{ 'inviteForm.male' | translate }}
+                <mat-option value="male">
+                  {{ 'inviteForm.male' | translate }}
                 </mat-option>
-                <mat-option value="female"
-                  >{{ 'inviteForm.female' | translate }}
+                <mat-option value="female">
+                  {{ 'inviteForm.female' | translate }}
                 </mat-option>
               </mat-select>
               <mat-error
-                *ngIf="myForm.controls.genderFormControl.hasError('required')"
-                >{{ 'inviteForm.pleaseChooseTheSex' | translate }}
+                *ngIf="myForm.controls.genderFormControl.hasError('required')">
+                {{ 'inviteForm.pleaseChooseTheSex' | translate }}
               </mat-error>
             </mat-form-field>
 
             <mat-form-field *ngIf="queues?.length > 0">
-              <mat-label class="label"
-                >{{ 'inviteForm.waitingQueue' | translate }}
+              <mat-label class="label">
+                {{ 'inviteForm.waitingQueue' | translate }}
               </mat-label>
               <mat-select
                 formControlName="queueFormControl"
                 [(ngModel)]="data.queue"
                 [errorStateMatcher]="matcher">
-                <mat-option [value]="undefined"
-                  >{{ 'inviteForm.mySelf' | translate }}
+                <mat-option [value]="undefined">
+                  {{ 'inviteForm.mySelf' | translate }}
                 </mat-option>
                 <span>
                   <mat-option *ngFor="let queue of queues" [value]="queue.id">
@@ -230,8 +232,8 @@
             </div>
 
             <mat-form-field>
-              <mat-label class="label"
-                >{{ 'inviteForm.language' | translate }}
+              <mat-label class="label">
+                {{ 'inviteForm.language' | translate }}
               </mat-label>
               <mat-select
                 formControlName="languageFormControl"
@@ -253,21 +255,23 @@
                 </mat-option>
               </mat-select>
               <mat-error
-                *ngIf="myForm.controls.languageFormControl.hasError('required')"
-                >{{ 'inviteForm.pleaseChooseLanguage' | translate }}
+                *ngIf="
+                  myForm.controls.languageFormControl.hasError('required')
+                ">
+                {{ 'inviteForm.pleaseChooseLanguage' | translate }}
               </mat-error>
             </mat-form-field>
           </div>
 
           <div class="field-container flex-column mt-14">
             <ng-container *ngIf="schedule">
-              <mat-label class="label"
-                >{{ 'inviteForm.scheduledAt' | translate }}
+              <mat-label class="label">
+                {{ 'inviteForm.scheduledAt' | translate }}
               </mat-label>
 
               <app-date-time-picker
-                      [selectedTimezone]="selectedTimezone"
-                      (timeZoneSelected)="onTimeZoneSelect($event)"
+                [selectedTimezone]="selectedTimezone"
+                (timeZoneSelected)="onTimeZoneSelect($event)"
                 (dateTimeSelected)="
                   onDateTimeSelected($event)
                 "></app-date-time-picker>
@@ -293,14 +297,14 @@
               [(ngModel)]="inviteGuest"
               (ngModelChange)="
                 myForm.get('guestContactFormControl')?.updateValueAndValidity()
-              "
-              >{{ 'inviteForm.inviteLovedOneOrProfessional' | translate }}
+              ">
+              {{ 'inviteForm.inviteLovedOneOrProfessional' | translate }}
             </mat-checkbox>
           </div>
           <div *ngIf="inviteGuest" class="field-container">
             <mat-form-field>
-              <mat-label class="label"
-                >{{ 'inviteForm.emailOrSMS' | translate }}
+              <mat-label class="label">
+                {{ 'inviteForm.emailOrSMS' | translate }}
               </mat-label>
               <input
                 [(ngModel)]="data.guestContact"
@@ -380,8 +384,8 @@
                     <div
                       class="w-100 d-flex justify-content-between align-items-center gap-10">
                       <mat-form-field class="w-100">
-                        <mat-label
-                          >{{ 'inviteForm.emailOrSMS' | translate }}
+                        <mat-label>
+                          {{ 'inviteForm.emailOrSMS' | translate }}
                         </mat-label>
                         <input
                           matInput
@@ -426,8 +430,8 @@
                             expertControl.controls.expertContact.hasError(
                               'required'
                             )
-                          "
-                          >{{
+                          ">
+                          {{
                             'inviteForm.pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber'
                               | translate
                           }}
@@ -490,8 +494,8 @@
             ">
             <div class="field-container mt-14">
               <mat-form-field>
-                <mat-label class="label"
-                  >{{ 'inviteForm.translationOrganization' | translate }}
+                <mat-label class="label">
+                  {{ 'inviteForm.translationOrganization' | translate }}
                 </mat-label>
                 <mat-select
                   formControlName="translationOrganizationFormControl"
@@ -520,8 +524,8 @@
                     myForm.controls.translationOrganizationFormControl.hasError(
                       'required'
                     )
-                  "
-                  >{{ 'inviteForm.pleaseChooseOrganization' | translate }}
+                  ">
+                  {{ 'inviteForm.pleaseChooseOrganization' | translate }}
                 </mat-error>
               </mat-form-field>
             </div>
