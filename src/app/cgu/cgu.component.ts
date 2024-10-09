@@ -62,7 +62,7 @@ export class CguComponent {
   changeCountry(country: string) {
     this.selectedCountry = country;
     if (country === 'Any') {
-      this.selectedTermName = `terms.${this.currentLang}.md`;
+      this.selectedTermName = `terms.md`;
     } else {
       this.selectedTermName = `terms.${country}.${this.currentLang}.md`;
     }
