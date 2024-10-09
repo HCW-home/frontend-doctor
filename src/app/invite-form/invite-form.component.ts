@@ -140,7 +140,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.inviteTranslator = true;
     }
 
-    console.log(this.data.patientTZ, 'this.data.patientTZ')
     this.selectedTimezone = this.data.patientTZ || moment.tz.guess()
   }
 

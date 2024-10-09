@@ -91,7 +91,7 @@
         <div>
           <router-outlet *ngIf="navigated"></router-outlet>
         </div>
-        <ng-container *ngIf="markdownExists">
+        <ng-container *ngIf="markdownExists && showFooter">
           <app-footer [markdownUrl]="markdownUrl"></app-footer>
         </ng-container>
       </div>

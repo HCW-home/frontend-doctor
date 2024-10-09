@@ -1,15 +1,17 @@
 import {
-  Component,
+  NgZone,
   OnInit,
-  ElementRef,
   ViewChild,
-  NgZone, OnDestroy,
+  Component,
+  OnDestroy,
+  ElementRef,
 } from "@angular/core";
+import {Subscription} from "rxjs";
+import { AuthService } from './auth/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { SocketEventsService } from './core/socket-events.service';
 import { ConsultationService } from './core/consultation.service';
-import { AuthService } from './auth/auth.service';
 import {Router, NavigationStart} from "@angular/router";
 import { ConfigService } from './core/config.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,7 +23,6 @@ import {
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { SidenavToggleService } from './core/sidenav-toggle.service';
 import { MatSidenav } from '@angular/material/sidenav';
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
   markdownExists: boolean = false;
   markdownUrl: string = 'assets/footer.md';
   currentLang: string = 'en';
+  showFooter: boolean = true;
 
 
   constructor(
@@ -204,6 +206,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // }
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
+        this.showFooter = !event.url.match(/^\/consultation\/[a-zA-Z0-9]+$/);
         if (event.url !== '/cgu' && event.url !== '/terms-acceptance') {
           this.checkTermsAndNavigate();
         }
