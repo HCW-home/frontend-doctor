@@ -1,3 +1,13 @@
+hcw-athome-caregiver (5.2.4) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * refs #7638, Remove footer in consultation overview
+  * refs #6555, Enable some options in invite break the form
+  * make dialogdata optional in cgu
+  * change terms default src
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 09 Oct 2024 17:08:18 +0200
+
 hcw-athome-caregiver (5.2.3) focal; urgency=medium
 
   [ Olivier Bitsch ]
