@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-language-selector',
   template: `
     <div class="language-selector">
-      <mat-icon>language</mat-icon>
+      @if (!hideIcon) {
+        <mat-icon>language</mat-icon>
+      }
       <mat-form-field>
+        <mat-label>{{'profile.selectLanguage' | translate}}</mat-label>
         <mat-select
           [(value)]="selectedLanguage"
           (selectionChange)="onLanguageSelect($event)">
@@ -28,6 +31,9 @@ import { TranslateService } from '@ngx-translate/core';
   ],
 })
 export class LanguageSelectorComponent {
+
+  @Output() selectedLanguageChange = new EventEmitter();
+  @Input() hideIcon:boolean = false;
   opened = false;
   languages = [
     { value: 'en', viewValue: 'English' },
@@ -48,5 +54,6 @@ export class LanguageSelectorComponent {
     this.openDropdown();
     window.localStorage.setItem('hhw-lang', lang.value);
     this.translate.use(lang.value);
+    this.selectedLanguageChange.emit(lang.value)
   }
 }

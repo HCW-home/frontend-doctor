@@ -18,7 +18,6 @@ export class TermsAcceptanceComponent {
   error = false;
   showCheckbox = false;
   checked = false;
-  termsLink = `<span class="terms-link" (click)="openTerms($event)">Terms and Conditions</span>`;
 
   constructor(
     private router: Router,
@@ -76,7 +75,6 @@ export class TermsAcceptanceComponent {
     this.dialog.open(CguComponent, {
       autoFocus: false,
       minWidth: '80vw',
-      maxHeight: '80vh',
       data: {
         showCloseButton: true
       }

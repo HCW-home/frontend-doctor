@@ -1,34 +1,39 @@
 <app-top-nav
-        *ngIf="currentUser"
-        [title]="'dashboard.dashboard' | translate"
-        [icon]="'dashboard'"></app-top-nav>
+  *ngIf="currentUser"
+  [title]="'dashboard.dashboard' | translate"
+  [icon]="'dashboard'"></app-top-nav>
 
 <div class="center">
-    <div class="custom-card">
-        <div class="container">
+  <div class="custom-card">
+    <div class="container">
+      <h2>{{ 'cgu.description' | translate }}</h2>
+      <ng-container *ngIf="showCheckbox">
+        <section>
+          <mat-checkbox [(ngModel)]="checked">
+            {{ 'cgu.youHaveTo' | translate }}
 
-            <h2>{{ 'cgu.description' | translate }}</h2>
-            <ng-container *ngIf="showCheckbox">
-                <section>
-                    <mat-checkbox [(ngModel)]="checked">
-                        {{ 'cgu.youHaveTo' | translate }}
-
-                        <a href="" (click)="openTerms($event)" class="terms-link">{{ 'cgu.terms' | translate }}</a>
-                        {{ 'cgu.before' | translate }}
-                    </mat-checkbox>
-                </section>
-                <div class="back">
-                    <button [disabled]="!checked" (click)="submit()" color="primary" mat-stroked-button>
-                        {{ 'cgu.submit' | translate }}
-                    </button>
-                </div>
-            </ng-container>
-
-            <div class="back" *ngIf="!showCheckbox">
-                <button (click)="goBack()" color="primary" mat-stroked-button>
-                    {{ 'cgu.backToHome' | translate }}
-                </button>
-            </div>
+            <a href="" (click)="openTerms($event)" class="terms-link">
+              {{ 'cgu.terms' | translate }}
+            </a>
+            {{ 'cgu.before' | translate }}
+          </mat-checkbox>
+        </section>
+        <div class="back">
+          <button
+            [disabled]="!checked"
+            (click)="submit()"
+            color="primary"
+            mat-stroked-button>
+            {{ 'cgu.submit' | translate }}
+          </button>
         </div>
+      </ng-container>
+
+      <div class="back" *ngIf="!showCheckbox">
+        <button (click)="goBack()" color="primary" mat-stroked-button>
+          {{ 'cgu.backToHome' | translate }}
+        </button>
+      </div>
     </div>
+  </div>
 </div>

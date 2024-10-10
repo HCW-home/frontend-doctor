@@ -137,9 +137,10 @@
         "terms": "Terms and Condition",
         "before": "before you can use HCW@Home.",
         "pleaseAccept": "You have to accept {{terms}} before you can use HCW@Home",
-        "selectCountry": "This terms applies to the country:",
+        "selectCountry": "Define your country and language:",
         "notConfigured": "Terms and conditions have not yet been configured.",
-        "description": "Access condition"
+        "description": "Access condition",
+        "country": "Country"
     },
     "forgotPassword": {
         "home": "HOME",
@@ -349,7 +350,8 @@
         "updateTheProfile": "Update the profile",
         "name": "Name",
         "notification": "Notification",
-        "enablesNotification": "This enables notification when an new consultation is requested."
+        "enablesNotification": "This enables notification when an new consultation is requested.",
+        "selectLanguage": "Language"
     },
     "resetPassword": {
         "changePassword": "Change password",

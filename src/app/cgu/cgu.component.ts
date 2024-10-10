@@ -1,9 +1,9 @@
-import {Component, Inject, Optional} from "@angular/core";
+import { Component, Inject, Optional } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { ConfigService } from '../core/config.service';
-import {User} from "../user";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {TranslateService} from "@ngx-translate/core";
+import { User } from '../user';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cgu',
@@ -36,16 +36,24 @@ export class CguComponent {
     this.dialogRef.close();
   }
 
+  onLanguageChange(language: string): void {
+    this.currentLang = language;
+    this.changeCountry(this.selectedCountry);
+  }
+
   getCountries() {
     this.configService.getCountries().subscribe(
       res => {
+        console.log(res, 'res');
         if (res) {
           res.unshift('Any');
+          this.changeCountry('Any');
           this.countries = res;
           this.error = false;
         }
       },
       error => {
+        console.log(error, 'error');
         this.error = true;
       }
     );
@@ -53,7 +61,7 @@ export class CguComponent {
 
   goBack() {
     if (this.data?.showCloseButton) {
-      this.onClose()
+      this.onClose();
     } else {
       this.locationStrategy.historyGo(-1);
     }
@@ -61,10 +69,37 @@ export class CguComponent {
 
   changeCountry(country: string) {
     this.selectedCountry = country;
-    if (country === 'Any') {
-      this.selectedTermName = `terms.md`;
-    } else {
-      this.selectedTermName = `terms.${country}.${this.currentLang}.md`;
-    }
+    const fallbackTerms = `terms.md`;
+
+    const specificTerms =  country === 'Any' ? `terms.${this.currentLang}.md` :  `terms.${country}.${this.currentLang}.md`;
+
+    this.error = false;
+    this.configService.checkTermsFileExists(specificTerms).subscribe(
+      exists => {
+        if (exists) {
+          console.log(exists, 'exists');
+          this.selectedTermName = specificTerms;
+          this.error = false;
+        } else {
+          this.configService.checkTermsFileExists(fallbackTerms).subscribe(
+            fallbackExists => {
+              if (fallbackExists) {
+                console.log(fallbackExists, 'fallbackExists');
+                this.selectedTermName = fallbackTerms;
+                this.error = false;
+              } else {
+                this.error = true;
+              }
+            },
+            error => {
+              this.error = true;
+            }
+          );
+        }
+      },
+      error => {
+        this.error = true;
+      }
+    );
   }
 }

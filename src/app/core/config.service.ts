@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import {of, Subject} from "rxjs";
 import { environment } from '../../environments/environment';
+import {catchError, map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -57,4 +58,12 @@ export class ConfigService {
   getCountries() {
     return this.http.get<string[]>('assets/terms/countries.json');
   }
+
+  checkTermsFileExists(fileName: string) {
+    return this.http.get(`assets/terms/${fileName}`, { responseType: 'text' }).pipe(
+        map(() => true),
+        catchError(() => of(false))
+    );
+  }
+
 }

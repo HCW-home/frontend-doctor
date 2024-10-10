@@ -1,40 +1,51 @@
 <div class="center">
     <div class="custom-card">
         <div class="container">
-            <div class="title" *ngIf="!error">
-                {{ 'cgu.selectCountry' | translate }}
-                <div class="country-select">
-                    <div class="sl-container">
-                        <select
-                                class="lang"
-                                #langSelect
-                                (change)="changeCountry(langSelect.value)">
-                            <option *ngFor="let country of countries" [value]="country">
-                                {{ country }}
-                            </option>
-                        </select>
+
+            <div class="fixed-container">
+                <div class="title" *ngIf="!error">
+                    {{ 'cgu.selectCountry' | translate }}
+                    <div class="country-select">
+                        <div class="sl-container">
+                            <mat-form-field>
+                                <mat-label>{{ 'cgu.country' | translate }}</mat-label>
+                                <mat-select
+                                    #langSelect
+                                    [(ngModel)]="selectedCountry"
+                                    (ngModelChange)="changeCountry(langSelect.value)">
+                                    <mat-option *ngFor="let country of countries" [value]="country">
+                                        {{ country }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-language-selector [hideIcon]="true"
+                                                   (selectedLanguageChange)="onLanguageChange($event)"></app-language-selector>
+                        </div>
                     </div>
                 </div>
+
+                <div class="back">
+                    <button (click)="goBack()" color="primary" mat-stroked-button>
+                        {{ 'cgu.backToHome' | translate }}
+                    </button>
+                </div>
+
+
             </div>
-            <div class="back">
-                <button (click)="goBack()" color="primary" mat-stroked-button>
-                    {{ 'cgu.backToHome' | translate }}
-                </button>
+
+
+            <div class="scrollable-container" mat-dialog-content>
+
+
+                <h2>{{ 'cgu.termsAndConditions' | translate }}</h2>
+                <markdown
+                        [src]="error ? 'assets/terms.md' : 'assets/terms/' + selectedTermName">
+                    <h2>{{ 'cgu.notConfigured' | translate }}</h2>
+                </markdown>
+
+
             </div>
 
-            <h2>{{ 'cgu.termsAndConditions' | translate }}</h2>
-
-            <markdown
-                    [src]="error ? 'assets/terms.md' : 'assets/terms/' + selectedTermName">
-                <h2>{{ 'cgu.notConfigured' | translate }}</h2>
-            </markdown>
-
-
-            <div class="back">
-                <button (click)="goBack()" color="primary" mat-stroked-button>
-                    {{ 'cgu.backToHome' | translate }}
-                </button>
-            </div>
         </div>
     </div>
 </div>

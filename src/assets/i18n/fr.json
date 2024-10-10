@@ -417,7 +417,7 @@
     },
     "cgu": {
         "notConfigured": "Les termes et conditions n'ont pas encore été configurés.",
-        "selectCountry": "Ces conditions s'appliquent au pays :",
+        "selectCountry": "Définissez votre pays et votre langue :",
         "backToHome": "Retour",
         "termsAndConditions": "Conditions Générales d'Utilisation (CGU)",
         "submit": "Soumettre",

@@ -132,7 +132,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.data.patientTZ = '';
     }
 
-    this.data.language = this.data.language || 'fr';
+    this.data.language = this.data.language || this.configService.config.defaultPatientLocale || 'fr';
 
     if (this.data.guestContact) {
       this.inviteGuest = true;
