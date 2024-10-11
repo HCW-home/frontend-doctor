@@ -44,7 +44,6 @@ export class CguComponent {
   getCountries() {
     this.configService.getCountries().subscribe(
       res => {
-        console.log(res, 'res');
         if (res) {
           res.unshift('Any');
           this.changeCountry('Any');
@@ -53,7 +52,6 @@ export class CguComponent {
         }
       },
       error => {
-        console.log(error, 'error');
         this.error = true;
       }
     );
@@ -77,14 +75,12 @@ export class CguComponent {
     this.configService.checkTermsFileExists(specificTerms).subscribe(
       exists => {
         if (exists) {
-          console.log(exists, 'exists');
           this.selectedTermName = specificTerms;
           this.error = false;
         } else {
           this.configService.checkTermsFileExists(fallbackTerms).subscribe(
             fallbackExists => {
               if (fallbackExists) {
-                console.log(fallbackExists, 'fallbackExists');
                 this.selectedTermName = fallbackTerms;
                 this.error = false;
               } else {

@@ -351,7 +351,9 @@
         "name": "Name",
         "notification": "Notification",
         "enablesNotification": "This enables notification when an new consultation is requested.",
-        "selectLanguage": "Language"
+        "selectLanguage": "Language",
+        "sms": "SMS",
+        "whatsapp": "Whatsapp"
     },
     "resetPassword": {
         "changePassword": "Change password",

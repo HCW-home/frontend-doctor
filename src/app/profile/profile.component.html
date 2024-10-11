@@ -63,7 +63,16 @@
             <mat-error>
               {{ 'profile.invalidNumber' | translate }}
             </mat-error>
+
           </mat-form-field>
+            <mat-radio-group
+                    [(ngModel)]="messageService"
+                    (ngModelChange)="onMessageServiceChange()"
+                    class="provider-radio-group"
+                    *ngIf="showRadioGroup">
+                <mat-radio-button value="1">{{'profile.whatsapp' | translate}}</mat-radio-button>
+                <mat-radio-button value="2">{{'profile.sms' | translate}}</mat-radio-button>
+            </mat-radio-group>
           <button
             mat-icon-button
             *ngIf="isSMSPhoneChanged && !isLoading"

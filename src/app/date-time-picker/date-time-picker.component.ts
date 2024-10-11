@@ -25,12 +25,11 @@ export class DateTimePickerComponent  implements OnInit {
     this.time = `${hours < 10 ? '0' : ''}${hours}:${minutes}`;
     this.timezones = moment.tz.names();
     this.filteredTimezones = [...this.timezones];
-
-    this.emitDateTime();
-    this.emitTimeZone();
   }
 
   ngOnInit() {
+    this.emitDateTime();
+    this.emitTimeZone();
     this.generateTimesForDate(this.date);
     this.filteredTimes = this.times;
   }

@@ -22,8 +22,10 @@ export class ProfileComponent implements OnInit {
   enableNotif;
   isLoading = false;
   phoneNumberRegex = new RegExp(/^\+[0-9 ]+$/);
-
+  showRadioGroup: boolean = false;
+  messageService: '' | '1' | '2' = '';
   @ViewChild('toggleElement') ref;
+
 
   constructor(public dialog: MatDialog,
     private authService: AuthService,
@@ -54,9 +56,14 @@ export class ProfileComponent implements OnInit {
 
 
   }
+
   onChangeNumber() {
     this.isSMSPhoneChanged = true;
   }
+
+  onMessageServiceChange() {
+  }
+
   onSave() {
     if (this.isSMSPhoneChanged) {
       if (!this.phoneNumberRegex.test(this.currentNotifPhoneNumber)) {
