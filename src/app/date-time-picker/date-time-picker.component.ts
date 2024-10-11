@@ -102,16 +102,21 @@ export class DateTimePickerComponent  implements OnInit {
   }
 
   private emitDateTime(): void {
-    if (this.date && this.time) {
-      const [hours, minutes] = this.time.split(':').map(n => parseInt(n));
-      const dateTime = new Date(this.date);
-      dateTime.setHours(hours, minutes, 0);
-      this.dateTimeSelected.emit(dateTime);
+    if (this.date && this.time && this.selectedTimezone) {
+      const date = moment.tz(this.date, 'YYYY-MM-DD');
+      const dateTime = moment.tz(`${date.format('YYYY-MM-DD')} ${this.time}`, 'YYYY-MM-DD HH:mm', this.selectedTimezone);
+      if (dateTime.isValid()) {
+        const utcDateTime = dateTime.utc().toDate();
+        this.dateTimeSelected.emit(utcDateTime);
+      } else {
+        console.error('Invalid date or time format');
+      }
     }
   }
 
   emitTimeZone(): void {
-    this.timeZoneSelected.emit(this.selectedTimezone)
+    this.timeZoneSelected.emit(this.selectedTimezone);
+    this.emitDateTime();
   }
 }
 
