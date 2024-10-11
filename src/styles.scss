@@ -121,7 +121,7 @@ img.logo {
   flex-direction: column;
 }
 
-.cdk-overlay-pane {
+.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above):not(.mat-mdc-select-panel-above) {
   width: auto !important;
   height: auto !important;
   max-width: 90vw !important;

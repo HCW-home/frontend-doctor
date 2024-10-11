@@ -641,14 +641,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   }
 
   onSubmit() {
-    // ! Put on the metadata an object with all the item we set and we get from the form
-    // if(this.configService.config.metadata.length != ""){
-    //   this.data.metadata = this.configService.config.metadata.reduce((result,item,index) => {
-    //     result[item] = this.data[item]
-    //     return result;
-    //   },{});
-    // }
-
     if (!this.myForm.valid) {
       return;
     }
@@ -687,6 +679,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
     if (this.schedule) {
       this.data.patientTZ = this.myForm.get('patientTZ').value;
+    } else {
+      this.data.scheduledFor = '';
     }
 
     if (this.myForm.get('inviteExpert').value) {
