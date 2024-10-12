@@ -1,3 +1,14 @@
+hcw-athome-caregiver (5.2.9) UNRELEASED; urgency=medium
+
+  [ Olivier Bitsch ]
+  * New release 5.2.8
+
+  [ Gor Grigoryan ]
+  * fix create invite with patient timezone
+  * update invite fixes
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Sat, 12 Oct 2024 15:35:30 +0000
+
 hcw-athome-caregiver (5.2.8) focal; urgency=medium
 
   [ Gor Grigoryan ]
