@@ -42,7 +42,7 @@ interface DialogData {
   lastName: string;
   gender: string;
   queue: string;
-  scheduledFor: string;
+  scheduledFor: Date | string;
   language: string;
   guestContact: string;
   patientContact: string;
@@ -125,10 +125,10 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.data.phoneNumber = '';
     }
     if (this.data.scheduledFor) {
-      this.data.scheduledFor = new Date(this.data.scheduledFor).toISOString();
+      this.data.scheduledFor = new Date(this.data.scheduledFor);
       this.schedule = true;
     } else {
-      this.data.scheduledFor = '';
+      this.data.scheduledFor = new Date();
       this.data.patientTZ = '';
     }
 
@@ -738,6 +738,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         language,
         guestEmailAddress,
         guestPhoneNumber,
+        patientTZ
       } = this.data;
 
       this.inviteService
@@ -757,6 +758,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             cancelGuestInvite,
             cancelScheduledFor,
             cancelTranslationRequestInvite,
+            patientTZ,
             // metadata,
           },
           this.data.id

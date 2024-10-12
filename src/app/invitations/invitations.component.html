@@ -64,11 +64,10 @@
           <span class="tile-header">{{
             'invitations.scheduledDate' | translate
           }}</span>
-            @if (invite.scheduledFor) {
+            @if (invite.scheduledFor && invite.patientTZ) {
+                {{ getFormattedDate(invite.scheduledFor, invite.patientTZ) }} ( {{ invite.patientTZ }} )
+            } @else if (invite.scheduledFor) {
                 {{invite.scheduledFor | date: 'd MMM yyyy HH:mm' }}
-                @if (invite.patientTZ) {
-                   ( {{invite.patientTZ}} )
-                }
             } @else {
                 {{'invitations.immediately' | translate}}
             }

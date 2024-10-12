@@ -11,6 +11,7 @@ import { tap, map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import moment from "moment-timezone";
 
 @Component({
   selector: 'app-invitations',
@@ -77,7 +78,7 @@ export class InvitationsComponent implements OnInit {
         status: invite.status,
         metadata: invite.metadata,
         inviteObj: invite,
-        patinetTz: invite.patinetTz,
+        patientTZ: invite.patientTZ,
       };
     }
     const dialogRef = this.dialog.open(InviteFormComponent, {
@@ -192,6 +193,11 @@ export class InvitationsComponent implements OnInit {
       }
     });
   }
+
+  getFormattedDate(utcTimestamp: number, timezone: string) {
+    return moment(utcTimestamp).tz(timezone).format('D MMM YYYY HH:mm');
+  }
+
 }
 @Component({
   selector: 'app-invitation-already-accepted-dialog',

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import * as moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 @Component({
   selector: 'app-date-time-picker',
@@ -7,13 +7,13 @@ import * as moment from 'moment-timezone';
   styleUrls: ['./date-time-picker.component.scss']
 })
 export class DateTimePickerComponent  implements OnInit {
-  date: Date = new Date();
   time: string;
   times: string[] = this.generateTimes();
   filteredTimes: string[];
   timezones: string[] = [];
   filteredTimezones: string[] = [];
 
+  @Input() date: Date = new Date();
   @Input() selectedTimezone: string = '';
   @Output() dateTimeSelected = new EventEmitter<Date>();
   @Output() timeZoneSelected = new EventEmitter<string>();
@@ -103,7 +103,7 @@ export class DateTimePickerComponent  implements OnInit {
 
   private emitDateTime(): void {
     if (this.date && this.time && this.selectedTimezone) {
-      const date = moment.tz(this.date, 'YYYY-MM-DD');
+      const date = moment(this.date, 'YYYY-MM-DD');
       const dateTime = moment.tz(`${date.format('YYYY-MM-DD')} ${this.time}`, 'YYYY-MM-DD HH:mm', this.selectedTimezone);
       if (dateTime.isValid()) {
         const utcDateTime = dateTime.utc().toDate();

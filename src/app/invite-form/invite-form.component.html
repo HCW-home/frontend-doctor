@@ -270,6 +270,7 @@
               </mat-label>
 
               <app-date-time-picker
+                [date]="data.scheduledFor"
                 [selectedTimezone]="selectedTimezone"
                 (timeZoneSelected)="onTimeZoneSelect($event)"
                 (dateTimeSelected)="
