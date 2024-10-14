@@ -46,26 +46,6 @@
 }
 
 markdown ::ng-deep {
-  ol {
-    counter-reset: item;
-    list-style: none;
-  }
-  li:before {
-    content: counters(item, ".") ". ";
-    counter-increment: item;
-    margin-left: -40px;
-    margin-right: 10px;
-  }
-
-  li > p {
-    display: inline;
-  }
-
-  li {
-    padding-top: 19px;
-    padding-bottom: 10px;
-  }
-
   a {
     color: var(--primary-color);
   }

@@ -134,3 +134,26 @@ img.logo {
 .mat-mdc-button:not(:disabled) {
   color: var(--app-white);
 }
+
+markdown {
+  ol {
+    margin-left: 0;
+    list-style: none;
+    padding-left: 25px;
+    counter-reset: item;
+
+    li:before {
+      margin-right: 10px;
+      counter-increment: item;
+      content: counters(item, ".") ". ";
+    }
+  }
+
+  ul {
+    list-style-position: inside
+  }
+
+  li > p {
+    display: inline;
+  }
+}
