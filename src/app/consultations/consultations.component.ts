@@ -1,35 +1,33 @@
 import { Subscription } from 'rxjs';
 import {
-  Component,
-  ElementRef,
   NgZone,
-  OnDestroy,
   OnInit,
+  Component,
+  OnDestroy,
   ViewChild,
+  ElementRef,
 } from '@angular/core';
-
-import { TranslateService } from '@ngx-translate/core';
-
-import { ConsultationService } from '../core/consultation.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { InviteService } from '../core/invite.service';
-import { InviteFormComponent } from '../invite-form/invite-form.component';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 import { jsPDF } from 'jspdf';
-import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../core/user.service';
-import { SocketEventsService } from '../core/socket-events.service';
-import { ConfigService } from '../core/config.service';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { MessageService } from '../core/message.service';
-import { DatePipe } from '@angular/common';
-import { DurationPipe } from '../duration.pipe';
-import { QueueService } from '../core/queue.service';
-import { FilterModalComponent } from '../filter-modal/filter-modal.component';
-import { InviteLinkComponent } from '../invite-link/invite-link.component';
+import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
+import { DurationPipe } from '../duration.pipe';
+import { UserService } from '../core/user.service';
+import { AuthService } from '../auth/auth.service';
+import { QueueService } from '../core/queue.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfigService } from '../core/config.service';
+import { InviteService } from '../core/invite.service';
+import { MessageService } from '../core/message.service';
+import { ConsultationService } from '../core/consultation.service';
+import { InviteFormComponent } from '../invite-form/invite-form.component';
+import { InviteLinkComponent } from '../invite-link/invite-link.component';
+import { FilterModalComponent } from '../filter-modal/filter-modal.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-consultations',
@@ -82,24 +80,22 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   isMobile = false;
 
   constructor(
-    private snackBar: MatSnackBar,
-    private consultationService: ConsultationService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private zone: NgZone,
-    private authService: AuthService,
     public dialog: MatDialog,
-    private userService: UserService,
-    private inviteService: InviteService,
-    private _socketEventsService: SocketEventsService,
-    private activeRoute: ActivatedRoute,
-    private translate: TranslateService,
-    public configService: ConfigService,
-    private msgServ: MessageService,
     private datePipe: DatePipe,
-    private durationPipe: DurationPipe,
+    private snackBar: MatSnackBar,
     private queueServ: QueueService,
-    private breakpointObserver: BreakpointObserver
+    private msgServ: MessageService,
+    private userService: UserService,
+    private authService: AuthService,
+    private durationPipe: DurationPipe,
+    public configService: ConfigService,
+    private translate: TranslateService,
+    private activeRoute: ActivatedRoute,
+    private inviteService: InviteService,
+    private activatedRoute: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver,
+    private consultationService: ConsultationService,
   ) {
     this.titles = [
       {
@@ -288,11 +284,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   }
 
   showChat(id) {
-    // if (this.status === 'closed') {
-    //   return;
-    // }
     this.currentConsultation = this.consultations.find(c => c._id === id);
-
     this.chatOpen = true;
   }
 
@@ -338,7 +330,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.queues) {
+      if (result?.queues) {
         this.filterState = result;
         this.applyFilters(result);
       } else if (result === 'clear') {
