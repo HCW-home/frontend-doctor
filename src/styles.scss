@@ -31,7 +31,10 @@ img {
 }
 
 .red-snackbar {
-  background: #b00020 !important;
+  --mdc-snackbar-container-color: var(--app-red) !important;
+  --mdc-snackbar-supporting-text-color: var(--app-white) !important;
+  --mat-mdc-snack-bar-button-color: var(--app-white) !important;
+  --mat-snack-bar-button-color: var(--app-white) !important;
 }
 
 img.logo {
