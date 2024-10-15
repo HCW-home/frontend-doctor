@@ -1,3 +1,10 @@
+hcw-athome-caregiver (0.5.2.13) UNRELEASED; urgency=medium
+
+  * fix pdf PDF from history with long label
+  * terms page fix for fallback
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 15 Oct 2024 14:13:42 +0000
+
 hcw-athome-caregiver (5.2.12) focal; urgency=medium
 
   * hide translator invite checkbox
