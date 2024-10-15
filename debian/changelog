@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.2.12) UNRELEASED; urgency=medium
+hcw-athome-caregiver (5.2.12) focal; urgency=medium
 
   * hide translator invite checkbox
   * change error snackbar colors
