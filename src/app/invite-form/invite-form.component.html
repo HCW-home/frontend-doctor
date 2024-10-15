@@ -92,6 +92,7 @@
                 "></mat-error>
             </mat-form-field>
           </div>
+
           <div *ngIf="isPatientInvite" class="field-container">
             <mat-form-field>
               <mat-label class="label">
@@ -116,27 +117,53 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field *ngIf="queues?.length > 0">
-              <mat-label class="label">
-                {{ 'inviteForm.waitingQueue' | translate }}
-              </mat-label>
-              <mat-select
-                formControlName="queueFormControl"
-                [(ngModel)]="data.queue"
-                [errorStateMatcher]="matcher">
-                <mat-option [value]="undefined">
-                  {{ 'inviteForm.mySelf' | translate }}
-                </mat-option>
-                <span>
+              <mat-form-field>
+                  <mat-label class="label">
+                      {{ 'inviteForm.language' | translate }}
+                  </mat-label>
+                  <mat-select
+                          formControlName="languageFormControl"
+                          required
+                          [(ngModel)]="data.language"
+                          [errorStateMatcher]="matcher"
+                          (selectionChange)="languageSelectChanged()">
+                      <mat-option>--</mat-option>
+                      <mat-option *ngFor="let lang of languages" [value]="lang.code">
+                          {{ lang.translated }}
+                      </mat-option>
+                  </mat-select>
+                  <mat-error
+                          *ngIf="
+                  myForm.controls.languageFormControl.hasError('required')
+                ">
+                      {{ 'inviteForm.pleaseChooseLanguage' | translate }}
+                  </mat-error>
+              </mat-form-field>
+          </div>
+
+            <div *ngIf="isPatientInvite" class="field-container">
+                <mat-form-field *ngIf="queues?.length > 0">
+                    <mat-label class="label">
+                        {{ 'inviteForm.waitingQueue' | translate }}
+                    </mat-label>
+                    <mat-select
+                            formControlName="queueFormControl"
+                            [(ngModel)]="data.queue"
+                            [errorStateMatcher]="matcher">
+                        <mat-option [value]="undefined">
+                            {{ 'inviteForm.mySelf' | translate }}
+                        </mat-option>
+                        <span>
                   <mat-option *ngFor="let queue of queues" [value]="queue.id">
                     {{ queue.name }}
                   </mat-option>
                 </span>
-              </mat-select>
-            </mat-form-field>
-          </div>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-          <div *ngIf="isPatientInvite" class="field-container">
+
+            <div *ngIf="isPatientInvite" class="field-container">
             <div class="field-container-inner">
               <mat-form-field>
                 <mat-label class="label">
@@ -223,44 +250,11 @@
           </div>
 
           <div class="field-container">
-            <div>
               <mat-checkbox
                 formControlName="isScheduled"
                 [(ngModel)]="schedule">
                 {{ 'inviteForm.schedulingLater' | translate }}
               </mat-checkbox>
-            </div>
-
-            <mat-form-field>
-              <mat-label class="label">
-                {{ 'inviteForm.language' | translate }}
-              </mat-label>
-              <mat-select
-                formControlName="languageFormControl"
-                required
-                [(ngModel)]="data.language"
-                [errorStateMatcher]="matcher"
-                (selectionChange)="languageSelectChanged()">
-                <!--                <mat-select-trigger>-->
-                <!--                  <span class="language__option">-->
-                <!--                    <span>-->
-                <!--                      {{ 'inviteForm.' + data.language | translate }}</span-->
-                <!--                    >-->
-                <!--                  </span>-->
-                <!--                </mat-select-trigger>-->
-
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let lang of languages" [value]="lang.code">
-                  {{ lang.translated }}
-                </mat-option>
-              </mat-select>
-              <mat-error
-                *ngIf="
-                  myForm.controls.languageFormControl.hasError('required')
-                ">
-                {{ 'inviteForm.pleaseChooseLanguage' | translate }}
-              </mat-error>
-            </mat-form-field>
           </div>
 
           <div class="field-container flex-column mt-14">
