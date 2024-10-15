@@ -367,6 +367,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           );
         }
 
+        const getLabelWidth = (text: string) => doc.getTextWidth(text) + 2;
+
         doc.setFont('Helvetica', 'normal', 400);
         doc.setFontSize(22);
         doc.text('Consultation report', 15, 40);
@@ -426,33 +428,33 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         doc.text(`Start date/time:`, 15, 80);
         doc.text(`End date/time:`, 15, 85);
         doc.text(`Duration:`, 15, 90);
-        const currentYPosition = 95;
-        if (data.metadata && Object.keys(data.metadata).length) {
-          Object.keys(data.metadata).forEach((key, index) => {
-            doc.text(`${key}:`, 15, currentYPosition + index * 5);
-          });
-        }
 
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(
-          `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm')}`,
-          45,
-          80
+            `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm')}`,
+            15 + getLabelWidth(`Start date/time:`),
+            80
         );
         doc.text(
-          `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm')}`,
-          45,
-          85
+            `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm')}`,
+            15 + getLabelWidth(`End date/time:`),
+            85
         );
         doc.text(
-          `${this.durationPipe.transform(data.createdAt - data.closedAt)}`,
-          45,
-          90
+            `${this.durationPipe.transform(data.createdAt - data.closedAt)}`,
+            15 + getLabelWidth(`Duration:`),
+            90
         );
-        // doc.text(`${data.lastName}`, 45, 95);
+
+        const currentYPosition = 95;
         if (data.metadata && Object.keys(data.metadata).length) {
           Object.keys(data.metadata).forEach((key, index) => {
-            doc.text(`${data.metadata[key]}`, 45, currentYPosition + index * 5);
+            doc.setFont('Helvetica', 'normal', 700);
+            doc.text(`${key}:`, 15, currentYPosition + index * 5);
+
+            const metadataX = 15 + getLabelWidth(`${key}:`);
+            doc.setFont('Helvetica', 'normal', 400);
+            doc.text(`${data.metadata[key]}`, metadataX, currentYPosition + index * 5);
           });
         }
 
