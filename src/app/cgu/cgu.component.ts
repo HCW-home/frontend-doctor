@@ -13,10 +13,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class CguComponent {
   currentUser: User;
   error = false;
+  countryError = false;
   selectedCountry = 'Any';
-  selectedTermName = 'terms.en.md';
   countries = [];
   currentLang: string = 'en';
+  selectedTermName = 'terms.en.md';
 
   constructor(
     public configService: ConfigService,
@@ -48,11 +49,13 @@ export class CguComponent {
           res.unshift('Any');
           this.changeCountry('Any');
           this.countries = res;
-          this.error = false;
+          this.countryError = false;
         }
       },
       error => {
-        this.error = true;
+        this.countryError = true;
+        this.selectedCountry = '';
+        this.changeCountry('');
       }
     );
   }
@@ -67,9 +70,9 @@ export class CguComponent {
 
   changeCountry(country: string) {
     this.selectedCountry = country;
-    const fallbackTerms = `terms.md`;
+    const fallbackTerms =  !country || country === 'Any' ? `terms.md` : `terms.${country}.md`;
 
-    const specificTerms =  country === 'Any' ? `terms.${this.currentLang}.md` :  `terms.${country}.${this.currentLang}.md`;
+    const specificTerms =  !country || country === 'Any' ? `terms.${this.currentLang}.md` :  `terms.${country}.${this.currentLang}.md`;
 
     this.error = false;
     this.configService.checkTermsFileExists(specificTerms).subscribe(

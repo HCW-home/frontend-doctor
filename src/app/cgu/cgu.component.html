@@ -3,11 +3,11 @@
         <div class="container">
 
             <div class="fixed-container">
-                <div class="title" *ngIf="!error">
-                    {{ 'cgu.selectCountry' | translate }}
+                <div class="title" >
+                   <p *ngIf="!countryError">{{ 'cgu.selectCountry' | translate }}</p>
                     <div class="country-select">
                         <div class="sl-container">
-                            <mat-form-field>
+                            <mat-form-field *ngIf="!countryError">
                                 <mat-label>{{ 'cgu.country' | translate }}</mat-label>
                                 <mat-select
                                     #langSelect
