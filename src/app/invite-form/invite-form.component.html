@@ -117,53 +117,52 @@
               </mat-error>
             </mat-form-field>
 
-              <mat-form-field>
-                  <mat-label class="label">
-                      {{ 'inviteForm.language' | translate }}
-                  </mat-label>
-                  <mat-select
-                          formControlName="languageFormControl"
-                          required
-                          [(ngModel)]="data.language"
-                          [errorStateMatcher]="matcher"
-                          (selectionChange)="languageSelectChanged()">
-                      <mat-option>--</mat-option>
-                      <mat-option *ngFor="let lang of languages" [value]="lang.code">
-                          {{ lang.translated }}
-                      </mat-option>
-                  </mat-select>
-                  <mat-error
-                          *ngIf="
+            <mat-form-field>
+              <mat-label class="label">
+                {{ 'inviteForm.language' | translate }}
+              </mat-label>
+              <mat-select
+                formControlName="languageFormControl"
+                required
+                [(ngModel)]="data.language"
+                [errorStateMatcher]="matcher"
+                (selectionChange)="languageSelectChanged()">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let lang of languages" [value]="lang.code">
+                  {{ lang.translated }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
                   myForm.controls.languageFormControl.hasError('required')
                 ">
-                      {{ 'inviteForm.pleaseChooseLanguage' | translate }}
-                  </mat-error>
-              </mat-form-field>
+                {{ 'inviteForm.pleaseChooseLanguage' | translate }}
+              </mat-error>
+            </mat-form-field>
           </div>
 
-            <div *ngIf="isPatientInvite" class="field-container">
-                <mat-form-field *ngIf="queues?.length > 0">
-                    <mat-label class="label">
-                        {{ 'inviteForm.waitingQueue' | translate }}
-                    </mat-label>
-                    <mat-select
-                            formControlName="queueFormControl"
-                            [(ngModel)]="data.queue"
-                            [errorStateMatcher]="matcher">
-                        <mat-option [value]="undefined">
-                            {{ 'inviteForm.mySelf' | translate }}
-                        </mat-option>
-                        <span>
+          <div *ngIf="isPatientInvite" class="field-container">
+            <mat-form-field *ngIf="queues?.length > 0">
+              <mat-label class="label">
+                {{ 'inviteForm.waitingQueue' | translate }}
+              </mat-label>
+              <mat-select
+                formControlName="queueFormControl"
+                [(ngModel)]="data.queue"
+                [errorStateMatcher]="matcher">
+                <mat-option [value]="undefined">
+                  {{ 'inviteForm.mySelf' | translate }}
+                </mat-option>
+                <span>
                   <mat-option *ngFor="let queue of queues" [value]="queue.id">
                     {{ queue.name }}
                   </mat-option>
                 </span>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-
-            <div *ngIf="isPatientInvite" class="field-container">
+          <div *ngIf="isPatientInvite" class="field-container">
             <div class="field-container-inner">
               <mat-form-field>
                 <mat-label class="label">
@@ -224,8 +223,12 @@
                 formControlName="messageService"
                 class="provider-radio-group"
                 *ngIf="showRadioGroup">
-                <mat-radio-button value="1">{{'profile.whatsapp' | translate}}</mat-radio-button>
-                <mat-radio-button value="2">{{'profile.sms' | translate}}</mat-radio-button>
+                <mat-radio-button value="1">
+                  {{ 'profile.whatsapp' | translate }}
+                </mat-radio-button>
+                <mat-radio-button value="2">
+                  {{ 'profile.sms' | translate }}
+                </mat-radio-button>
               </mat-radio-group>
               <mat-error
                 class="form-error"
@@ -250,11 +253,9 @@
           </div>
 
           <div class="field-container">
-              <mat-checkbox
-                formControlName="isScheduled"
-                [(ngModel)]="schedule">
-                {{ 'inviteForm.schedulingLater' | translate }}
-              </mat-checkbox>
+            <mat-checkbox formControlName="isScheduled" [(ngModel)]="schedule">
+              {{ 'inviteForm.schedulingLater' | translate }}
+            </mat-checkbox>
           </div>
 
           <div class="field-container flex-column mt-14">
@@ -275,6 +276,16 @@
           <div *ngIf="error" class="error">
             {{ error }}
           </div>
+          @if (configService.config?.formMeta?.length) {
+            <div class="field-container flex-column justify-content-start">
+              @for (field of configService.config.formMeta; track field) {
+                <mat-form-field appearance="fill" *ngIf="myForm.get(field)" class="w-100">
+                  <mat-label>{{ field }}</mat-label>
+                  <input matInput [formControlName]="field" />
+                </mat-form-field>
+              }
+            </div>
+          }
         </div>
         <div *ngIf="loading" class="loading">
           <mat-spinner [diameter]="35"></mat-spinner>
@@ -348,8 +359,12 @@
             formControlName="guestContactMessageService"
             class="provider-radio-group"
             *ngIf="showGuestRadioGroup">
-            <mat-radio-button value="1">{{'profile.whatsapp' | translate}}</mat-radio-button>
-            <mat-radio-button value="2">{{'profile.sms' | translate}}</mat-radio-button>
+            <mat-radio-button value="1">
+              {{ 'profile.whatsapp' | translate }}
+            </mat-radio-button>
+            <mat-radio-button value="2">
+              {{ 'profile.sms' | translate }}
+            </mat-radio-button>
           </mat-radio-group>
           <mat-error
             class="form-error"
@@ -447,8 +462,12 @@
                       <mat-radio-group
                         formControlName="messageService"
                         class="provider-radio-group">
-                        <mat-radio-button value="1">{{'profile.whatsapp' | translate}}</mat-radio-button>
-                        <mat-radio-button value="2">{{'profile.sms' | translate}}</mat-radio-button>
+                        <mat-radio-button value="1">
+                          {{ 'profile.whatsapp' | translate }}
+                        </mat-radio-button>
+                        <mat-radio-button value="2">
+                          {{ 'profile.sms' | translate }}
+                        </mat-radio-button>
                       </mat-radio-group>
                     </div>
                     <mat-error
@@ -473,9 +492,7 @@
             </div>
           </div>
 
-          <div
-            *ngIf="false"
-            class="field-container mt-14">
+          <div *ngIf="false" class="field-container mt-14">
             <mat-checkbox
               formControlName="inviteTranslatorFormControl"
               [(ngModel)]="inviteTranslator">

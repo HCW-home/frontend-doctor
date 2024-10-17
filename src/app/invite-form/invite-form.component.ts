@@ -59,6 +59,7 @@ interface DialogData {
   experts: string[];
   sendLinkManually: boolean;
   patientTZ: string
+  metadata: { [key: string]: any },
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -142,6 +143,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.inviteTranslator = true;
     }
 
+    this.data.metadata = this.data.metadata || {}
     this.selectedTimezone = this.data.patientTZ || moment.tz.guess()
   }
 
@@ -248,6 +250,15 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         validators: this.atLeastAGuestOrTranslator.bind(this),
       }
     );
+
+    if (this.configService.config?.formMeta?.length) {
+      this.configService.config.formMeta.forEach((field: string) => {
+        if (!this.myForm.contains(field)) {
+          this.myForm.addControl(field, new FormControl(this.data.metadata[field] || ''));
+        }
+      });
+    }
+
     (window as any).myForm = this.myForm;
 
     this.myForm.get('inviteExpert').valueChanges.subscribe(value => {
@@ -707,6 +718,16 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
     this.data.isPatientInvite = this.isPatientInvite;
     this.data.sendLinkManually = this.myForm.get('sendLinkManually').value;
+
+    if (this.configService.config?.formMeta?.length) {
+      this.configService.config.formMeta.forEach(field => {
+        const control = this.myForm.get(field);
+        if (control) {
+          this.data.metadata[field] = control.value;
+        }
+      });
+    }
+
     if (this.edit) {
       let cancelScheduledFor = false;
       let cancelGuestInvite = false;
@@ -738,7 +759,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         language,
         guestEmailAddress,
         guestPhoneNumber,
-        patientTZ
+        patientTZ,
+        metadata
       } = this.data;
 
       this.inviteService
@@ -759,7 +781,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
             cancelScheduledFor,
             cancelTranslationRequestInvite,
             patientTZ,
-            // metadata,
+            metadata,
           },
           this.data.id
         )

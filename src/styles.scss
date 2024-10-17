@@ -46,6 +46,10 @@ img.logo {
   width: 100%;
 }
 
+.w-50 {
+  width: 50%;
+}
+
 .d-inline {
   display: inline;
 }
@@ -70,12 +74,20 @@ img.logo {
   justify-content: center;
 }
 
+.justify-content-start {
+  justify-content: flex-start !important;
+}
+
 .justify-content-between {
   justify-content: space-between;
 }
 
 .align-items-center {
   align-items: center;
+}
+
+.align-items-start {
+  align-items: flex-start;
 }
 
 .gap-10 {

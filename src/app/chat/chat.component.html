@@ -18,7 +18,8 @@
           <div
             class="c_info_wrap"
             *ngIf="consultation.consultation.status !== 'closed'">
-            <button color="primary"
+            <button
+              color="primary"
               mat-flat-button
               (click)="
                 inviteExpert(consultation.consultation.expertInvitationURL)
@@ -204,7 +205,8 @@
               {{ 'chat.translatorContactDetails' | translate }}
             </div>
             <div class="c_info_row_content">
-              {{ consultation.translator.email }} <br />
+              {{ consultation.translator.email }}
+              <br />
               {{ consultation.translator.direct }}
             </div>
           </div>
@@ -223,9 +225,11 @@
             </div>
           </div>
 
-          <div
-            *ngFor="let item of consultation.consultation.metadata | keyvalue">
-            <ng-container *ngIf="item.value">
+          @for (
+            item of consultation.consultation.metadata | keyvalue;
+            track item.key
+          ) {
+            @if (item.value) {
               <div class="c_info_wrap">
                 <div class="c_info_row_title">
                   {{ item.key }}
@@ -234,8 +238,8 @@
                   {{ item.value }}
                 </div>
               </div>
-            </ng-container>
-          </div>
+            }
+          }
 
           <div
             *ngIf="consultation.consultation.status === 'closed'"
@@ -348,17 +352,17 @@
             }}
             <span
               style="display: block; text-align: center; margin-top: 10px"
-              class="msg-time"
-              >{{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
-            >
+              class="msg-time">
+              {{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}
+            </span>
           </div>
           <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto">
             {{ 'chat.videoCallFinished' | translate }}
             <span
               style="display: block; text-align: center; margin-top: 10px"
-              class="msg-time"
-              >{{ msg.closedAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
-            >
+              class="msg-time">
+              {{ msg.closedAt | date: 'd MMMM HH:mm' : 'fr-fr' }}
+            </span>
           </div>
         </div>
 
@@ -375,17 +379,17 @@
             }}
             <span
               style="display: block; text-align: center; margin-top: 10px"
-              class="msg-time"
-              >{{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
-            >
+              class="msg-time">
+              {{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}
+            </span>
           </div>
           <div *ngIf="msg.acceptedAt && msg.closedAt" style="margin: 22px auto">
             {{ 'chat.videoAudioFinished' | translate }}
             <span
               style="display: block; text-align: center; margin-top: 10px"
-              class="msg-time"
-              >{{ msg.closedAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
-            >
+              class="msg-time">
+              {{ msg.closedAt | date: 'd MMMM HH:mm' : 'fr-fr' }}
+            </span>
           </div>
         </div>
         <div
@@ -393,8 +397,8 @@
           style="grid-area: msgTime"
           [ngClass]="{ 'big-font': noPagination }"
           class="msg-time">
-          <span *ngIf="msg.fromUserDetail?.role !== 'patient'" class="msg-time"
-            >{{ msg.fromUserDetail?.firstName }}
+          <span *ngIf="msg.fromUserDetail?.role !== 'patient'" class="msg-time">
+            {{ msg.fromUserDetail?.firstName }}
             {{ msg.fromUserDetail?.lastName }} -
           </span>
           <span *ngIf="msg.fromUserDetail?.role === 'patient'" class="msg-time">
@@ -403,8 +407,8 @@
             -
           </span>
           <span class="msg-time">
-            {{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}</span
-          >
+            {{ msg.createdAt | date: 'd MMMM HH:mm' : 'fr-fr' }}
+          </span>
         </div>
       </div>
       <app-dot-spinner *ngIf="isUploading"></app-dot-spinner>
@@ -413,9 +417,7 @@
 
   <div *ngIf="showInput" class="inputCont">
     <form class="form-wrapper">
-      <button
-        (click)="showAttachBrowseDlg()"
-        mat-mini-fab color="primary">
+      <button (click)="showAttachBrowseDlg()" mat-mini-fab color="primary">
         <mat-icon svgIcon="attach"></mat-icon>
       </button>
       <input
@@ -436,10 +438,7 @@
         [(ngModel)]="chatText"
         name="chatInput"
         matInput></textarea>
-      <button
-        (click)="send()"
-        color="primary"
-        mat-mini-fab>
+      <button (click)="send()" color="primary" mat-mini-fab>
         <mat-icon svgIcon="send"></mat-icon>
       </button>
     </form>
