@@ -1,9 +1,12 @@
-hcw-athome-caregiver (0.5.2.13) UNRELEASED; urgency=medium
+hcw-athome-caregiver (5.2.13) focal; urgency=medium
 
+  [ Gor Grigoryan ]
   * fix pdf PDF from history with long label
   * terms page fix for fallback
+  * add pictures in PDF
+  * add metadata in invite form
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 15 Oct 2024 14:13:42 +0000
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 17 Oct 2024 16:24:55 +0200
 
 hcw-athome-caregiver (5.2.12) focal; urgency=medium
 
