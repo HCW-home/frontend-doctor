@@ -16,7 +16,7 @@ import {
   UntypedFormControl,
   UntypedFormBuilder,
   FormGroupDirective,
-} from "@angular/forms";
+} from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ConfigService } from '../core/config.service';
@@ -32,7 +32,7 @@ import {
 import { catchError, filter, switchMap } from 'rxjs/operators';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
-import {validateIf} from "../shared/validators/validate-if.validator";
+import { validateIf } from '../shared/validators/validate-if.validator';
 
 interface DialogData {
   phoneNumber: string;
@@ -58,8 +58,8 @@ interface DialogData {
   inviteObj: any;
   experts: string[];
   sendLinkManually: boolean;
-  patientTZ: string
-  metadata: { [key: string]: any },
+  patientTZ: string;
+  metadata: { [key: string]: any };
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -94,7 +94,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   inviteTranslator = false;
   inviteGuest = false;
   now = new Date();
-  languages;
+  languages = [];
   translationOrganizations;
   subscriptions: Subscription[] = [];
   isSubmitted = false;
@@ -133,8 +133,6 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.data.patientTZ = '';
     }
 
-    this.data.language = this.data.language || this.configService.config.defaultPatientLocale || 'fr';
-
     if (this.data.guestContact) {
       this.inviteGuest = true;
     }
@@ -143,8 +141,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
       this.inviteTranslator = true;
     }
 
-    this.data.metadata = this.data.metadata || {}
-    this.selectedTimezone = this.data.patientTZ || moment.tz.guess()
+    this.data.metadata = this.data.metadata || {};
+    this.selectedTimezone = this.data.patientTZ || moment.tz.guess();
   }
 
   get expertsFormArray() {
@@ -215,7 +213,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
           this.isPatientInvite ? [Validators.required] : []
         ),
         dateTimeFormControl: new UntypedFormControl(''),
-        patientTZ: new UntypedFormControl(this.data.patientTZ || this.selectedTimezone),
+        patientTZ: new UntypedFormControl(
+          this.data.patientTZ || this.selectedTimezone
+        ),
         isScheduled: new UntypedFormControl(false),
         sendLinkManually: new UntypedFormControl(false),
         inviteTranslatorFormControl: new UntypedFormControl(false),
@@ -237,8 +237,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         ]),
         translationOrganizationFormControl: new UntypedFormControl(null, [
           validateIf(
-              (group: FormControl) => group.value.inviteTranslatorFormControl,
-              Validators.compose([Validators.required]),
+            (group: FormControl) => group.value.inviteTranslatorFormControl,
+            Validators.compose([Validators.required])
           ),
         ]),
         queueFormControl,
@@ -254,7 +254,10 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     if (this.configService.config?.formMeta?.length) {
       this.configService.config.formMeta.forEach((field: string) => {
         if (!this.myForm.contains(field)) {
-          this.myForm.addControl(field, new FormControl(this.data.metadata[field] || ''));
+          this.myForm.addControl(
+            field,
+            new FormControl(this.data.metadata[field] || '')
+          );
         }
       });
     }
@@ -595,6 +598,18 @@ export class InviteFormComponent implements OnDestroy, OnInit {
               translated: this.translate.instant('inviteForm.' + l),
             };
           });
+          const browserLanguage = this.translate.getBrowserLang();
+          const supportedLanguage = this.languages.find(
+            i => i.code === browserLanguage
+          );
+          if (this.data.language) {
+            return;
+          }
+          if (this.configService.config?.defaultPatientLocale) {
+            this.data.language = this.configService.config.defaultPatientLocale;
+          } else if (supportedLanguage) {
+            this.data.language = supportedLanguage.code;
+          }
         }
       },
       error: err => {
@@ -760,7 +775,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         guestEmailAddress,
         guestPhoneNumber,
         patientTZ,
-        metadata
+        metadata,
       } = this.data;
 
       this.inviteService
