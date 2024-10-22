@@ -441,5 +441,11 @@
         "close": "Close",
         "copied": "Copied to clipboard",
         "sent": "The invite link has been sent successfully to participant"
+    },
+    "metadata": {
+        "Age": "Age",
+        "Country": "Country",
+        "Custom Id": "Custom Id",
+        "Facility": "Facility"
     }
 }

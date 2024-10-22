@@ -232,7 +232,7 @@
             @if (item.value) {
               <div class="c_info_wrap">
                 <div class="c_info_row_title">
-                  {{ item.key }}
+                  {{ 'metadata.' + item.key | translate }}
                 </div>
                 <div class="c_info_row_content">
                   {{ item.value }}

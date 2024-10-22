@@ -280,7 +280,7 @@
             <div class="field-container flex-column justify-content-start">
               @for (field of configService.config.formMeta; track field) {
                 <mat-form-field appearance="fill" *ngIf="myForm.get(field)" class="w-100">
-                  <mat-label>{{ field }}</mat-label>
+                  <mat-label>{{ 'metadata.'+ field | translate }}</mat-label>
                   <input matInput [formControlName]="field" />
                 </mat-form-field>
               }
