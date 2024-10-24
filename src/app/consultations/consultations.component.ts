@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs';
 import {
-  NgZone,
-  OnInit,
   Component,
-  OnDestroy,
-  ViewChild,
   ElementRef,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -346,6 +346,19 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     this.generatePDF(consultation.consultation, consultation.nurse);
   }
 
+  getImageUrl(imageFile: Blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = () => {
+        reject(reader.error);
+      };
+      reader.readAsDataURL(imageFile);
+    });
+  }
+
   adjustMsg(msg, consultationId) {
     return new Promise(resolve => {
       if (msg.type === 'attachment') {
@@ -359,13 +372,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             },
           })
             .then(res => res.blob())
-            .then(imageFile => {
+            .then(async imageFile => {
               msg.isImage = true;
-              const reader = new FileReader();
-              reader.onload = () => {
-                msg.attachmentsURL = reader.result;
-              };
-              reader.readAsDataURL(imageFile);
+              msg.attachmentsURL = await this.getImageUrl(imageFile);
               resolve(msg);
             })
             .catch(err => {
@@ -553,7 +562,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                   chatYPosition = 10;
                 }
                 doc.addImage(
-                  image,
+                  message.attachmentsURL,
                   'JPEG',
                   15,
                   chatYPosition,
@@ -563,11 +572,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                   'FAST'
                 );
                 chatYPosition += imgHeight + 5;
-                URL.revokeObjectURL(message.attachmentsURL);
                 resolve();
               };
               image.onerror = () => {
-                URL.revokeObjectURL(message.attachmentsURL);
                 resolve();
               };
             });
