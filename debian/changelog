@@ -1,9 +1,12 @@
-hcw-athome-caregiver (0.5.2.15) UNRELEASED; urgency=medium
+hcw-athome-caregiver (5.2.15) focal; urgency=medium
 
+  [ Gor Grigoryan ]
   * use browser language for invite form if DEFAULT_PATIENT_LOCALE is not set in env
   * translate form meta
+  * hande missing translation for invite form dynamic fields
+  * fix pdf image preview
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 22 Oct 2024 09:57:14 +0000
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Fri, 25 Oct 2024 15:32:05 +0200
 
 hcw-athome-caregiver (5.2.13) focal; urgency=medium
 
