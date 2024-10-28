@@ -223,7 +223,11 @@
         "et": "Tigrigna",
         "sg": "Tamoul",
         "ta": "Tamoul",
-        "ti": "Tigrigna"
+        "ti": "Tigrigna",
+        "chooseTime": "Choisissez une heure",
+        "selectTimezone": "Sélectionner le fuseau horaire",
+        "chooseDate": "Choisissez une date",
+        "sendLinkManually": "Je veux envoyer le lien manuellement"
     },
     "overlay": {
         "close": "Clôturer",
@@ -283,7 +287,8 @@
         "revoke": "Supprimer",
         "cancelRevoke": "Ne pas supprimer",
         "revokeConfirmTitle": "Supprimer une invitation",
-        "status": "Etat"
+        "status": "Etat",
+        "immediately": "Immédiatement"
     },
     "sideChat": {
         "startTheConsultation": "Démarrer la consultation"
@@ -340,7 +345,10 @@
         "updateTheProfile": "mettre à jour le profil",
         "enablesNotification": "Cette option active l'envoi de notification SMS quand une consultation est demandée.",
         "notification": "Notification",
-        "name": "Nom"
+        "name": "Nom",
+        "whatsapp": "WhatsApp",
+        "sms": "SMS",
+        "selectLanguage": "Langue"
     },
     "resetPassword": {
         "changePassword": "Changement du mot de passe",
@@ -425,7 +433,8 @@
         "terms": "les conditions d'utilisation",
         "youHaveTo": "Vous devez accepter",
         "description": "Conditions d'accès",
-        "pleaseAccept": "Vous devez accepter {{terms}} avant de pouvoir utiliser HCW@Home"
+        "pleaseAccept": "Vous devez accepter {{terms}} avant de pouvoir utiliser HCW@Home",
+        "country": "Pays"
     },
     "support": {
         "thisFormAllowsYouToReportAProblem": "Ce formulaire vous permet de remonter un problème rencontré pendant l'utilisation de {{branding}}. Avant de rapporter un incident, merci de vérifier que vous utilisez bien {{branding}} dans les conditions optimales :",
