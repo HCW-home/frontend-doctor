@@ -69,7 +69,7 @@
       <mat-icon *ngIf="muteStatus === 'on'" svgIcon="mic"></mat-icon>
       <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
     </button>
-    <button (click)="resize()" color="primary" mat-fab>
+    <button (click)="resize()" color="primary" class="resize-button" mat-fab>
       <mat-icon svgIcon="enlarge"></mat-icon>
     </button>
     <!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->

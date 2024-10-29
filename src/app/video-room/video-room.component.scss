@@ -934,8 +934,6 @@ ion-fab-button.controller {
 
 .resize-button {
   display: none;
-  background-color: var(--app-white);
-
   @media screen and (max-width: 600px) {
     display: block
   }
