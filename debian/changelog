@@ -1,3 +1,10 @@
+hcw-athome-caregiver (5.2.18) focal; urgency=medium
+
+  [ Gor Grigoryan ]
+  * imporove general information
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 30 Oct 2024 11:43:04 +0100
+
 hcw-athome-caregiver (5.2.17) focal; urgency=medium
 
   [ Olivier Bitsch ]
