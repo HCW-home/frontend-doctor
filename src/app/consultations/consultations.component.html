@@ -170,7 +170,7 @@
               class="hidden-mobile">
               <ng-container *ngIf="status !== 'closed'">
                 <span class="tile-header">
-                  {{ displayItem }}
+                  {{ ('metadata.' + displayItem | translate) !== ('metadata.' + displayItem) ? ('metadata.' + displayItem | translate) : displayItem }}
                 </span>
                 <ng-container
                   *ngIf="
@@ -189,10 +189,11 @@
               </ng-container>
             </td>
           </ng-container>
+
           <ng-container
             *ngIf="status !== 'closed' && consultation.consultation.guest"
             (click)="showChat(consultation._id)">
-            <td class="online-status-cell" class="hidden-mobile">
+            <td class="online-status-cell hidden-mobile">
               <span
                 class="tile-header"
                 style="margin-bottom: 0px !important; margin-top: 8px"

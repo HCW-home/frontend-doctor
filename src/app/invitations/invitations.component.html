@@ -72,6 +72,31 @@
                 {{'invitations.immediately' | translate}}
             }
         </td>
+          <ng-container *ngIf="configService.config?.metadata?.length">
+              <td
+                      *ngFor="let displayItem of configService.config.metadata"
+                      class="hidden-mobile">
+                  <ng-container>
+                <span class="tile-header">
+                  {{ ('metadata.' + displayItem | translate) !== ('metadata.' + displayItem) ? ('metadata.' + displayItem | translate) : displayItem }}
+                </span>
+                      <ng-container
+                              *ngIf="
+                    invite.metadata === null;
+                    else metanull
+                  ">
+                          -
+                      </ng-container>
+                      <ng-template #metanull>
+                          {{
+                              invite.metadata[displayItem]
+                                  ? invite.metadata[displayItem]
+                                  : '-'
+                          }}
+                      </ng-template>
+                  </ng-container>
+              </td>
+          </ng-container>
         <td class="hidden-mobile">
           <span class="tile-header">{{
             'invitations.patient' | translate

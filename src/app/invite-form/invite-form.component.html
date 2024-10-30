@@ -141,6 +141,17 @@
             </mat-form-field>
           </div>
 
+        @if (configService.config?.formMeta?.length) {
+            <div class="field-container flex-column justify-content-start">
+                @for (field of configService.config.formMeta; track field) {
+                    <mat-form-field appearance="fill" *ngIf="myForm.get(field)" class="w-100">
+                        <mat-label>{{ ('metadata.' + field | translate) !== ('metadata.' + field) ? ('metadata.' + field | translate) : field }}</mat-label>
+                        <input matInput [formControlName]="field" />
+                    </mat-form-field>
+                }
+            </div>
+        }
+
           <div *ngIf="isPatientInvite" class="field-container">
             <mat-form-field *ngIf="queues?.length > 0">
               <mat-label class="label">
@@ -276,16 +287,6 @@
           <div *ngIf="error" class="error">
             {{ error }}
           </div>
-          @if (configService.config?.formMeta?.length) {
-            <div class="field-container flex-column justify-content-start">
-              @for (field of configService.config.formMeta; track field) {
-                <mat-form-field appearance="fill" *ngIf="myForm.get(field)" class="w-100">
-                    <mat-label>{{ ('metadata.' + field | translate) !== ('metadata.' + field) ? ('metadata.' + field | translate) : field }}</mat-label>
-                  <input matInput [formControlName]="field" />
-                </mat-form-field>
-              }
-            </div>
-          }
         </div>
         <div *ngIf="loading" class="loading">
           <mat-spinner [diameter]="35"></mat-spinner>

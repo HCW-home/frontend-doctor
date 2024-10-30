@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import moment from "moment-timezone";
+import {ConfigService} from "../core/config.service";
 
 @Component({
   selector: 'app-invitations',
@@ -34,7 +35,8 @@ export class InvitationsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private translate: TranslateService,
     private activeRoute: ActivatedRoute,
-    private inviteService: InviteService
+    private inviteService: InviteService,
+    public configService: ConfigService,
   ) {}
 
   ngOnInit() {
