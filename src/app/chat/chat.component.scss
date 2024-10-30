@@ -213,6 +213,8 @@ textarea:focus {
   height: 62%;
   font-size: 1em;
   padding-top: 5px;
+  word-wrap: break-word;
+
 }
 
 .experts_content {
@@ -221,9 +223,9 @@ textarea:focus {
 }
 
 .c_info_wrap {
-  margin-top: 23px;
+  margin-top: 6px;
   @media (min-width: 600px) {
-    width: 50%;
+    width: 33%;
   }
   @media (max-width: 600px) {
     margin-top: 6px;
@@ -233,8 +235,19 @@ textarea:focus {
 
 .general-wrapper {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  @media (max-width: 600px) {
+    justify-content: space-between;
+  }
+}
+
+.send-again-button {
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+  mat-icon {
+    width: 16px;
+  }
 }
 
 .hide-on-mobile {

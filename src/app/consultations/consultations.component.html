@@ -2,8 +2,7 @@
   <app-overlay
     (close)="chatOpen = false"
     *ngIf="chatOpen"
-    [consultation]="currentConsultation">
-  </app-overlay>
+    [consultation]="currentConsultation"></app-overlay>
 
   <app-top-nav
     *ngIf="title"
@@ -69,38 +68,38 @@
             </div>
           </td>
           <td>
-            <span class="tile-header">{{
-              'consultations.patient' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.patient' | translate }}
+            </span>
 
-            <ng-container
+            <span
+              class="d-flex flex-column"
               *ngIf="consultation.consultation.firstName !== 'No firstname'">
               {{
                 consultation.consultation.firstName +
                   ' ' +
                   consultation.consultation.lastName
               }}
-            </ng-container>
-
-            <ng-container
-              *ngIf="consultation.consultation.firstName === 'No firstname'">
-              <span style="color: #8a8a8a">
-                {{ 'consultations.noPatientName' | translate }}
-              </span>
-            </ng-container>
-            <div *ngIf="status !== 'closed'">
               <app-status
+                *ngIf="status !== 'closed'"
                 [type]="
                   consultation.consultation.flagPatientOnline
                     ? 'online'
                     : 'offline'
                 "></app-status>
-            </div>
+            </span>
+
+            <ng-container
+              *ngIf="consultation.consultation.firstName === 'No firstname'">
+              <span style="color: #8a8a8a" class="d-flex flex-column">
+                {{ 'consultations.noPatientName' | translate }}
+              </span>
+            </ng-container>
           </td>
           <td class="hidden-mobile">
-            <span class="tile-header">{{
-              'consultations.requestedBy' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.requestedBy' | translate }}
+            </span>
             <span
               *ngIf="
                 consultation?.nurse?.firstName || consultation?.nurse?.lastName;
@@ -114,9 +113,9 @@
             </ng-template>
           </td>
           <td class="hidden-mobile">
-            <span class="tile-header">{{
-              'consultations.waitingQueue' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.waitingQueue' | translate }}
+            </span>
             {{
               consultation.queue && consultation.queue.name
                 ? consultation.queue.name
@@ -124,9 +123,9 @@
             }}
           </td>
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
-            <span class="tile-header">{{
-              'consultations.message' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.message' | translate }}
+            </span>
             {{
               (consultation.lastMsg
                 ? consultation.lastMsg.text ||
@@ -136,18 +135,18 @@
             }}
           </td>
           <td *ngIf="status === 'closed'">
-            <span class="tile-header">{{
-              'consultations.startDateTime' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.startDateTime' | translate }}
+            </span>
             {{
               consultation.consultation.createdAt
                 | date: 'd MMM yyyy HH:mm' : 'fr'
             }}
           </td>
           <td *ngIf="status !== 'closed'">
-            <span class="tile-header">{{
-              'consultations.time' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.time' | translate }}
+            </span>
             {{
               (consultation.lastMsg
                 ? consultation.lastMsg.createdAt
@@ -156,9 +155,9 @@
             }}
           </td>
           <td *ngIf="status === 'closed'" class="hidden-mobile">
-            <span class="tile-header">{{
-              'consultations.duration' | translate
-            }}</span>
+            <span class="tile-header">
+              {{ 'consultations.duration' | translate }}
+            </span>
             {{
               consultation.consultation.createdAt -
                 consultation.consultation.closedAt | duration
@@ -170,7 +169,12 @@
               class="hidden-mobile">
               <ng-container *ngIf="status !== 'closed'">
                 <span class="tile-header">
-                  {{ ('metadata.' + displayItem | translate) !== ('metadata.' + displayItem) ? ('metadata.' + displayItem | translate) : displayItem }}
+                  {{
+                    ('metadata.' + displayItem | translate) !==
+                    'metadata.' + displayItem
+                      ? ('metadata.' + displayItem | translate)
+                      : displayItem
+                  }}
                 </span>
                 <ng-container
                   *ngIf="
@@ -190,24 +194,21 @@
             </td>
           </ng-container>
 
-          <ng-container
-            *ngIf="status !== 'closed' && consultation.consultation.guest"
-            (click)="showChat(consultation._id)">
-            <td class="online-status-cell hidden-mobile">
-              <span
-                class="tile-header"
-                style="margin-bottom: 0px !important; margin-top: 8px"
-                >{{ 'consultations.guest' | translate }}</span
-              >
-              <img
-                alt=""
-                [src]="
-                  consultation.consultation.flagGuestOnline === true
-                    ? 'assets/img/online.png'
-                    : 'assets/img/offline.png'
-                " />
-            </td>
-          </ng-container>
+          <td class="online-status-cell hidden-mobile">
+            <ng-container
+              *ngIf="status !== 'closed' && consultation.consultation.guest"
+              (click)="showChat(consultation._id)">
+              <span class="tile-header" style="margin-bottom: 0px !important">
+                {{ 'consultations.guest' | translate }}
+              </span>
+              <app-status
+                [type]="
+                  consultation.consultation.flagGuestOnline
+                    ? 'online'
+                    : 'offline'
+                "></app-status>
+            </ng-container>
+          </td>
 
           <td>
             <button
@@ -219,15 +220,16 @@
             </button>
             <button
               (click)="resendInvite($event, consultation.consultation.invite)"
-              mat-stroked-button color="primary"
+              mat-stroked-button
+              color="primary"
               *ngIf="status !== 'closed'">
               {{ 'consultations.sendAgainTheInvitation' | translate }}
             </button>
           </td>
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
-            <span class="tile-header" *ngIf="consultation.unreadCount">{{
-              'consultations.unread' | translate
-            }}</span>
+            <span class="tile-header" *ngIf="consultation.unreadCount">
+              {{ 'consultations.unread' | translate }}
+            </span>
             <mat-icon
               *ngIf="consultation.unreadCount"
               [matBadge]="consultation.unreadCount"

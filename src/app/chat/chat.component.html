@@ -9,24 +9,27 @@
       #generalInfo
       class="general-info"
       [ngClass]="{ 'big-font': noPagination }">
+        <div class="d-flex gap-10 align-items-baseline w-100 justify-content-between">
       <h4 class="general-title">
         {{ 'chat.generalInformation' | translate }}
+
       </h4>
+            <div
+                    class="c_info_wrap d-flex justify-content-end"
+                    *ngIf="consultation.consultation.status !== 'closed'">
+                <button
+                        color="primary"
+                        mat-flat-button
+                        (click)="
+                inviteExpert(consultation.consultation.expertInvitationURL)
+              ">
+                    {{ 'chat.inviteExpert' | translate }}
+                </button>
+            </div>
+        </div>
 
       <div class="general-wrapper">
         <ng-container *ngIf="!isMobile || viewMore">
-          <div
-            class="c_info_wrap"
-            *ngIf="consultation.consultation.status !== 'closed'">
-            <button
-              color="primary"
-              mat-flat-button
-              (click)="
-                inviteExpert(consultation.consultation.expertInvitationURL)
-              ">
-              {{ 'chat.inviteExpert' | translate }}
-            </button>
-          </div>
 
           <div class="c_info_wrap" *ngIf="consultation?.nurse?.firstName">
             <div class="c_info_row_title">
@@ -47,7 +50,7 @@
             <div class="c_info_row_title">
               {{ 'chat.patientFirstnameAndLastname' | translate }}
             </div>
-            <div class="c_info_row_content">
+            <div class="c_info_row_content d-flex align-items-center gap-4 flex-wrap">
               <ng-container
                 *ngIf="consultation.consultation.firstName !== 'No firstname'">
                 {{ consultation.consultation.firstName + ' ' }}
@@ -69,14 +72,14 @@
                   "></app-status>
                 <button
                   (click)="resendInvite(consultation.consultation.invite)"
-                  mat-raised-button
-                  class="ml-12"
+                  mat-mini-fab
+                  class="send-again-button"
                   color="primary"
                   *ngIf="
                     consultation.consultation.status !== 'closed' &&
                     !consultation.consultation.flagPatientOnline
                   ">
-                  {{ 'invitations.sendAgain' | translate }}
+                    <mat-icon svgIcon="invite"></mat-icon>
                 </button>
               </ng-container>
             </div>
@@ -293,14 +296,16 @@
     </div>
 
     <div #scroll [style.height]="chatHeight" class="chat-wrapper">
-      <div
-        class="warning-wrapper"
-        *ngIf="consultation.consultation.status !== 'closed'"
-        [ngClass]="{ 'big-font': noPagination }">
-        <p style="background-color: #ffcc00; padding: 14px; font-size: 1.1em">
-          {{ 'chat.textMessagesOnlySentToPatientWarning' | translate }}
-        </p>
-      </div>
+        @if (consultation.guest) {
+            <div
+                    class="warning-wrapper"
+                    *ngIf="consultation.consultation.status !== 'closed'"
+                    [ngClass]="{ 'big-font': noPagination }">
+                <p style="background-color: #ffcc00; padding: 14px; font-size: 1.1em">
+                    {{ 'chat.textMessagesOnlySentToPatientWarning' | translate }}
+                </p>
+            </div>
+        }
       <div
         *ngFor="let msg of chatMessages"
         id="{{ msg.id }}"

@@ -96,12 +96,13 @@ span.tile-header {
 
   td {
     padding: 18px 1%;
+    vertical-align: text-top;
   }
 
   .tile-header {
-    display: block;
-    margin-bottom: 10px;
+    display: flex;
     font-weight: 400;
+    margin-bottom: 10px;
   }
 
   .pdf {
