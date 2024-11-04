@@ -975,13 +975,16 @@ ion-fab-button.controller {
     display: none;
   }
 
-
 }
 
 .ringing-buttons-wrapper {
-  margin: auto;
-  width: 170px;
-  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  @media (max-width: 600px) {
+    height: 100%;
+  }
 }
 
 
@@ -1004,10 +1007,14 @@ ion-fab-button.controller {
 @media (max-width: 600px) {
   .control-buttons-wrapper {
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s ease;
   }
 
   .video-room-wrapper:hover .control-buttons-wrapper {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 }

@@ -151,25 +151,29 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         }, 100);
       })
     );
-    this.openviduLayout = new OpenViduLayout();
-    this.openviduLayoutOptions = {
-      maxRatio: 3 / 2, // The narrowest ratio that will be used (default 2x3)
-      minRatio: 9 / 16, // The widest ratio that will be used (default 16x9)
-      fixedRatio:
-        true /* If this is true then the aspect ratio of the video is maintained
+    const layoutContainer = document.getElementById('layout');
+    if (layoutContainer) {
+      this.openviduLayout = new OpenViduLayout();
+      this.openviduLayoutOptions = {
+        maxRatio: 3 / 2, // The narrowest ratio that will be used (default 2x3)
+        minRatio: 9 / 16, // The widest ratio that will be used (default 16x9)
+        fixedRatio:
+            true /* If this is true then the aspect ratio of the video is maintained
     and minRatio and maxRatio are ignored (default false)*/,
-      bigClass: 'OV_big', // The class to add to elements that should be sized bigger
-      bigPercentage: 0.9, // The maximum percentage of space the big ones should take up
-      bigFixedRatio: true, // fixedRatio for the big ones
-      bigMaxRatio: 3 / 2, // The narrowest ratio to use for the big elements (default 2x3)
-      bigMinRatio: 9 / 16, // The widest ratio to use for the big elements (default 16x9)
-      bigFirst: false, // Whether to place the big one in the top left (true) or bottom right
-      animate: true, // Whether you want to animate the transitions
-    };
-    this.openviduLayout.initLayoutContainer(
-      document.getElementById('layout'),
-      this.openviduLayoutOptions
-    );
+        bigClass: 'OV_big', // The class to add to elements that should be sized bigger
+        bigPercentage: 0.9, // The maximum percentage of space the big ones should take up
+        bigFixedRatio: true, // fixedRatio for the big ones
+        bigMaxRatio: 3 / 2, // The narrowest ratio to use for the big elements (default 2x3)
+        bigMinRatio: 9 / 16, // The widest ratio to use for the big elements (default 16x9)
+        bigFirst: false, // Whether to place the big one in the top left (true) or bottom right
+        animate: true, // Whether you want to animate the transitions
+      };
+      this.openviduLayout.initLayoutContainer(
+          layoutContainer,
+          this.openviduLayoutOptions
+      );
+    }
+
   }
 
   exitSession(rejoin?) {
@@ -218,6 +222,11 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       this.remoteUsers = [];
       this.hangup.emit(true);
     }
+  }
+
+  closeCall() {
+    this.rejected = true;
+    this.hangup.emit(true);
   }
 
   resize() {

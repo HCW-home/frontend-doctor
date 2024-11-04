@@ -1,22 +1,14 @@
 @if (!accepted) {
   <div class="bounds">
     <div class="fixed-height"></div>
-    <mat-icon class="ringing-icon" svgIcon="incoming"></mat-icon>
     <div class="ringing-buttons-wrapper">
-      <button (click)="joinToSession()" color="primary" mat-fab>
-        <mat-icon svgIcon="camera"></mat-icon>
-      </button>
-      <button
-        (click)="rejectCall()"
-        color="warn"
-        mat-fab
-        class="reject-btn ml-12">
+      <mat-icon class="ringing-icon" svgIcon="incoming"></mat-icon>
+      <button (click)="closeCall()" color="warn" mat-fab class="reject-btn">
         <mat-icon svgIcon="hangup"></mat-icon>
       </button>
     </div>
   </div>
 }
-
 <div class="video-room-wrapper">
   <div
     [ngClass]="{ ringing: !this.remoteUsers.length }"
