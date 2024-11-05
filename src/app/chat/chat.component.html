@@ -295,7 +295,7 @@
       </div>
     </div>
 
-    <div #scroll [style.height]="chatHeight" class="chat-wrapper">
+    <div #scroll [style.height]="overlay ? overlayHeight : chatHeight" class="chat-wrapper">
         @if (consultation.guest) {
             <div
                     class="warning-wrapper"

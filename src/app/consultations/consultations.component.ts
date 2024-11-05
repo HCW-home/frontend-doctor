@@ -535,7 +535,33 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setTextColor('#464F60');
           yPosition += 5;
 
-          if (message.text) {
+          if (message.type === 'videoCall') {
+            let callStatus = '';
+
+            if (message.closedAt) {
+              callStatus = message.acceptedAt
+                  ? this.translate.instant('chat.videoCallAccepted')
+                  : this.translate.instant('chat.videoCallMissed');
+            } else {
+              callStatus = this.translate.instant('chat.videoCall');
+            }
+
+            doc.text(callStatus, 15, yPosition);
+            yPosition += 5;
+
+            const createdDate = this.datePipe.transform(message.createdAt, 'dd LLL HH:mm');
+            doc.text(`${createdDate}`, 15, yPosition);
+            yPosition += 5;
+
+            if (message.acceptedAt && message.closedAt) {
+              const closedDate = this.datePipe.transform(message.closedAt, 'dd LLL HH:mm');
+              const finishedText = this.translate.instant('chat.videoCallFinished');
+              doc.text(finishedText, 15, yPosition);
+              yPosition += 5;
+              doc.text(`${closedDate}`, 15, yPosition);
+              yPosition += 5;
+            }
+          } else if (message.text) {
             doc.text(message.text, 15, yPosition);
             yPosition += 5;
           }

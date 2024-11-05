@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   @Input() consultation;
   @Input() publicinvite;
   @Input() showInput: boolean;
+  @Input() overlay: boolean;
   @ViewChild('scroll') contentArea: ElementRef;
   @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild('generalInfo') element: ElementRef;
@@ -51,6 +52,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   @Output() loaded = new EventEmitter<boolean>();
 
   chatHeight: string;
+  overlayHeight: string;
   loadedImages = 0;
   chatImagesCount;
   subscriptions: Subscription[] = [];
@@ -407,6 +409,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   calculateHeight(): void {
+    this.overlayHeight = `calc(100svh - ${this.element?.nativeElement?.offsetHeight}px - 70px - 30px)`
     this.chatHeight =
       this.isMobile && this.showInput
         ? `calc(100svh - ${this.element?.nativeElement?.offsetHeight}px - 350px)`
