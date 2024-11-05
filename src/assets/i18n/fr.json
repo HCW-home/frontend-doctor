@@ -1,20 +1,5 @@
 {
     "login": {
-        "login.home": "HOME",
-        "login.email": "Email",
-        "login.institutionalConnection": "Connexion institutionnelle",
-        "login.loginWithALocalAccount": "Connexion avec un compte local :",
-        "login.emailAddress": "Adresse email",
-        "login.pleaseProvideAValidEmail": "Merci de saisir une adresse e-mail valide",
-        "login.required": "requis",
-        "login.password": "Mot de passe",
-        "login.login": "Se connecter",
-        "login.iForgotMyPassword": "J'ai oublié mon mot de passe",
-        "login.pleaseFillUpTheRecievedSMS": "Veuillez renseigner le code de vérification reçu par SMS :",
-        "login.verificationCode": "Code de vérification",
-        "login.send": "Envoyer",
-        "login.sendCodeAgain": "Renvoyer le code",
-        "login.youReachedTheMaximumAttemptAmount": "Vous avez dépassé le maximum autorisé de tentatives",
         "youReachedTheMaximumAttemptAmount": "Vous avez atteint le nombre maximum de tentatives",
         "sendCodeAgain": "Renvoyer le code",
         "send": "Envoyer",
@@ -319,10 +304,7 @@
         "pleaseFillUpThePhoneNumberWithFormat": "Veuillez saisir le numéro de téléphone au format +41XX...",
         "pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Veuillez renseigner uniquement un des deux champs Email ou Numéro de mobile",
         "cancel": "Annuler",
-        "send": "Envoyer",
-        "enablesNotification": "Cette option active l'envoi de notification SMS quand une consultation est demandée.",
-        "notification": "Notification",
-        "name": "Nom"
+        "send": "Envoyer"
     },
     "profile": {
         "profile": "Profil",
