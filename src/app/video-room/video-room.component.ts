@@ -45,7 +45,9 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   openviduLayoutOptions;
   subscriptions: Subscription[] = [];
   peerId;
+  showControls = false;
   myCamStream: Stream;
+  timer: any;
 
   camStatus = 'on';
   screenStream: any = null;
@@ -55,8 +57,9 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     private logger: LogService,
     private authService: AuthService,
     private roomService: RoomService,
-    private remotePeersService: RemotePeersService
-  ) {}
+    private remotePeersService: RemotePeersService,
+  ) {
+  }
 
   @HostListener('window:beforeunload')
   beforeunloadHandler() {
@@ -103,6 +106,20 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       }
     } catch (error) {
       console.error('Error stopping webcam stream', error);
+    }
+  }
+
+  checkControlStatus() {
+    clearTimeout(this.timer)
+    const canHover = !(matchMedia('(hover: none)').matches);
+    if(!canHover) {
+      const nextState = !this.showControls;
+      this.showControls = nextState
+      if(nextState){
+        this.timer = setTimeout(()=>{
+          this.checkControlStatus()
+        },5000)
+      }
     }
   }
 
@@ -250,4 +267,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     const mediaPerms = { audio: true, video: true };
     return navigator.mediaDevices.getUserMedia(mediaPerms);
   }
+
+
 }

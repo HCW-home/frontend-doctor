@@ -403,116 +403,113 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           res.map(m => this.adjustMsg(m, data._id || data.id))
         );
         const doc = new jsPDF();
-        const pageWidth =
-          doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+        const getLabelWidth = (text: string) => doc.getTextWidth(text) + 2;
+        const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
         const imageUrl = this.configService.config?.logo;
-
+        let yPosition = 10;
         if (imageUrl) {
-          doc.addImage(
-            imageUrl,
-            'JPEG',
-            pageWidth / 2 - 25,
-            10,
-            50,
-            20,
-            'Logo',
-            'FAST'
-          );
+          doc.addImage(imageUrl, 'JPEG', pageWidth / 2 - 25, yPosition, 50, 20, 'Logo', 'FAST');
+          yPosition += 30;
         }
 
-        const getLabelWidth = text => doc.getTextWidth(text) + 2;
         doc.setFont('Helvetica', 'normal', 400);
         doc.setFontSize(22);
-        doc.text('Consultation report', 15, 40);
+        doc.text('Consultation report', 15, yPosition);
+        yPosition += 15;
+
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        doc.text('Patient information', 15, 50);
-
-        if (nurse?.firstName) {
-          doc.text('Requester information', 108, 50);
-        }
-        if (data.experts?.length) {
-          doc.text('Expert information', 108, 75);
-        }
+        yPosition += 10
+        doc.text('Patient information', 15, yPosition);
+        yPosition += 10;
 
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
-        doc.text('Firstname:', 15, 55);
-        doc.text('Lastname:', 15, 60);
-        doc.text('Gender:', 15, 65);
+        doc.text('Firstname:', 15, yPosition);
+        doc.text('Lastname:', 15, yPosition + 5);
+        doc.text('Gender:', 15, yPosition + 10);
         doc.setFont('Helvetica', 'normal', 400);
-        doc.text(`${data.firstName}`, 34, 55);
-        doc.text(`${data.lastName}`, 34, 60);
-        doc.text(`${data.gender}`, 30, 65);
+        doc.text(`${data.firstName}`, 34, yPosition);
+        doc.text(`${data.lastName}`, 34, yPosition + 5);
+        doc.text(`${data.gender}`, 30, yPosition + 10);
+        yPosition += 15;
 
         if (nurse?.firstName) {
           doc.setFont('Helvetica', 'normal', 700);
-          doc.text(`Firstname:`, 108, 55);
-          doc.text(`Lastname:`, 108, 60);
+          yPosition += 10
+          doc.text('Requester information', 108, yPosition);
+          yPosition += 5;
+          doc.text(`Firstname:`, 108, yPosition);
+          doc.text(`Lastname:`, 108, yPosition + 5);
           doc.setFont('Helvetica', 'normal', 400);
-          doc.text(`${nurse.firstName}`, 127, 55);
-          doc.text(`${nurse.lastName}`, 127, 60);
+          doc.text(`${nurse.firstName}`, 127, yPosition);
+          doc.text(`${nurse.lastName}`, 127, yPosition + 5);
+          yPosition += 15;
         }
 
         if (data.experts?.length) {
-          let currentExpertPosition = 80;
+          doc.setFont('Helvetica', 'normal', 700);
+          yPosition += 10
+          doc.text('Expert information', 108, yPosition);
+          yPosition += 5;
+          console.log(data, 'data')
           data.experts.forEach(expert => {
-            doc.setFont('Helvetica', 'normal', 700);
-            doc.text(`Firstname:`, 108, currentExpertPosition);
-            doc.text(`Lastname:`, 108, currentExpertPosition + 5);
+            doc.text(`Firstname:`, 108, yPosition);
+            doc.text(`Lastname:`, 108, yPosition + 5);
             doc.setFont('Helvetica', 'normal', 400);
-            doc.text(`${expert.firstName}`, 127, currentExpertPosition);
-            doc.text(`${expert.lastName}`, 127, currentExpertPosition + 5);
-            currentExpertPosition += 10;
+            doc.text(`${expert.firstName}`, 127, yPosition);
+            doc.text(`${expert.lastName}`, 127, yPosition + 5);
+            yPosition += 10;
           });
         }
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        doc.text('Consultation information', 15, 75);
+
+        yPosition += 10
+        doc.text('Consultation information', 15, yPosition);
+        yPosition += 10;
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
-        doc.text(`Start date/time:`, 15, 80);
-        doc.text(`End date/time:`, 15, 85);
-        doc.text(`Duration:`, 15, 90);
+        doc.text(`Start date/time:`, 15, yPosition);
+        doc.text(`End date/time:`, 15, yPosition + 5);
+        doc.text(`Duration:`, 15, yPosition + 10);
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(
-          `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm')}`,
-          15 + getLabelWidth(`Start date/time:`),
-          80
+            `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm')}`,
+            15 + getLabelWidth(`Start date/time:`),
+            yPosition
         );
         doc.text(
-          `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm')}`,
-          15 + getLabelWidth(`End date/time:`),
-          85
+            `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm')}`,
+            15 + getLabelWidth(`End date/time:`),
+            yPosition + 5
         );
         doc.text(
-          `${this.durationPipe.transform(data.createdAt - data.closedAt)}`,
-          15 + getLabelWidth(`Duration:`),
-          90
+            `${this.durationPipe.transform(data.createdAt - data.closedAt)}`,
+            15 + getLabelWidth(`Duration:`),
+            yPosition + 10
         );
+        yPosition += 15;
 
-        let chatYPosition = 125;
         if (data.metadata && Object.keys(data.metadata).length) {
           Object.keys(data.metadata).forEach((key, index) => {
             doc.setFont('Helvetica', 'normal', 700);
-            doc.text(`${key}:`, 15, chatYPosition + index * 5);
+            doc.text(`${key}:`, 15, yPosition);
             const metadataX = 15 + getLabelWidth(`${key}:`);
             doc.setFont('Helvetica', 'normal', 400);
-            doc.text(
-              `${data.metadata[key]}`,
-              metadataX,
-              chatYPosition + index * 5
-            );
+            doc.text(`${data.metadata[key]}`, metadataX, yPosition);
+            yPosition += 5;
           });
         }
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        doc.text('Chat history', 15, chatYPosition + 30);
-        chatYPosition += 40;
+        yPosition += 10
+        doc.text('Chat history', 15, yPosition);
+        yPosition += 10;
 
         for (const message of messages) {
           doc.setFontSize(10);
@@ -520,58 +517,52 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setFont('Helvetica', 'normal', 700);
 
           const firstName =
-            message.fromUserDetail.role === 'patient'
-              ? data?.firstName
-              : message.fromUserDetail.firstName || '';
+              message.fromUserDetail.role === 'patient'
+                  ? data?.firstName
+                  : message.fromUserDetail.firstName || '';
           const lastName =
-            message.fromUserDetail.role === 'patient'
-              ? data?.lastName
-              : message.fromUserDetail.lastName || '';
-          const date = this.datePipe.transform(
-            message.createdAt,
-            'dd LLL HH:mm'
-          );
+              message.fromUserDetail.role === 'patient'
+                  ? data?.lastName
+                  : message.fromUserDetail.lastName || '';
+          const date = this.datePipe.transform(message.createdAt, 'dd LLL HH:mm');
           doc.text(
-            `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`,
-            15,
-            chatYPosition
+              `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`,
+              15,
+              yPosition
           );
 
           doc.setFont('Helvetica', 'normal', 400);
           doc.setTextColor('#464F60');
-          chatYPosition += 5;
+          yPosition += 5;
 
           if (message.text) {
-            doc.text(message.text, 15, chatYPosition);
-            chatYPosition += 5;
+            doc.text(message.text, 15, yPosition);
+            yPosition += 5;
           }
 
-          let image = null;
           if (message.isImage && message.attachmentsURL) {
+            let image = null;
             await new Promise<void>(resolve => {
               image = new Image();
               image.src = message.attachmentsURL;
               image.onload = () => {
                 const imgWidth = 50;
                 const imgHeight = (image.height / image.width) * imgWidth;
-                if (
-                  chatYPosition + imgHeight >
-                  doc.internal.pageSize.height - 10
-                ) {
+                if (yPosition + imgHeight > doc.internal.pageSize.height - 10) {
                   doc.addPage();
-                  chatYPosition = 10;
+                  yPosition = 10;
                 }
                 doc.addImage(
-                  message.attachmentsURL,
-                  'JPEG',
-                  15,
-                  chatYPosition,
-                  imgWidth,
-                  imgHeight,
-                  `${Math.random()}`,
-                  'FAST'
+                    message.attachmentsURL,
+                    'JPEG',
+                    15,
+                    yPosition,
+                    imgWidth,
+                    imgHeight,
+                    `${Math.random()}`,
+                    'FAST'
                 );
-                chatYPosition += imgHeight + 5;
+                yPosition += imgHeight + 5;
                 resolve();
               };
               image.onerror = () => {

@@ -9,12 +9,12 @@
     </div>
   </div>
 }
-<div class="video-room-wrapper">
-  <div
-    [ngClass]="{ ringing: !this.remoteUsers.length }"
-    id="layout"
-    class="bounds"
-    style="height: 100%; display: flex">
+
+<div
+  class="video-room-wrapper"
+  (click)="checkControlStatus()"
+  [ngClass]="{ 'h-0': !accepted }">
+  <div id="layout" style="height: 100%; display: flex" class="bounds">
     <ng-container *ngIf="accepted">
       <div
         *ngIf="camStatus === 'on'"
@@ -53,8 +53,7 @@
       </div>
     </ng-container>
   </div>
-
-  <div class="control-buttons-wrapper">
+  <div class="control-buttons-wrapper" [ngClass]="{ show: showControls }">
     <button (click)="camStatusChanged()" color="primary" mat-fab>
       <mat-icon *ngIf="camStatus === 'on'" svgIcon="camera"></mat-icon>
       <mat-icon *ngIf="camStatus === 'off'" svgIcon="cameraOff"></mat-icon>
