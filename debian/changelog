@@ -1,12 +1,14 @@
-hcw-athome-caregiver (0.5.2.19) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.2.20) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * New release 5.2.18
 
   [ Gor Grigoryan ]
   * refs #7771, Button are on people face during call on mobile
+  * add closing call when not ringing in patient side
+  * refs #7817, imporove metadata in pdf
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 31 Oct 2024 13:15:02 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 05 Nov 2024 11:18:27 +0000
 
 hcw-athome-caregiver (5.2.18) focal; urgency=medium
 
