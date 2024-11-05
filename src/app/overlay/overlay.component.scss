@@ -382,6 +382,7 @@ textarea:focus {
 
 
       @media (max-width: 600px) {
+        height: 100svh;
         flex-direction: column;
       }
 
@@ -391,7 +392,10 @@ textarea:focus {
         align-items: center;
 
         &:not(:last-child) {
-          border-right: 1px solid #cacaca;
+          @media (min-width: 600px) {
+            border-right: 1px solid #cacaca;
+          }
+
         }
 
         .btn {

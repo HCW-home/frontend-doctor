@@ -409,7 +409,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   calculateHeight(): void {
     this.chatHeight =
       this.isMobile && this.showInput
-        ? `calc(100vh - ${this.element?.nativeElement?.offsetHeight}px - 300px)`
+        ? `calc(100svh - ${this.element?.nativeElement?.offsetHeight}px - 350px)`
         : `calc(100% - ${this.element?.nativeElement?.offsetHeight}px)`;
   }
 }
