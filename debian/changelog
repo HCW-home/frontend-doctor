@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.2.20) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.2.21) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * New release 5.2.18
@@ -8,7 +8,13 @@ hcw-athome-caregiver (0.5.2.20) UNRELEASED; urgency=medium
   * add closing call when not ringing in patient side
   * refs #7817, imporove metadata in pdf
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 05 Nov 2024 11:18:27 +0000
+  [ Weblate ]
+  * Update translation files
+
+  [ Gor Grigoryan ]
+  * ui fixes
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 05 Nov 2024 14:32:43 +0000
 
 hcw-athome-caregiver (5.2.18) focal; urgency=medium
 
