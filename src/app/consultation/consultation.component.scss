@@ -1,7 +1,7 @@
 .con-wrap {
   display: flex;
   overflow: hidden;
-  height: calc(100vh - 71px);
+  height: calc(100svh - 71px);
 
   @media (max-width: 600px) {
     flex-direction: column;
