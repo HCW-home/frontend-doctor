@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.2.21) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.2.22) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * New release 5.2.18
@@ -13,8 +13,9 @@ hcw-athome-caregiver (0.5.2.21) UNRELEASED; urgency=medium
 
   [ Gor Grigoryan ]
   * ui fixes
+  * mobile ui fixes
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 05 Nov 2024 14:32:43 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 05 Nov 2024 14:53:00 +0000
 
 hcw-athome-caregiver (5.2.18) focal; urgency=medium
 
