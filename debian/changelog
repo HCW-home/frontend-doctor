@@ -1,3 +1,9 @@
+hcw-athome-caregiver (0.5.3) focal; urgency=medium
+
+  * Add VERSION in Dockerfile
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Sat, 16 Nov 2024 13:50:30 +0100
+
 hcw-athome-caregiver (5.2.23) focal; urgency=medium
 
   [ Olivier Bitsch ]

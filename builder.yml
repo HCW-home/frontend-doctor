@@ -1,9 +1,12 @@
-builder:
-- method: docker
-  options:
-    image: builder-centos8
-    env:
-      SPEC_PATH: redhat/hcw-athome-caregiver.spec
-- method: docker
-  options:
-    image: builder-focal
+flows:
+- podman
+- deb
+- publish-github
+- sonar
+options:
+ distrib: "ubuntu"
+ codename: "focal"
+ external_git_url: "git@github.com:HCW-home/frontend-doctor.git"
+modes:
+- ON_VERSION
+- ON_TAG
