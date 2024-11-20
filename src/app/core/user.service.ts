@@ -31,6 +31,10 @@ export class UserService {
     return this.http.patch<any>(`${environment.api}/user/${id}`, { firstName, lastName, department, phoneNumber });
   }
 
+  updateUser(id, body): Observable<any> {
+    return this.http.put<any>(`${environment.api}/user/${id}`, body);
+  }
+
   updateUserTerms(body) {
     return this.http.post<User>(`${environment.api}/user/terms`, body);
   }

@@ -809,10 +809,10 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
             this.error =
               err.details ||
-              err.error?.error ||
               err.error?.message ||
               err.statusText ||
               err.message ||
+              err.error?.error ||
               err;
           }
         );
@@ -835,9 +835,9 @@ export class InviteFormComponent implements OnDestroy, OnInit {
 
             this.error =
               err.details ||
-              err.error?.error ||
               err.error?.message ||
               err.statusText ||
+              err.error?.error ||
               err.message ||
               err;
           }

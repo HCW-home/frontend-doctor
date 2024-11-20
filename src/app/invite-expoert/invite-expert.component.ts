@@ -18,6 +18,7 @@ import { InviteService } from '../core/invite.service';
 export interface DialogData {
   expertLink: string;
   id: string;
+  consultation: any;
 }
 
 @Component({
@@ -95,6 +96,7 @@ export class InviteExpertComponent implements OnInit {
 
   ngOnInit() {
     this.createFormGroup();
+    console.log(this.data, 'consultation')
   }
 
   onNoClick(): void {

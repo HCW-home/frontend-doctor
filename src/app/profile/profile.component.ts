@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
   phoneNumberRegex = new RegExp(/^\+[0-9 ]+$/);
   showRadioGroup: boolean = false;
-  messageService: '' | '1' | '2' = '';
+  messageService: '1' | '2' = '2';
   @ViewChild('toggleElement') ref;
 
 
@@ -38,7 +38,12 @@ export class ProfileComponent implements OnInit {
     this.currentUser = this.authService.currentUserValue;
     this.currentNotifPhoneNumber = this.currentUser.notifPhoneNumber;
     this.enableNotif = this.currentUser.enableNotif;
+    this.showRadioGroup = this.currentUser.allowUseWhatsapp;
+    if (this.currentUser.messageService) {
+      this.messageService = this.currentUser.messageService;
+    }
   }
+
   onChange(ob: MatSlideToggleChange) {
     this.isLoading = true;
     this.userService.updateEnableNotif(ob.checked).subscribe(res => {
@@ -61,7 +66,17 @@ export class ProfileComponent implements OnInit {
     this.isSMSPhoneChanged = true;
   }
 
-  onMessageServiceChange() {
+  onMessageServiceChange(messageService: string) {
+    const body = {
+      messageService
+    }
+    this.userService.updateUser(this.currentUser.id,body).subscribe(res => {
+      const text = this.translate.instant('profile.messageServiceSuccess');
+      this.openSnackBar(text, null);
+    }, err => {
+      const text = this.translate.instant('profile.messageServiceError');
+      this.openSnackBar(text, null);
+    });
   }
 
   onSave() {
@@ -90,6 +105,7 @@ export class ProfileComponent implements OnInit {
       panelClass: [cssClass],
     });
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(ProfileUpdateComponent, {
       width: '500px',
