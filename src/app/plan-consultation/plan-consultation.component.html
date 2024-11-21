@@ -31,7 +31,7 @@
         <section *ngIf="!success && error" class="message-container error">
           <mat-error>{{ error }}</mat-error>
         </section>
-        <section>
+        <section class="d-flex flex-column">
           <mat-form-field
             *ngIf="consultation && !error && !success"
             class="dealy-input"
@@ -49,9 +49,10 @@
 
           <button
             *ngIf="!error && !loading && !success"
-            class="submit-btn"
-            mat-button
+            color="primary"
+            mat-flat-button
             type="submit"
+            class="w-100"
           >
             {{ "planConsultation.send" | translate }}
           </button>

@@ -1,4 +1,3 @@
-
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -25,9 +24,6 @@
   padding: 0px;
 }
 
-.example-full-width input {
-  height: 100%;
-}
 
 .container {
   width: 400px;
@@ -56,15 +52,16 @@ ng-container {
 }
 
 .wrap {
+  top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/assets/bg-splash@2x.png");
-  background-size: 100% 100%;
-  position: absolute;
-  top: 0;
-  position: fixed;
   display: flex;
+  position: fixed;
   align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("/assets/bg-splash@2x.png");
 }
 
 .saml-login {
@@ -86,51 +83,6 @@ h4 {
   margin-bottom: -10px;
 }
 
-.submit-btn {
-  margin: auto;
-  display: block;
-  margin-top: 50px;
-  background-color: #ffff;
-  border-radius: 60px;
-  text-align: center;
-  width: 160px;
-  height: 48px;
-  color: var(--primary-color);
-}
-
-input {
-  color: white;
-  caret-color: white;
-}
-
-mat-form-field {
-  height: 35px;
-  font-size: 1.3em;
-  margin: 20px auto;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--primary-color) inset !important;
-}
-
-input:-webkit-autofill {
-  -webkit-text-fill-color: white !important;
-}
-
-.loading {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &::ng-deep .mat-mdc-progress-spinner circle,
-  .mat-mdc-progress-spinner circle {
-    stroke: white !important;
-  }
-}
 
 .error {
   background-color: white;
@@ -145,30 +97,13 @@ input:-webkit-autofill {
   font-size: 20px;
   border-radius: 16px;
 }
-.resend-btn {
-  margin: auto;
-  display: block;
-  margin-top: 20px;
-
-  // border-radius: 60px;
-  text-align: center;
-  // width: 160px;
-  // height: 48px;
-  color: white;
-}
 
 .error--loading {
   margin-top: 20px;
-
   min-height: 80px;
 }
 
-.code-input-wrapper {
-  width: 100%;
-  display: flex;
-  align-items: center;
 
-}
 
 .row {
   margin: 10px;
@@ -190,20 +125,7 @@ input:-webkit-autofill {
 
 .success {
   background-color: white;
-
   color: green;
-}
-
-.submit-btn {
-  margin: auto;
-  display: block;
-  margin-top: 80px;
-  background-color: #ffff;
-  border-radius: 60px;
-  text-align: center;
-  width: 160px;
-  height: 48px;
-  color: var(--primary-color);
 }
 
 .logo {
