@@ -1,18 +1,20 @@
+.elements-header {
+  margin-top: 0;
+  margin-bottom: 20px
+}
+
 .elements-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .resume-element {
-  width: 20%;
-  display: flex;
-  margin-top: 5px;
+  flex: 1;
   flex-wrap: wrap;
-  flex-direction: column;
 }
 
 .resume-value {
-  height: 62%;
   font-size: 1em;
   padding-top: 5px;
 }
