@@ -342,11 +342,19 @@ export class AppComponent implements OnInit, OnDestroy {
       if (this.currentSnackBar) {
         this.currentSnackBar.dismiss();
       }
-      this.currentSnackBar = this._snackBar.open(message, 'X', {
+      const refreshButtonText = this.translate.instant('app.refresh')
+      this.currentSnackBar = this._snackBar.open(message, cssClass ?  refreshButtonText : 'X', {
         panelClass: [cssClass],
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
+
+      this.currentSnackBar.onAction().subscribe(() => {
+        if (cssClass) {
+          window.location.reload();
+        }
+      });
+
     });
   }
 

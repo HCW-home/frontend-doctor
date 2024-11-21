@@ -24,6 +24,7 @@
         "invites": "Invites",
         "testVideoSound": "Test video/sound",
         "support": "Support",
+        "refresh": "Refresh",
         "reconnected": "You are reconnected",
         "connectionFailed": "The connection to the server is not functioning properly, and you can no longer receive consultation requests. If the issue persists, please refresh your page."
     },
