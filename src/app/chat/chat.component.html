@@ -331,14 +331,11 @@
               </p>
               <button
                 *ngIf="msg.isFile"
-                mat-button
+                color="primary"
+                mat-flat-button
                 (click)="downloadPdf(msg.attachmentsURL, msg.fileName)"
                 type="submit">
-                <img
-                  class="pdf"
-                  alt=""
-                  src="../../assets/svg/icon-Pdf.svg"
-                  svgIcon="pdf" />
+                  <mat-icon aria-hidden="false"  fontIcon="insert_drive_file"></mat-icon>
                 {{ msg.fileName || 'Attachment' }}
               </button>
             </div>
