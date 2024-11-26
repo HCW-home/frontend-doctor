@@ -1,3 +1,17 @@
+hcw-athome-caregiver (0.5.5) UNRELEASED; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Fix Dockerfile
+
+  [ Gor Grigoryan ]
+  * refs #7645, Add a way for the doctor to get his notification over whatsapp
+  * plan consultation screen fixes
+  * refs #7881, Closing consultation modal is buggy
+  * refs #7879, Add refresh button of websocket disconnects
+  * change chat file download button
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 26 Nov 2024 10:21:22 +0000
+
 hcw-athome-caregiver (0.5.3) focal; urgency=medium
 
   * Add VERSION in Dockerfile
