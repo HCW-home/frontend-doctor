@@ -4,18 +4,19 @@ import { AuthService } from '../auth/auth.service';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { ProfileUpdateComponent } from "../profile-update/profile-update.component";
-import {MatDialog} from "@angular/material/dialog";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import { ProfileUpdateComponent } from '../profile-update/profile-update.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { InviteService } from '../core/invite.service';
+import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-
   currentUser;
   isSMSPhoneChanged = false;
   currentNotifPhoneNumber = '';
@@ -25,80 +26,163 @@ export class ProfileComponent implements OnInit {
   showRadioGroup: boolean = false;
   messageService: '1' | '2' = '2';
   @ViewChild('toggleElement') ref;
+  currentLang: string = 'en';
 
-
-  constructor(public dialog: MatDialog,
-    private authService: AuthService,
+  constructor(
+    public dialog: MatDialog,
     private _snackBar: MatSnackBar,
+    private authService: AuthService,
     private userService: UserService,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+    private inviteService: InviteService
+  ) {
+    this.currentLang = this.translate.currentLang;
+  }
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;
     this.currentNotifPhoneNumber = this.currentUser.notifPhoneNumber;
     this.enableNotif = this.currentUser.enableNotif;
-    this.showRadioGroup = this.currentUser.allowUseWhatsapp;
+
+    this.checkIfSupportedPrefix(this.currentNotifPhoneNumber)
     if (this.currentUser.messageService) {
       this.messageService = this.currentUser.messageService;
     }
   }
 
+  checkIfSupportedPrefix(phoneNumber: string) {
+    this.inviteService
+      .checkPrefix(
+        phoneNumber,
+        this.currentLang,
+        TwilioWhatsappConfig.offlineAction
+      )
+      .subscribe({
+        next: res => {
+          switch (res.status) {
+            case 0:
+              this.showRadioGroup = false;
+              break;
+            case 1:
+              this.showRadioGroup = true;
+              break;
+            case 2:
+              if (this.messageService !== '1') {
+                this.messageService = '1';
+                this.onSave();
+              }
+              this.showRadioGroup = false;
+              break;
+            case 3:
+              if (this.messageService !== '2') {
+                this.messageService = '2';
+                this.onSave();
+              }
+              this.showRadioGroup = false;
+              break;
+          }
+        },
+        error: err => {
+          const text = this.translate.instant('profile.messageServiceError');
+          this.openSnackBar(text, null);
+        },
+      });
+  }
+
+  checkPrefix(phoneNumber: string) {
+    this.inviteService
+      .checkPrefix(
+        phoneNumber,
+        this.currentLang,
+        TwilioWhatsappConfig.offlineAction
+      )
+      .subscribe({
+        next: res => {
+          switch (res.status) {
+            case 0:
+              this.showRadioGroup = false;
+              break;
+            case 1:
+              this.showRadioGroup = true;
+              break;
+            case 2:
+              this.showRadioGroup = false;
+              break;
+            case 3:
+              this.showRadioGroup = false;
+              break;
+          }
+        },
+        error: err => {
+          const text = this.translate.instant('profile.messageServiceError');
+          this.openSnackBar(text, null);
+        },
+      });
+  }
+
   onChange(ob: MatSlideToggleChange) {
     this.isLoading = true;
-    this.userService.updateEnableNotif(ob.checked).subscribe(res => {
-      const text = this.translate.instant('profile.notifications') + (ob.checked ? this.translate.instant('profile.enabled') : this.translate.instant('profile.disabled'));
-      this.currentUser.enableNotif = ob.checked;
-      this.openSnackBar(text, null);
-      this.authService.storeCurrentUser(this.currentUser);
-      this.isLoading = false;
-
-    }, err => {
-      this.ref.checked = !ob.checked;
-      const text = this.translate.instant('profile.notificationsWhereNot') + (ob.checked ? this.translate.instant('profile.enabled') : this.translate.instant('profile.disabled'));
-      this.openSnackBar(text, null);
-    });
-
-
+    this.userService.updateEnableNotif(ob.checked).subscribe(
+      res => {
+        const text =
+          this.translate.instant('profile.notifications') +
+          (ob.checked
+            ? this.translate.instant('profile.enabled')
+            : this.translate.instant('profile.disabled'));
+        this.currentUser.enableNotif = ob.checked;
+        this.openSnackBar(text, null);
+        this.authService.storeCurrentUser(this.currentUser);
+        this.isLoading = false;
+      },
+      err => {
+        this.ref.checked = !ob.checked;
+        const text =
+          this.translate.instant('profile.notificationsWhereNot') +
+          (ob.checked
+            ? this.translate.instant('profile.enabled')
+            : this.translate.instant('profile.disabled'));
+        this.openSnackBar(text, null);
+      }
+    );
   }
 
   onChangeNumber() {
     this.isSMSPhoneChanged = true;
+    this.checkPrefix(this.currentNotifPhoneNumber);
   }
 
-  onMessageServiceChange(messageService: string) {
-    const body = {
-      messageService
-    }
-    this.userService.updateUser(this.currentUser.id,body).subscribe(res => {
-      const text = this.translate.instant('profile.messageServiceSuccess');
-      this.openSnackBar(text, null);
-    }, err => {
-      const text = this.translate.instant('profile.messageServiceError');
-      this.openSnackBar(text, null);
-    });
+  onMessageServiceChange() {
+    this.isSMSPhoneChanged = true;
   }
 
   onSave() {
-    if (this.isSMSPhoneChanged) {
       if (!this.phoneNumberRegex.test(this.currentNotifPhoneNumber)) {
-        this.openSnackBar(this.translate.instant('profile.invalidPhoneNumber'), 'red-snackbar');
+        this.openSnackBar(
+          this.translate.instant('profile.invalidPhoneNumber'),
+          'red-snackbar'
+        );
         return;
       }
       this.isLoading = true;
+      const body = {
+        messageService: this.messageService,
+        notifPhoneNumber: this.currentNotifPhoneNumber,
+      };
+      this.userService.updateUser(this.currentUser.id, body).subscribe(
+          res => {
+            const text = this.translate.instant('profile.messageServiceSuccess');
+            this.openSnackBar(text, null);
+            this.isLoading = false;
+          },
+          err => {
+            const text = this.translate.instant('profile.messageServiceError');
+            this.openSnackBar(text, null);
+            this.isLoading = false;
+          }
+      );
 
-      this.userService.updatePhoneNumberNotif(this.currentNotifPhoneNumber).subscribe(res => {
-        this.currentUser.notifPhoneNumber = this.currentNotifPhoneNumber
-        this.openSnackBar(this.translate.instant('profile.numberSaved'), null);
-        this.isLoading = false;
-        this.isSMSPhoneChanged = false;
-        this.authService.storeCurrentUser(this.currentUser);
-      }, err => {
-        this.isLoading = true;
-        this.openSnackBar(this.translate.instant('profile.numberNotSaved'), 'red-snackbar');
-      });
-    }
   }
+
   openSnackBar(message: string, cssClass: string) {
     this._snackBar.open(message, null, {
       duration: 2000,
@@ -110,7 +194,7 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(ProfileUpdateComponent, {
       width: '500px',
       height: '600 px',
-      data: {}
+      data: {},
     });
   }
 }

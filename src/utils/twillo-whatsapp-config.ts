@@ -4,6 +4,8 @@ export const TwilioWhatsappConfig = {
   pleaseUseThisLink: 'please use this link',
   scheduledGuestInvite: 'scheduled guest invite',
   guestInvite: 'guest invite',
+  patientIsReady: 'patient is ready',
+  offlineAction: 'notification for offline action text for doctor'
 };
 
 export type TwilioWhatsappTypes =
