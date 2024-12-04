@@ -99,15 +99,22 @@ span.tile-header {
     vertical-align: text-top;
   }
 
+  .chevron-right  {
+    padding: 0;
+    vertical-align: middle;
+
+    mat-icon {
+      font-size: 25px;
+    }
+  }
+
+
   .tile-header {
     display: flex;
     font-weight: 400;
     margin-bottom: 10px;
   }
 
-  .pdf {
-    width: 40px;
-    padding: 12px 12px;
-  }
 
 }
+

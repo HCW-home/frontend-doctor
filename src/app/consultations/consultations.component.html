@@ -47,26 +47,6 @@
             let i = index;
             trackBy: trackItem
           ">
-          <td
-            (click)="exportPDF($event, consultation)"
-            *ngIf="status === 'closed'"
-            class="pdf">
-            <div
-              *ngIf="
-                PDFConsultation && PDFConsultation._id === consultation._id
-              ">
-              <mat-spinner [diameter]="35"></mat-spinner>
-            </div>
-
-            <div
-              *ngIf="
-                !PDFConsultation || PDFConsultation._id !== consultation._id
-              ">
-              <mat-icon
-                svgIcon="pdf"
-                style="width: 25px; height: 25px"></mat-icon>
-            </div>
-          </td>
           <td>
             <span class="tile-header">
               {{ 'consultations.patient' | translate }}
@@ -226,6 +206,21 @@
               {{ 'consultations.sendAgainTheInvitation' | translate }}
             </button>
           </td>
+
+          @if (status === 'closed') {
+            <td>
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="exportPDF($event, consultation)">
+                <mat-icon
+                  aria-hidden="false"
+                  fontIcon="file_download"></mat-icon>
+                {{ 'consultations.exportButton' | translate }}
+              </button>
+            </td>
+          }
+
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
             <span class="tile-header" *ngIf="consultation.unreadCount">
               {{ 'consultations.unread' | translate }}
@@ -235,8 +230,8 @@
               [matBadge]="consultation.unreadCount"
               matBadgeColor="warn"></mat-icon>
           </td>
-          <td>
-            <mat-icon svgIcon="next"></mat-icon>
+          <td class='chevron-right'>
+            <mat-icon fontIcon="chevron_right"></mat-icon>
           </td>
         </tr>
 

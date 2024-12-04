@@ -96,7 +96,8 @@
         "share": "Share invite by Email or mobile phone",
         "shareBy": "Share invite by link",
         "requestedBy": "Requested by",
-        "filters": "Filters"
+        "filters": "Filters",
+        "exportButton": "Export"
     },
     "consultation": {
         "start": "START",
