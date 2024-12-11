@@ -1,10 +1,27 @@
 <div class="header">
-    <div class="menu" (click)="toggleSidenav()">
-      <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 18L20 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4 12L20 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+  <div class="menu" (click)="toggleSidenav()">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M4 18L20 18"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round" />
+      <path
+        d="M4 12L20 12"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round" />
+      <path
+        d="M4 6L20 6"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round" />
+    </svg>
   </div>
 
   <div class="header-items">
@@ -16,8 +33,18 @@
       <mat-icon svgIcon="in-new-tab"></mat-icon>
     </div>
 
-    <button mat-flat-button color="warn" *ngIf="showCloseConsBtn" (click)="showCloseModal()" class="terminate-consultation">
+    <button
+      mat-flat-button
+      color="warn"
+      *ngIf="showCloseConsBtn"
+      (click)="showCloseModal()"
+      class="terminate-consultation">
       {{ 'topNav.terminateTheConsultation' | translate }}
+    </button>
+
+    <button mat-stroked-button class="help-button" color="primary" (click)="startTour()">
+      <mat-icon class="help-icon">help</mat-icon>
+      <span class="help-button-text">{{ 'topNav.help' | translate }}</span>
     </button>
 
     <div class="user-wrapper" (click)="toggleLogout()">
@@ -25,7 +52,7 @@
         <mat-icon svgIcon="stat"></mat-icon>
         {{ currentUser.firstName + ' ' + currentUser.lastName }}
         <div class="items" *ngIf="logoutToggle">
-          <div routerLink="/profile">
+          <div tourAnchor="{{TourType.HEADER_PROFILE_MENU}}" routerLink="/profile">
             <mat-icon svgIcon="stat"></mat-icon>
             {{ 'topNav.profile' | translate }}
           </div>

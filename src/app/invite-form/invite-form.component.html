@@ -16,6 +16,7 @@
           [disabled]="loading"
           (click)="showPatientForm()"
           color="primary"
+          tourAnchor="{{ TourType.REMOTE_PATIENT_INVITE }}"
           mat-flat-button>
           {{ 'inviteForm.invite' | translate }}
         </button>
@@ -141,16 +142,25 @@
             </mat-form-field>
           </div>
 
-        @if (configService.config?.formMeta?.length) {
+          @if (configService.config?.formMeta?.length) {
             <div class="field-container flex-column justify-content-start">
-                @for (field of configService.config.formMeta; track field) {
-                    <mat-form-field appearance="fill" *ngIf="myForm.get(field)" class="w-100">
-                        <mat-label>{{ ('metadata.' + field | translate) !== ('metadata.' + field) ? ('metadata.' + field | translate) : field }}</mat-label>
-                        <input matInput [formControlName]="field" />
-                    </mat-form-field>
-                }
+              @for (field of configService.config.formMeta; track field) {
+                <mat-form-field
+                  appearance="fill"
+                  *ngIf="myForm.get(field)"
+                  class="w-100">
+                  <mat-label>
+                    {{
+                      ('metadata.' + field | translate) !== 'metadata.' + field
+                        ? ('metadata.' + field | translate)
+                        : field
+                    }}
+                  </mat-label>
+                  <input matInput [formControlName]="field" />
+                </mat-form-field>
+              }
             </div>
-        }
+          }
 
           <div *ngIf="isPatientInvite" class="field-container">
             <mat-form-field *ngIf="queues?.length > 0">
@@ -185,6 +195,7 @@
                 <input
                   [(ngModel)]="data.patientContact"
                   matInput
+                  tourAnchor="{{ TourType.INVITE_FORM_CONTACT_INPUT }}"
                   placeholder="+4179..."
                   formControlName="patientContactFormControl"
                   name="patientContact"
@@ -251,7 +262,11 @@
 
           <ng-container *ngIf="isPatientInvite">
             <div class="field-container">
-              <mat-checkbox formControlName="sendLinkManually">
+              <mat-checkbox
+                formControlName="sendLinkManually"
+                tourAnchor="{{
+                  TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT
+                }}">
                 {{ 'inviteForm.sendLinkManually' | translate }}
               </mat-checkbox>
             </div>

@@ -1,0 +1,21 @@
+@if (data.title) {
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+}
+@if (data.description) {
+  <mat-dialog-content>
+    <p>{{ data.description }}</p>
+  </mat-dialog-content>
+}
+
+<mat-dialog-actions>
+  @if (data.dismissBtnTitle) {
+    <button mat-raised-button (click)="onNoClick()">
+      {{ data.dismissBtnTitle }}
+    </button>
+  }
+  @if (data.submitBtnTitle) {
+    <button mat-flat-button color="primary" [mat-dialog-close]="true">
+      {{ data.submitBtnTitle }}
+    </button>
+  }
+</mat-dialog-actions>

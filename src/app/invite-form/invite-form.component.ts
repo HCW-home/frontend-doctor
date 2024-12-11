@@ -33,6 +33,9 @@ import { catchError, filter, switchMap } from 'rxjs/operators';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
 import { validateIf } from '../shared/validators/validate-if.validator';
+import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
+import {Direction, EventName, TourType} from "../models/tour";
+import {SidenavToggleService} from "../core/sidenav-toggle.service";
 
 interface DialogData {
   phoneNumber: string;
@@ -81,7 +84,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './invite-form.component.html',
   styleUrls: ['./invite-form.component.scss'],
 })
-export class InviteFormComponent implements OnDestroy, OnInit {
+export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
   isPatientInvite = true;
   matcher = new MyErrorStateMatcher();
   loading = false;
@@ -108,12 +111,14 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
+    private tourService: TourService,
     private queueServ: QueueService,
     public translate: TranslateService,
     public configService: ConfigService,
     private inviteService: InviteService,
     private formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private sidenavToggleService: SidenavToggleService,
     public dialogRef: MatDialogRef<InviteFormComponent>,
     private translationOrganizationService: TranslationOrganizationService
   ) {
@@ -573,6 +578,8 @@ export class InviteFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    this.listenToTourSubscriptions();
+
     this.dialogRef.updateSize('50%', '50%');
     this.data.doctorLanguage = window.localStorage.getItem('hhw-lang');
 
@@ -802,7 +809,7 @@ export class InviteFormComponent implements OnDestroy, OnInit {
         )
         .subscribe(
           res => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           },
           err => {
             this.loading = false;
@@ -883,4 +890,56 @@ export class InviteFormComponent implements OnDestroy, OnInit {
     this.selectedTimezone = timezone;
     this.myForm.get('patientTZ').setValue(timezone);
   }
+
+  listenToTourSubscriptions() {
+    this.subscriptions.push(
+        this.tourService.events$.subscribe(events => {
+          const value = events.value as {
+            step: IStepOption;
+            direction: Direction;
+          };
+          if (
+              events.name === EventName.StepHide &&
+              value &&
+              value.step &&
+              value.step.anchorId === TourType.REMOTE_PATIENT_INVITE &&
+              value.direction === Direction.Forwards
+          ) {
+            this.showPatientForm();
+          }
+          if (
+              events.name === EventName.StepHide &&
+              value &&
+              value.step &&
+              value.step.anchorId === TourType.REMOTE_PATIENT_INVITE &&
+              value.direction === Direction.Backwards
+          ) {
+            this.onNoClick();
+          }
+          if (
+              events.name === EventName.StepHide &&
+              value &&
+              value.step &&
+              value.step.anchorId === TourType.INVITE_FORM_CONTACT_INPUT &&
+              value.direction === Direction.Backwards
+          ) {
+            this.isPatientInvite = false;
+            this.myForm = null;
+          }
+          if (
+              events.name === EventName.StepHide &&
+              value &&
+              value.step &&
+              value.step.anchorId === TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT &&
+              value.direction === Direction.Forwards
+          ) {
+            this.dialogRef.close();
+            this.sidenavToggleService.toggleSidenav('open');
+          }
+        })
+    );
+  }
+
+
+  protected readonly TourType = TourType;
 }

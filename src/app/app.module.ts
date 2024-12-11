@@ -85,6 +85,8 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
 import { InviteLinkComponent } from './invite-link/invite-link.component';
 import {StatusComponent} from "./status/status.component";
 import {TermsAcceptanceComponent} from "./terms-acceptance/terms-acceptance.component";
+import {TourMatMenuModule} from "ngx-ui-tour-md-menu";
+import {StartTourComponent} from "./shared/components/start-tour/start-tour.component";
 
 registerLocaleData(localeFr);
 
@@ -286,6 +288,7 @@ const routes: Routes = [
     CguComponent,
     TermsAcceptanceComponent,
     InviteLinkComponent,
+    StartTourComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -303,6 +306,7 @@ const routes: Routes = [
     MatChipsModule,
     MatTabsModule,
     MatRadioModule,
+    TourMatMenuModule,
   ],
   providers: [
     AuthService,

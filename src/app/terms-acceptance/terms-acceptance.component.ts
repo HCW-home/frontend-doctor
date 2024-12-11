@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import {User} from "../user";
 import {MatDialog} from "@angular/material/dialog";
 import {CguComponent} from "../cgu/cgu.component";
+import {TourService} from "ngx-ui-tour-md-menu";
+import {StartTourComponent} from "../shared/components/start-tour/start-tour.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-terms-acceptance',
@@ -16,15 +19,17 @@ import {CguComponent} from "../cgu/cgu.component";
 export class TermsAcceptanceComponent {
   currentUser: User;
   error = false;
-  showCheckbox = false;
   checked = false;
+  showCheckbox = false;
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private userService: UserService,
     private authService: AuthService,
+    private tourService: TourService,
+    private userService: UserService,
     public configService: ConfigService,
+    private translate: TranslateService,
     private locationStrategy: LocationStrategy
   ) {}
 
@@ -60,7 +65,7 @@ export class TermsAcceptanceComponent {
           ...this.currentUser,
           doctorTermsVersion: res.doctorTermsVersion,
         });
-        this.router.navigate(['/dashboard']);
+        this.showStartTourDialog()
       },
       error: err => {
         console.log(err, 'err');
@@ -68,6 +73,24 @@ export class TermsAcceptanceComponent {
     });
   }
 
+  showStartTourDialog() {
+    const dialogRef = this.dialog.open(StartTourComponent, {
+      autoFocus: false,
+      data: {
+        title: this.translate.instant('tour.endTourTitle'),
+        description: this.translate.instant('tour.startTourDescription'),
+        dismissBtnTitle: this.translate.instant('tour.startTourDismissBtnTitle'),
+        submitBtnTitle: this.translate.instant('tour.startTourSubmitBtnTitle'),
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.tourService.start();
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
+    })
+  }
 
   openTerms(event: MouseEvent) {
     event.preventDefault();

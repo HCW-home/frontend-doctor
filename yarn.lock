@@ -8475,6 +8475,21 @@ ngx-markdown@^16.0.0:
     mermaid "^9.1.2"
     prismjs "^1.28.0"
 
+ngx-ui-tour-core@12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-ui-tour-core/-/ngx-ui-tour-core-12.1.0.tgz#57b76601e1812a1190314a91e22d1919655222ca"
+  integrity sha512-5MXao2oMGsoRg69bGStFyO0TaleIcfcWlGwaRxDFlkysmnGnok6itBNtVgIRemEHA/F8x18hv3tLSIH222/ZwQ==
+  dependencies:
+    tslib "^2.0.0"
+
+ngx-ui-tour-md-menu@12:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-ui-tour-md-menu/-/ngx-ui-tour-md-menu-12.1.0.tgz#a251283402f3f22322aeeca7c6fdb3a825c0b8d7"
+  integrity sha512-sx8LILx6C/9dAaO2ap20PSG/BFA/qmu+HzuB8AeVNstnr1UNX87LdLixQevE0MHZk/uoCB52s7rkWcPuqvX9ng==
+  dependencies:
+    ngx-ui-tour-core "12.1.0"
+    tslib "^2.0.0"
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"
@@ -9671,12 +9686,19 @@ rxjs@7.8.1, rxjs@^7.8.1:
   dependencies:
     tslib "^2.1.0"
 
-rxjs@^6.6.3, rxjs@~6.6.3:
+rxjs@^6.6.3:
   version "6.6.7"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
   dependencies:
     tslib "^1.9.0"
+
+rxjs@~7.7.0:
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.7.0.tgz#61b4727c1533fbab1f31c1a35741d7929dd9ae98"
+  integrity sha512-SYVdj/JRf+CtYTBV+Nx1bIAl3iI7GL7kawWEmcNAdHVJMGacOPkuWBfd8QYSx3hDa6Y3Hoaqri4jYZ6jbUW5kw==
+  dependencies:
+    tslib "^2.1.0"
 
 safe-array-concat@^1.0.1:
   version "1.0.1"

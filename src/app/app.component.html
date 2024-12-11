@@ -31,6 +31,7 @@
         <a
           mat-list-item
           routerLink="/pending-consultations"
+          tourAnchor="{{TourType.WAITING_ROOM_MENU}}"
           routerLinkActive="active"
           class="menu-btn">
           <mat-icon
@@ -43,6 +44,7 @@
         <a
           mat-list-item
           routerLink="/active-consultations"
+          tourAnchor="{{TourType.OPENED_CONSULTATIONS_MENU}}"
           routerLinkActive="active"
           class="menu-btn">
           <mat-icon
@@ -58,6 +60,7 @@
         <a
           mat-list-item
           routerLink="/closed-consultations"
+          tourAnchor="{{TourType.CONSULTATION_HISTORY_MENU}}"
           routerLinkActive="active"
           class="menu-btn">
           <mat-icon svgIcon="history"></mat-icon>
@@ -69,6 +72,7 @@
         <a
           mat-list-item
           routerLink="/invitations"
+          tourAnchor="{{TourType.INVITES_MENU}}"
           routerLinkActive="active"
           class="menu-btn">
           <mat-icon svgIcon="invite"></mat-icon>
@@ -100,3 +104,4 @@
 </ng-container>
 
 <router-outlet *ngIf="!isLoggedIn"></router-outlet>
+<tour-step-template></tour-step-template>

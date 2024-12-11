@@ -600,7 +600,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           if (message.isFile && message.fileName) {
             doc.setFont('Helvetica', 'normal', 400);
             doc.setTextColor('#464F60');
-            doc.text(`[File]: ${message.fileName}`, 15, yPosition);
+            doc.text(`[Attached file]: ${message.fileName}`, 15, yPosition);
             yPosition += 5;
           }
         }

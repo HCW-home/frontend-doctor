@@ -1,25 +1,29 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { HttpResponse } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import moment from 'moment-timezone';
+import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { Invitation } from '../Invitation';
-import { HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { InviteService } from '../core/invite.service';
 import { InviteFormComponent } from '../invite-form/invite-form.component';
-import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { tap, map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import moment from "moment-timezone";
-import {ConfigService} from "../core/config.service";
+import { ConfigService } from 'src/app/core/config.service';
+import { Direction, EventName, TourType } from 'src/app/models/tour';
+import { SidenavToggleService } from '../core/sidenav-toggle.service';
 
 @Component({
   selector: 'app-invitations',
   templateUrl: './invitations.component.html',
   styleUrls: ['./invitations.component.scss'],
 })
-export class InvitationsComponent implements OnInit {
+export class InvitationsComponent implements OnInit, OnDestroy {
   page = 0;
   name: string;
   loading = false;
@@ -28,20 +32,39 @@ export class InvitationsComponent implements OnInit {
   currentInvite: Invitation;
   currentInvites: Invitation[] = [];
   invitations: Observable<Invitation[] | HttpResponse<Invitation[]>> = of([]);
+  private stepHideSubscription: Subscription;
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private translate: TranslateService,
+    private tourService: TourService,
     private activeRoute: ActivatedRoute,
-    private inviteService: InviteService,
+    private translate: TranslateService,
     public configService: ConfigService,
+    private inviteService: InviteService,
+    private sidenavToggleService: SidenavToggleService
   ) {}
 
   ngOnInit() {
     this.getInvites(1);
     this.inviteId = this.activeRoute.snapshot.params['id'];
+    this.listenToTourSubscriptions();
+  }
+
+  listenToTourSubscriptions() {
+    this.stepHideSubscription = this.tourService.events$.subscribe(events => {
+      const value = events.value as { step: IStepOption; direction: Direction };
+      if (
+        events.name === EventName.StepHide &&
+        value &&
+        value.step &&
+        value.step.anchorId === TourType.NEW_INVITE_BUTTON &&
+        value.direction === Direction.Forwards
+      ) {
+        this.openDialog();
+      }
+    });
   }
 
   openDialog(invite?, edit = false): void {
@@ -91,9 +114,10 @@ export class InvitationsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/invitations/']);
-
-      this.getInvites(this.page);
+      if (result) {
+        this.router.navigate(['/invitations/']);
+        this.getInvites(this.page);
+      }
     });
   }
 
@@ -131,7 +155,7 @@ export class InvitationsComponent implements OnInit {
         noText: this.translate.instant('invitations.cancelSendAgain'),
         title: this.translate.instant('invitations.resendConfirmTitle'),
       },
-      autoFocus: false
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
@@ -180,7 +204,7 @@ export class InvitationsComponent implements OnInit {
         noText: this.translate.instant('invitations.cancelRevoke'),
         title: this.translate.instant('invitations.revokeConfirmTitle'),
       },
-      autoFocus: false
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
@@ -200,6 +224,11 @@ export class InvitationsComponent implements OnInit {
     return moment(utcTimestamp).tz(timezone).format('D MMM YYYY HH:mm');
   }
 
+  ngOnDestroy() {
+    this.stepHideSubscription?.unsubscribe();
+  }
+
+  protected readonly TourType = TourType;
 }
 @Component({
   selector: 'app-invitation-already-accepted-dialog',

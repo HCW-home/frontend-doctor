@@ -5,14 +5,14 @@ import {
   Component,
   OnDestroy,
   ElementRef,
-} from "@angular/core";
-import {Subscription} from "rxjs";
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { SocketEventsService } from './core/socket-events.service';
 import { ConsultationService } from './core/consultation.service';
-import {Router, NavigationStart} from "@angular/router";
+import { Router, NavigationStart } from '@angular/router';
 import { ConfigService } from './core/config.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -23,6 +23,8 @@ import {
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { SidenavToggleService } from './core/sidenav-toggle.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
+import { TourType } from './models/tour';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   isMobile = false;
   private routerSubscription: Subscription;
+  private sidenavSubscription: Subscription;
 
   lastConectionStatus = '';
   currentUser;
@@ -49,6 +52,70 @@ export class AppComponent implements OnInit, OnDestroy {
   currentLang: string = 'en';
   showFooter: boolean = true;
 
+  private readonly steps: IStepOption[] = [
+    {
+      anchorId: TourType.INVITES_MENU,
+      route: `/invitations`,
+      isAsync: true,
+      delayBeforeStepShow: 500,
+      title: this.translate.instant('tour.invitesMenuTitle'),
+      placement: { xPosition: 'before', yPosition: 'above' },
+      content: this.translate.instant('tour.invitesMenuContent'),
+    },
+    {
+      isAsync: true,
+      anchorId: TourType.NEW_INVITE_BUTTON,
+      title: this.translate.instant('tour.newInviteButtonTitle'),
+      content: this.translate.instant('tour.newInviteButtonContent'),
+    },
+    {
+      anchorId: TourType.REMOTE_PATIENT_INVITE,
+      isAsync: true,
+      title: this.translate.instant('tour.remotePatientInviteTitle'),
+      content: this.translate.instant('tour.remotePatientInviteContent'),
+      placement: { xPosition: 'before', yPosition: 'below' },
+    },
+    {
+      anchorId: TourType.INVITE_FORM_CONTACT_INPUT,
+      isAsync: true,
+      title: this.translate.instant('tour.inviteFormContactInputTitle'),
+      content: this.translate.instant('tour.inviteFormContactInputContent'),
+    },
+    {
+      anchorId: TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT,
+      isAsync: true,
+      title: this.translate.instant('tour.inviteFormSendLinkManuallyTitle'),
+      content: this.translate.instant('tour.inviteFormSendLinkManuallyContent'),
+    },
+    {
+      anchorId: TourType.WAITING_ROOM_MENU,
+      title: this.translate.instant('tour.waitingRoomMenuTitle'),
+      content: this.translate.instant('tour.waitingRoomMenuContent'),
+      route: '/pending-consultations',
+      placement: { xPosition: 'before', yPosition: 'above' },
+    },
+    {
+      anchorId: TourType.OPENED_CONSULTATIONS_MENU,
+      title: this.translate.instant('tour.openedConsultationsMenuTitle'),
+      content: this.translate.instant('tour.openedConsultationsMenuContent'),
+      route: '/active-consultations',
+      placement: { xPosition: 'before', yPosition: 'above' },
+    },
+    {
+      anchorId: TourType.CONSULTATION_HISTORY_MENU,
+      title: this.translate.instant('tour.consultationsHistoryMenuTitle'),
+      content: this.translate.instant('tour.consultationsHistoryMenuContent'),
+      route: '/closed-consultations',
+      placement: { xPosition: 'before', yPosition: 'above' },
+    },
+    {
+      anchorId: TourType.HEADER_PROFILE_MENU,
+      isAsync: true,
+      placement: { xPosition: 'before', yPosition: 'above' },
+      title: this.translate.instant('tour.headerProfileMenuTitle'),
+      content: this.translate.instant('tour.headerProfileMenuContent'),
+    },
+  ];
 
   constructor(
     private zone: NgZone,
@@ -57,6 +124,7 @@ export class AppComponent implements OnInit, OnDestroy {
     iconRegistry: MatIconRegistry,
     private _snackBar: MatSnackBar,
     private authService: AuthService,
+    private tourService: TourService,
     private translate: TranslateService,
     public configService: ConfigService,
     private breakpointObserver: BreakpointObserver,
@@ -197,6 +265,17 @@ export class AppComponent implements OnInit, OnDestroy {
       'enlarge',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/icon-enlarge.svg')
     );
+
+    this.tourService.initialize(this.steps, {
+      enableBackdrop: true,
+      popoverClass: 'tour-backdrop',
+      nextBtnTitle: this.translate.instant('tour.nextBtnTitle'),
+      prevBtnTitle: this.translate.instant('tour.prevBtnTitle'),
+      endBtnTitle: this.translate.instant('tour.endBtnTitle'),
+      backdropConfig: {
+        offset: 10,
+      },
+    });
   }
 
   ngOnInit() {
@@ -216,8 +295,14 @@ export class AppComponent implements OnInit, OnDestroy {
       this.isMobile = result.matches;
     });
 
-    this.sidenavToggleService.toggleSidenav$.subscribe(() => {
-      this.sidenav.toggle();
+    this.sidenavSubscription = this.sidenavToggleService.sidenavState$.subscribe((action) => {
+      if (action === 'open') {
+        this.sidenav.open();
+      } else if (action === 'close') {
+        this.sidenav.close();
+      } else {
+        this.sidenav.toggle();
+      }
     });
 
     this.token = this.GetParam('tk');
@@ -342,19 +427,22 @@ export class AppComponent implements OnInit, OnDestroy {
       if (this.currentSnackBar) {
         this.currentSnackBar.dismiss();
       }
-      const refreshButtonText = this.translate.instant('app.refresh')
-      this.currentSnackBar = this._snackBar.open(message, cssClass ?  refreshButtonText : 'X', {
-        panelClass: [cssClass],
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
+      const refreshButtonText = this.translate.instant('app.refresh');
+      this.currentSnackBar = this._snackBar.open(
+        message,
+        cssClass ? refreshButtonText : 'X',
+        {
+          panelClass: [cssClass],
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        }
+      );
 
       this.currentSnackBar.onAction().subscribe(() => {
         if (cssClass) {
           window.location.reload();
         }
       });
-
     });
   }
 
@@ -366,21 +454,21 @@ export class AppComponent implements OnInit, OnDestroy {
     const langSpecificMarkdownUrl = `assets/footer.${this.currentLang}.md`;
 
     this.configService.checkMarkdownExists(langSpecificMarkdownUrl).subscribe({
-      next: (res) => {
+      next: res => {
         this.markdownUrl = langSpecificMarkdownUrl;
         this.markdownExists = true;
       },
-      error: (err) => {
+      error: err => {
         this.configService.checkMarkdownExists('assets/footer.md').subscribe({
-          next: (res) => {
+          next: res => {
             this.markdownUrl = 'assets/footer.md';
             this.markdownExists = true;
           },
-          error: (err) => {
+          error: err => {
             this.markdownExists = false;
-          }
+          },
         });
-      }
+      },
     });
   }
 
@@ -388,5 +476,10 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+    if (this.sidenavSubscription) {
+      this.sidenavSubscription.unsubscribe();
+    }
   }
+
+  protected readonly TourType = TourType;
 }

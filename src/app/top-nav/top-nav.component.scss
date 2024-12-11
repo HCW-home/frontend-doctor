@@ -30,7 +30,6 @@
   vertical-align: middle;
   justify-content: center;
 
-
   @media (max-width: 600px) {
     font-size: 12px;
   }
@@ -49,7 +48,6 @@
 
   mat-icon {
     text-align: left;
-    padding-left: 15px;
     padding-right: 15px;
     vertical-align: middle;
     display: inline-flex;
@@ -67,10 +65,11 @@
 
     div {
       height: 70px;
-      background: var(--app-white);
       display: flex;
       align-items: center;
+      padding-left: 15px;
       justify-content: flex-start;
+      background: var(--app-white);
       border: 1px solid #e4e4e4;
     }
 
@@ -81,6 +80,30 @@
   }
 }
 
+.help-button {
+  @media (max-width: 600px) {
+    padding: 0;
+    border: none;
+
+    .mat-mdc-outlined-button:hover .mat-mdc-button-persistent-ripple::before {
+      opacity: 0;
+    }
+
+    .help-icon {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      font-size: 28px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .help-button-text {
+      display: none;
+    }
+  }
+}
 
 .new-consultation {
   gap: 4px;
@@ -111,6 +134,5 @@
 
 .user-wrapper {
   cursor: pointer;
-  margin-left: 10px;
   margin-right: 10px;
 }

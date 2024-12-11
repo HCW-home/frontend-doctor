@@ -5,11 +5,14 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidenavToggleService {
-  private toggleSidenavSource = new Subject<void>();
+  private sidenavStateSource = new Subject<string>();
+  sidenavState$ = this.sidenavStateSource.asObservable();
 
-  toggleSidenav$ = this.toggleSidenavSource.asObservable();
-
-  toggleSidenav() {
-    this.toggleSidenavSource.next();
+  toggleSidenav(action?: 'open' | 'close'): void {
+    if (action) {
+      this.sidenavStateSource.next(action);
+    } else {
+      this.sidenavStateSource.next('toggle');
+    }
   }
 }
