@@ -205,80 +205,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.steps =  [
-      {
-        anchorId: TourType.INVITES_MENU,
-        route: `/invitations`,
-        isAsync: true,
-        delayBeforeStepShow: 500,
-        title: this.translate.instant('tour.invitesMenuTitle'),
-        placement: { xPosition: 'before', yPosition: 'above' },
-        content: this.translate.instant('tour.invitesMenuContent'),
-      },
-      {
-        isAsync: true,
-        anchorId: TourType.NEW_INVITE_BUTTON,
-        title: this.translate.instant('tour.newInviteButtonTitle'),
-        content: this.translate.instant('tour.newInviteButtonContent'),
-      },
-      {
-        anchorId: TourType.REMOTE_PATIENT_INVITE,
-        isAsync: true,
-        title: this.translate.instant('tour.remotePatientInviteTitle'),
-        content: this.translate.instant('tour.remotePatientInviteContent'),
-        placement: { xPosition: 'before', yPosition: 'below' },
-      },
-      {
-        anchorId: TourType.INVITE_FORM_CONTACT_INPUT,
-        isAsync: true,
-        title: this.translate.instant('tour.inviteFormContactInputTitle'),
-        content: this.translate.instant('tour.inviteFormContactInputContent'),
-      },
-      {
-        anchorId: TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT,
-        isAsync: true,
-        title: this.translate.instant('tour.inviteFormSendLinkManuallyTitle'),
-        content: this.translate.instant('tour.inviteFormSendLinkManuallyContent'),
-      },
-      {
-        anchorId: TourType.WAITING_ROOM_MENU,
-        title: this.translate.instant('tour.waitingRoomMenuTitle'),
-        content: this.translate.instant('tour.waitingRoomMenuContent'),
-        route: '/pending-consultations',
-        placement: { xPosition: 'before', yPosition: 'above' },
-      },
-      {
-        anchorId: TourType.OPENED_CONSULTATIONS_MENU,
-        title: this.translate.instant('tour.openedConsultationsMenuTitle'),
-        content: this.translate.instant('tour.openedConsultationsMenuContent'),
-        route: '/active-consultations',
-        placement: { xPosition: 'before', yPosition: 'above' },
-      },
-      {
-        anchorId: TourType.CONSULTATION_HISTORY_MENU,
-        title: this.translate.instant('tour.consultationsHistoryMenuTitle'),
-        content: this.translate.instant('tour.consultationsHistoryMenuContent'),
-        route: '/closed-consultations',
-        placement: { xPosition: 'before', yPosition: 'above' },
-      },
-      {
-        anchorId: TourType.HEADER_PROFILE_MENU,
-        isAsync: true,
-        placement: { xPosition: 'before', yPosition: 'above' },
-        title: this.translate.instant('tour.headerProfileMenuTitle'),
-        content: this.translate.instant('tour.headerProfileMenuContent'),
-      },
-    ];
-    this.tourService.initialize(this.steps, {
-      enableBackdrop: true,
-      popoverClass: 'tour-backdrop',
-      nextBtnTitle: this.translate.instant('tour.nextBtnTitle'),
-      prevBtnTitle: this.translate.instant('tour.prevBtnTitle'),
-      endBtnTitle: this.translate.instant('tour.endBtnTitle'),
-      backdropConfig: {
-        offset: 10,
-      },
+    this.initializeTour();
+    this.translate.onLangChange.subscribe(() => {
+      this.initializeTour();
     });
+
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.showFooter = !event.url.match(/^\/consultation\/[a-zA-Z0-9]+$/);
@@ -335,6 +266,115 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+
+  initializeTour() {
+    this.translate
+        .get([
+          'tour.invitesMenuTitle',
+          'tour.invitesMenuContent',
+          'tour.newInviteButtonTitle',
+          'tour.newInviteButtonContent',
+          'tour.remotePatientInviteTitle',
+          'tour.remotePatientInviteContent',
+          'tour.inviteFormContactInputTitle',
+          'tour.inviteFormContactInputContent',
+          'tour.inviteFormSendLinkManuallyTitle',
+          'tour.inviteFormSendLinkManuallyContent',
+          'tour.waitingRoomMenuTitle',
+          'tour.waitingRoomMenuContent',
+          'tour.openedConsultationsMenuTitle',
+          'tour.openedConsultationsMenuContent',
+          'tour.consultationsHistoryMenuTitle',
+          'tour.consultationsHistoryMenuContent',
+          'tour.headerProfileMenuTitle',
+          'tour.headerProfileMenuContent',
+          'tour.nextBtnTitle',
+          'tour.prevBtnTitle',
+          'tour.endBtnTitle',
+        ])
+        .subscribe(
+            (translations) => {
+              this.steps = [
+                {
+                  anchorId: TourType.INVITES_MENU,
+                  route: `/invitations`,
+                  isAsync: true,
+                  delayBeforeStepShow: 500,
+                  title: translations['tour.invitesMenuTitle'],
+                  placement: { xPosition: 'before', yPosition: 'above' },
+                  content: translations['tour.invitesMenuContent'],
+                },
+                {
+                  isAsync: true,
+                  anchorId: TourType.NEW_INVITE_BUTTON,
+                  title: translations['tour.newInviteButtonTitle'],
+                  content: translations['tour.newInviteButtonContent'],
+                },
+                {
+                  anchorId: TourType.REMOTE_PATIENT_INVITE,
+                  isAsync: true,
+                  title: translations['tour.remotePatientInviteTitle'],
+                  content: translations['tour.remotePatientInviteContent'],
+                  placement: { xPosition: 'before', yPosition: 'below' },
+                },
+                {
+                  anchorId: TourType.INVITE_FORM_CONTACT_INPUT,
+                  isAsync: true,
+                  title: translations['tour.inviteFormContactInputTitle'],
+                  content: translations['tour.inviteFormContactInputContent'],
+                },
+                {
+                  anchorId: TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT,
+                  isAsync: true,
+                  title: translations['tour.inviteFormSendLinkManuallyTitle'],
+                  content: translations['tour.inviteFormSendLinkManuallyContent'],
+                },
+                {
+                  anchorId: TourType.WAITING_ROOM_MENU,
+                  title: translations['tour.waitingRoomMenuTitle'],
+                  content: translations['tour.waitingRoomMenuContent'],
+                  route: '/pending-consultations',
+                  placement: { xPosition: 'before', yPosition: 'above' },
+                },
+                {
+                  anchorId: TourType.OPENED_CONSULTATIONS_MENU,
+                  title: translations['tour.openedConsultationsMenuTitle'],
+                  content: translations['tour.openedConsultationsMenuContent'],
+                  route: '/active-consultations',
+                  placement: { xPosition: 'before', yPosition: 'above' },
+                },
+                {
+                  anchorId: TourType.CONSULTATION_HISTORY_MENU,
+                  title: translations['tour.consultationsHistoryMenuTitle'],
+                  content: translations['tour.consultationsHistoryMenuContent'],
+                  route: '/closed-consultations',
+                  placement: { xPosition: 'before', yPosition: 'above' },
+                },
+                {
+                  anchorId: TourType.HEADER_PROFILE_MENU,
+                  isAsync: true,
+                  placement: { xPosition: 'before', yPosition: 'above' },
+                  title: translations['tour.headerProfileMenuTitle'],
+                  content: translations['tour.headerProfileMenuContent'],
+                },
+              ];
+              this.tourService.initialize(this.steps, {
+                enableBackdrop: true,
+                popoverClass: 'tour-backdrop',
+                nextBtnTitle: this.translate.instant('tour.nextBtnTitle'),
+                prevBtnTitle: this.translate.instant('tour.prevBtnTitle'),
+                endBtnTitle: this.translate.instant('tour.endBtnTitle'),
+                backdropConfig: {
+                  offset: 10,
+                },
+              });
+            },
+            (error) => {
+              console.error('Translation loading failed', error);
+            }
+        );
   }
 
   getConsultationsOverview() {
