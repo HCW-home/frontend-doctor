@@ -53,26 +53,29 @@
       </div>
     </ng-container>
   </div>
-  <div class="control-buttons-wrapper" [ngClass]="{ show: showControls }">
-    <button (click)="camStatusChanged()" color="primary" mat-fab>
-      <mat-icon *ngIf="camStatus === 'on'" svgIcon="camera"></mat-icon>
-      <mat-icon *ngIf="camStatus === 'off'" svgIcon="cameraOff"></mat-icon>
-    </button>
-    <button (click)="rejectCall()" color="warn" mat-fab class="reject-btn">
-      <mat-icon svgIcon="hangup"></mat-icon>
-    </button>
-    <button (click)="muteStatusChanged()" color="primary" mat-fab>
-      <mat-icon *ngIf="muteStatus === 'on'" svgIcon="mic"></mat-icon>
-      <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
-    </button>
-    <button (click)="resize()" color="primary" class="resize-button" mat-fab>
-      <mat-icon svgIcon="enlarge"></mat-icon>
-    </button>
-    <!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->
-    <!--      <mat-icon svgIcon="shareScreen"></mat-icon>-->
-    <!--    </button>-->
-    <!--    <button (click)="stopScreenSharing()" class="fab accept-btn" mat-button *ngIf="screenStream">-->
-    <!--      <mat-icon svgIcon="stopShareScreen"></mat-icon>-->
-    <!--    </button>-->
-  </div>
+  @if (accepted) {
+    <div class="control-buttons-wrapper" [ngClass]="{ show: showControls }">
+      <button (click)="camStatusChanged()" color="primary" mat-fab>
+        <mat-icon *ngIf="camStatus === 'on'" svgIcon="camera"></mat-icon>
+        <mat-icon *ngIf="camStatus === 'off'" svgIcon="cameraOff"></mat-icon>
+      </button>
+      <button (click)="rejectCall()" color="warn" mat-fab class="reject-btn">
+        <mat-icon svgIcon="hangup"></mat-icon>
+      </button>
+      <button (click)="muteStatusChanged()" color="primary" mat-fab>
+        <mat-icon *ngIf="muteStatus === 'on'" svgIcon="mic"></mat-icon>
+        <mat-icon *ngIf="muteStatus === 'off'" svgIcon="micOff"></mat-icon>
+      </button>
+      <button (click)="resize()" color="primary" class="resize-button" mat-fab>
+        <mat-icon svgIcon="enlarge"></mat-icon>
+      </button>
+      <!--    <button (click)="startScreenSharing()" class="fab accept-btn" mat-button *ngIf="!screenStream">-->
+      <!--      <mat-icon svgIcon="shareScreen"></mat-icon>-->
+      <!--    </button>-->
+      <!--    <button (click)="stopScreenSharing()" class="fab accept-btn" mat-button *ngIf="screenStream">-->
+      <!--      <mat-icon svgIcon="stopShareScreen"></mat-icon>-->
+      <!--    </button>-->
+    </div>
+  }
 </div>
+'
