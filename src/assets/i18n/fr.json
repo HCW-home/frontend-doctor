@@ -379,28 +379,6 @@
     "videoRoom": {
         "consultation": "CONSULTATION"
     },
-    "dateTimePicker": {
-        "upSecondLabel": "",
-        "downSecondLabel": "",
-        "upMinuteLabel": "",
-        "downMinuteLabel": "",
-        "upHourLabel": "",
-        "downHourLabel": "",
-        "prevMonthLabel": "",
-        "nextMonthLabel": "",
-        "prevYearLabel": "",
-        "nextYearLabel": "",
-        "prevMultiYearLabel": "",
-        "nextMultiYearLabel": "",
-        "switchToMonthViewLabel": "",
-        "switchToMultiYearViewLabel": "",
-        "cancelBtnLabel": "Annuler",
-        "setBtnLabel": "Confirmer",
-        "rangeFromLabel": "",
-        "rangeToLabel": "",
-        "hour12AMLabel": "",
-        "hour12PMLabel": ""
-    },
     "filter": {
         "filtersApplied": "Filtres appliqués :",
         "myself": "Moi-même",
