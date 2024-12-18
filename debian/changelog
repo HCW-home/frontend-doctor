@@ -1,3 +1,9 @@
+hcw-athome-caregiver (0.5.9) UNRELEASED; urgency=medium
+
+  * add variables for new translations
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 18 Dec 2024 08:43:52 +0000
+
 hcw-athome-caregiver (0.5.8) focal; urgency=medium
 
   [ Olivier Bitsch ]
