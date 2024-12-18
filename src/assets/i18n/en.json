@@ -420,7 +420,7 @@
     },
     "sendInviteLink": {
         "title": "Invite by link",
-        "subTitle": "Copy the link bellow and share with the patient with your prefered way. Warning, this link is usable only one time.",
+        "subTitle": "Copy the link bellow and share with the patient with your preferred way. Warning, this link is usable only one time.",
         "label": "Invite link",
         "close": "Close",
         "copied": "Copied to clipboard",

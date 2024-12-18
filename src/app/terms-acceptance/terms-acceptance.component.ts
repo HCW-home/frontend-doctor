@@ -77,11 +77,12 @@ export class TermsAcceptanceComponent {
     const dialogRef = this.dialog.open(StartTourComponent, {
       autoFocus: false,
       data: {
-        title: this.translate.instant('tour.endTourTitle'),
-        description: this.translate.instant('tour.startTourDescription'),
+        title: this.translate.instant('tour.startTourTitle', this.configService.config),
+        description: this.translate.instant('tour.startTourDescription', this.configService.config),
         dismissBtnTitle: this.translate.instant('tour.startTourDismissBtnTitle'),
         submitBtnTitle: this.translate.instant('tour.startTourSubmitBtnTitle'),
-      }
+      },
+      width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
