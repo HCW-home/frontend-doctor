@@ -418,28 +418,6 @@
     "videoRoom": {
         "consultation": "CONSULTATION"
     },
-    "dateTimePicker": {
-        "upSecondLabel": "",
-        "downSecondLabel": "",
-        "upMinuteLabel": "",
-        "downMinuteLabel": "",
-        "upHourLabel": "",
-        "downHourLabel": "",
-        "prevMonthLabel": "",
-        "nextMonthLabel": "",
-        "prevYearLabel": "",
-        "nextYearLabel": "",
-        "prevMultiYearLabel": "",
-        "nextMultiYearLabel": "",
-        "switchToMonthViewLabel": "",
-        "switchToMultiYearViewLabel": "",
-        "cancelBtnLabel": "Cancel en",
-        "setBtnLabel": "Confirm",
-        "rangeFromLabel": "",
-        "rangeToLabel": "",
-        "hour12AMLabel": "",
-        "hour12PMLabel": ""
-    },
     "sendInviteLink": {
         "title": "Invite by link",
         "subTitle": "Copy the link bellow and share with the patient with your prefered way. Warning, this link is usable only one time.",
