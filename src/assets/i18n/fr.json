@@ -177,7 +177,7 @@
         "pleaseChooseAWaitingQueue": "Veuillez choisir la file d'attente",
         "patient": "Patient",
         "thirdParty": "Tiers",
-        "dateTime": "",
+        "dateTime": "Date et heure",
         "inviteExpert": "Inviter un collègue",
         "notPermitted": "Ce numéro de téléphone n'est pas autorisé sur cette plateforme.",
         "invalidEmailAddress": "L'email est invalide",
@@ -214,7 +214,8 @@
         "chooseTime": "Choisissez une heure",
         "selectTimezone": "Sélectionner le fuseau horaire",
         "chooseDate": "Choisissez une date",
-        "sendLinkManually": "Je veux envoyer le lien manuellement"
+        "sendLinkManually": "Je veux envoyer le lien manuellement",
+        "uk": "Ukrainien"
     },
     "overlay": {
         "close": "Clôturer",
@@ -332,7 +333,9 @@
         "name": "Nom",
         "whatsapp": "WhatsApp",
         "sms": "SMS",
-        "selectLanguage": "Langue"
+        "selectLanguage": "Langue",
+        "messageServiceSuccess": "Succès !",
+        "messageServiceError": "Quelque chose s'est mal passé"
     },
     "resetPassword": {
         "changePassword": "Changement du mot de passe",
@@ -365,7 +368,8 @@
         "patientBirthday": "Date de naissance du patient",
         "nurse": "Infirmier",
         "new_consultation_form": "Formulaire de demande de consultation",
-        "profile": "Profil"
+        "profile": "Profil",
+        "help": "Aide"
     },
     "confirmationDialog": {
         "yesText": "Confirm",
@@ -449,5 +453,18 @@
         "Country": "Pays",
         "Custom Id": "ID personnalisé",
         "Facility": "Facilité"
+    },
+    "tour": {
+        "nextBtnTitle": "Suivant",
+        "prevBtnTitle": "Précédent",
+        "endBtnTitle": "Terminé",
+        "invitesMenuTitle": "Gérer les invitations",
+        "invitesMenuContent": "Les invitations permettent aux patients de vous rejoindre sur cette application. Créez ou révoquez des invitations à tout moment depuis cet espace.",
+        "newInviteButtonTitle": "Nouvelle invitation",
+        "newInviteButtonContent": "Cliquez sur 'Nouvelle Invitation' pour ouvrir le formulaire.",
+        "remotePatientInviteTitle": "Inviter un patient à distance",
+        "remotePatientInviteContent": "Cliquez sur 'Patient à distance' afin que le patient puisse vous rejoindre sur cette application.",
+        "inviteFormContactInputTitle": "Informations sur le patient",
+        "inviteFormContactInputContent": "Renseignez les informations du patient pour reconnaître facilement quel patient attend une consultation à distance. Vous pouvez envoyer le lien d'invitation par SMS, e-mail ou WhatsApp, selon la configuration du logiciel et le pays du patient."
     }
 }
