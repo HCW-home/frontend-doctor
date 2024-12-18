@@ -160,7 +160,9 @@ export class TopNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stepHideSubscription?.unsubscribe();
+    if (this.stepHideSubscription) {
+      this.stepHideSubscription?.unsubscribe();
+    }
   }
 
   protected readonly TourType = TourType;

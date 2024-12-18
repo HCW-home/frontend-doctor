@@ -395,11 +395,11 @@
         "backToHome": "Retour",
         "termsAndConditions": "Conditions Générales d'Utilisation (CGU)",
         "submit": "Soumettre",
-        "before": "avant de pouvoir utiliser HCW@Home.",
+        "before": "avant de pouvoir utiliser {{branding}}.",
         "terms": "les conditions d'utilisation",
         "youHaveTo": "Vous devez accepter",
         "description": "Conditions d'accès",
-        "pleaseAccept": "Vous devez accepter {{terms}} avant de pouvoir utiliser HCW@Home",
+        "pleaseAccept": "Vous devez accepter {{terms}} avant de pouvoir utiliser {{branding}}",
         "country": "Pays"
     },
     "support": {
@@ -456,8 +456,8 @@
         "endTourDescription": "Vous pouvez changer la langue ou activer les notifications SMS au cas où quelque chose se produirait lorsque vous n'êtes pas connecté à cette application.",
         "endTourSubmitBtnTitle": "Ok",
         "headerProfileMenuContent": "Vous pouvez gérer certaines informations depuis votre page de profil.",
-        "startTourTitle": "Bienvenue sur @{{branding}}",
-        "startTourDescription": "@{{branding}} vous aide à entrer en contact avec les patients. Cette visite vous aidera à comprendre le concept. Vous pouvez ignorer la visite à tout moment en fermant cette aide.",
+        "startTourTitle": "Bienvenue sur {{branding}}",
+        "startTourDescription": "{{branding}} vous aide à entrer en contact avec les patients. Cette visite vous aidera à comprendre le concept. Vous pouvez ignorer la visite à tout moment en fermant cette aide.",
         "startTourDismissBtnTitle": "Passer la visite",
         "startTourSubmitBtnTitle": "Suivant",
         "endTourTitle": "Page de profil"

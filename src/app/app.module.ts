@@ -6,7 +6,6 @@ import {
   InvitationAlreadyAcceptedComponent,
   InvitationsComponent,
 } from './invitations/invitations.component';
-import { SupportComponent } from './support/support.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 
@@ -109,14 +108,6 @@ const routes: Routes = [
         component: DashboardComponent,
         data: {
           title: 'Dashboard',
-        },
-        canActivate: [RouterGuard],
-      },
-      {
-        path: 'support',
-        component: SupportComponent,
-        data: {
-          title: 'Support',
         },
         canActivate: [RouterGuard],
       },
@@ -262,7 +253,6 @@ const routes: Routes = [
     DurationPipe,
     ChatComponent,
     OverlayComponent,
-    SupportComponent,
     InvitationsComponent,
     InviteFormComponent,
     InviteExpertComponent,

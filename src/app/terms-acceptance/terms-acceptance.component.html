@@ -15,7 +15,7 @@
             <a href="" (click)="openTerms($event)" class="terms-link">
               {{ 'cgu.terms' | translate }}
             </a>
-            {{ 'cgu.before' | translate }}
+            {{ 'cgu.before' | translate: configService.config }}
           </mat-checkbox>
         </section>
         <div class="back">

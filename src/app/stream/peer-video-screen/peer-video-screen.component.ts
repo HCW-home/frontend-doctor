@@ -39,7 +39,7 @@ export class PeerVideoScreenComponent implements AfterViewInit, OnDestroy, OnCha
   ngOnDestroy(): void {
     // Called once, before the instance is destroyed.
     // Add 'implements OnDestroy' to the class.
-    this.subscriptions.forEach((s) => s.unsubscribe());
+    this.subscriptions.forEach((s) => s?.unsubscribe());
   }
 
   ngOnChanges(changes) {

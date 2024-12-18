@@ -290,20 +290,20 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.overviewSub) {
-      this.overviewSub.unsubscribe();
+      this.overviewSub?.unsubscribe();
     }
 
     this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     });
     if (this.status === 'active') {
       if (this.unreadActiveCountSub) {
-        this.unreadActiveCountSub.unsubscribe();
+        this.unreadActiveCountSub?.unsubscribe();
       }
     }
     if (this.status === 'pending') {
       if (this.unreadPendingCountSub) {
-        this.unreadPendingCountSub.unsubscribe();
+        this.unreadPendingCountSub?.unsubscribe();
       }
     }
   }

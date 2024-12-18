@@ -92,7 +92,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.exitSession();
     this.stopWebCam();
     this.subscriptions.forEach(sub => {
-      sub.unsubscribe();
+      sub?.unsubscribe();
     });
     this.rejectCall();
     this.remoteUsers = [];

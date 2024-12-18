@@ -225,7 +225,7 @@ export class InvitationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stepHideSubscription?.unsubscribe();
+    // this.stepHideSubscription?.unsubscribe();
   }
 
   protected readonly TourType = TourType;
