@@ -25,7 +25,8 @@
         "invites": "Invitations",
         "testVideoSound": "Test son/vidéo",
         "support": "Support",
-        "connectionFailed": "La connexion avec le serveur ne fonctionne pas correctement, vous ne pouvez plus recevoir les demandes de consultation. Si le problème persiste, raffraichissez la page de votre navigateur."
+        "connectionFailed": "La connexion avec le serveur ne fonctionne pas correctement, vous ne pouvez plus recevoir les demandes de consultation. Si le problème persiste, raffraichissez la page de votre navigateur.",
+        "refresh": "Rafraîchir"
     },
     "chat": {
         "inviteExpert": "Inviter un collègue",
@@ -85,7 +86,8 @@
         "online": "En ligne",
         "inviteExpert": "Inviter un collègue",
         "share": "Partager l'invitation par email ou par SMS",
-        "shareBy": "Inviter via un lien"
+        "shareBy": "Inviter via un lien",
+        "exportButton": "Exporter"
     },
     "consultation": {
         "expert_link": "Lien de l'expert",
