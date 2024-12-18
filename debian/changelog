@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.8) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.8) focal; urgency=medium
 
   [ Olivier Bitsch ]
   * Fix Dockerfile
@@ -12,8 +12,26 @@ hcw-athome-caregiver (0.5.8) UNRELEASED; urgency=medium
   * check if prefix is supported for notification
   * add file name when exporting consultation report
   * add uk language in invite form
+  * refs #7474, In app training - UX improvement for doctor app
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 10 Dec 2024 10:58:02 +0000
+  [ Olivier Bitsch ]
+  * Provide guided tour english text
+  * Add missing text for datetime in english
+  * Translated using Weblate (French)
+
+  [ Gor Grigoryan ]
+  * remove unused translations in en
+
+  [ Olivier Bitsch ]
+  * Translated using Weblate (French)
+
+  [ Weblate ]
+  * Update translation files
+
+  [ Olivier Bitsch ]
+  * Translated using Weblate (French)
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 18 Dec 2024 09:33:51 +0100
 
 hcw-athome-caregiver (0.5.3) focal; urgency=medium
 
