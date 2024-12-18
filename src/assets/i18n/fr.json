@@ -443,6 +443,23 @@
         "remotePatientInviteTitle": "Inviter un patient à distance",
         "remotePatientInviteContent": "Cliquez sur 'Patient à distance' afin que le patient puisse vous rejoindre sur cette application.",
         "inviteFormContactInputTitle": "Informations sur le patient",
-        "inviteFormContactInputContent": "Renseignez les informations du patient pour reconnaître facilement quel patient attend une consultation à distance. Vous pouvez envoyer le lien d'invitation par SMS, e-mail ou WhatsApp, selon la configuration du logiciel et le pays du patient."
+        "inviteFormContactInputContent": "Renseignez les informations du patient pour reconnaître facilement quel patient attend une consultation à distance. Vous pouvez envoyer le lien d'invitation par SMS, e-mail ou WhatsApp, selon la configuration du logiciel et le pays du patient.",
+        "openedConsultationsMenuContent": "Une fois que vous avez traité une consultation, vous pouvez choisir de la garder ouverte afin que votre patient puisse continuer à communiquer avec vous et à vous envoyer des messages. Vous pouvez consulter ces consultations dans cette section.",
+        "consultationsHistoryMenuTitle": "Consultation fermée",
+        "consultationsHistoryMenuContent": "Lorsque vous décidez de clôturer une consultation, votre patient ne pourra plus échanger de messages avec vous. La consultation restera dans cet historique pendant 24 heures avant d'être supprimée du système pour des raisons de sécurité.",
+        "waitingRoomMenuContent": "Une fois que votre patient a utilisé le lien et demandé à rejoindre la consultation, vous serez averti par un son et verrez le patient entrant dans cette file d'attente. Gardez l'application ouverte pour réduire le risque de manquer une consultation.",
+        "openedConsultationsMenuTitle": "Consultations à long terme",
+        "headerProfileMenuTitle": "Accédez à votre profil",
+        "inviteFormSendLinkManuallyTitle": "Envoyer le lien manuellement",
+        "inviteFormSendLinkManuallyContent": "Si vous préférez partager le lien manuellement avec votre patient, cochez cette case. Après l'envoi, vous pourrez copier le lien et le partager (par exemple dans un courriel que vous rédigerez vous-même). Attention à ne pas utiliser le lien vous-même pour le tester, car il n'est utilisable qu'une seule fois.",
+        "waitingRoomMenuTitle": "Salle d'attente des patients",
+        "endTourDescription": "Vous pouvez changer la langue ou activer les notifications SMS au cas où quelque chose se produirait lorsque vous n'êtes pas connecté à cette application.",
+        "endTourSubmitBtnTitle": "Ok",
+        "headerProfileMenuContent": "Vous pouvez gérer certaines informations depuis votre page de profil.",
+        "startTourTitle": "Bienvenue sur @{{branding}}",
+        "startTourDescription": "@{{branding}} vous aide à entrer en contact avec les patients. Cette visite vous aidera à comprendre le concept. Vous pouvez ignorer la visite à tout moment en fermant cette aide.",
+        "startTourDismissBtnTitle": "Passer la visite",
+        "startTourSubmitBtnTitle": "Suivant",
+        "endTourTitle": "Page de profil"
     }
 }
