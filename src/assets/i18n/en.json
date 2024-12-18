@@ -207,7 +207,7 @@
         "patient": "Patient",
         "thirdParty": "Third party",
         "inviteExpert": "Invite a colleague",
-        "dateTime": "",
+        "dateTime": "Date and time",
         "chooseDate": "Choose a date",
         "selectTimezone": "Select Timezone",
         "chooseTime": "Choose a time",
