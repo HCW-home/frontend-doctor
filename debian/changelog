@@ -1,9 +1,10 @@
-hcw-athome-caregiver (0.5.12) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.13) UNRELEASED; urgency=medium
 
   * add variables for new translations
   * update translation files,remove support page
+  * fix control buttons when calling
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 18 Dec 2024 09:05:04 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 18 Dec 2024 14:06:52 +0000
 
 hcw-athome-caregiver (0.5.8) focal; urgency=medium
 
