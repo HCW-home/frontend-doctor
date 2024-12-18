@@ -402,22 +402,6 @@
         "pleaseAccept": "Vous devez accepter {{terms}} avant de pouvoir utiliser {{branding}}",
         "country": "Pays"
     },
-    "support": {
-        "thisFormAllowsYouToReportAProblem": "Ce formulaire vous permet de remonter un problème rencontré pendant l'utilisation de {{branding}}. Avant de rapporter un incident, merci de vérifier que vous utilisez bien {{branding}} dans les conditions optimales :",
-        "send": "Envoyer",
-        "yourEmail": "Votre email :",
-        "yourIpAddress": "Votre adresse IP :",
-        "browserVersion": "Version de votre navigateur :",
-        "theFollowingInformation": "Les données supplémentaires suivantes vont êtes envoyées",
-        "plsProvideDetailsOfWhat": "Veuillez décrire ce que vous étiez en train de faire avant de rencontrer le problème, par exemple \"j'étais dans une consultation en train d'envoyer des messages textuels\".",
-        "whatWasYouDoing": "Quelle était votre action en cours avant l'incident ?",
-        "plsProvideDetailsAboutTheProblems": "Veuillez décrire précisément le problème rencontré, par exemple \"l'appui du bouton appeler depuis une consultation ne retourne aucune action\".",
-        "problemEncountered": "Description du problème rencontré",
-        "pleaseFillUpThisForm": "Veuillez compléter ce formulaire depuis l’ordinateur que vous utilisez pour accéder à l’application {{branding}}. Afin de nous aider au diagnostic, votre adresse IP, le nom et la version de votre navigateur seront rapportés.",
-        "youTriedThePageTestAudioSound": "Vous avez tenté d'ouvrir la page Test son/vidéo afin de tenter de résoudre le problème par vous-même.",
-        "yourBrowserIsUpToDate": "Votre navigateur est à jour.",
-        "incidentReportHome": "Rapport d'incident {{branding}}"
-    },
     "sendInviteLink": {
         "sent": "Le lien d'invitation a été envoyé avec succès au participant",
         "copied": "Copié dans le presse-papiers",
