@@ -1,18 +1,13 @@
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import {languages} from "../contstants/global";
 
 @Component({
   selector: "app-select-language",
   template: `
     <div class="language-selector">
       <mat-icon [ngStyle]="{'color':'white'}">language</mat-icon>
-<!--      <span>{{ selectedLanguage | uppercase }}</span>-->
       <mat-form-field style="width: 100px">
-<!--        <mat-select  [value]="selectedLanguage" (change)="onLanguageSelect($event)">-->
-<!--          <mat-option *ngFor="let lang of languages" [value]="lang.value">-->
-<!--            {{lang.viewValue}}-->
-<!--          </mat-option>-->
-<!--        </mat-select>-->
         <select matNativeControl [(ngModel)]="selectedLanguage" (change)="onLanguageSelect($event.target.value)">
           <option *ngFor="let lang of languages" [value]="lang.value">{{lang.viewValue}}</option>
         </select>
@@ -39,10 +34,7 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class SelectLanguageComponent {
   opened = false
-  languages = [
-    {value: "en", viewValue: "English"},
-    {value: "fr", viewValue: "Français"},
-  ];
+  languages = languages;
   selectedLanguage;
 
   constructor(public translate: TranslateService) {

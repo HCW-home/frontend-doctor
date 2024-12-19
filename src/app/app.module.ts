@@ -52,6 +52,7 @@ import { DurationPipe } from './duration.pipe';
 import { DatePipe, registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
+import localeUk from '@angular/common/locales/uk';
 
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 import { TranslatedGenderPipe } from './translated-gender.pipe';
@@ -88,6 +89,7 @@ import {TourMatMenuModule} from "ngx-ui-tour-md-menu";
 import {StartTourComponent} from "./shared/components/start-tour/start-tour.component";
 
 registerLocaleData(localeFr);
+registerLocaleData(localeUk);
 
 export function LocaleIdFactory(translateService: TranslateService) {
   return translateService.currentLang || 'en';

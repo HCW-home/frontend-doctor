@@ -6,6 +6,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {supportedLanguages} from "../contstants/global";
 
 @NgModule({
   imports: [
@@ -23,10 +24,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 })
 export class I18nModule {
   constructor(translate: TranslateService) {
-    translate.addLangs(['en', 'fr']);
+    translate.addLangs(supportedLanguages);
     const userLang =
       window.localStorage.getItem('hhw-lang') || translate.getBrowserLang();
-    translate.use(userLang.match(/en|fr/) ? userLang : 'en');
+    translate.use(supportedLanguages.includes(userLang) ? userLang : 'en');
   }
 }
 

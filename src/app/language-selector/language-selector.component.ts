@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import { TranslateService } from '@ngx-translate/core';
+import {languages} from "../contstants/global";
 
 @Component({
   selector: 'app-language-selector',
@@ -35,10 +36,7 @@ export class LanguageSelectorComponent {
   @Output() selectedLanguageChange = new EventEmitter();
   @Input() hideIcon:boolean = false;
   opened = false;
-  languages = [
-    { value: 'en', viewValue: 'English' },
-    { value: 'fr', viewValue: 'Français' },
-  ];
+  languages = languages;
   selectedLanguage = 'fr';
 
   constructor(public translate: TranslateService) {
