@@ -19,6 +19,7 @@ import {Router} from "@angular/router";
 import {StartTourComponent} from "../shared/components/start-tour/start-tour.component";
 import {MatDialog} from "@angular/material/dialog";
 import {TranslateService} from "@ngx-translate/core";
+import {InviteFormComponent} from "../invite-form/invite-form.component";
 
 @Component({
   selector: 'app-top-nav',
@@ -100,6 +101,15 @@ export class TopNavComponent implements OnInit, OnDestroy {
           events.name === EventName.StepHide &&
           value &&
           value.step &&
+          value.step.anchorId === TourType.WAITING_ROOM_MENU &&
+          value.direction === Direction.Backwards
+      ) {
+        this.openInviteDialog()
+      }
+      if (
+          events.name === EventName.StepHide &&
+          value &&
+          value.step &&
           value.step.anchorId === TourType.NEW_INVITE_BUTTON &&
           value.direction === Direction.Backwards &&
           this.isMobile
@@ -123,6 +133,14 @@ export class TopNavComponent implements OnInit, OnDestroy {
            }
         });
       }
+      setTimeout(() => {
+        const dialogElement2 = document.querySelector('.cdk-overlay-connected-position-bounding-box');
+        if (dialogElement2) {
+          dialogElement2.classList.add('z-index-9999');
+          document.body.appendChild(dialogElement2);
+        }
+      }, 0)
+
     });
   }
 
@@ -139,6 +157,13 @@ export class TopNavComponent implements OnInit, OnDestroy {
 
   toggleSidenav() {
     this.sidenavToggleService.toggleSidenav();
+  }
+
+  openInviteDialog() {
+    const dialogRef = this.dialog.open(InviteFormComponent, {
+      id: 'invite_form_dialog',
+      data: {},
+    });
   }
 
   logout() {

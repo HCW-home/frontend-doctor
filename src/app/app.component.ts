@@ -318,18 +318,32 @@ export class AppComponent implements OnInit, OnDestroy {
                   title: translations['tour.remotePatientInviteTitle'],
                   content: translations['tour.remotePatientInviteContent'],
                   placement: { xPosition: 'before', yPosition: 'below' },
+                  backdropConfig: {
+                    zIndex: '2000',
+                  },
+                  stepDimensions: {
+                    minWidth: '300px'
+                  }
                 },
                 {
                   anchorId: TourType.INVITE_FORM_CONTACT_INPUT,
                   isAsync: true,
                   title: translations['tour.inviteFormContactInputTitle'],
                   content: translations['tour.inviteFormContactInputContent'],
+                  popoverClass: 'overflow-hidden',
+                  backdropConfig: {
+                    zIndex: '2000',
+                  }
                 },
                 {
                   anchorId: TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT,
                   isAsync: true,
                   title: translations['tour.inviteFormSendLinkManuallyTitle'],
                   content: translations['tour.inviteFormSendLinkManuallyContent'],
+                  popoverClass: 'overflow-hidden',
+                  backdropConfig: {
+                    zIndex: '2000',
+                  }
                 },
                 {
                   anchorId: TourType.WAITING_ROOM_MENU,
@@ -344,6 +358,9 @@ export class AppComponent implements OnInit, OnDestroy {
                   content: translations['tour.openedConsultationsMenuContent'],
                   route: '/active-consultations',
                   placement: { xPosition: 'before', yPosition: 'above' },
+                  stepDimensions: {
+                    minWidth: '300px'
+                  }
                 },
                 {
                   anchorId: TourType.CONSULTATION_HISTORY_MENU,
