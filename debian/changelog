@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.14) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.15) UNRELEASED; urgency=medium
 
   [ Gor Grigoryan ]
   * add variables for new translations
@@ -11,8 +11,9 @@ hcw-athome-caregiver (0.5.14) UNRELEASED; urgency=medium
 
   [ Gor Grigoryan ]
   * fix tour backdrop
+  * add ukranian support
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 19 Dec 2024 13:56:45 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 19 Dec 2024 16:53:08 +0000
 
 hcw-athome-caregiver (0.5.8) focal; urgency=medium
 
