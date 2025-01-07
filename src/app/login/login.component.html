@@ -65,10 +65,9 @@
 
         <app-select-language></app-select-language>
       </form>
-      <form *ngIf="localLoginToken" (submit)="loginSms()" class="example-form">
-        <h4>{{ 'login.pleaseFillUpTheRecievedSMS' | translate }}</h4>
-        <div class="code-input-wrapper">
-          <mat-form-field>
+      <form *ngIf="localLoginToken" (submit)="loginSms()" class="form-wrapper">
+        <h4 class="login-local-header">{{ 'login.pleaseFillUpTheRecievedSMS' | translate }}</h4>
+          <mat-form-field class="example-full-width">
             <input
               [(ngModel)]="smsVerificationCode"
               matInput
@@ -82,7 +81,6 @@
               <strong>{{ 'login.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
-        </div>
 
         <button color="primary" mat-flat-button type="submit">
           {{ 'login.send' | translate }}
