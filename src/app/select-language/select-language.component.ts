@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import {languages} from "../contstants/global";
+import {supportedLanguages} from "../i18n/i18n.module";
 
 @Component({
   selector: "app-select-language",
@@ -8,8 +8,8 @@ import {languages} from "../contstants/global";
     <div class="language-selector">
       <mat-icon [ngStyle]="{'color':'white'}">language</mat-icon>
       <mat-form-field style="width: 100px">
-        <select matNativeControl [(ngModel)]="selectedLanguage" (change)="onLanguageSelect($event.target.value)">
-          <option *ngFor="let lang of languages" [value]="lang.value">{{lang.viewValue}}</option>
+        <select matNativeControl [(ngModel)]="selectedLanguage" (change)="onLanguageSelect($event.target)">
+          <option *ngFor="let lang of supportedLanguages" [value]="lang">{{ 'inviteForm.' + lang | translate}}</option>
         </select>
       </mat-form-field>
 
@@ -34,11 +34,10 @@ import {languages} from "../contstants/global";
 })
 export class SelectLanguageComponent {
   opened = false
-  languages = languages;
   selectedLanguage;
 
   constructor(public translate: TranslateService) {
-    this.selectedLanguage = localStorage.getItem("hhw-lang") || this.languages[0].value;
+    this.selectedLanguage = localStorage.getItem("hhw-lang") || supportedLanguages[0];
   }
 
   openDropdown() {
@@ -50,4 +49,6 @@ export class SelectLanguageComponent {
     window.localStorage.setItem("hhw-lang", lang)
     this.translate.use(lang)
   }
+
+  protected readonly supportedLanguages = supportedLanguages;
 }

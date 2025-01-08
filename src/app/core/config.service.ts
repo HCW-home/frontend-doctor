@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {of, Subject} from "rxjs";
 import { environment } from '../../environments/environment';
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -13,19 +13,25 @@ export class ConfigService {
   constructor(private http: HttpClient) {}
 
   getConfig() {
-    return this.http
-      .get<any>(`${environment.api}/config`)
-      .toPromise()
-      .then(config => {
-        this.config = config;
-        if (config.matomoUrl && config.matomoId) {
-          this.initializeMatomo(config.matomoUrl, config.matomoId);
-        }
-        if (config.doctorAppPrimaryColor) {
-          this.updatePrimaryColor(config.doctorAppPrimaryColor);
-        }
-        this.configSub.next(config);
-      });
+    return this.http.get<any>(`${environment.api}/config`).pipe(
+        tap(config => {
+          this.config = config;
+
+          if (config.matomoUrl && config.matomoId) {
+            this.initializeMatomo(config.matomoUrl, config.matomoId);
+          }
+
+          if (config.doctorAppPrimaryColor) {
+            this.updatePrimaryColor(config.doctorAppPrimaryColor);
+          }
+
+          this.configSub.next(config);
+        }),
+        catchError(error => {
+          console.error('Failed to fetch configuration:', error);
+          return of(null);
+        })
+    );
   }
 
   updatePrimaryColor(color: string) {

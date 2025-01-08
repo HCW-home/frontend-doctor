@@ -53,6 +53,7 @@ import { DatePipe, registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
 import localeUk from '@angular/common/locales/uk';
+import localeSv from '@angular/common/locales/sv';
 
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 import { TranslatedGenderPipe } from './translated-gender.pipe';
@@ -90,6 +91,7 @@ import {StartTourComponent} from "./shared/components/start-tour/start-tour.comp
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
+registerLocaleData(localeSv);
 
 export function LocaleIdFactory(translateService: TranslateService) {
   return translateService.currentLang || 'en';

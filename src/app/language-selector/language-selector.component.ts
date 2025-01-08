@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import { TranslateService } from '@ngx-translate/core';
-import {languages} from "../contstants/global";
+import {supportedLanguages} from "../i18n/i18n.module";
 
 @Component({
   selector: 'app-language-selector',
@@ -14,8 +14,8 @@ import {languages} from "../contstants/global";
         <mat-select
           [(value)]="selectedLanguage"
           (selectionChange)="onLanguageSelect($event)">
-          <mat-option *ngFor="let lang of languages" [value]="lang.value">
-            {{ lang.viewValue }}
+          <mat-option *ngFor="let lang of supportedLanguages" [value]="lang">
+            {{ 'inviteForm.' + lang | translate }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -36,12 +36,11 @@ export class LanguageSelectorComponent {
   @Output() selectedLanguageChange = new EventEmitter();
   @Input() hideIcon:boolean = false;
   opened = false;
-  languages = languages;
   selectedLanguage = 'fr';
 
   constructor(public translate: TranslateService) {
     this.selectedLanguage =
-      localStorage.getItem('hhw-lang') || this.languages[0].value;
+      localStorage.getItem('hhw-lang') || supportedLanguages[0];
   }
 
   openDropdown() {
@@ -54,4 +53,6 @@ export class LanguageSelectorComponent {
     this.translate.use(lang.value);
     this.selectedLanguageChange.emit(lang.value)
   }
+
+  protected readonly supportedLanguages = supportedLanguages;
 }
