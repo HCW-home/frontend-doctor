@@ -246,6 +246,7 @@
         "sendMyFeedback": "Envoyer mon feedback"
     },
     "invitations": {
+        "title": "INVITATIONS",
         "newInvite": "Nouvelle invitation",
         "noConsultationInvite": "Aucune invitation de téléconsultation",
         "phoneNumber": "Numéro de téléphone",

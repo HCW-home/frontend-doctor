@@ -270,6 +270,7 @@
         "sendMyFeedback": "Send my feedback"
     },
     "invitations": {
+        "title": "INVITATIONS",
         "newInvite": "New invite",
         "noConsultationInvite": "No consultation invite",
         "phoneNumber": "Phone number",

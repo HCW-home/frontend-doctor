@@ -270,6 +270,7 @@
     "sendMyFeedback": "Надіслати відгук"
   },
   "invitations": {
+    "title": "ЗАПРОШЕННЯ",
     "newInvite": "Нове запрошення",
     "noConsultationInvite": "Немає запрошення на консультацію",
     "phoneNumber": "Номер телефону",
