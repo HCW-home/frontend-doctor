@@ -44,7 +44,9 @@ export class ProfileComponent implements OnInit {
     this.currentNotifPhoneNumber = this.currentUser.notifPhoneNumber;
     this.enableNotif = this.currentUser.enableNotif;
 
-    this.checkIfSupportedPrefix(this.currentNotifPhoneNumber)
+    if (this.currentNotifPhoneNumber) {
+      this.checkIfSupportedPrefix(this.currentNotifPhoneNumber)
+    }
     if (this.currentUser.messageService) {
       this.messageService = this.currentUser.messageService;
     }
