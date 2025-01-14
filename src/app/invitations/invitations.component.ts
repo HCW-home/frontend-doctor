@@ -17,6 +17,7 @@ import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { ConfigService } from 'src/app/core/config.service';
 import { Direction, EventName, TourType } from 'src/app/models/tour';
 import { SidenavToggleService } from '../core/sidenav-toggle.service';
+import {InvitationStatus, InvitationStatusConfig} from "../contstants/invitations";
 
 @Component({
   selector: 'app-invitations',
@@ -231,6 +232,7 @@ export class InvitationsComponent implements OnInit, OnDestroy {
   }
 
   protected readonly TourType = TourType;
+  protected readonly InvitationStatusConfig = InvitationStatusConfig;
 }
 @Component({
   selector: 'app-invitation-already-accepted-dialog',

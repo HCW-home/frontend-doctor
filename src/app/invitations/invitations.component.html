@@ -8,7 +8,7 @@
     <button
       (click)="openDialog()"
       mat-flat-button
-      tourAnchor="{{TourType.NEW_INVITE_BUTTON}}"
+      tourAnchor="{{ TourType.NEW_INVITE_BUTTON }}"
       type="submit"
       class="mt-12 mb-12"
       color="primary">
@@ -27,17 +27,17 @@
     <table [style.display]="loading ? 'none' : 'table'" class="invitations">
       <tr *ngFor="let invite of invitations | async">
         <td class="hidden-mobile">
-          <span class="tile-header" *ngIf="invite.emailAddress">{{
-            'login.email' | translate
-          }}</span>
-          <span class="tile-header" *ngIf="invite.phoneNumber">{{
-            'invitations.phoneNumber' | translate
-          }}</span>
+          <span class="tile-header" *ngIf="invite.emailAddress">
+            {{ 'login.email' | translate }}
+          </span>
+          <span class="tile-header" *ngIf="invite.phoneNumber">
+            {{ 'invitations.phoneNumber' | translate }}
+          </span>
           <span
             class="tile-header"
-            *ngIf="!invite.phoneNumber && !invite.emailAddress"
-            >{{ 'login.email' | translate }}</span
-          >
+            *ngIf="!invite.phoneNumber && !invite.emailAddress">
+            {{ 'login.email' | translate }}
+          </span>
           <span *ngIf="invite.emailAddress">{{ invite.emailAddress }}</span>
           <span *ngIf="invite.phoneNumber">{{ invite.phoneNumber }}</span>
           <span *ngIf="!invite.phoneNumber && !invite.emailAddress">
@@ -45,9 +45,9 @@
           </span>
         </td>
         <td>
-          <span class="tile-header">{{
-            'invitations.lastname' | translate
-          }}</span>
+          <span class="tile-header">
+            {{ 'invitations.lastname' | translate }}
+          </span>
           <div *ngIf="invite.firstName || invite.lastName">
             {{ invite.firstName + ' ' + invite.lastName }}
           </div>
@@ -56,126 +56,125 @@
           </div>
         </td>
         <td class="hidden-mobile">
-          <span class="tile-header">{{
-            'invitations.creationDate' | translate
-          }}</span>
+          <span class="tile-header">
+            {{ 'invitations.creationDate' | translate }}
+          </span>
           {{ invite.createdAt | date: 'd MMM yyyy HH:mm' : 'fr' }}
         </td>
         <td>
-          <span class="tile-header">{{
-            'invitations.scheduledDate' | translate
-          }}</span>
-            @if (invite.scheduledFor && invite.patientTZ) {
-                {{ getFormattedDate(invite.scheduledFor, invite.patientTZ) }} ( {{ invite.patientTZ }} )
-            } @else if (invite.scheduledFor) {
-                {{invite.scheduledFor | date: 'd MMM yyyy HH:mm' }}
-            } @else {
-                {{'invitations.immediately' | translate}}
-            }
+          <span class="tile-header">
+            {{ 'invitations.scheduledDate' | translate }}
+          </span>
+          @if (invite.scheduledFor && invite.patientTZ) {
+            {{ getFormattedDate(invite.scheduledFor, invite.patientTZ) }} (
+            {{ invite.patientTZ }} )
+          } @else if (invite.scheduledFor) {
+            {{ invite.scheduledFor | date: 'd MMM yyyy HH:mm' }}
+          } @else {
+            {{ 'invitations.immediately' | translate }}
+          }
         </td>
-          <ng-container *ngIf="configService.config?.metadata?.length">
-              <td
-                      *ngFor="let displayItem of configService.config.metadata"
-                      class="hidden-mobile">
-                  <ng-container>
-                <span class="tile-header">
-                  {{ ('metadata.' + displayItem | translate) !== ('metadata.' + displayItem) ? ('metadata.' + displayItem | translate) : displayItem }}
-                </span>
-                      <ng-container
-                              *ngIf="
-                    invite.metadata === null;
-                    else metanull
-                  ">
-                          -
-                      </ng-container>
-                      <ng-template #metanull>
-                          {{
-                              invite.metadata[displayItem]
-                                  ? invite.metadata[displayItem]
-                                  : '-'
-                          }}
-                      </ng-template>
-                  </ng-container>
-              </td>
-          </ng-container>
+        <ng-container *ngIf="configService.config?.metadata?.length">
+          <td
+            *ngFor="let displayItem of configService.config.metadata"
+            class="hidden-mobile">
+            <ng-container>
+              <span class="tile-header">
+                {{
+                  ('metadata.' + displayItem | translate) !==
+                  'metadata.' + displayItem
+                    ? ('metadata.' + displayItem | translate)
+                    : displayItem
+                }}
+              </span>
+              <ng-container *ngIf="invite.metadata === null; else metanull">
+                -
+              </ng-container>
+              <ng-template #metanull>
+                {{
+                  invite.metadata[displayItem]
+                    ? invite.metadata[displayItem]
+                    : '-'
+                }}
+              </ng-template>
+            </ng-container>
+          </td>
+        </ng-container>
         <td class="hidden-mobile">
-          <span class="tile-header">{{
-            'invitations.patient' | translate
-          }}</span>
+          <span class="tile-header">
+            {{ 'invitations.patient' | translate }}
+          </span>
 
-          <ng-container *ngIf="invite.status === 'SENT'"
-            >{{ 'invitations.sent' | translate }}
-          </ng-container>
-          <ng-container *ngIf="invite.status === 'ACCEPTED'">
-            <span style="color: green">
-              {{ 'invitations.accepted' | translate }}</span
-            >
-          </ng-container>
-          <ng-container *ngIf="invite.status === 'COMPLETE'"
-            >{{ 'invitations.closed' | translate }}
-          </ng-container>
-          <ng-container *ngIf="invite.status === 'CANCELED'"
-            >{{ 'invitations.canceled' | translate }}
-          </ng-container>
+          @if (InvitationStatusConfig[invite.status]) {
+            <span
+              [style.color]="InvitationStatusConfig[invite.status].color"
+              [style.backgroundColor]="
+                InvitationStatusConfig[invite.status].backgroundColor
+              "
+              class="status-wrapper">
+              {{ InvitationStatusConfig[invite.status].label | translate }}
+            </span>
+          }
         </td>
+
         <td class="hidden-mobile">
-          <span class="tile-header">{{
-            'invitations.guestInvite' | translate
-          }}</span>
+          <span class="tile-header">
+            {{ 'invitations.guestInvite' | translate }}
+          </span>
 
           <ng-container *ngIf="invite.guestInvite">
-            <ng-container *ngIf="invite.guestInvite.status === 'SENT'"
-              >{{ 'invitations.sent' | translate }}
+            <ng-container *ngIf="invite.guestInvite.status === 'SENT'">
+              {{ 'invitations.sent' | translate }}
             </ng-container>
             <ng-container *ngIf="invite.guestInvite.status === 'ACCEPTED'">
               <span style="color: green">
-                {{ 'invitations.accepted' | translate }}</span
-              >
+                {{ 'invitations.accepted' | translate }}
+              </span>
             </ng-container>
-            <ng-container *ngIf="invite.guestInvite.status === 'COMPLETE'"
-              >{{ 'invitations.closed' | translate }}
+            <ng-container *ngIf="invite.guestInvite.status === 'COMPLETE'">
+              {{ 'invitations.closed' | translate }}
             </ng-container>
-            <ng-container *ngIf="invite.guestInvite.status === 'CANCELED'"
-              >{{ 'invitations.canceled' | translate }}
+            <ng-container *ngIf="invite.guestInvite.status === 'CANCELED'">
+              {{ 'invitations.canceled' | translate }}
             </ng-container>
           </ng-container>
 
-          <ng-container *ngIf="!invite.guestInvite"
-            >{{ 'invitations.none' | translate }}
+          <ng-container *ngIf="!invite.guestInvite">
+            {{ 'invitations.none' | translate }}
           </ng-container>
         </td>
         <td class="hidden-mobile">
-          <span class="tile-header">{{
-            'invitations.translatorRequestInvite' | translate
-          }}</span>
+          <span class="tile-header">
+            {{ 'invitations.translatorRequestInvite' | translate }}
+          </span>
           <ng-container *ngIf="invite.translatorRequestInvite">
             <ng-container
-              *ngIf="invite.translatorRequestInvite.status === 'SENT'"
-              >{{ 'invitations.sent' | translate }}
+              *ngIf="invite.translatorRequestInvite.status === 'SENT'">
+              {{ 'invitations.sent' | translate }}
             </ng-container>
             <ng-container
               *ngIf="invite.translatorRequestInvite.status === 'ACCEPTED'">
               <span style="color: green">
-                {{ 'invitations.accepted' | translate }}</span
-              >
+                {{ 'invitations.accepted' | translate }}
+              </span>
             </ng-container>
             <ng-container
-              *ngIf="invite.translatorRequestInvite.status === 'COMPLETE'"
-              >{{ 'invitations.closed' | translate }}
+              *ngIf="invite.translatorRequestInvite.status === 'COMPLETE'">
+              {{ 'invitations.closed' | translate }}
             </ng-container>
             <ng-container
-              *ngIf="invite.translatorRequestInvite.status === 'CANCELED'"
-              >{{ 'invitations.canceled' | translate }}
+              *ngIf="invite.translatorRequestInvite.status === 'CANCELED'">
+              {{ 'invitations.canceled' | translate }}
             </ng-container>
             <ng-container
               *ngIf="invite.translatorRequestInvite.status === 'REFUSED'">
-              <span style="color: red">{{
-                'invitations.refused' | translate
-              }}</span>
+              <span style="color: red">
+                {{ 'invitations.refused' | translate }}
+              </span>
             </ng-container>
           </ng-container>
-          <ng-container *ngIf="!invite.translatorRequestInvite"
-            >{{ 'invitations.none' | translate }}
+          <ng-container *ngIf="!invite.translatorRequestInvite">
+            {{ 'invitations.none' | translate }}
           </ng-container>
         </td>
         <td style="display: flex; flex-direction: column">
@@ -189,7 +188,8 @@
               (!invite.translatorRequestInvite ||
                 invite.translatorRequestInvite.status === 'ACCEPTED')
             "
-            mat-stroked-button color="primary"
+            mat-stroked-button
+            color="primary"
             (click)="resendInvite(invite.id)"
             class="mb-12"
             title="{{
@@ -199,14 +199,17 @@
           </button>
           <button
             (click)="openDialog(invite)"
-            mat-stroked-button color="primary"
+            mat-stroked-button
+            color="primary"
             *ngIf="
               invite.translatorRequestInvite &&
               invite.translatorRequestInvite.status === 'REFUSED'
             ">
             {{ 'consultations.sendAgainANewInvitation' | translate }}
           </button>
-          <button mat-stroked-button color="primary"
+          <button
+            mat-stroked-button
+            color="primary"
             [routerLink]="['/invitations/' + invite.id]">
             Edit
           </button>

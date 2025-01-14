@@ -8,6 +8,11 @@ span.tile-header {
   color: #3f3f3f;
 }
 
+.status-wrapper {
+  padding: 5px;
+  border-radius: 3px
+}
+
 .edit-button {
   margin-top: 10px;
   @media screen and (max-width: 600px) {
