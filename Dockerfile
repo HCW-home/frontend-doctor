@@ -1,5 +1,5 @@
 FROM node:18 AS builder
-ENV VERSION=0.5.19
+ENV VERSION=0.5.20
 WORKDIR /usr/src/app
 COPY package*.json ./
 COPY yarn.lock ./
