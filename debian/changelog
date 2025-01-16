@@ -1,3 +1,9 @@
+hcw-athome-caregiver (0.5.20) focal; urgency=medium
+
+  * Adding self signed certificate on nginx
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 16 Jan 2025 15:48:37 +0100
+
 hcw-athome-caregiver (0.5.19) focal; urgency=medium
 
   [ Gor Grigoryan ]
