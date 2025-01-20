@@ -14,6 +14,7 @@ export enum InvitationStatus {
     RECEIVED = 'RECEIVED',
     SCHEDULED = 'SCHEDULED',
     READ = 'READ',
+    ACKNOWLEDGED = 'ACKNOWLEDGED',
     PARTIALLY_DELIVERED = 'PARTIALLY_DELIVERED'
 }
 
@@ -56,6 +57,11 @@ export const InvitationStatusConfig: {
         backgroundColor: '#E8F5E9',
     },
     [InvitationStatus.READ]: {
+        label: 'invitations.read',
+        color: 'green',
+        backgroundColor: '#E8F5E9',
+    },
+    [InvitationStatus.ACKNOWLEDGED]: {
         label: 'invitations.read',
         color: 'green',
         backgroundColor: '#E8F5E9',

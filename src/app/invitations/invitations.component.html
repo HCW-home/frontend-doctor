@@ -114,6 +114,8 @@
               class="status-wrapper">
               {{ InvitationStatusConfig[invite.status].label | translate }}
             </span>
+          } @else {
+              {{ invite.status }}
           }
         </td>
 
