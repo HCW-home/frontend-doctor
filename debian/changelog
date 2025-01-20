@@ -1,4 +1,10 @@
-hcw-athome-caregiver (0.5.19) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.20) focal; urgency=medium
+
+  * Adding self signed certificate on nginx
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 16 Jan 2025 15:48:37 +0100
+
+hcw-athome-caregiver (0.5.19) focal; urgency=medium
 
   [ Gor Grigoryan ]
   * add variables for new translations
@@ -19,8 +25,13 @@ hcw-athome-caregiver (0.5.19) UNRELEASED; urgency=medium
 
   [ Gor Grigoryan ]
   *  add support for 'onclick' in footer markdown
+  * refs #7972, Replace branding in title page
+  * translat invitations page title
+  * fix translation
+  * check prefix when phone number exists
+  * handle different statuses for invite
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 10 Jan 2025 09:56:07 +0000
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Thu, 16 Jan 2025 14:21:09 +0100
 
 hcw-athome-caregiver (0.5.8) focal; urgency=medium
 
