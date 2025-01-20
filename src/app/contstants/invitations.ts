@@ -15,7 +15,8 @@ export enum InvitationStatus {
     SCHEDULED = 'SCHEDULED',
     READ = 'READ',
     ACKNOWLEDGED = 'ACKNOWLEDGED',
-    PARTIALLY_DELIVERED = 'PARTIALLY_DELIVERED'
+    PARTIALLY_DELIVERED = 'PARTIALLY_DELIVERED',
+    SCHEDULED_FOR_INVITE = 'SCHEDULED_FOR_INVITE',
 }
 
 export const InvitationStatusConfig: {
@@ -28,6 +29,11 @@ export const InvitationStatusConfig: {
     },
     [InvitationStatus.QUEUED]: {
         label: 'invitations.queued',
+        color: 'gray',
+        backgroundColor: '#E3F2FD',
+    },
+    [InvitationStatus.SCHEDULED_FOR_INVITE]: {
+        label: 'invitations.scheduledForInvite',
         color: 'gray',
         backgroundColor: '#E3F2FD',
     },
@@ -62,7 +68,7 @@ export const InvitationStatusConfig: {
         backgroundColor: '#E8F5E9',
     },
     [InvitationStatus.ACKNOWLEDGED]: {
-        label: 'invitations.read',
+        label: 'invitations.acknowledged',
         color: 'green',
         backgroundColor: '#E8F5E9',
     },

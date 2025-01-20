@@ -297,6 +297,7 @@
         "scheduled": "Scheduled",
         "read": "Read",
         "acknowledged": "Acknowledged",
+        "scheduledForInvite": "Acknowledged",
         "partiallyDelivered": "Partially Delivered",
         "translatorRequestInvite": "Interpreter",
         "sendAgain": "Send again",
