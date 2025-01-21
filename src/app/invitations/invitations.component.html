@@ -106,14 +106,14 @@
           </span>
 
           @if (InvitationStatusConfig[invite.status]) {
-            <span
+            <div
               [style.color]="InvitationStatusConfig[invite.status].color"
               [style.backgroundColor]="
                 InvitationStatusConfig[invite.status].backgroundColor
               "
               class="status-wrapper">
               {{ InvitationStatusConfig[invite.status].label | translate }}
-            </span>
+            </div>
           } @else {
               {{ invite.status }}
           }

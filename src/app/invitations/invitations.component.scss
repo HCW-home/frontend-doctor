@@ -10,7 +10,11 @@ span.tile-header {
 
 .status-wrapper {
   padding: 5px;
-  border-radius: 3px
+  display: flex;
+  text-align: center;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
 }
 
 .edit-button {
