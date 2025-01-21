@@ -175,6 +175,8 @@
         "sex": "Gender",
         "male": "Male",
         "female": "Female",
+        "other": "Other",
+        "unknown": "Unknown",
         "pleaseChooseTheSex": "Please choose gender",
         "waitingQueue": "Shared waiting queue",
         "mySelf": "None",

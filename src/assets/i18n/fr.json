@@ -152,6 +152,8 @@
         "sex": "Sexe",
         "male": "Masculin",
         "female": "Féminin",
+        "other": "Autre",
+        "unknown": "Inconnu",
         "pleaseChooseTheSex": "Veuillez choisir le sexe",
         "waitingQueue": "File d'attente partagée",
         "mySelf": "Aucun",

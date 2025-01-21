@@ -56,7 +56,6 @@ import localeUk from '@angular/common/locales/uk';
 import localeSv from '@angular/common/locales/sv';
 
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
-import { TranslatedGenderPipe } from './translated-gender.pipe';
 import { I18nModule } from './i18n/i18n.module';
 import { ConfigService } from './core/config.service';
 
@@ -267,7 +266,6 @@ const routes: Routes = [
     FooterComponent,
     TestMediaComponent,
     ProfileUpdateComponent,
-    TranslatedGenderPipe,
     SelectLanguageComponent,
     LanguageSelectorComponent,
     ConfirmationDialogComponent,
