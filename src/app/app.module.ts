@@ -83,10 +83,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CguComponent } from './cgu/cgu.component';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { InviteLinkComponent } from './invite-link/invite-link.component';
-import {StatusComponent} from "./status/status.component";
-import {TermsAcceptanceComponent} from "./terms-acceptance/terms-acceptance.component";
-import {TourMatMenuModule} from "ngx-ui-tour-md-menu";
-import {StartTourComponent} from "./shared/components/start-tour/start-tour.component";
+import { StatusComponent } from './status/status.component';
+import { TermsAcceptanceComponent } from './terms-acceptance/terms-acceptance.component';
+import { TourMatMenuModule } from 'ngx-ui-tour-md-menu';
+import { StartTourComponent } from './shared/components/start-tour/start-tour.component';
+import { MatTooltip } from '@angular/material/tooltip';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
@@ -299,6 +300,7 @@ const routes: Routes = [
     MatTabsModule,
     MatRadioModule,
     TourMatMenuModule,
+    MatTooltip,
   ],
   providers: [
     AuthService,

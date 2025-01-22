@@ -1,5 +1,3 @@
-
-
 export interface Invitation {
   createdAt: number
   emailAddress: string
@@ -19,4 +17,10 @@ export interface Invitation {
   revoking: boolean
   metadata: object;
   patientTZ: string;
+  experts: Expert[]
+}
+
+export interface Expert  {
+  expertContact: string;
+  messageService: string;
 }

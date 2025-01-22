@@ -38,12 +38,66 @@
             *ngIf="!invite.phoneNumber && !invite.emailAddress">
             {{ 'login.email' | translate }}
           </span>
-          <span *ngIf="invite.emailAddress">{{ invite.emailAddress }}</span>
-          <span *ngIf="invite.phoneNumber">{{ invite.phoneNumber }}</span>
-          <span *ngIf="!invite.phoneNumber && !invite.emailAddress">
-            {{ 'invitations.notDefined' | translate }}
+          <span class="d-flex flex-column gap-4">
+            <span *ngIf="invite.emailAddress">{{ invite.emailAddress }}</span>
+            <span *ngIf="invite.phoneNumber">{{ invite.phoneNumber }}</span>
+            <span *ngIf="!invite.phoneNumber && !invite.emailAddress">
+              {{ 'invitations.notDefined' | translate }}
+            </span>
+            @if (InvitationStatusConfig[invite.status]) {
+              <span
+                [style.color]="InvitationStatusConfig[invite.status].color"
+                [style.backgroundColor]="
+                  InvitationStatusConfig[invite.status].backgroundColor
+                "
+                class="status-wrapper">
+                {{ InvitationStatusConfig[invite.status].label | translate }}
+              </span>
+            } @else {
+              {{ invite.status }}
+            }
           </span>
         </td>
+        <td class="hidden-mobile">
+          <span class="tile-header">
+            {{ 'invitations.participant' | translate }}
+          </span>
+
+          @if (
+            invite.guestInvite ||
+            (invite.experts && Array.isArray(invite.experts))
+          ) {
+            @if (invite.guestInvite) {
+              <span class="d-flex mb-4">
+                <span
+                  *ngIf="invite.guestInvite.emailAddress"
+                  [matTooltip]="'invitations.guestTooltip' | translate">
+                  {{ invite.emailAddress }}
+                </span>
+                <span
+                  *ngIf="invite.guestInvite.phoneNumber"
+                  [matTooltip]="'invitations.guestTooltip' | translate">
+                  {{ invite.phoneNumber }}
+                </span>
+              </span>
+            }
+            @if (invite.experts && Array.isArray(invite.experts)) {
+              <span class="d-flex flex-column gap-4">
+                @for (expert of invite.experts; track expert) {
+                  @if (expert.expertContact) {
+                    <span
+                      [matTooltip]="'invitations.expertTooltip' | translate">
+                      {{ expert.expertContact }}
+                    </span>
+                  }
+                }
+              </span>
+            }
+          } @else {
+            -
+          }
+        </td>
+
         <td>
           <span class="tile-header">
             {{ 'invitations.lastname' | translate }}
@@ -100,24 +154,6 @@
             </ng-container>
           </td>
         </ng-container>
-        <td class="hidden-mobile">
-          <span class="tile-header">
-            {{ 'invitations.patient' | translate }}
-          </span>
-
-          @if (InvitationStatusConfig[invite.status]) {
-            <div
-              [style.color]="InvitationStatusConfig[invite.status].color"
-              [style.backgroundColor]="
-                InvitationStatusConfig[invite.status].backgroundColor
-              "
-              class="status-wrapper">
-              {{ InvitationStatusConfig[invite.status].label | translate }}
-            </div>
-          } @else {
-              {{ invite.status }}
-          }
-        </td>
 
         <td class="hidden-mobile">
           <span class="tile-header">
@@ -213,7 +249,7 @@
             mat-stroked-button
             color="primary"
             [routerLink]="['/invitations/' + invite.id]">
-            Edit
+            {{ 'invitations.edit' | translate }}
           </button>
         </td>
         <td>

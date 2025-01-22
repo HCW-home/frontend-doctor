@@ -10,11 +10,8 @@ span.tile-header {
 
 .status-wrapper {
   padding: 5px;
-  display: flex;
-  text-align: center;
+  width: fit-content;
   border-radius: 3px;
-  align-items: center;
-  justify-content: center;
 }
 
 .edit-button {
@@ -46,6 +43,7 @@ span.tile-header {
     margin: 10px auto;
     border-bottom: 1px solid#b1b1b191;
     padding: 16px;
+
   }
 
   tr:first-child > th,
@@ -111,7 +109,8 @@ span.tile-header {
     }
   }
   td {
-    padding: 12px 1%;
+    padding: 18px 10px;
+    vertical-align: text-top;
   }
   .tile-header {
     display: block;

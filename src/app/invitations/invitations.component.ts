@@ -233,6 +233,7 @@ export class InvitationsComponent implements OnInit, OnDestroy {
 
   protected readonly TourType = TourType;
   protected readonly InvitationStatusConfig = InvitationStatusConfig;
+    protected readonly Array = Array;
 }
 @Component({
   selector: 'app-invitation-already-accepted-dialog',
