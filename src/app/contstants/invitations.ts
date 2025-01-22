@@ -113,3 +113,35 @@ export const InvitationStatusConfig: {
         backgroundColor: '#FFEBEE',
     },
 };
+
+export enum MessageService {
+    whatsapp = '1',
+    sms = '2',
+    email = '3',
+    manual = '4',
+}
+
+export const MessageServiceConfig: {
+    [key in MessageService]: { label: string; color: string; backgroundColor: string };
+} = {
+    [MessageService.sms]: {
+        label: 'invitations.sms',
+        color: 'gray',
+        backgroundColor: '#E3F2FD',
+    },
+    [MessageService.whatsapp]: {
+        label: 'invitations.whatsapp',
+        color: '#128C7E',
+        backgroundColor: '#DFFFE2',
+    },
+    [MessageService.email]: {
+        label: 'invitations.email',
+        color: '#0A84FF',
+        backgroundColor: '#F0F9FF',
+    },
+    [MessageService.manual]: {
+        label: 'invitations.manual',
+        color: '#FF0000',
+        backgroundColor: '#FFE6E6',
+    },
+};

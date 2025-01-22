@@ -7,7 +7,7 @@ import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { Invitation } from '../Invitation';
+import { Invitation } from "../Invitation";
 import { Observable, of, Subscription } from 'rxjs';
 import { InviteService } from '../core/invite.service';
 import { InviteFormComponent } from '../invite-form/invite-form.component';
@@ -17,7 +17,7 @@ import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { ConfigService } from 'src/app/core/config.service';
 import { Direction, EventName, TourType } from 'src/app/models/tour';
 import { SidenavToggleService } from '../core/sidenav-toggle.service';
-import {InvitationStatus, InvitationStatusConfig} from "../contstants/invitations";
+import { InvitationStatusConfig, MessageService, MessageServiceConfig } from "../contstants/invitations";
 
 @Component({
   selector: 'app-invitations',
@@ -234,6 +234,8 @@ export class InvitationsComponent implements OnInit, OnDestroy {
   protected readonly TourType = TourType;
   protected readonly InvitationStatusConfig = InvitationStatusConfig;
     protected readonly Array = Array;
+  protected readonly MessageService = MessageService;
+  protected readonly MessageServiceConfig = MessageServiceConfig;
 }
 @Component({
   selector: 'app-invitation-already-accepted-dialog',

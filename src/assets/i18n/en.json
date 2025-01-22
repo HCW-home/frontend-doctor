@@ -320,7 +320,12 @@
         "cancelRevoke": "Do not delete",
         "revokeConfirmTitle": "Delete an invitation",
         "status": "State",
-        "immediately": "Immediately"
+        "immediately": "Immediately",
+        "communicationMethod": "Communication Method",
+        "sms": "SMS",
+        "whatsapp": "WhatsApp",
+        "email": "Email",
+        "manual": "Manual"
     },
     "sideChat": {
         "startTheConsultation": "Start the consultation"

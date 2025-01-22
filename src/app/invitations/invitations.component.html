@@ -115,6 +115,25 @@
           </span>
           {{ invite.createdAt | date: 'd MMM yyyy HH:mm' : 'fr' }}
         </td>
+        <td class="hidden-mobile">
+          <span class="tile-header">
+            {{ 'invitations.communicationMethod' | translate }}
+          </span>
+          @if (MessageServiceConfig[invite.messageService]) {
+            <span
+              [style.color]="MessageServiceConfig[invite.messageService].color"
+              [style.backgroundColor]="
+                MessageServiceConfig[invite.messageService].backgroundColor
+              "
+              class="status-wrapper">
+              {{
+                MessageServiceConfig[invite.messageService].label | translate
+              }}
+            </span>
+          } @else {
+            {{ invite.messageService || '-' }}
+          }
+        </td>
         <td>
           <span class="tile-header">
             {{ 'invitations.scheduledDate' | translate }}
