@@ -174,22 +174,32 @@
             </td>
           </ng-container>
 
-          <td class="online-status-cell hidden-mobile">
-            <ng-container
-              *ngIf="status !== 'closed' && consultation.consultation.guest"
-              (click)="showChat(consultation._id)">
-              <span class="tile-header" style="margin-bottom: 0px !important">
+          @if (status !== 'closed') {
+            <td class="online-status-cell hidden-mobile">
+              <span class="tile-header">
                 {{ 'consultations.guest' | translate }}
               </span>
-              <app-status
-                [type]="
-                  consultation.consultation.flagGuestOnline
-                    ? 'online'
-                    : 'offline'
-                "></app-status>
-            </ng-container>
-          </td>
-
+              @if (consultation.consultation.guest) {
+                <app-status
+                  [type]="
+                    consultation.consultation.flagGuestOnline
+                      ? 'online'
+                      : 'offline'
+                  "></app-status>
+              } @else {
+                @if (consultation.guestInvite) {
+                  @if (consultation.guestInvite.emailAddress) {
+                    <span>{{ consultation.guestInvite.emailAddress }}</span>
+                  }
+                  @if (consultation.guestInvite.phoneNumber) {
+                    <span>{{ consultation.guestInvite.phoneNumber }}</span>
+                  }
+                } @else {
+                  <span>-</span>
+                }
+              }
+            </td>
+          }
           <td>
             <button
               (click)="openDialog($event, consultation)"
@@ -230,7 +240,7 @@
               [matBadge]="consultation.unreadCount"
               matBadgeColor="warn"></mat-icon>
           </td>
-          <td class='chevron-right'>
+          <td class="chevron-right">
             <mat-icon fontIcon="chevron_right"></mat-icon>
           </td>
         </tr>

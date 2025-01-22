@@ -293,7 +293,7 @@ export class AppComponent implements OnInit, OnDestroy {
           'tour.nextBtnTitle',
           'tour.prevBtnTitle',
           'tour.endBtnTitle',
-        ])
+        ], this.configService.config)
         .subscribe(
             (translations) => {
               this.steps = [
