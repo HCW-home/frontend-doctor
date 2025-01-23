@@ -177,10 +177,22 @@
           @if (status !== 'closed') {
             <td class="online-status-cell hidden-mobile">
               <span class="tile-header">
-                {{ 'consultations.guest' | translate }}
+                {{ 'consultations.participant' | translate }}
               </span>
-              @if (consultation.consultation.guest) {
+              @if (consultation.guest) {
+                @if (consultation.guest.email) {
+                  <span [matTooltip]="'consultations.guestTooltip' | translate">
+                    {{ consultation.guest.email }}
+                  </span>
+                } @else if (consultation.guest.phoneNumber) {
+                  <span [matTooltip]="'consultations.guestTooltip' | translate">
+                    {{ consultation.guest.email }}
+                  </span>
+                } @else {
+                  -
+                }
                 <app-status
+                  [matTooltip]="'consultations.guestTooltip' | translate"
                   [type]="
                     consultation.consultation.flagGuestOnline
                       ? 'online'
@@ -189,10 +201,16 @@
               } @else {
                 @if (consultation.guestInvite) {
                   @if (consultation.guestInvite.emailAddress) {
-                    <span>{{ consultation.guestInvite.emailAddress }}</span>
+                    <span
+                      [matTooltip]="'consultations.guestTooltip' | translate">
+                      {{ consultation.guestInvite.emailAddress }}
+                    </span>
                   }
                   @if (consultation.guestInvite.phoneNumber) {
-                    <span>{{ consultation.guestInvite.phoneNumber }}</span>
+                    <span
+                      [matTooltip]="'consultations.guestTooltip' | translate">
+                      {{ consultation.guestInvite.phoneNumber }}
+                    </span>
                   }
                 } @else {
                   <span>-</span>

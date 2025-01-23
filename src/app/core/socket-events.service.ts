@@ -143,6 +143,7 @@ export class SocketEventsService {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
       this.socket.on('newConsultation', (e) => {
+        console.info('new consultation', e)
         this.playAudio()
         observer.next(e)
       })
