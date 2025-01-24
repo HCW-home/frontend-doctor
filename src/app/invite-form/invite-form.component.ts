@@ -231,7 +231,6 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
             expertContact: [
               '',
               [
-                phoneOrEmailValidator(),
                 this.expertContactValidatorValidator.bind(this),
               ],
             ],
@@ -247,9 +246,6 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
           ),
         ]),
         queueFormControl,
-        // metadataFormControl: new FormControl(''),
-
-        // our custom validator
       },
       {
         validators: this.atLeastAGuestOrTranslator.bind(this),
@@ -271,9 +267,21 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
 
     this.myForm.get('inviteExpert').valueChanges.subscribe(value => {
       (this.myForm.get('experts') as FormArray).controls.forEach(control => {
-        control.get('expertContact').updateValueAndValidity();
+        const expertContactControl = control.get('expertContact');
+        if (value) {
+          expertContactControl.setValidators([
+            phoneOrEmailValidator(),
+            this.expertContactValidatorValidator.bind(this),
+          ]);
+        } else {
+          expertContactControl.setValidators([
+            this.expertContactValidatorValidator.bind(this),
+          ]);
+        }
+        expertContactControl.updateValueAndValidity();
       });
     });
+
 
     this.myForm.get('sendLinkManually').valueChanges.subscribe(value => {
       const control = this.myForm.get('patientContactFormControl');
@@ -716,6 +724,7 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       this.data.scheduledFor = '';
     }
 
+    this.data.experts = null;
     if (this.myForm.get('inviteExpert').value) {
       this.data.experts = this.myForm.get('experts').value.filter(expert => {
         const value = expert.expertContact;
