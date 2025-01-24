@@ -1,3 +1,29 @@
+hcw-athome-caregiver (0.5.21) UNRELEASED; urgency=medium
+
+  [ Olivier Bitsch ]
+  * Update changelog for 0.5.20 release
+
+  [ Gor Grigoryan ]
+  * add acknowledged status
+  * refs #7983, add new scheduled for invite status
+  * refs  #7983, add new statuses of invites
+  * refs #7986, Translation Ukrainian missing
+  * refs #7990, change view of invite table
+  * imporove invitations table
+  * add config for tour translations, guest invite fixes
+  * refs #7992, add new column called 'communication method' in invitations list
+  * refs #7982, have guests and expersts column even when they didn't join
+
+  [ Weblate ]
+  * Update translation files
+
+  [ Gor Grigoryan ]
+  * update error message
+  * add am to languages
+  * refs #7995, invite form issue
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 24 Jan 2025 12:29:53 +0000
+
 hcw-athome-caregiver (0.5.20) focal; urgency=medium
 
   * Adding self signed certificate on nginx
