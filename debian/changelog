@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.23) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.24) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update changelog for 0.5.20 release
@@ -22,8 +22,9 @@ hcw-athome-caregiver (0.5.23) UNRELEASED; urgency=medium
   * add am to languages
   * refs #7995, invite form issue
   * update language selector
+  * remove cancel tooltip
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 27 Jan 2025 10:46:39 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 27 Jan 2025 11:19:53 +0000
 
 hcw-athome-caregiver (0.5.20) focal; urgency=medium
 
