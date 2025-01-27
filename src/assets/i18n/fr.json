@@ -268,7 +268,6 @@
         "sendAgain": "Renvoyer",
         "sendAgainTheSMSOrEmailInvite": "Renvoyer l'email ou le SMS d'invitation",
         "cancel": "Supprimer",
-        "cancelThisInvitationToJoinAConsultation": "Révoquer et supprimer cette invitation",
         "previous": "Précédent",
         "next": "Suivant",
         "confirmResend": "Êtes-vous certain de vouloir renvoyer le lien d'invitation ? L'invitation sera renvoyée de la manière dont elle a été envoyée à l'origine en utilisant le même canal. Cette action permet également de réinitialiser les invitations échues.",

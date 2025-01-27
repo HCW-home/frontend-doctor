@@ -222,11 +222,7 @@
               *ngIf="!invite.revoking"
               (click)="revokeInvite(invite.id)"
               color="warn"
-              mat-flat-button
-              [matTooltip]="
-                'invitations.cancelThisInvitationToJoinAConsultation'
-                  | translate
-              ">
+              mat-flat-button>
               {{ 'invitations.cancel' | translate }}
             </button>
           </td>

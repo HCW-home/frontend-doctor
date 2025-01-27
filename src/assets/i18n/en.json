@@ -311,7 +311,6 @@
         "guestTooltip": "Guest",
         "expertTooltip": "Expert",
         "participant": "Participant",
-        "cancelThisInvitationToJoinAConsultation": "Cancel this invitation to join a consultation",
         "previous": "Previous",
         "next": "Next",
         "confirmResend": "Are you sure you want to resend the invitation? The invitation will be resent the way it was sent originally using the same channel. This action also resets expired invitations.",
