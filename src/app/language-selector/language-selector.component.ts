@@ -15,7 +15,7 @@ import {supportedLanguages} from "../i18n/i18n.module";
           [(value)]="selectedLanguage"
           (selectionChange)="onLanguageSelect($event)">
           <mat-option *ngFor="let lang of supportedLanguages" [value]="lang">
-            {{ 'inviteForm.' + lang | translate }}
+            {{ 'selectLanguage.' + lang | translate }}
           </mat-option>
         </mat-select>
       </mat-form-field>

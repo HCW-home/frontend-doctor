@@ -465,6 +465,11 @@
         "endTourDescription": "You can change the language or enable SMS notifications in case something happens when you are not connected to this application.",
         "endTourSubmitBtnTitle": "Ok"
     },
+    "selectLanguage": {
+        "en": "English",
+        "fr": "Français",
+        "uk": "Українська"
+    },
     "metadata": {
         "Age": "Age",
         "Country": "Country",

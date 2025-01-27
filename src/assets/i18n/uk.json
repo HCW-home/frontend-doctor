@@ -442,6 +442,11 @@
         "endTourDescription": "Ви можете змінити мову або увімкнути SMS-сповіщення у випадку, якщо щось станеться, коли ви не підключені до цього додатку.",
         "endTourSubmitBtnTitle": "Ок"
     },
+    "selectLanguage": {
+        "en": "English",
+        "fr": "Français",
+        "uk": "Українська"
+    },
     "metadata": {
         "Age": "Вік",
         "Country": "Країна",

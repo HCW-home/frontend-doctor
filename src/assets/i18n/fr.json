@@ -410,6 +410,11 @@
         "subTitle": "Copiez le lien ci-dessous et partagez-le avec le patient de la manière qui vous convient. Attention, ce lien n'est utilisable qu'une seule fois.",
         "title": "Inviter via un lien"
     },
+    "selectLanguage": {
+        "en": "English",
+        "fr": "Français",
+        "uk": "Українська"
+    },
     "metadata": {
         "Age": "Age",
         "Country": "Pays",
