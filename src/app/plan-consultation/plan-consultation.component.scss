@@ -1,3 +1,22 @@
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+
+  .banner {
+    width: 44%;
+    max-width: 623px;
+    background-size: cover;
+    background-position: bottom;
+    background-image: url("/assets/bg-splash@2x.png");
+  }
+
+  .auth-main {
+    flex-grow: 1;
+  }
+}
+
+
+
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -5,11 +24,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  &.separated {
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid #8ac2e6;
-  }
+
 
   h4 {
     margin: 10px;
@@ -38,7 +53,7 @@
   margin-bottom: 63px;
   font-size: 48px;
   text-align: center;
-  color: #ffff;
+  color: var(--primary-color);
 
   font-weight: 800;
 }
@@ -48,37 +63,16 @@
   font-size: 16px;
 }
 
-ng-container {
-}
 
 .wrap {
-  top: 0;
-  width: 100%;
   height: 100%;
   display: flex;
-  position: fixed;
   align-items: center;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("/assets/bg-splash@2x.png");
-}
-
-.saml-login {
-  .redirect-btn {
-    margin: auto;
-    display: block;
-    background-color: #ffff;
-    border-radius: 60px;
-    text-align: center;
-    height: 48px;
-    color: var(--primary-color);
-    padding-top: 5px;
-  }
+  justify-content: center;
 }
 
 h4 {
-  color: #fff;
+  color: var(--primary-color);
   text-align: center;
   margin-bottom: -10px;
 }
@@ -103,8 +97,6 @@ h4 {
   min-height: 80px;
 }
 
-
-
 .row {
   margin: 10px;
 }
@@ -113,15 +105,7 @@ h4 {
   text-align: center;
 }
 
-.white {
-  color: white;
-}
 
-.white-link {
-  display: inline-block;
-  color: white;
-  opacity: 0.8;
-}
 
 .success {
   background-color: white;

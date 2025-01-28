@@ -1,3 +1,20 @@
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+
+  .banner {
+    width: 44%;
+    max-width: 623px;
+    background-size: cover;
+    background-position: bottom;
+    background-image: url("/assets/bg-splash@2x.png");
+  }
+
+  .auth-main {
+    flex-grow: 1;
+  }
+}
+
 
 .example-form {
   min-width: 150px;
@@ -31,8 +48,7 @@
   margin-bottom: 63px;
   font-size: 48px;
   text-align: center;
-  color: #ffff;
-
+  color: var(--primary-color);
   font-weight: 800;
 }
 
@@ -42,35 +58,17 @@
 }
 
 .wrap {
-  top: 0;
-  width: 100%;
   height: 100%;
   display: flex;
-  position: fixed;
   align-items: center;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("/assets/bg-splash@2x.png");
+  justify-content: center;
 }
 
-.saml-login {
-  .redirect-btn {
-    margin: auto;
-    display: block;
-    background-color: #ffff;
-    border-radius: 60px;
-    text-align: center;
-    height: 48px;
-    color: black;
-    padding-top: 5px;
-  }
-}
 
 h4 {
   text-align: center;
   margin-bottom: -10px;
-  color: var(--app-white);
+  color: var(--primary-color);
 }
 
 .loading {
@@ -81,7 +79,7 @@ h4 {
 
   &::ng-deep .mat-mdc-progress-spinner circle,
   .mat-mdc-progress-spinner circle {
-    stroke: white !important;
+    stroke: var(--primary-color) !important;
   }
 }
 
@@ -96,7 +94,7 @@ h4 {
   display: block;
   margin-top: 20px;
   text-align: center;
-  color: var(--app-white);
+  color: var(--primary-color);
 }
 
 .error--loading {
@@ -113,10 +111,16 @@ h4 {
   text-align: center;
 }
 
-.white-link {
+.language-selector-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.forgot-password-link {
   opacity: 0.8;
   display: inline-block;
-  color: var(--app-white);
+  color: var(--primary-color);
 }
 
 .login-local-header {

@@ -1,10 +1,10 @@
 import { Component,  OnDestroy, OnInit } from '@angular/core';
 import { ConfigService } from '../core/config.service';
-import { FormControl, Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PlanConsultationService } from '../core/plan-consultation.service';
-import { Subscription, throwError } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError } from 'rxjs/operators';
+
 @Component({
   selector: 'app-plan-consultation',
   templateUrl: './plan-consultation.component.html',
@@ -50,7 +50,7 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
       }, err=>{
         this.loading = false;
         this.success = false;
-        this.error = this.translate.instant(`planConsultation.${err}`)
+        this.error = this.translate.instant(`planConsultation.invalidUrl`)
       })
     );
     //

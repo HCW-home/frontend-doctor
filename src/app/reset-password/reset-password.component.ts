@@ -14,16 +14,9 @@ export class ResetPasswordComponent implements OnInit {
 
   token = "";
   resetPasswordForm: UntypedFormGroup;
-
-  linkSent = false;
   loading = false;
   error = "";
   success = false;
-
-  // passwordControl = new FormControl('', [
-  //   Validators.required,
-  //   Validators.pattern(new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})")),
-  // ]);
 
   constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService,
     public configService: ConfigService) { }
