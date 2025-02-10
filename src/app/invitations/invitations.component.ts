@@ -7,7 +7,7 @@ import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { Invitation } from "../Invitation";
+import { Invitation } from '../Invitation';
 import { Observable, of, Subscription } from 'rxjs';
 import { InviteService } from '../core/invite.service';
 import { InviteFormComponent } from '../invite-form/invite-form.component';
@@ -16,8 +16,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { ConfigService } from 'src/app/core/config.service';
 import { Direction, EventName, TourType } from 'src/app/models/tour';
-import { SidenavToggleService } from '../core/sidenav-toggle.service';
-import { InvitationStatusConfig, MessageService, MessageServiceConfig } from "../contstants/invitations";
+import {
+  MessageServiceConfig,
+  InvitationStatusConfig,
+} from '../contstants/invitations';
 
 @Component({
   selector: 'app-invitations',
@@ -40,11 +42,10 @@ export class InvitationsComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private tourService: TourService,
-    private activeRoute: ActivatedRoute,
     private translate: TranslateService,
     public configService: ConfigService,
+    private activeRoute: ActivatedRoute,
     private inviteService: InviteService,
-    private sidenavToggleService: SidenavToggleService
   ) {}
 
   ngOnInit() {
@@ -96,6 +97,7 @@ export class InvitationsComponent implements OnInit, OnDestroy {
         language: invite.patientLanguage,
         guestContact: invite.guestEmailAddress || invite.guestPhoneNumber,
         patientContact: invite.emailAddress || invite.phoneNumber,
+        messageService: invite.messageService,
         guestEmailAddress: invite.guestEmailAddress,
         guestPhoneNumber: invite.guestPhoneNumber,
         translationOrganization: invite.translationOrganization,
@@ -115,8 +117,8 @@ export class InvitationsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+    this.router.navigate(['/invitations']);
       if (result) {
-        this.router.navigate(['/invitations/']);
         this.getInvites(this.page);
       }
     });
@@ -231,12 +233,12 @@ export class InvitationsComponent implements OnInit, OnDestroy {
     }
   }
 
+  protected readonly Array = Array;
   protected readonly TourType = TourType;
-  protected readonly InvitationStatusConfig = InvitationStatusConfig;
-    protected readonly Array = Array;
-  protected readonly MessageService = MessageService;
   protected readonly MessageServiceConfig = MessageServiceConfig;
+  protected readonly InvitationStatusConfig = InvitationStatusConfig;
 }
+
 @Component({
   selector: 'app-invitation-already-accepted-dialog',
   templateUrl: 'invitation-already-accepted-dialog.html',

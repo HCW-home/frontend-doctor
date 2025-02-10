@@ -34,12 +34,13 @@ import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
 import { validateIf } from '../shared/validators/validate-if.validator';
 import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
-import {Direction, EventName, TourType} from "../models/tour";
-import {SidenavToggleService} from "../core/sidenav-toggle.service";
+import { Direction, EventName, TourType } from '../models/tour';
+import { SidenavToggleService } from '../core/sidenav-toggle.service';
+import { MessageService } from '../contstants/invitations';
 
 interface DialogData {
   phoneNumber: string;
-  messageService: string;
+  messageService: MessageService;
   emailAddress: string;
   firstName: string;
   lastName: string;
@@ -188,11 +189,6 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
             : []
         ),
         messageService: new UntypedFormControl(),
-        guestContactFormControl: new UntypedFormControl('', [
-          phoneOrEmailValidator(),
-          this.guestContactValidatorValidator.bind(this),
-        ]),
-        guestContactMessageService: new UntypedFormControl(),
         emailFormControl: new UntypedFormControl(
           '',
           this.isPatientInvite ? [Validators.email] : []
@@ -225,14 +221,17 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
         sendLinkManually: new UntypedFormControl(false),
         inviteTranslatorFormControl: new UntypedFormControl(false),
         inviteGuestFormControl: new UntypedFormControl(false),
+        guestContactFormControl: new UntypedFormControl('', [
+          phoneOrEmailValidator(),
+          this.guestContactValidatorValidator.bind(this),
+        ]),
+        guestContactMessageService: new UntypedFormControl(),
         inviteExpert: new UntypedFormControl(false),
         experts: this.fb.array([
           this.fb.group({
             expertContact: [
               '',
-              [
-                this.expertContactValidatorValidator.bind(this),
-              ],
+              [this.expertContactValidatorValidator.bind(this)],
             ],
             messageService: [''],
             showRadioGroup: [false],
@@ -282,6 +281,18 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       });
     });
 
+    this.myForm.get('inviteGuestFormControl').valueChanges.subscribe(value => {
+      const control = this.myForm.get('guestContactFormControl');
+      if (value) {
+        control.setValidators([
+          phoneOrEmailValidator(),
+          this.guestContactValidatorValidator.bind(this),
+        ]);
+      } else {
+        control.setValidators([this.guestContactValidatorValidator.bind(this)]);
+      }
+      control.updateValueAndValidity();
+    });
 
     this.myForm.get('sendLinkManually').valueChanges.subscribe(value => {
       const control = this.myForm.get('patientContactFormControl');
@@ -541,7 +552,7 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
   }
 
   guestContactValidatorValidator(control: AbstractControl) {
-    if (!this.inviteGuest) {
+    if (!this.myForm?.get('inviteGuestFormControl')?.value) {
       return null;
     }
     if (!control.value) {
@@ -703,7 +714,11 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       this.data.emailAddress = this.data.patientContact;
     }
 
-    if (this.inviteGuest && this.data.guestContact) {
+    if (
+      this.inviteGuest &&
+      this.data.guestContact &&
+      value.inviteGuestFormControl
+    ) {
       const isGuestContactAPhoneNumber = phoneNumberRegex.test(
         this.data.guestContact
       );
@@ -791,6 +806,8 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
         guestEmailAddress,
         guestPhoneNumber,
         patientTZ,
+        messageService,
+        sendLinkManually,
         metadata,
       } = this.data;
 
@@ -812,6 +829,8 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
             cancelScheduledFor,
             cancelTranslationRequestInvite,
             patientTZ,
+            sendLinkManually,
+            messageService,
             metadata,
           },
           this.data.id
@@ -819,6 +838,13 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
         .subscribe(
           res => {
             this.dialogRef.close(true);
+            if (this.data.sendLinkManually && res?.invite?.patientURL) {
+              this.dialog.open(InviteLinkComponent, {
+                width: '600px',
+                data: { link: res.invite.patientURL },
+                autoFocus: false,
+              });
+            }
           },
           err => {
             this.loading = false;
@@ -902,53 +928,53 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
 
   listenToTourSubscriptions() {
     this.subscriptions.push(
-        this.tourService.events$.subscribe(events => {
-          const value = events.value as {
-            step: IStepOption;
-            direction: Direction;
-          };
-          if (
-              events.name === EventName.StepHide &&
-              value &&
-              value.step &&
-              value.step.anchorId === TourType.REMOTE_PATIENT_INVITE &&
-              value.direction === Direction.Forwards
-          ) {
-            this.showPatientForm();
-          }
-          if (
-              events.name === EventName.StepHide &&
-              value &&
-              value.step &&
-              value.step.anchorId === TourType.REMOTE_PATIENT_INVITE &&
-              value.direction === Direction.Backwards
-          ) {
-            this.onNoClick();
-          }
-          if (
-              events.name === EventName.StepHide &&
-              value &&
-              value.step &&
-              value.step.anchorId === TourType.INVITE_FORM_CONTACT_INPUT &&
-              value.direction === Direction.Backwards
-          ) {
-            this.isPatientInvite = false;
-            this.myForm = null;
-          }
-          if (
-              events.name === EventName.StepHide &&
-              value &&
-              value.step &&
-              value.step.anchorId === TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT &&
-              value.direction === Direction.Forwards
-          ) {
-            this.dialogRef.close();
-            this.sidenavToggleService.toggleSidenav('open');
-          }
-        })
+      this.tourService.events$.subscribe(events => {
+        const value = events.value as {
+          step: IStepOption;
+          direction: Direction;
+        };
+        if (
+          events.name === EventName.StepHide &&
+          value &&
+          value.step &&
+          value.step.anchorId === TourType.REMOTE_PATIENT_INVITE &&
+          value.direction === Direction.Forwards
+        ) {
+          this.showPatientForm();
+        }
+        if (
+          events.name === EventName.StepHide &&
+          value &&
+          value.step &&
+          value.step.anchorId === TourType.REMOTE_PATIENT_INVITE &&
+          value.direction === Direction.Backwards
+        ) {
+          this.onNoClick();
+        }
+        if (
+          events.name === EventName.StepHide &&
+          value &&
+          value.step &&
+          value.step.anchorId === TourType.INVITE_FORM_CONTACT_INPUT &&
+          value.direction === Direction.Backwards
+        ) {
+          this.isPatientInvite = false;
+          this.myForm = null;
+        }
+        if (
+          events.name === EventName.StepHide &&
+          value &&
+          value.step &&
+          value.step.anchorId ===
+            TourType.INVITE_FORM_SEND_LINK_MANUALLY_INPUT &&
+          value.direction === Direction.Forwards
+        ) {
+          this.dialogRef.close();
+          this.sidenavToggleService.toggleSidenav('open');
+        }
+      })
     );
   }
-
 
   protected readonly TourType = TourType;
 }
