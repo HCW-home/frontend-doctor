@@ -404,11 +404,31 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         );
         const doc = new jsPDF();
         const getLabelWidth = (text: string) => doc.getTextWidth(text) + 2;
-        const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+        const pageWidth =
+          doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+        const pageHeight =
+          doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
         const imageUrl = this.configService.config?.logo;
         let yPosition = 10;
+
+        const addPageIfNeeded = (lines = 1) => {
+          if (yPosition + lines * 5 > pageHeight - 10) {
+            doc.addPage();
+            yPosition = 10;
+          }
+        };
+
         if (imageUrl) {
-          doc.addImage(imageUrl, 'JPEG', pageWidth / 2 - 25, yPosition, 50, 20, 'Logo', 'FAST');
+          doc.addImage(
+            imageUrl,
+            'JPEG',
+            pageWidth / 2 - 25,
+            yPosition,
+            50,
+            20,
+            'Logo',
+            'FAST'
+          );
           yPosition += 30;
         }
 
@@ -419,7 +439,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        yPosition += 10
+        yPosition += 10;
         doc.text('Patient information', 15, yPosition);
         yPosition += 10;
 
@@ -437,7 +457,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         if (nurse?.firstName) {
           doc.setFont('Helvetica', 'normal', 700);
-          yPosition += 10
+          yPosition += 10;
           doc.text('Requester information', 108, yPosition);
           yPosition += 5;
           doc.text(`Firstname:`, 108, yPosition);
@@ -450,10 +470,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         if (data.experts?.length) {
           doc.setFont('Helvetica', 'normal', 700);
-          yPosition += 10
+          yPosition += 10;
           doc.text('Expert information', 108, yPosition);
           yPosition += 5;
-          console.log(data, 'data')
           data.experts.forEach(expert => {
             doc.text(`Firstname:`, 108, yPosition);
             doc.text(`Lastname:`, 108, yPosition + 5);
@@ -466,8 +485,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-
-        yPosition += 10
+        yPosition += 10;
         doc.text('Consultation information', 15, yPosition);
         yPosition += 10;
         doc.setFontSize(10);
@@ -478,24 +496,25 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         doc.text(`Duration:`, 15, yPosition + 10);
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(
-            `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm')}`,
-            15 + getLabelWidth(`Start date/time:`),
-            yPosition
+          `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
+          15 + getLabelWidth(`Start date/time:`),
+          yPosition
         );
         doc.text(
-            `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm')}`,
-            15 + getLabelWidth(`End date/time:`),
-            yPosition + 5
+          `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
+          15 + getLabelWidth(`End date/time:`),
+          yPosition + 5
         );
         doc.text(
-            `${this.durationPipe.transform(data.createdAt - data.closedAt)}`,
-            15 + getLabelWidth(`Duration:`),
-            yPosition + 10
+          `${this.durationPipe.transform(data.closedAt - data.createdAt, 'en')}`,
+          15 + getLabelWidth(`Duration:`),
+          yPosition + 10
         );
         yPosition += 15;
 
         if (data.metadata && Object.keys(data.metadata).length) {
           Object.keys(data.metadata).forEach((key, index) => {
+            addPageIfNeeded();
             doc.setFont('Helvetica', 'normal', 700);
             doc.text(`${key}:`, 15, yPosition);
             const metadataX = 15 + getLabelWidth(`${key}:`);
@@ -507,97 +526,112 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        yPosition += 10
+        yPosition += 10;
         doc.text('Chat history', 15, yPosition);
         yPosition += 10;
 
         for (const message of messages) {
+          addPageIfNeeded(4);
           doc.setFontSize(10);
           doc.setTextColor('#000');
           doc.setFont('Helvetica', 'normal', 700);
 
           const firstName =
-              message.fromUserDetail.role === 'patient'
-                  ? data?.firstName
-                  : message.fromUserDetail.firstName || '';
+            message.fromUserDetail.role === 'patient'
+              ? data?.firstName
+              : message.fromUserDetail.firstName || '';
           const lastName =
-              message.fromUserDetail.role === 'patient'
-                  ? data?.lastName
-                  : message.fromUserDetail.lastName || '';
-          const date = this.datePipe.transform(message.createdAt, 'dd LLL HH:mm');
-          doc.text(
-              `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`,
-              15,
-              yPosition
+            message.fromUserDetail.role === 'patient'
+              ? data?.lastName
+              : message.fromUserDetail.lastName || '';
+          const date = this.datePipe.transform(
+            message.createdAt,
+            'dd LLL HH:mm',
+            undefined,
+            'en'
           );
+
+          const titleLine = `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`;
+          doc.setFont('Helvetica', 'normal', 700);
+          const wrappedTitle = doc.splitTextToSize(titleLine, pageWidth - 30);
+          doc.text(wrappedTitle, 15, yPosition);
+          yPosition += wrappedTitle.length * 5;
 
           doc.setFont('Helvetica', 'normal', 400);
           doc.setTextColor('#464F60');
-          yPosition += 5;
 
           if (message.type === 'videoCall') {
             let callStatus = '';
-
             if (message.closedAt) {
               callStatus = message.acceptedAt
-                  ? this.translate.instant('chat.videoCallAccepted')
-                  : this.translate.instant('chat.videoCallMissed');
+                ?'Video call accepted'
+                : 'Video call missed';
             } else {
-              callStatus = this.translate.instant('chat.videoCall');
+              callStatus = 'Video call';
             }
 
+            addPageIfNeeded(3);
             doc.text(callStatus, 15, yPosition);
             yPosition += 5;
-
-            const createdDate = this.datePipe.transform(message.createdAt, 'dd LLL HH:mm');
-            doc.text(`${createdDate}`, 15, yPosition);
+            doc.text(
+              `${this.datePipe.transform(message.createdAt, 'dd LLL HH:mm', undefined, 'en')}`,
+              15,
+              yPosition
+            );
             yPosition += 5;
 
             if (message.acceptedAt && message.closedAt) {
-              const closedDate = this.datePipe.transform(message.closedAt, 'dd LLL HH:mm');
-              const finishedText = this.translate.instant('chat.videoCallFinished');
+              const closedDate = this.datePipe.transform(
+                message.closedAt,
+                'dd LLL HH:mm',
+                undefined,
+                'en'
+              );
+              const finishedText = 'Video call finished';
               doc.text(finishedText, 15, yPosition);
               yPosition += 5;
               doc.text(`${closedDate}`, 15, yPosition);
               yPosition += 5;
             }
           } else if (message.text) {
-            doc.text(message.text, 15, yPosition);
-            yPosition += 5;
+            const splitText = doc.splitTextToSize(message.text, pageWidth - 30);
+            for (const line of splitText) {
+              addPageIfNeeded();
+              doc.text(line, 15, yPosition);
+              yPosition += 4;
+            }
           }
 
           if (message.isImage && message.attachmentsURL) {
-            let image = null;
             await new Promise<void>(resolve => {
-              image = new Image();
+              const image = new Image();
               image.src = message.attachmentsURL;
               image.onload = () => {
                 const imgWidth = 50;
                 const imgHeight = (image.height / image.width) * imgWidth;
-                if (yPosition + imgHeight > doc.internal.pageSize.height - 10) {
+                if (yPosition + imgHeight > pageHeight - 10) {
                   doc.addPage();
                   yPosition = 10;
                 }
                 doc.addImage(
-                    message.attachmentsURL,
-                    'JPEG',
-                    15,
-                    yPosition,
-                    imgWidth,
-                    imgHeight,
-                    `${Math.random()}`,
-                    'FAST'
+                  message.attachmentsURL,
+                  'JPEG',
+                  15,
+                  yPosition,
+                  imgWidth,
+                  imgHeight,
+                  `${Math.random()}`,
+                  'FAST'
                 );
                 yPosition += imgHeight + 5;
                 resolve();
               };
-              image.onerror = () => {
-                resolve();
-              };
+              image.onerror = () => resolve();
             });
           }
 
           if (message.isFile && message.fileName) {
+            addPageIfNeeded();
             doc.setFont('Helvetica', 'normal', 400);
             doc.setTextColor('#464F60');
             doc.text(`[Attached file]: ${message.fileName}`, 15, yPosition);
