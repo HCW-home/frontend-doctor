@@ -145,3 +145,5 @@ export const MessageServiceConfig: {
         backgroundColor: '#FFE6E6',
     },
 };
+
+export const DEFAULT_REQUIRED_FIELDS = ['firstName', 'lastName', 'gender'];

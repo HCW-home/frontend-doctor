@@ -186,7 +186,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       lastName: consultation.lastName,
       emailAddress: user?.email,
       phoneNumber: user?.phoneNumber,
-      metadata: consultation.metadata, // ! metadata
+      metadata: consultation.metadata,
     };
     const dialogRef = this.dialog.open(InviteFormComponent, {
       id: 'invite_form_dialog',

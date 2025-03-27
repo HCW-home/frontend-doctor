@@ -53,70 +53,78 @@
                 'inviteForm.consultationWillBeOnPremise' | translate
               "></p>
           </div>
+
           <div *ngIf="isPatientInvite" class="field-container">
-            <mat-form-field>
-              <mat-label class="label">
-                {{ 'inviteForm.firstName' | translate }}
-              </mat-label>
-              <input
-                [(ngModel)]="data.firstName"
-                matInput
-                placeholder="Enter patient first name"
-                formControlName="firstNameFormControl"
-                [errorStateMatcher]="matcher"
-                required />
-              <mat-error
-                *ngIf="
-                  myForm.controls.firstNameFormControl.hasError('required')
-                "
-                [innerHTML]="
-                  'inviteForm.firstNameIsRequired' | translate
-                "></mat-error>
-            </mat-form-field>
+            @if (isFieldEnabled('firstName')) {
+              <mat-form-field>
+                <mat-label class="label">
+                  {{ 'inviteForm.firstName' | translate }}
+                </mat-label>
+                <input
+                  [(ngModel)]="data.firstName"
+                  matInput
+                  placeholder="Enter patient first name"
+                  formControlName="firstNameFormControl"
+                  [errorStateMatcher]="matcher" />
+                <mat-error
+                  *ngIf="
+                    myForm.controls.firstNameFormControl.hasError('required')
+                  "
+                  [innerHTML]="
+                    'inviteForm.firstNameIsRequired' | translate
+                  "></mat-error>
+              </mat-form-field>
+            }
 
-            <mat-form-field>
-              <mat-label class="label">
-                {{ 'inviteForm.lastName' | translate }}
-              </mat-label>
-              <input
-                [(ngModel)]="data.lastName"
-                matInput
-                placeholder="Enter patient last name"
-                formControlName="lastNameFormControl"
-                [errorStateMatcher]="matcher"
-                required />
+            @if (isFieldEnabled('lastName')) {
+              <mat-form-field>
+                <mat-label class="label">
+                  {{ 'inviteForm.lastName' | translate }}
+                </mat-label>
+                <input
+                  [(ngModel)]="data.lastName"
+                  matInput
+                  placeholder="Enter patient last name"
+                  formControlName="lastNameFormControl"
+                  [errorStateMatcher]="matcher" />
 
-              <mat-error
-                *ngIf="myForm.controls.lastNameFormControl.hasError('required')"
-                [innerHTML]="
-                  'inviteForm.lastNameIsRequired' | translate
-                "></mat-error>
-            </mat-form-field>
+                <mat-error
+                  *ngIf="
+                    myForm.controls.lastNameFormControl.hasError('required')
+                  "
+                  [innerHTML]="
+                    'inviteForm.lastNameIsRequired' | translate
+                  "></mat-error>
+              </mat-form-field>
+            }
           </div>
 
           <div *ngIf="isPatientInvite" class="field-container">
-            <mat-form-field>
-              <mat-label class="label">
-                {{ 'inviteForm.sex' | translate }}
-              </mat-label>
-              <mat-select
-                formControlName="genderFormControl"
-                required
-                [(ngModel)]="data.gender"
-                [errorStateMatcher]="matcher">
-                <mat-option>--</mat-option>
-                <mat-option value="male">
-                  {{ 'inviteForm.male' | translate }}
-                </mat-option>
-                <mat-option value="female">
-                  {{ 'inviteForm.female' | translate }}
-                </mat-option>
-              </mat-select>
-              <mat-error
-                *ngIf="myForm.controls.genderFormControl.hasError('required')">
-                {{ 'inviteForm.pleaseChooseTheSex' | translate }}
-              </mat-error>
-            </mat-form-field>
+            @if (isFieldEnabled('gender')) {
+              <mat-form-field>
+                <mat-label class="label">
+                  {{ 'inviteForm.sex' | translate }}
+                </mat-label>
+                <mat-select
+                  formControlName="genderFormControl"
+                  [(ngModel)]="data.gender"
+                  [errorStateMatcher]="matcher">
+                  <mat-option>--</mat-option>
+                  <mat-option value="male">
+                    {{ 'inviteForm.male' | translate }}
+                  </mat-option>
+                  <mat-option value="female">
+                    {{ 'inviteForm.female' | translate }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    myForm.controls.genderFormControl.hasError('required')
+                  ">
+                  {{ 'inviteForm.pleaseChooseTheSex' | translate }}
+                </mat-error>
+              </mat-form-field>
+            }
 
             <mat-form-field>
               <mat-label class="label">

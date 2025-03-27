@@ -36,7 +36,7 @@ import { validateIf } from '../shared/validators/validate-if.validator';
 import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
 import { Direction, EventName, TourType } from '../models/tour';
 import { SidenavToggleService } from '../core/sidenav-toggle.service';
-import { MessageService } from '../contstants/invitations';
+import {DEFAULT_REQUIRED_FIELDS, MessageService} from "../contstants/invitations";
 
 interface DialogData {
   phoneNumber: string;
@@ -178,6 +178,12 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
   }
 
   createFormGroup() {
+    const enabledFieldsRaw = this.configService.config?.enableFieldsFormDoctor;
+    const enabledFields = (enabledFieldsRaw && enabledFieldsRaw.length)
+        ? enabledFieldsRaw
+        : DEFAULT_REQUIRED_FIELDS;
+
+    console.log(this.configService.config.enableFieldsFormDoctor, 'this.configService.config')
     const queueFormControl = new UntypedFormControl(undefined);
 
     this.myForm = this.formBuilder.group(
@@ -198,16 +204,22 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
           this.isPatientInvite ? [Validators.pattern(phoneNumberRegex)] : []
         ),
         firstNameFormControl: new UntypedFormControl(
-          '',
-          this.isPatientInvite ? [Validators.required] : []
+            '',
+            this.isPatientInvite
+                ? [validateIf(() => enabledFields.includes('firstName'), Validators.required)]
+                : []
         ),
         lastNameFormControl: new UntypedFormControl(
-          '',
-          this.isPatientInvite ? [Validators.required] : []
+            '',
+            this.isPatientInvite
+                ? [validateIf(() => enabledFields.includes('lastName'), Validators.required)]
+                : []
         ),
         genderFormControl: new UntypedFormControl(
-          '',
-          this.isPatientInvite ? [Validators.required] : []
+            '',
+            this.isPatientInvite
+                ? [validateIf(() => enabledFields.includes('gender'), Validators.required)]
+                : []
         ),
         languageFormControl: new UntypedFormControl(
           'fr',
@@ -975,6 +987,16 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       })
     );
   }
+
+  get enabledFields(): string[] {
+    const fields = this.configService.config?.enableFieldsFormDoctor;
+    return fields && fields.length ? fields : DEFAULT_REQUIRED_FIELDS;
+  }
+
+  isFieldEnabled(field: string): boolean {
+    return this.enabledFields.includes(field);
+  }
+
 
   protected readonly TourType = TourType;
 }
