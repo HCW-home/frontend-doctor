@@ -29,6 +29,7 @@
               "rgbcolor",
               "rgbcolor",
               "raf",
+              "moment-timezone",
               "google-libphonenumber"
             ],
             "outputPath": "dist/hug-at-home",
@@ -164,25 +165,6 @@
               "src/**/*.ts",
               "src/**/*.html"
             ]
-          }
-        }
-      }
-    },
-    "hug-at-home-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "hug-at-home:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "hug-at-home:serve:production"
-            }
           }
         }
       }
