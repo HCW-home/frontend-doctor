@@ -419,17 +419,44 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         };
 
         if (imageUrl) {
-          doc.addImage(
-            imageUrl,
-            'JPEG',
-            pageWidth / 2 - 25,
-            yPosition,
-            50,
-            20,
-            'Logo',
-            'FAST'
-          );
-          yPosition += 30;
+          await new Promise<void>((resolve, reject) => {
+            const image = new Image();
+            image.crossOrigin = 'Anonymous';
+            image.src = imageUrl;
+            image.onload = () => {
+              try {
+                const canvas = document.createElement('canvas');
+                canvas.width = image.width;
+                canvas.height = image.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(image, 0, 0);
+                const base64 = canvas.toDataURL('image/jpeg');
+
+                const imgWidth = 50;
+                const imgHeight = (image.height / image.width) * imgWidth;
+
+                doc.addImage(
+                    base64,
+                    'JPEG',
+                    pageWidth / 2 - imgWidth / 2,
+                    yPosition,
+                    imgWidth,
+                    imgHeight,
+                    'Logo',
+                    'FAST'
+                );
+                yPosition += imgHeight + 10;
+                resolve();
+              } catch (err) {
+                console.error('Image processing failed:', err);
+                resolve();
+              }
+            };
+            image.onerror = () => {
+              console.error('Failed to load image:', imageUrl);
+              resolve();
+            };
+          });
         }
 
         doc.setFont('Helvetica', 'normal', 400);
@@ -560,14 +587,15 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setFont('Helvetica', 'normal', 400);
           doc.setTextColor('#464F60');
 
-          if (message.type === 'videoCall') {
+          if (message.type === 'videoCall' || message.type === 'audioCall') {
+            const callTypeText = message.type === 'audioCall' ? 'Audio call' : 'Video call';
             let callStatus = '';
             if (message.closedAt) {
               callStatus = message.acceptedAt
-                ?'Video call accepted'
-                : 'Video call missed';
+                ?`${callTypeText}  accepted`
+                : `${callTypeText}  missed`;
             } else {
-              callStatus = 'Video call';
+              callStatus = `${callTypeText}  call`;
             }
 
             addPageIfNeeded(3);
@@ -587,7 +615,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                 undefined,
                 'en'
               );
-              const finishedText = 'Video call finished';
+              const finishedText = `${callTypeText}  finished`;
               doc.text(finishedText, 15, yPosition);
               yPosition += 5;
               doc.text(`${closedDate}`, 15, yPosition);
