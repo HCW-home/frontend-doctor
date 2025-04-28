@@ -16,6 +16,9 @@ import {
   HostListener,
   EventEmitter,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-video-room',
@@ -54,9 +57,11 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
 
   constructor(
+    public dialog: MatDialog,
     private logger: LogService,
     private authService: AuthService,
     private roomService: RoomService,
+    private translate: TranslateService,
     private remotePeersService: RemotePeersService,
   ) {
   }
@@ -72,20 +77,19 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.updateLayout();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.audioOnly) {
       this.camStatus = 'off';
     }
     this.peerId = this.authService.currentUserValue.id;
 
-    this.askForPerm()
-      .then(stream => {
-        this.localStream = stream;
-        this.joinToSession();
-      })
-      .catch(error => {
-        console.error('Error accessing media devices.', error);
-      });
+    try {
+      this.localStream = await this.askForPerm();
+      this.joinToSession();
+    } catch (error) {
+      console.error('Error accessing media devices.', error);
+      this.showPermissionRetryModal();
+    }
   }
 
   ngOnDestroy() {
@@ -203,19 +207,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     } else {
       this.rejectCall();
     }
-    // this.router.navigate(['']);
-  }
-
-  async startScreenSharing() {
-    this.screenStream = await this.roomService.startScreenShare();
-    if (!this.screenStream) {
-      console.error('Screen sharing failed or was denied by the user.');
-    }
-  }
-
-  stopScreenSharing() {
-    this.roomService.stopScreenShare();
-    this.screenStream = null;
   }
 
   private updateLayout() {
@@ -262,11 +253,42 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   askForPerm() {
-    this.logger.debug('Ask for video permissions ');
+    const mediaPerms = this.audioOnly
+      ? { audio: true, video: false }
+      : { audio: true, video: true };
 
-    const mediaPerms = { audio: true, video: true };
+    this.logger.debug('Requesting media permissions', mediaPerms);
+
     return navigator.mediaDevices.getUserMedia(mediaPerms);
   }
 
+
+  showPermissionRetryModal() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      id: 'confirmation_dialog',
+      data: {
+        question: this.translate.instant('chat.needAccess'),
+        yesText: this.translate.instant('chat.retryPermission'),
+        noText: this.translate.instant('chat.cancelCall'),
+        title: this.translate.instant('chat.permissionRequired'),
+      },
+      autoFocus: false,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          this.localStream = await this.askForPerm();
+          this.joinToSession();
+        } catch (audioError) {
+          console.error('Microphone permission denied again.', audioError);
+          this.closeCall();
+        }
+      } else {
+        this.closeCall();
+      }
+    });
+  }
 
 }

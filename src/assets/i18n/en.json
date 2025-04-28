@@ -70,7 +70,11 @@
     "inviteExpert": "Invite a colleague",
     "requestedBy": "Requested by",
     "viewMore": "View more",
-    "viewLess": "View less"
+    "viewLess": "View less",
+    "needAccess": "We need access to your microphone to continue the call. Please allow microphone access.",
+    "retryPermission": "Retry Permission",
+    "cancelCall": "Cancel Call",
+    "permissionRequired": "Microphone Permission Required"
   },
   "consultations": {
     "noPatientName": "Undefined",
