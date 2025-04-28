@@ -59,7 +59,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   titles = [
     {
       status: 'pending',
-      title: "Salle d'attente",
+      title: 'Salle d\'attente',
       icon: 'queue',
     },
     {
@@ -96,7 +96,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     private inviteService: InviteService,
     private activatedRoute: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private consultationService: ConsultationService
+    private consultationService: ConsultationService,
   ) {
     this.titles = [
       {
@@ -151,20 +151,20 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     let filteredConsultations =
       selectedQueueIds.length > 0
         ? consultations.filter(cons =>
-            selectedQueueIds.includes(cons.consultation?.queue)
-          )
+          selectedQueueIds.includes(cons.consultation?.queue),
+        )
         : consultations;
 
     // Apply createdBy filter
     if (filters.createdBy.me && !filters.createdBy.notMe) {
       filteredConsultations = filteredConsultations.filter(
-        cons => !cons.nurse?.firstName
+        cons => !cons.nurse?.firstName,
       );
     }
 
     if (filters.createdBy.notMe && !filters.createdBy.me) {
       filteredConsultations = filteredConsultations.filter(
-        cons => cons.nurse?.firstName
+        cons => cons.nurse?.firstName,
       );
     }
     this.appLiedFiltersCount =
@@ -230,7 +230,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                   verticalPosition: 'top',
                   horizontalPosition: 'right',
                   duration: 2500,
-                }
+                },
               );
             }
           }
@@ -249,7 +249,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       .subscribe(consultations => {
         this.zone.run(() => {
           this.consultations = consultations.filter(
-            c => c.consultation.status === this.status
+            c => c.consultation.status === this.status,
           );
           this.allConsultations = this.consultations;
           if (this.status === 'closed') {
@@ -400,7 +400,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       .getConsultationMessages(data._id || data.id, undefined, true)
       .subscribe(async res => {
         const messages = await Promise.all(
-          res.map(m => this.adjustMsg(m, data._id || data.id))
+          res.map(m => this.adjustMsg(m, data._id || data.id)),
         );
         const doc = new jsPDF();
         const getLabelWidth = (text: string) => doc.getTextWidth(text) + 2;
@@ -422,20 +422,63 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           await new Promise<void>((resolve, reject) => {
             const image = new Image();
             image.crossOrigin = 'Anonymous';
-            image.src = imageUrl;
-            image.onload = () => {
-              try {
-                const canvas = document.createElement('canvas');
-                canvas.width = image.width;
-                canvas.height = image.height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(image, 0, 0);
-                const base64 = canvas.toDataURL('image/jpeg');
 
-                const imgWidth = 50;
-                const imgHeight = (image.height / image.width) * imgWidth;
+            const isSvg = imageUrl.toLowerCase().endsWith('.svg') || imageUrl.startsWith('data:image/svg+xml');
 
-                doc.addImage(
+            if (isSvg) {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+
+              image.onload = () => {
+                try {
+                  canvas.width = image.width || 200;
+                  canvas.height = image.height || 200;
+
+                  ctx.drawImage(image, 0, 0);
+
+                  const base64 = canvas.toDataURL('image/png');
+
+                  const imgWidth = 50;
+                  const imgHeight = (canvas.height / canvas.width) * imgWidth;
+
+                  doc.addImage(
+                    base64,
+                    'PNG',
+                    pageWidth / 2 - imgWidth / 2,
+                    yPosition,
+                    imgWidth,
+                    imgHeight,
+                    'Logo',
+                    'FAST',
+                  );
+                  yPosition += imgHeight + 10;
+                  resolve();
+                } catch (err) {
+                  console.error('SVG processing failed:', err);
+                  resolve();
+                }
+              };
+
+              image.onerror = () => {
+                console.error('Failed to load SVG:', imageUrl);
+                resolve();
+              };
+
+              image.src = imageUrl;
+            } else {
+              image.onload = () => {
+                try {
+                  const canvas = document.createElement('canvas');
+                  canvas.width = image.width;
+                  canvas.height = image.height;
+                  const ctx = canvas.getContext('2d');
+                  ctx.drawImage(image, 0, 0);
+                  const base64 = canvas.toDataURL('image/jpeg');
+
+                  const imgWidth = 50;
+                  const imgHeight = (image.height / image.width) * imgWidth;
+
+                  doc.addImage(
                     base64,
                     'JPEG',
                     pageWidth / 2 - imgWidth / 2,
@@ -443,19 +486,23 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                     imgWidth,
                     imgHeight,
                     'Logo',
-                    'FAST'
-                );
-                yPosition += imgHeight + 10;
+                    'FAST',
+                  );
+                  yPosition += imgHeight + 10;
+                  resolve();
+                } catch (err) {
+                  console.error('Image processing failed:', err);
+                  resolve();
+                }
+              };
+
+              image.onerror = () => {
+                console.error('Failed to load image:', imageUrl);
                 resolve();
-              } catch (err) {
-                console.error('Image processing failed:', err);
-                resolve();
-              }
-            };
-            image.onerror = () => {
-              console.error('Failed to load image:', imageUrl);
-              resolve();
-            };
+              };
+
+              image.src = imageUrl;
+            }
           });
         }
 
@@ -525,17 +572,17 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         doc.text(
           `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
           15 + getLabelWidth(`Start date/time:`),
-          yPosition
+          yPosition,
         );
         doc.text(
           `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
           15 + getLabelWidth(`End date/time:`),
-          yPosition + 5
+          yPosition + 5,
         );
         doc.text(
           `${this.durationPipe.transform(data.closedAt - data.createdAt, 'en')}`,
           15 + getLabelWidth(`Duration:`),
-          yPosition + 10
+          yPosition + 10,
         );
         yPosition += 15;
 
@@ -575,7 +622,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             message.createdAt,
             'dd LLL HH:mm',
             undefined,
-            'en'
+            'en',
           );
 
           const titleLine = `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`;
@@ -592,7 +639,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             let callStatus = '';
             if (message.closedAt) {
               callStatus = message.acceptedAt
-                ?`${callTypeText}  accepted`
+                ? `${callTypeText}  accepted`
                 : `${callTypeText}  missed`;
             } else {
               callStatus = `${callTypeText}  call`;
@@ -604,7 +651,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             doc.text(
               `${this.datePipe.transform(message.createdAt, 'dd LLL HH:mm', undefined, 'en')}`,
               15,
-              yPosition
+              yPosition,
             );
             yPosition += 5;
 
@@ -613,7 +660,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                 message.closedAt,
                 'dd LLL HH:mm',
                 undefined,
-                'en'
+                'en',
               );
               const finishedText = `${callTypeText}  finished`;
               doc.text(finishedText, 15, yPosition);
@@ -649,7 +696,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                   imgWidth,
                   imgHeight,
                   `${Math.random()}`,
-                  'FAST'
+                  'FAST',
                 );
                 yPosition += imgHeight + 5;
                 resolve();
