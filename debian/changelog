@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.26) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.27) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update changelog for 0.5.20 release
@@ -29,7 +29,19 @@ hcw-athome-caregiver (0.5.26) UNRELEASED; urgency=medium
   [ Weblate ]
   * Update translation files
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 06 Feb 2025 07:08:52 +0000
+  [ Gor Grigoryan ]
+  * refs #7995,fix invite button when guest email has error
+  * fix login button after success reset
+  * fix pdf report when long text in messages
+  * refs #8221, New setting ENABLED_FIELDS_FORM_DOCTOR
+  * update 3rd Party Packages
+  * remove deprecated protractor
+  * add moment-timezone to allowedCommonJsDependencies
+  * imporove pdf download when there is logo url
+  * fix permission for Microphone issue when calling to patient
+  * improve svg logos in pdf report
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 28 Apr 2025 08:01:24 +0000
 
 hcw-athome-caregiver (0.5.20) focal; urgency=medium
 
