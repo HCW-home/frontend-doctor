@@ -158,7 +158,9 @@
                 </span>
                 <ng-container
                   *ngIf="
-                    consultation.consultation.metadata === null;
+                    consultation.consultation.metadata === null ||
+                      Object.keys(consultation.consultation.metadata).length ===
+                        0;
                     else metanull
                   ">
                   -

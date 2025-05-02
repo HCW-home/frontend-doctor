@@ -717,4 +717,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         doc.save('consultation-report.pdf');
       });
   }
+
+  protected readonly Object = Object;
 }
