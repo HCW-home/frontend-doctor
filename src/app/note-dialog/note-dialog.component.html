@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{ 'chat.addNoteTitle' | translate }}</h2>
+<mat-dialog-content>
+    <mat-form-field appearance="outline" class="note">
+        <textarea matInput [(ngModel)]="data.note" [placeholder]="'chat.addNotePlaceholder' | translate" rows="5"></textarea>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">{{ 'chat.cancelAddNote' | translate }}</button>
+    <button mat-flat-button color="primary" (click)="saveNote()">{{ 'chat.saveNote' | translate }}</button>
+</mat-dialog-actions>

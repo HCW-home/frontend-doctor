@@ -74,7 +74,11 @@
     "needAccess": "We need access to your microphone to continue the call. Please allow microphone access.",
     "retryPermission": "Retry Permission",
     "cancelCall": "Cancel Call",
-    "permissionRequired": "Microphone Permission Required"
+    "permissionRequired": "Microphone Permission Required",
+    "addNoteTitle": "Add Note",
+    "addNotePlaceholder": "Type your note...",
+    "cancelAddNote": "Cancel",
+    "saveNote": "Save"
   },
   "consultations": {
     "noPatientName": "Undefined",

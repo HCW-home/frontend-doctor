@@ -88,6 +88,7 @@ import { TermsAcceptanceComponent } from './terms-acceptance/terms-acceptance.co
 import { TourMatMenuModule } from 'ngx-ui-tour-md-menu';
 import { StartTourComponent } from './shared/components/start-tour/start-tour.component';
 import { MatTooltip } from '@angular/material/tooltip';
+import { NoteDialogComponent } from './note-dialog/note-dialog.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
@@ -282,6 +283,7 @@ const routes: Routes = [
     TermsAcceptanceComponent,
     InviteLinkComponent,
     StartTourComponent,
+    NoteDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,

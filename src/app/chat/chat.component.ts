@@ -27,6 +27,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -68,13 +69,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     private msgServ: MessageService,
     private authService: AuthService,
     private _sanitizer: DomSanitizer,
+    public configService: ConfigService,
     private translate: TranslateService,
     private inviteService: InviteService,
-    private configService: ConfigService,
     private breakpointObserver: BreakpointObserver,
     private socketEventsService: SocketEventsService,
-    private consultationService: ConsultationService
-  ) {}
+    private consultationService: ConsultationService,
+  ) {
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -148,7 +150,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                   verticalPosition: 'top',
                   horizontalPosition: 'right',
                   duration: 2500,
-                }
+                },
               );
             }
           }
@@ -168,22 +170,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.socketEventsService.onRejectCall().subscribe(event => {
         const message = this.chatMessages.find(
-          msg => msg.id === event.data.message.id
+          msg => msg.id === event.data.message.id,
         );
         if (message) {
           message.closedAt = new Date();
         }
-      })
+      }),
     );
     this.subscriptions.push(
       this.socketEventsService.onAcceptCall().subscribe(event => {
         const message = this.chatMessages.find(
-          msg => msg.id === event.data.message.id
+          msg => msg.id === event.data.message.id,
         );
         if (message) {
           message.acceptedAt = new Date();
         }
-      })
+      }),
     );
   }
 
@@ -200,7 +202,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       .getConsultationMessages(
         this.consultation._id || this.consultation.id,
         this.chatMessages.length,
-        this.noPagination
+        this.noPagination,
       )
       .subscribe(msgs => {
         this.zone.run(() => {
@@ -211,7 +213,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             .concat(this.chatMessages);
 
           this.chatImagesCount = this.chatMessages.filter(
-            msg => msg.isImage
+            msg => msg.isImage,
           ).length;
           this.loadingMsgs = false;
 
@@ -228,6 +230,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
       });
   }
+
   scrollToBottom(after?): void {
     try {
       setTimeout(() => {
@@ -235,7 +238,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.contentArea?.nativeElement?.scrollHeight;
       }, after || 10);
     } catch (err) {
-        //    do nothing
+      //    do nothing
     }
   }
 
@@ -269,9 +272,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       return false;
     }
   }
+
   readMessages() {
     this.consultationService.readMessages(
-      this.consultation.id || this.consultation._id
+      this.consultation.id || this.consultation._id,
     );
   }
 
@@ -297,7 +301,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           .then(imageFile => {
             msg.isImage = true;
             msg.attachmentsURL = this._sanitizer.bypassSecurityTrustResourceUrl(
-              URL.createObjectURL(imageFile)
+              URL.createObjectURL(imageFile),
             );
           });
       } else if (msg.mimeType.startsWith('audio')) {
@@ -352,7 +356,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.consultationService
       .postFile(
         event.target.files.item(0),
-        this.consultation.id || this.consultation._id
+        this.consultation.id || this.consultation._id,
       )
       .subscribe(
         data => {
@@ -366,9 +370,10 @@ export class ChatComponent implements OnInit, OnDestroy {
           const message = err?.error?.message || err?.error || err?.statusText;
           this.showErrorDialog(message, '');
           this.isUploading = false;
-        }
+        },
       );
   }
+
   @HostListener('scroll', ['$event'])
   public handleScroll(event) {
     const isReachingTop = event.target.scrollTop < 600;
@@ -408,8 +413,30 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
+  openNoteDialog() {
+    const dialogRef = this.dialog.open(NoteDialogComponent, {
+      autoFocus: false,
+      data: {
+        note: this.consultation.consultation.note,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const body = {
+        note: result,
+      };
+      this.consultationService.updateConsultationNote(this.consultation._id, body).subscribe({
+        next: () => {
+          this.consultation.consultation.note = result;
+        }, error: (err) => {
+          this.showErrorDialog(err?.message || 'Something went wrong. Please try again later.', '');
+        }
+      });
+    });
+  }
+
   calculateHeight(): void {
-    this.overlayHeight = `calc(100svh - ${this.element?.nativeElement?.offsetHeight}px - 70px - 30px)`
+    this.overlayHeight = `calc(100svh - ${this.element?.nativeElement?.offsetHeight}px - 70px - 30px)`;
     this.chatHeight =
       this.isMobile && this.showInput
         ? `calc(100svh - ${this.element?.nativeElement?.offsetHeight}px - 350px)`

@@ -15,8 +15,13 @@
           {{ 'chat.generalInformation' | translate }}
         </h4>
         <div
-          class="c_info_wrap d-flex justify-content-end"
+          class="c_info_wrap d-flex justify-content-end gap-4"
           *ngIf="consultation.consultation.status !== 'closed'">
+            @if (configService?.config?.showDoctorPrivateNote) {
+                <button mat-mini-fab color="warn" (click)="openNoteDialog()">
+                    <mat-icon color="primary" class="note-icon">note_add</mat-icon>
+                </button>
+            }
           <button
             color="primary"
             mat-flat-button

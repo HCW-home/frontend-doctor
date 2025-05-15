@@ -316,4 +316,11 @@ export class ConsultationService {
       )
     );
   }
+
+  updateConsultationNote(consultationId: string, body: {note: string}) {
+    return this.http.post(
+      environment.api + `/consultation/${consultationId}/note`,
+      body
+    );
+  }
 }

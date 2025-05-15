@@ -96,7 +96,6 @@ export class InviteExpertComponent implements OnInit {
 
   ngOnInit() {
     this.createFormGroup();
-    console.log(this.data, 'consultation')
   }
 
   onNoClick(): void {
