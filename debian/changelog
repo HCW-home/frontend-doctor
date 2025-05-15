@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.27) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.28) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update changelog for 0.5.20 release
@@ -40,8 +40,10 @@ hcw-athome-caregiver (0.5.27) UNRELEASED; urgency=medium
   * imporove pdf download when there is logo url
   * fix permission for Microphone issue when calling to patient
   * improve svg logos in pdf report
+  * Fix metadata check to handle both null and empty object cases
+  * add ability to edit consultation note
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 28 Apr 2025 08:01:24 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 15 May 2025 14:53:37 +0000
 
 hcw-athome-caregiver (0.5.20) focal; urgency=medium
 
