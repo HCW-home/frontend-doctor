@@ -266,10 +266,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatText = '';
   }
 
-  sendMsg(event) {
-    if (event.charCode === 13) {
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
       this.send();
-      return false;
     }
   }
 

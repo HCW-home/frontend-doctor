@@ -24,6 +24,11 @@
   color: var(--app-white);
   padding: 8px 14px 8px 14px;
   background-color: var(--primary-color);
+
+  .message-text {
+    overflow-wrap: normal;
+    white-space: pre-wrap;
+  }
 }
 
 .reverse div.bubble {

@@ -354,7 +354,7 @@
 
           <div class="bubble" *ngIf="msg.text || msg.isFile">
             <div [ngClass]="{ 'big-font': noPagination }">
-              <p style="overflow-wrap: normal" *ngIf="msg.text">
+              <p class="message-text" *ngIf="msg.text">
                 {{ msg.text }}
               </p>
               <button
@@ -465,7 +465,7 @@
         rows="1"
         class="chat-input"
         contenteditable
-        (keypress)="sendMsg($event)"
+        (keydown)="onKeyDown($event)"
         (click)="readMessages()"
         [(ngModel)]="chatText"
         name="chatInput"
