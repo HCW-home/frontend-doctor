@@ -530,10 +530,14 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         yPosition += 15;
 
         if (nurse?.firstName) {
-          doc.setFont('Helvetica', 'normal', 700);
           yPosition += 10;
+          doc.setFontSize(14);
+          doc.setTextColor('#464F60');
           doc.text('Requester information', 108, yPosition);
           yPosition += 5;
+          doc.setFontSize(10);
+          doc.setTextColor('#000');
+          doc.setFont('Helvetica', 'normal', 700);
           doc.text(`Firstname:`, 108, yPosition);
           doc.text(`Lastname:`, 108, yPosition + 5);
           doc.setFont('Helvetica', 'normal', 400);
@@ -543,11 +547,14 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         }
 
         if (data.experts?.length) {
-          doc.setFont('Helvetica', 'normal', 700);
+          doc.setFontSize(14);
+          doc.setTextColor('#464F60');
           yPosition += 10;
           doc.text('Expert information', 108, yPosition);
           yPosition += 5;
           data.experts.forEach(expert => {
+            doc.setFontSize(10);
+            doc.setTextColor('#000');
             doc.text(`Firstname:`, 108, yPosition);
             doc.text(`Lastname:`, 108, yPosition + 5);
             doc.setFont('Helvetica', 'normal', 400);
