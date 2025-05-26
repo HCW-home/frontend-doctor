@@ -59,7 +59,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   titles = [
     {
       status: 'pending',
-      title: 'Salle d\'attente',
+      title: "Salle d'attente",
       icon: 'queue',
     },
     {
@@ -96,7 +96,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     private inviteService: InviteService,
     private activatedRoute: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private consultationService: ConsultationService,
+    private consultationService: ConsultationService
   ) {
     this.titles = [
       {
@@ -151,20 +151,20 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     let filteredConsultations =
       selectedQueueIds.length > 0
         ? consultations.filter(cons =>
-          selectedQueueIds.includes(cons.consultation?.queue),
-        )
+            selectedQueueIds.includes(cons.consultation?.queue)
+          )
         : consultations;
 
     // Apply createdBy filter
     if (filters.createdBy.me && !filters.createdBy.notMe) {
       filteredConsultations = filteredConsultations.filter(
-        cons => !cons.nurse?.firstName,
+        cons => !cons.nurse?.firstName
       );
     }
 
     if (filters.createdBy.notMe && !filters.createdBy.me) {
       filteredConsultations = filteredConsultations.filter(
-        cons => cons.nurse?.firstName,
+        cons => cons.nurse?.firstName
       );
     }
     this.appLiedFiltersCount =
@@ -230,7 +230,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                   verticalPosition: 'top',
                   horizontalPosition: 'right',
                   duration: 2500,
-                },
+                }
               );
             }
           }
@@ -249,7 +249,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       .subscribe(consultations => {
         this.zone.run(() => {
           this.consultations = consultations.filter(
-            c => c.consultation.status === this.status,
+            c => c.consultation.status === this.status
           );
           this.allConsultations = this.consultations;
           if (this.status === 'closed') {
@@ -400,14 +400,12 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
       .getConsultationMessages(data._id || data.id, undefined, true)
       .subscribe(async res => {
         const messages = await Promise.all(
-          res.map(m => this.adjustMsg(m, data._id || data.id)),
+          res.map(m => this.adjustMsg(m, data._id || data.id))
         );
         const doc = new jsPDF();
         const getLabelWidth = (text: string) => doc.getTextWidth(text) + 2;
-        const pageWidth =
-          doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
-        const pageHeight =
-          doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
         const imageUrl = this.configService.config?.logo;
         let yPosition = 10;
 
@@ -419,188 +417,183 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         };
 
         if (imageUrl) {
-          await new Promise<void>((resolve, reject) => {
+          await new Promise<void>(resolve => {
             const image = new Image();
             image.crossOrigin = 'Anonymous';
 
-            const isSvg = imageUrl.toLowerCase().endsWith('.svg') || imageUrl.startsWith('data:image/svg+xml');
+            const isSvg =
+              imageUrl.toLowerCase().endsWith('.svg') ||
+              imageUrl.startsWith('data:image/svg+xml');
 
-            if (isSvg) {
-              const canvas = document.createElement('canvas');
-              const ctx = canvas.getContext('2d');
+            image.onload = () => {
+              try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
 
-              image.onload = () => {
-                try {
-                  canvas.width = image.width || 200;
-                  canvas.height = image.height || 200;
+                canvas.width = image.width || 200;
+                canvas.height = image.height || 200;
+                ctx.drawImage(image, 0, 0);
 
-                  ctx.drawImage(image, 0, 0);
+                const base64 = canvas.toDataURL(
+                  isSvg ? 'image/png' : 'image/jpeg'
+                );
+                const imgWidth = 50;
+                const imgHeight = (canvas.height / canvas.width) * imgWidth;
 
-                  const base64 = canvas.toDataURL('image/png');
-
-                  const imgWidth = 50;
-                  const imgHeight = (canvas.height / canvas.width) * imgWidth;
-
-                  doc.addImage(
-                    base64,
-                    'PNG',
-                    pageWidth / 2 - imgWidth / 2,
-                    yPosition,
-                    imgWidth,
-                    imgHeight,
-                    'Logo',
-                    'FAST',
-                  );
-                  yPosition += imgHeight + 10;
-                  resolve();
-                } catch (err) {
-                  console.error('SVG processing failed:', err);
-                  resolve();
-                }
-              };
-
-              image.onerror = () => {
-                console.error('Failed to load SVG:', imageUrl);
+                doc.addImage(
+                  base64,
+                  isSvg ? 'PNG' : 'JPEG',
+                  pageWidth / 2 - imgWidth / 2,
+                  yPosition,
+                  imgWidth,
+                  imgHeight,
+                  'Logo',
+                  'FAST'
+                );
+                yPosition += imgHeight + 10;
                 resolve();
-              };
-
-              image.src = imageUrl;
-            } else {
-              image.onload = () => {
-                try {
-                  const canvas = document.createElement('canvas');
-                  canvas.width = image.width;
-                  canvas.height = image.height;
-                  const ctx = canvas.getContext('2d');
-                  ctx.drawImage(image, 0, 0);
-                  const base64 = canvas.toDataURL('image/jpeg');
-
-                  const imgWidth = 50;
-                  const imgHeight = (image.height / image.width) * imgWidth;
-
-                  doc.addImage(
-                    base64,
-                    'JPEG',
-                    pageWidth / 2 - imgWidth / 2,
-                    yPosition,
-                    imgWidth,
-                    imgHeight,
-                    'Logo',
-                    'FAST',
-                  );
-                  yPosition += imgHeight + 10;
-                  resolve();
-                } catch (err) {
-                  console.error('Image processing failed:', err);
-                  resolve();
-                }
-              };
-
-              image.onerror = () => {
-                console.error('Failed to load image:', imageUrl);
+              } catch (err) {
+                console.error('Image processing failed:', err);
                 resolve();
-              };
+              }
+            };
 
-              image.src = imageUrl;
-            }
+            image.onerror = () => {
+              console.error('Failed to load image:', imageUrl);
+              resolve();
+            };
+
+            image.src = imageUrl;
           });
         }
 
+        const leftColX = 15;
+        const labelValueGap = 20;
+        const lineHeight = 5;
+
         doc.setFont('Helvetica', 'normal', 400);
         doc.setFontSize(22);
-        doc.text('Consultation report', 15, yPosition);
+        doc.text('Consultation report', leftColX, yPosition);
         yPosition += 15;
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        yPosition += 10;
-        doc.text('Patient information', 15, yPosition);
+        doc.text('Patient information', leftColX, yPosition);
         yPosition += 10;
 
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
-        doc.text('Firstname:', 15, yPosition);
-        doc.text('Lastname:', 15, yPosition + 5);
-        doc.text('Gender:', 15, yPosition + 10);
+        doc.text('Firstname:', leftColX, yPosition);
+        doc.text('Lastname:', leftColX, yPosition + lineHeight);
+        doc.text('Gender:', leftColX, yPosition + lineHeight * 2);
+
         doc.setFont('Helvetica', 'normal', 400);
-        doc.text(`${data.firstName}`, 34, yPosition);
-        doc.text(`${data.lastName}`, 34, yPosition + 5);
-        doc.text(`${data.gender}`, 30, yPosition + 10);
-        yPosition += 15;
+        doc.text(`${data.firstName}`, leftColX + labelValueGap, yPosition);
+        doc.text(
+          `${data.lastName}`,
+          leftColX + labelValueGap,
+          yPosition + lineHeight
+        );
+        doc.text(
+          `${data.gender}`,
+          leftColX + labelValueGap,
+          yPosition + lineHeight * 2
+        );
+        yPosition += lineHeight * 3 + 10;
 
         if (nurse?.firstName) {
-          yPosition += 10;
           doc.setFontSize(14);
           doc.setTextColor('#464F60');
-          doc.text('Requester information', 108, yPosition);
-          yPosition += 5;
+          doc.text('Requester information', leftColX, yPosition);
+          yPosition += 10;
+
           doc.setFontSize(10);
           doc.setTextColor('#000');
           doc.setFont('Helvetica', 'normal', 700);
-          doc.text(`Firstname:`, 108, yPosition);
-          doc.text(`Lastname:`, 108, yPosition + 5);
+          doc.text('Firstname:', leftColX, yPosition);
+          doc.text('Lastname:', leftColX, yPosition + lineHeight);
+
           doc.setFont('Helvetica', 'normal', 400);
-          doc.text(`${nurse.firstName}`, 127, yPosition);
-          doc.text(`${nurse.lastName}`, 127, yPosition + 5);
-          yPosition += 15;
+          doc.text(`${nurse.firstName}`, leftColX + labelValueGap, yPosition);
+          doc.text(
+            `${nurse.lastName}`,
+            leftColX + labelValueGap,
+            yPosition + lineHeight
+          );
+          yPosition += lineHeight * 2 + 10;
         }
 
         if (data.experts?.length) {
           doc.setFontSize(14);
           doc.setTextColor('#464F60');
+          doc.text('Expert information', leftColX, yPosition);
           yPosition += 10;
-          doc.text('Expert information', 108, yPosition);
-          yPosition += 5;
+
           data.experts.forEach(expert => {
             doc.setFontSize(10);
             doc.setTextColor('#000');
-            doc.text(`Firstname:`, 108, yPosition);
-            doc.text(`Lastname:`, 108, yPosition + 5);
+            doc.setFont('Helvetica', 'normal', 700);
+            doc.text('Firstname:', leftColX, yPosition);
+            doc.text('Lastname:', leftColX, yPosition + lineHeight);
+
             doc.setFont('Helvetica', 'normal', 400);
-            doc.text(`${expert.firstName}`, 127, yPosition);
-            doc.text(`${expert.lastName}`, 127, yPosition + 5);
-            yPosition += 10;
+            doc.text(
+              `${expert.firstName}`,
+              leftColX + labelValueGap,
+              yPosition
+            );
+            doc.text(
+              `${expert.lastName}`,
+              leftColX + labelValueGap,
+              yPosition + lineHeight
+            );
+
+            yPosition += lineHeight * 2 + 5;
           });
         }
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
+        doc.text('Consultation information', leftColX, yPosition);
         yPosition += 10;
-        doc.text('Consultation information', 15, yPosition);
-        yPosition += 10;
+
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
-        doc.text(`Start date/time:`, 15, yPosition);
-        doc.text(`End date/time:`, 15, yPosition + 5);
-        doc.text(`Duration:`, 15, yPosition + 10);
+        doc.text('Start date/time:', leftColX, yPosition);
+        doc.text('End date/time:', leftColX, yPosition + lineHeight);
+        doc.text('Duration:', leftColX, yPosition + lineHeight * 2);
+
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(
           `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
-          15 + getLabelWidth(`Start date/time:`),
-          yPosition,
+          leftColX + getLabelWidth('Start date/time:'),
+          yPosition
         );
         doc.text(
           `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
-          15 + getLabelWidth(`End date/time:`),
-          yPosition + 5,
+          leftColX + getLabelWidth('End date/time:'),
+          yPosition + lineHeight
         );
         doc.text(
           `${this.durationPipe.transform(data.closedAt - data.createdAt, 'en')}`,
-          15 + getLabelWidth(`Duration:`),
-          yPosition + 10,
+          leftColX + getLabelWidth('Duration:'),
+          yPosition + lineHeight * 2
         );
-        yPosition += 15;
+        yPosition += lineHeight * 3 + 5;
 
         if (data.metadata && Object.keys(data.metadata).length) {
-          Object.keys(data.metadata).forEach((key, index) => {
+          Object.keys(data.metadata).forEach(key => {
             addPageIfNeeded();
             doc.setFont('Helvetica', 'normal', 700);
-            doc.text(`${key}:`, 15, yPosition);
-            const metadataX = 15 + getLabelWidth(`${key}:`);
+            doc.text(`${key}:`, leftColX, yPosition);
             doc.setFont('Helvetica', 'normal', 400);
-            doc.text(`${data.metadata[key]}`, metadataX, yPosition);
+            doc.text(
+              `${data.metadata[key]}`,
+              leftColX + getLabelWidth(`${key}:`),
+              yPosition
+            );
             yPosition += 5;
           });
         }
@@ -629,11 +622,10 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             message.createdAt,
             'dd LLL HH:mm',
             undefined,
-            'en',
+            'en'
           );
-
           const titleLine = `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`;
-          doc.setFont('Helvetica', 'normal', 700);
+
           const wrappedTitle = doc.splitTextToSize(titleLine, pageWidth - 30);
           doc.text(wrappedTitle, 15, yPosition);
           yPosition += wrappedTitle.length * 5;
@@ -642,15 +634,13 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setTextColor('#464F60');
 
           if (message.type === 'videoCall' || message.type === 'audioCall') {
-            const callTypeText = message.type === 'audioCall' ? 'Audio call' : 'Video call';
-            let callStatus = '';
-            if (message.closedAt) {
-              callStatus = message.acceptedAt
-                ? `${callTypeText}  accepted`
-                : `${callTypeText}  missed`;
-            } else {
-              callStatus = `${callTypeText}  call`;
-            }
+            const callTypeText =
+              message.type === 'audioCall' ? 'Audio call' : 'Video call';
+            const callStatus = message.closedAt
+              ? message.acceptedAt
+                ? `${callTypeText} accepted`
+                : `${callTypeText} missed`
+              : `${callTypeText} call`;
 
             addPageIfNeeded(3);
             doc.text(callStatus, 15, yPosition);
@@ -658,7 +648,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             doc.text(
               `${this.datePipe.transform(message.createdAt, 'dd LLL HH:mm', undefined, 'en')}`,
               15,
-              yPosition,
+              yPosition
             );
             yPosition += 5;
 
@@ -667,10 +657,9 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                 message.closedAt,
                 'dd LLL HH:mm',
                 undefined,
-                'en',
+                'en'
               );
-              const finishedText = `${callTypeText}  finished`;
-              doc.text(finishedText, 15, yPosition);
+              doc.text(`${callTypeText} finished`, 15, yPosition);
               yPosition += 5;
               doc.text(`${closedDate}`, 15, yPosition);
               yPosition += 5;
@@ -703,7 +692,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                   imgWidth,
                   imgHeight,
                   `${Math.random()}`,
-                  'FAST',
+                  'FAST'
                 );
                 yPosition += imgHeight + 5;
                 resolve();
