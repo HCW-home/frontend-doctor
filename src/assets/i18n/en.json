@@ -632,6 +632,28 @@
     "fr": "Français",
     "uk": "Українська"
   },
+  "pdf": {
+    "consultationReport": "Consultation report",
+    "patientInformation": "Patient information",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "gender": "Gender",
+    "requesterInformation": "Requester information",
+    "expertInformation": "Expert information",
+    "consultationInformation": "Consultation information",
+    "startDateTime": "Start date/time",
+    "endDateTime": "End date/time",
+    "duration": "Duration",
+    "chatHistory": "Chat history",
+    "attachedFile": "[Attached file]",
+    "audioCall": "Audio call",
+    "videoCall": "Video call",
+    "accepted": "accepted",
+    "missed": "missed",
+    "call": "call",
+    "finished": "finished",
+    "fileName": "consultation-report"
+  },
   "metadata": {
     "Age": "Age",
     "Country": "Country",

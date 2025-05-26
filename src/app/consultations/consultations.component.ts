@@ -473,20 +473,40 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         doc.setFont('Helvetica', 'normal', 400);
         doc.setFontSize(22);
-        doc.text('Consultation report', leftColX, yPosition);
+        doc.text(
+          this.translate.instant('pdf.consultationReport'),
+          leftColX,
+          yPosition
+        );
         yPosition += 15;
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        doc.text('Patient information', leftColX, yPosition);
+        doc.text(
+          this.translate.instant('pdf.patientInformation'),
+          leftColX,
+          yPosition
+        );
         yPosition += 10;
 
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
-        doc.text('Firstname:', leftColX, yPosition);
-        doc.text('Lastname:', leftColX, yPosition + lineHeight);
-        doc.text('Gender:', leftColX, yPosition + lineHeight * 2);
+        doc.text(
+          this.translate.instant('pdf.firstname') + ':',
+          leftColX,
+          yPosition
+        );
+        doc.text(
+          this.translate.instant('pdf.lastname') + ':',
+          leftColX,
+          yPosition + lineHeight
+        );
+        doc.text(
+          this.translate.instant('pdf.gender') + ':',
+          leftColX,
+          yPosition + lineHeight * 2
+        );
 
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(`${data.firstName}`, leftColX + labelValueGap, yPosition);
@@ -505,14 +525,26 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         if (nurse?.firstName) {
           doc.setFontSize(14);
           doc.setTextColor('#464F60');
-          doc.text('Requester information', leftColX, yPosition);
+          doc.text(
+            this.translate.instant('pdf.requesterInformation'),
+            leftColX,
+            yPosition
+          );
           yPosition += 10;
 
           doc.setFontSize(10);
           doc.setTextColor('#000');
           doc.setFont('Helvetica', 'normal', 700);
-          doc.text('Firstname:', leftColX, yPosition);
-          doc.text('Lastname:', leftColX, yPosition + lineHeight);
+          doc.text(
+            this.translate.instant('pdf.firstname') + ':',
+            leftColX,
+            yPosition
+          );
+          doc.text(
+            this.translate.instant('pdf.lastname') + ':',
+            leftColX,
+            yPosition + lineHeight
+          );
 
           doc.setFont('Helvetica', 'normal', 400);
           doc.text(`${nurse.firstName}`, leftColX + labelValueGap, yPosition);
@@ -527,15 +559,27 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         if (data.experts?.length) {
           doc.setFontSize(14);
           doc.setTextColor('#464F60');
-          doc.text('Expert information', leftColX, yPosition);
+          doc.text(
+            this.translate.instant('pdf.expertInformation'),
+            leftColX,
+            yPosition
+          );
           yPosition += 10;
 
           data.experts.forEach(expert => {
             doc.setFontSize(10);
             doc.setTextColor('#000');
             doc.setFont('Helvetica', 'normal', 700);
-            doc.text('Firstname:', leftColX, yPosition);
-            doc.text('Lastname:', leftColX, yPosition + lineHeight);
+            doc.text(
+              this.translate.instant('pdf.firstname') + ':',
+              leftColX,
+              yPosition
+            );
+            doc.text(
+              this.translate.instant('pdf.lastname') + ':',
+              leftColX,
+              yPosition + lineHeight
+            );
 
             doc.setFont('Helvetica', 'normal', 400);
             doc.text(
@@ -555,30 +599,49 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
-        doc.text('Consultation information', leftColX, yPosition);
+        doc.text(
+          this.translate.instant('pdf.consultationInformation'),
+          leftColX,
+          yPosition
+        );
         yPosition += 10;
 
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
-        doc.text('Start date/time:', leftColX, yPosition);
-        doc.text('End date/time:', leftColX, yPosition + lineHeight);
-        doc.text('Duration:', leftColX, yPosition + lineHeight * 2);
+        doc.text(
+          this.translate.instant('pdf.startDateTime') + ':',
+          leftColX,
+          yPosition
+        );
+        doc.text(
+          this.translate.instant('pdf.endDateTime') + ':',
+          leftColX,
+          yPosition + lineHeight
+        );
+        doc.text(
+          this.translate.instant('pdf.duration') + ':',
+          leftColX,
+          yPosition + lineHeight * 2
+        );
 
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(
           `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
-          leftColX + getLabelWidth('Start date/time:'),
+          leftColX +
+            getLabelWidth(this.translate.instant('pdf.startDateTime') + ':'),
           yPosition
         );
         doc.text(
           `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
-          leftColX + getLabelWidth('End date/time:'),
+          leftColX +
+            getLabelWidth(this.translate.instant('pdf.endDateTime') + ':'),
           yPosition + lineHeight
         );
         doc.text(
           `${this.durationPipe.transform(data.closedAt - data.createdAt, 'en')}`,
-          leftColX + getLabelWidth('Duration:'),
+          leftColX +
+            getLabelWidth(this.translate.instant('pdf.duration') + ':'),
           yPosition + lineHeight * 2
         );
         yPosition += lineHeight * 3 + 5;
@@ -601,7 +664,11 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         doc.setFontSize(14);
         doc.setTextColor('#464F60');
         yPosition += 10;
-        doc.text('Chat history', 15, yPosition);
+        doc.text(
+          this.translate.instant('pdf.chatHistory'),
+          leftColX,
+          yPosition
+        );
         yPosition += 10;
 
         for (const message of messages) {
@@ -635,12 +702,15 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
           if (message.type === 'videoCall' || message.type === 'audioCall') {
             const callTypeText =
-              message.type === 'audioCall' ? 'Audio call' : 'Video call';
+              message.type === 'audioCall'
+                ? this.translate.instant('pdf.audioCall')
+                : this.translate.instant('pdf.videoCall');
+
             const callStatus = message.closedAt
               ? message.acceptedAt
-                ? `${callTypeText} accepted`
-                : `${callTypeText} missed`
-              : `${callTypeText} call`;
+                ? `${callTypeText} ${this.translate.instant('pdf.accepted')}`
+                : `${callTypeText} ${this.translate.instant('pdf.missed')}`
+              : `${callTypeText} ${this.translate.instant('pdf.call')}`;
 
             addPageIfNeeded(3);
             doc.text(callStatus, 15, yPosition);
@@ -659,7 +729,11 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
                 undefined,
                 'en'
               );
-              doc.text(`${callTypeText} finished`, 15, yPosition);
+              doc.text(
+                `${callTypeText} ${this.translate.instant('pdf.finished')}`,
+                15,
+                yPosition
+              );
               yPosition += 5;
               doc.text(`${closedDate}`, 15, yPosition);
               yPosition += 5;
@@ -705,12 +779,16 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             addPageIfNeeded();
             doc.setFont('Helvetica', 'normal', 400);
             doc.setTextColor('#464F60');
-            doc.text(`[Attached file]: ${message.fileName}`, 15, yPosition);
+            doc.text(
+              `${this.translate.instant('pdf.attachedFile')}: ${message.fileName}`,
+              15,
+              yPosition
+            );
             yPosition += 5;
           }
         }
 
-        doc.save('consultation-report.pdf');
+        doc.save(this.translate.instant('pdf.fileName') + '.pdf');
       });
   }
 
