@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.31) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.32) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Update changelog for 0.5.20 release
@@ -47,8 +47,9 @@ hcw-athome-caregiver (0.5.31) UNRELEASED; urgency=medium
   * improve headers color in exported pdf
   * imporove pdf view when requester information exists
   * add translations for pdf
+  * add global error handling
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 26 May 2025 15:34:54 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 27 May 2025 11:05:08 +0000
 
 hcw-athome-caregiver (0.5.20) focal; urgency=medium
 
