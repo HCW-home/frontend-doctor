@@ -654,6 +654,13 @@
     "finished": "finished",
     "fileName": "consultation-report"
   },
+  "error": {
+    "defaultTitle": "Error",
+    "defaultMessage": "An unexpected error occurred. Please try again later.",
+    "blockedTitle": "Request blocked",
+    "blockedMessage": "Your request was blocked by a security policy. Please contact support if the problem persists.",
+    "networkMessage": "A network error occurred. Please check your connection and try again."
+  },
   "metadata": {
     "Age": "Age",
     "Country": "Country",

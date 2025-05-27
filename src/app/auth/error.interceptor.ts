@@ -1,34 +1,76 @@
 import { Injectable } from "@angular/core";
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from "@angular/common/http";
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpErrorResponse
+} from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { AuthService } from "./auth.service";
 import { SocketEventsService } from "../core/socket-events.service";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
-      private authService: AuthService,
-      private _socketEventsService: SocketEventsService
-  ) { }
+    private authService: AuthService,
+    private _socketEventsService: SocketEventsService,
+    private dialog: MatDialog,
+    private translate: TranslateService
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(catchError(err => {
-      console.log("Error encountered: ", err);
+    return next.handle(request).pipe(
+      catchError((err: any) => {
+        console.log("Error encountered:", err);
 
-      if (err.statusText === "Unknown Error") {
-        this._socketEventsService.updateConnectionStatus("connect_failed");
-      }
+        if (err.statusText === "Unknown Error") {
+          this._socketEventsService.updateConnectionStatus("connect_failed");
+        }
 
-      const refreshTokenEndpoint = 'refresh-token';
+        const refreshTokenEndpoint = 'refresh-token';
+        if (err.status === 401 && request.url.includes(refreshTokenEndpoint)) {
+          this.authService.logout();
+        }
 
-      if (err.status === 401  && request.url.includes(refreshTokenEndpoint)) {
-        this.authService.logout();
-      }
+        const excludedExtensions = ['.json', '.md', '.txt', '.svg'];
+        const shouldSkipPopup = excludedExtensions.some(ext => request.url.endsWith(ext));
 
-      // const error = err.error.message || err.statusText;
-      return throwError(err);
-    }));
+        if (shouldSkipPopup) {
+          return throwError(() => err);
+        }
+
+        let titleKey = 'error.defaultTitle';
+        let messageKey = 'error.defaultMessage';
+
+        if (err instanceof HttpErrorResponse) {
+          if (typeof err.error === 'string' && err.error.startsWith('<')) {
+            titleKey = 'error.blockedTitle';
+            messageKey = 'error.blockedMessage';
+          } else if (err.error instanceof ProgressEvent || typeof err.error === 'object') {
+            messageKey = 'error.networkMessage';
+          } else if (err.error?.message) {
+            messageKey = err.error.message;
+          }
+        }
+
+        const title = this.translate.instant(titleKey);
+        const message = this.translate.instant(messageKey);
+
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            title,
+            message
+          }
+        });
+
+        return throwError(() => err);
+      })
+    );
   }
 }
