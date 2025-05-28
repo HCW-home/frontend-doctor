@@ -11,23 +11,24 @@ import {
   EventEmitter,
   HostListener,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { MessageService } from '../core/message.service';
-import { AuthService } from '../auth/auth.service';
-import { SocketEventsService } from '../core/socket-events.service';
-import { ConsultationService } from '../core/consultation.service';
-import { environment } from '../../environments/environment';
-import { InviteExpertComponent } from '../invite-expoert/invite-expert.component';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { InviteService } from '../core/invite.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
-import { ConfigService } from '../core/config.service';
 import { MatDialog } from '@angular/material/dialog';
-import { InviteLinkComponent } from '../invite-link/invite-link.component';
+import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { AuthService } from '../auth/auth.service';
+import { ConfigService } from '../core/config.service';
+import { InviteService } from '../core/invite.service';
+import { MessageService } from '../core/message.service';
+import { environment } from '../../environments/environment';
+import { ConsultationService } from '../core/consultation.service';
+import { SocketEventsService } from '../core/socket-events.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
+import { InviteLinkComponent } from '../invite-link/invite-link.component';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { InviteExpertComponent } from '../invite-expoert/invite-expert.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -67,10 +68,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private msgServ: MessageService,
-    private authService: AuthService,
     private _sanitizer: DomSanitizer,
-    public configService: ConfigService,
+    private authService: AuthService,
     private translate: TranslateService,
+    public configService: ConfigService,
     private inviteService: InviteService,
     private breakpointObserver: BreakpointObserver,
     private socketEventsService: SocketEventsService,
@@ -204,31 +205,36 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.chatMessages.length,
         this.noPagination,
       )
-      .subscribe(msgs => {
-        this.zone.run(() => {
-          this.chatMessages = msgs
-            .map(m => {
-              return this.adjustMsg(m);
-            })
-            .concat(this.chatMessages);
+      .subscribe({
+        next: (messages) => {
+          this.zone.run(() => {
+            this.chatMessages = messages
+              .map(m => {
+                return this.adjustMsg(m);
+              })
+              .concat(this.chatMessages);
 
-          this.chatImagesCount = this.chatMessages.filter(
-            msg => msg.isImage,
-          ).length;
+            this.chatImagesCount = this.chatMessages.filter(
+              msg => msg.isImage,
+            ).length;
+            this.loadingMsgs = false;
+
+            if (this.noPagination && !this.chatImagesCount) {
+              setTimeout(() => {
+                this.addPageDividers();
+              }, 0);
+            }
+
+            if (!noScroll) {
+              this.scrollToBottom(100);
+            }
+            this.calculateHeight();
+          });
+
+        }, error: () => {
           this.loadingMsgs = false;
-
-          if (this.noPagination && !this.chatImagesCount) {
-            setTimeout(() => {
-              this.addPageDividers();
-            }, 0);
-          }
-
-          if (!noScroll) {
-            this.scrollToBottom(100);
-          }
-          this.calculateHeight();
-        });
-      });
+        }
+      })
   }
 
   scrollToBottom(after?): void {
@@ -357,21 +363,20 @@ export class ChatComponent implements OnInit, OnDestroy {
       .postFile(
         event.target.files.item(0),
         this.consultation.id || this.consultation._id,
-      )
-      .subscribe(
-        data => {
+      ).subscribe({
+        next: (data) => {
           this.zone.run(() => {
             this.chatMessages.push(this.adjustMsg(data.message));
             this.scrollToBottom(100);
           });
           this.isUploading = false;
-        },
-        err => {
+        }, error: (err) => {
+          this.isUploading = false;
           const message = err?.error?.message || err?.error || err?.statusText;
           this.showErrorDialog(message, '');
-          this.isUploading = false;
-        },
-      );
+
+        }
+      })
   }
 
   @HostListener('scroll', ['$event'])
@@ -396,14 +401,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
     });
     this.loaded.emit(true);
-  }
-
-  sleep(ms) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        return resolve(null);
-      }, ms);
-    });
   }
 
   imageLoaded() {
