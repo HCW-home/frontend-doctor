@@ -1,27 +1,27 @@
 import { Injectable } from "@angular/core";
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
+  HttpRequest,
   HttpInterceptor,
   HttpErrorResponse
 } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 
 import { AuthService } from "./auth.service";
 import { SocketEventsService } from "../core/socket-events.service";
-import { MatDialog } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
-    private authService: AuthService,
-    private _socketEventsService: SocketEventsService,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private authService: AuthService,
+    private translate: TranslateService,
+    private _socketEventsService: SocketEventsService,
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -38,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.logout();
         }
 
-        const excludedExtensions = ['.json', '.md', '.txt', '.svg'];
+        const excludedExtensions = ['.json', '.md', '.txt', '.svg', 'verify-refresh-token'];
         const shouldSkipPopup = excludedExtensions.some(ext => request.url.endsWith(ext));
 
         if (shouldSkipPopup) {

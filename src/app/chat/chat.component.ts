@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../core/config.service';
@@ -23,7 +24,6 @@ import { MessageService } from '../core/message.service';
 import { environment } from '../../environments/environment';
 import { ConsultationService } from '../core/consultation.service';
 import { SocketEventsService } from '../core/socket-events.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
@@ -75,9 +75,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private inviteService: InviteService,
     private breakpointObserver: BreakpointObserver,
     private socketEventsService: SocketEventsService,
-    private consultationService: ConsultationService,
-  ) {
-  }
+    private consultationService: ConsultationService
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -151,7 +150,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                   verticalPosition: 'top',
                   horizontalPosition: 'right',
                   duration: 2500,
-                },
+                }
               );
             }
           }
@@ -171,22 +170,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.socketEventsService.onRejectCall().subscribe(event => {
         const message = this.chatMessages.find(
-          msg => msg.id === event.data.message.id,
+          msg => msg.id === event.data.message.id
         );
         if (message) {
           message.closedAt = new Date();
         }
-      }),
+      })
     );
     this.subscriptions.push(
       this.socketEventsService.onAcceptCall().subscribe(event => {
         const message = this.chatMessages.find(
-          msg => msg.id === event.data.message.id,
+          msg => msg.id === event.data.message.id
         );
         if (message) {
           message.acceptedAt = new Date();
         }
-      }),
+      })
     );
   }
 
@@ -203,10 +202,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       .getConsultationMessages(
         this.consultation._id || this.consultation.id,
         this.chatMessages.length,
-        this.noPagination,
+        this.noPagination
       )
       .subscribe({
-        next: (messages) => {
+        next: messages => {
           this.zone.run(() => {
             this.chatMessages = messages
               .map(m => {
@@ -215,7 +214,7 @@ export class ChatComponent implements OnInit, OnDestroy {
               .concat(this.chatMessages);
 
             this.chatImagesCount = this.chatMessages.filter(
-              msg => msg.isImage,
+              msg => msg.isImage
             ).length;
             this.loadingMsgs = false;
 
@@ -230,11 +229,11 @@ export class ChatComponent implements OnInit, OnDestroy {
             }
             this.calculateHeight();
           });
-
-        }, error: () => {
+        },
+        error: () => {
           this.loadingMsgs = false;
-        }
-      })
+        },
+      });
   }
 
   scrollToBottom(after?): void {
@@ -281,7 +280,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   readMessages() {
     this.consultationService.readMessages(
-      this.consultation.id || this.consultation._id,
+      this.consultation.id || this.consultation._id
     );
   }
 
@@ -307,7 +306,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           .then(imageFile => {
             msg.isImage = true;
             msg.attachmentsURL = this._sanitizer.bypassSecurityTrustResourceUrl(
-              URL.createObjectURL(imageFile),
+              URL.createObjectURL(imageFile)
             );
           });
       } else if (msg.mimeType.startsWith('audio')) {
@@ -362,21 +361,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.consultationService
       .postFile(
         event.target.files.item(0),
-        this.consultation.id || this.consultation._id,
-      ).subscribe({
-        next: (data) => {
+        this.consultation.id || this.consultation._id
+      )
+      .subscribe({
+        next: data => {
           this.zone.run(() => {
             this.chatMessages.push(this.adjustMsg(data.message));
             this.scrollToBottom(100);
           });
           this.isUploading = false;
-        }, error: (err) => {
+        },
+        error: err => {
           this.isUploading = false;
           const message = err?.error?.message || err?.error || err?.statusText;
           this.showErrorDialog(message, '');
-
-        }
-      })
+        },
+      });
   }
 
   @HostListener('scroll', ['$event'])
@@ -415,20 +415,26 @@ export class ChatComponent implements OnInit, OnDestroy {
       autoFocus: false,
       data: {
         note: this.consultation.consultation.note,
-      }
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       const body = {
         note: result,
       };
-      this.consultationService.updateConsultationNote(this.consultation._id, body).subscribe({
-        next: () => {
-          this.consultation.consultation.note = result;
-        }, error: (err) => {
-          this.showErrorDialog(err?.message || 'Something went wrong. Please try again later.', '');
-        }
-      });
+      this.consultationService
+        .updateConsultationNote(this.consultation._id, body)
+        .subscribe({
+          next: () => {
+            this.consultation.consultation.note = result;
+          },
+          error: err => {
+            this.showErrorDialog(
+              err?.message || 'Something went wrong. Please try again later.',
+              ''
+            );
+          },
+        });
     });
   }
 
