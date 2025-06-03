@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.33) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.33) focal; urgency=medium
 
   [ Olivier Bitsch ]
   * Update changelog for 0.5.20 release
@@ -51,7 +51,10 @@ hcw-athome-caregiver (0.5.33) UNRELEASED; urgency=medium
   * improve chat loading
   * hide global error handler when verifying refresh token
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 28 May 2025 14:55:32 +0000
+  [ Olivier Bitsch ]
+  * Use static alpine image
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 03 Jun 2025 12:01:52 +0200
 
 hcw-athome-caregiver (0.5.20) focal; urgency=medium
 
