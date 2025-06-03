@@ -1,5 +1,5 @@
 FROM node:18 AS builder
-ENV VERSION=0.5.20
+ENV VERSION=0.5.34
 WORKDIR /usr/src/app
 COPY package*.json ./
 COPY yarn.lock ./
@@ -7,7 +7,7 @@ RUN npx yarn install
 COPY . .
 RUN make
 
-FROM docker.io/nginxinc/nginx-unprivileged:latest
+FROM docker.io/nginxinc/nginx-unprivileged:1.28-bookworm
 COPY --from=builder /usr/src/app/dist/hug-at-home/ /usr/share/nginx/html/
 COPY nginx-docker.conf.template /etc/nginx/templates/default.conf.template
 COPY nginx.conf /etc/nginx/nginx.conf
