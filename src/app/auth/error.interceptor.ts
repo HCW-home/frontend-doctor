@@ -38,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.logout();
         }
 
-        const excludedExtensions = ['.json', '.md', '.txt', '.svg', 'verify-refresh-token'];
+        const excludedExtensions = ['.json', '.md', '.txt', '.svg', 'verify-refresh-token', 'current-user', 'login-local'];
         const shouldSkipPopup = excludedExtensions.some(ext => request.url.endsWith(ext));
 
         if (shouldSkipPopup) {
