@@ -14,6 +14,7 @@ import {
   phoneOrEmailValidator,
 } from '../shared/validators/phone-number-validator';
 import { InviteService } from '../core/invite.service';
+import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
 
 export interface DialogData {
   expertLink: string;
@@ -60,7 +61,7 @@ export class InviteExpertComponent implements OnInit {
         if (control.valid) {
           setTimeout(() => {
             const { value } = this.myForm.get('email');
-            this.inviteService.checkPrefix(value).subscribe({
+            this.inviteService.checkPrefix(value, '', TwilioWhatsappConfig.pleaseUseThisLink).subscribe({
               next: res => {
                 switch (res.status) {
                   case 0:
