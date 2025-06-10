@@ -128,7 +128,7 @@ export class InviteExpertComponent implements OnInit {
     if (this.myForm.valid) {
       this.loading = true;
       const body = {
-        expertLink: this.data,
+        expertLink: this.data.expertLink,
         to: this.myForm.get('email').value,
         messageService: this.myForm.get('messageService').value,
         consultationId: this.data.id,
