@@ -41,7 +41,13 @@ export class ErrorInterceptor implements HttpInterceptor {
         const excludedExtensions = ['.json', '.md', '.txt', '.svg', 'verify-refresh-token', 'current-user', 'login-local'];
         const shouldSkipPopup = excludedExtensions.some(ext => request.url.endsWith(ext));
 
-        if (shouldSkipPopup) {
+        const isInvite404 =
+          err instanceof HttpErrorResponse &&
+          err.status === 404 &&
+          request.url.includes('/consultation/') &&
+          request.url.includes('/invite/');
+
+        if (shouldSkipPopup || isInvite404) {
           return throwError(() => err);
         }
 

@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
+  Validators,
+  UntypedFormGroup,
   UntypedFormBuilder,
   UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
 } from '@angular/forms';
 import { MyErrorStateMatcher } from '../profile-update/profile-update.component';
 import { ConsultationService } from '../core/consultation.service';
@@ -15,6 +15,7 @@ import {
 } from '../shared/validators/phone-number-validator';
 import { InviteService } from '../core/invite.service';
 import { TwilioWhatsappConfig } from '../../utils/twillo-whatsapp-config';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface DialogData {
   expertLink: string;
@@ -37,6 +38,7 @@ export class InviteExpertComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
+    private translate: TranslateService,
     private inviteService: InviteService,
     private formBuilder: UntypedFormBuilder,
     private consultationService: ConsultationService,
@@ -135,7 +137,8 @@ export class InviteExpertComponent implements OnInit {
       };
       this.consultationService.sendExpertLink(body).subscribe({
         next: res => {
-          this._snackBar.open('Link Sent to Email', 'X', {
+          const text = this.translate.instant('inviteForm.linkSent');
+          this._snackBar.open(text, 'X', {
             verticalPosition: 'top',
             horizontalPosition: 'right',
             duration: 2500,

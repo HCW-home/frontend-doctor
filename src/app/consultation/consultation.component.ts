@@ -1,14 +1,15 @@
-import { Subscription } from 'rxjs';
-import { OpenViduService } from '../openvidu.service';
 import { Component, OnInit, Input, NgZone, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+
+import { OpenViduService } from '../openvidu.service';
 import { ConsultationService } from '../core/consultation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocketEventsService } from '../core/socket-events.service';
 import { ConfirmationService } from '../core/confirmation.service';
 import { InviteService } from '../core/invite.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-consultation',
@@ -158,8 +159,10 @@ export class ConsultationComponent implements OnInit, OnDestroy {
             this.subscriptions.push(
               this.inviteServ
                 .getByConsultation(this.consultationId)
-                .subscribe(publicinvite => {
-                  this.publicinvite = publicinvite;
+                .subscribe({
+                  next: (publicInvite) => {
+                    this.publicinvite = publicInvite
+                  }, error: (err) => {}
                 })
             );
           }
