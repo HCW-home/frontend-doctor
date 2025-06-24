@@ -343,7 +343,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
   exportPDF(event, consultation) {
     event.stopPropagation();
-    this.generatePDF(consultation.consultation, consultation.nurse);
+    this.generatePDF(consultation.consultation, consultation.nurse, consultation.doctor);
   }
 
   getImageUrl(imageFile: Blob) {
@@ -395,7 +395,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     });
   }
 
-  generatePDF(data, nurse) {
+  generatePDF(data, nurse, doctor) {
     this.msgServ
       .getConsultationMessages(data._id || data.id, undefined, true)
       .subscribe(async res => {
@@ -479,6 +479,40 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           yPosition
         );
         yPosition += 15;
+
+        if (doctor?.firstName) {
+          doc.setFontSize(14);
+          doc.setTextColor('#464F60');
+          doc.text(
+            this.translate.instant('pdf.doctorInformation'),
+            leftColX,
+            yPosition
+          );
+          yPosition += 10;
+
+          doc.setFontSize(10);
+          doc.setTextColor('#000');
+          doc.setFont('Helvetica', 'normal', 700);
+          doc.text(
+            this.translate.instant('pdf.firstname') + ':',
+            leftColX,
+            yPosition
+          );
+          doc.text(
+            this.translate.instant('pdf.lastname') + ':',
+            leftColX,
+            yPosition + lineHeight
+          );
+
+          doc.setFont('Helvetica', 'normal', 400);
+          doc.text(`${doctor.firstName}`, leftColX + labelValueGap, yPosition);
+          doc.text(
+            `${doctor.lastName}`,
+            leftColX + labelValueGap,
+            yPosition + lineHeight
+          );
+          yPosition += lineHeight * 2 + 10;
+        }
 
         doc.setFontSize(14);
         doc.setTextColor('#464F60');

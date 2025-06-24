@@ -640,6 +640,7 @@
     "lastname": "Lastname",
     "gender": "Gender",
     "requesterInformation": "Requester information",
+    "doctorInformation": "Doctor information",
     "expertInformation": "Expert information",
     "consultationInformation": "Consultation information",
     "startDateTime": "Start date/time",
