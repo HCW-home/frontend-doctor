@@ -54,8 +54,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         let titleKey = 'error.defaultTitle';
         let messageKey = 'error.defaultMessage';
 
-        if (err instanceof HttpErrorResponse) {
-          if (typeof err.error === 'string' && err.error.startsWith('<')) {
+        if (err) {
+          if (typeof err.error === 'string' && err.error?.error && err.error?.text?.includes('<html>')) {
             titleKey = 'error.blockedTitle';
             messageKey = 'error.blockedMessage';
             const title = this.translate.instant(titleKey);
