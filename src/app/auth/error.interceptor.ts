@@ -58,22 +58,19 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (typeof err.error === 'string' && err.error.startsWith('<')) {
             titleKey = 'error.blockedTitle';
             messageKey = 'error.blockedMessage';
-          } else if (err.error instanceof ProgressEvent || typeof err.error === 'object') {
-            messageKey = 'error.networkMessage';
-          } else if (err.error?.message) {
-            messageKey = err.error.message;
+            const title = this.translate.instant(titleKey);
+            const message = this.translate.instant(messageKey);
+
+            this.dialog.open(ErrorDialogComponent, {
+              data: {
+                title,
+                message
+              }
+            });
           }
         }
 
-        const title = this.translate.instant(titleKey);
-        const message = this.translate.instant(messageKey);
 
-        this.dialog.open(ErrorDialogComponent, {
-          data: {
-            title,
-            message
-          }
-        });
 
         return throwError(() => err);
       })
