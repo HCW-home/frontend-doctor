@@ -4,7 +4,6 @@ import {
   HttpHandler,
   HttpRequest,
   HttpInterceptor,
-  HttpErrorResponse
 } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
@@ -38,16 +37,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.logout();
         }
 
-        const excludedExtensions = ['.json', '.md', '.txt', '.svg', 'verify-refresh-token', 'consultations-from-token', 'current-user', 'upload-file', 'login-local'];
+        const excludedExtensions = ['.json', '.md', '.txt', '.svg', 'verify-refresh-token'];
         const shouldSkipPopup = excludedExtensions.some(ext => request.url.endsWith(ext));
 
-        const isInvite404 =
-          err instanceof HttpErrorResponse &&
-          err.status === 404 &&
-          request.url.includes('/consultation/') &&
-          request.url.includes('/invite/');
-
-        if (shouldSkipPopup || isInvite404) {
+        if (shouldSkipPopup) {
           return throwError(() => err);
         }
 
@@ -55,7 +48,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         let messageKey = 'error.defaultMessage';
 
         if (err) {
-          if (typeof err.error === 'string' && err.error?.error && err.error?.text?.includes('<html>')) {
+          if (err.error?.error && err.error?.text?.includes('<html>')) {
             titleKey = 'error.blockedTitle';
             messageKey = 'error.blockedMessage';
             const title = this.translate.instant(titleKey);
@@ -69,8 +62,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             });
           }
         }
-
-
 
         return throwError(() => err);
       })
