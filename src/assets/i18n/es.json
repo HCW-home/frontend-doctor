@@ -1,1 +1,19 @@
-{}
+{
+    "login": {
+        "home": "INICIO",
+        "emailAddress": "Dirección de correo electrónico",
+        "pleaseFillUpTheRecievedSMS": "Rellene el código de verificación recibido por SMS:",
+        "institutionalConnection": "Conexión institucional",
+        "loginWithALocalAccount": "Iniciar sesión con una cuenta local:",
+        "email": "Correo electrónico",
+        "pleaseProvideAValidEmail": "Por favor proporcione un correo electrónico válido",
+        "required": "requerido",
+        "password": "Contraseña",
+        "login": "Iniciar sesión",
+        "iForgotMyPassword": "Olvidé mi contraseña",
+        "verificationCode": "Código de verificación",
+        "send": "Enviar",
+        "sendCodeAgain": "Enviar código de nuevo",
+        "youReachedTheMaximumAttemptAmount": "Has alcanzado la cantidad máxima de intentos"
+    }
+}
