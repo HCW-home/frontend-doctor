@@ -50,14 +50,14 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (err) {
           if (err.error?.error && err.error?.text?.includes('<html>')) {
             titleKey = 'error.blockedTitle';
-            messageKey = 'error.blockedMessage';
             const title = this.translate.instant(titleKey);
-            const message = this.translate.instant(messageKey);
+            const message = err.error.text
 
             this.dialog.open(ErrorDialogComponent, {
               data: {
                 title,
-                message
+                message,
+                isHtml: true
               }
             });
           }
