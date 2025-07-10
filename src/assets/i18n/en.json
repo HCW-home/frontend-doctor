@@ -631,7 +631,8 @@
   "selectLanguage": {
     "en": "English",
     "fr": "Français",
-    "uk": "Українська"
+    "uk": "Українська",
+    "es": "Español"
   },
   "pdf": {
     "consultationReport": "Consultation report",

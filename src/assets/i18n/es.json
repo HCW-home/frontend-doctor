@@ -494,7 +494,8 @@
     "selectLanguage": {
         "en": "English",
         "fr": "Français",
-        "uk": "Українська"
+        "uk": "Українська",
+        "es": "Español"
     },
     "metadata": {
         "Age": "Edad",
