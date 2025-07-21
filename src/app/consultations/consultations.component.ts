@@ -725,7 +725,10 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             undefined,
             'en'
           );
-          const titleLine = `${firstName} ${lastName} (${message.fromUserDetail?.role}) - ${date}:`;
+          const roleKey = `roles.${message.fromUserDetail.role}`;
+          const roleLabel = this.translate.instant(roleKey) || message.fromUserDetail.role;
+
+          const titleLine = `${firstName} ${lastName} (${roleLabel}) - ${date}:`;
 
           const wrappedTitle = doc.splitTextToSize(titleLine, pageWidth - 30);
           doc.text(wrappedTitle, 15, yPosition);

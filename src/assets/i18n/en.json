@@ -664,6 +664,14 @@
     "blockedMessage": "Your request was blocked by a security policy. Please contact support if the problem persists.",
     "networkMessage": "A network error occurred. Please check your connection and try again."
   },
+  "roles": {
+    "admin": "Admin",
+    "doctor": "Doctor",
+    "patient": "Patient",
+    "nurse": "Requester",
+    "requester": "Requester",
+    "scheduler": "Scheduler"
+  },
   "metadata": {
     "Age": "Age",
     "Country": "Country",
