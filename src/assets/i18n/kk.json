@@ -1,1 +1,39 @@
-{}
+{
+    "pdf": {
+        "consultationReport": "Консультация есебі",
+        "patientInformation": "Пациент туралы ақпарат",
+        "firstname": "Аты",
+        "lastname": "Фамилия",
+        "gender": "Жыныс",
+        "requesterInformation": "Сұраныс туралы ақпарат",
+        "expertInformation": "Мамандық ақпарат",
+        "consultationInformation": "Консультация ақпараты",
+        "startDateTime": "Басталу күні/уақыты",
+        "endDateTime": "Аяқталу күні/уақыты",
+        "duration": "Ұзақтығы",
+        "chatHistory": "Чат тарихы",
+        "audioCall": "Аудио қоңырау",
+        "attachedFile": "[Қосылған файл]",
+        "accepted": "қабылданды",
+        "missed": "жоғалту",
+        "call": "қоңырау шалу",
+        "finished": "аяқталды",
+        "doctorInformation": "Дәрігер туралы ақпарат",
+        "videoCall": "Бейне қоңырау",
+        "fileName": "консультация-есеп"
+    },
+    "roles": {
+        "admin": "Админ",
+        "doctor": "Дәрігер",
+        "nurse": "Өтініш беруші",
+        "patient": "Науқас",
+        "requester": "Өтініш беруші",
+        "scheduler": "Жоспарлаушы"
+    },
+    "metadata": {
+        "Age": "Жасы",
+        "Country": "Ел",
+        "Facility": "Нысан",
+        "Custom Id": "Жеке сәйкестендіру"
+    }
+}
