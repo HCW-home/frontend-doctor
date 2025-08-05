@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.38) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.39) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -39,7 +39,14 @@ hcw-athome-caregiver (0.5.38) UNRELEASED; urgency=medium
   [ Gor Grigoryan ]
   * translate role in pdf
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 23 Jul 2025 08:34:50 +0000
+  [ Eugene Paik ]
+  * Translated using Weblate (Kazakh)
+  * Translated using Weblate (Kazakh)
+
+  [ Gor Grigoryan ]
+  * add Kazakh (kk) language support
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 05 Aug 2025 08:17:29 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
