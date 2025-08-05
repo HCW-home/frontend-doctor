@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { intervalToDuration, formatDuration } from "date-fns";
-import { enUS, uk, fr, sv, es } from "date-fns/locale";
-import { TranslateService } from "@ngx-translate/core";
+import { enUS, uk, fr, sv, es, kk } from 'date-fns/locale';
 
 @Pipe({
   name: "duration"
@@ -12,13 +11,14 @@ export class DurationPipe implements PipeTransform {
     uk: uk,
     fr: fr,
     sv: sv,
-    es: es
+    es: es,
+    kk: kk,
   };
 
-  constructor(private translate: TranslateService) {}
+  constructor() {}
 
   transform(duration: number, expectedLocale?: string): string {
-    const currentLang = this.translate.currentLang || 'en';
+    const currentLang = localStorage.getItem('hhw-lang') || 'en';
     const locale =  this.localeMap[expectedLocale] || this.localeMap[currentLang] || enUS;
 
     if (!duration) return "";

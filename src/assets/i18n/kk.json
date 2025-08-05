@@ -30,6 +30,13 @@
         "requester": "Өтініш беруші",
         "scheduler": "Жоспарлаушы"
     },
+    "selectLanguage": {
+        "en": "English",
+        "fr": "Français",
+        "uk": "Українська",
+        "es": "Español",
+        "kk": "Қазақ"
+    },
     "metadata": {
         "Age": "Жасы",
         "Country": "Ел",

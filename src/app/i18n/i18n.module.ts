@@ -8,7 +8,7 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ConfigService } from '../core/config.service';
 
-export let supportedLanguages = ['en', 'fr', 'es', 'uk'];
+export let supportedLanguages = ['en', 'fr', 'es', 'kk', 'uk'];
 
 @NgModule({
   imports: [
@@ -29,18 +29,18 @@ export class I18nModule {
       next: (appConfig) => {
         if (appConfig) {
           const dynamicLanguages = appConfig.doctorLanguages?.length
-              ? appConfig.doctorLanguages
-              : supportedLanguages;
+            ? appConfig.doctorLanguages
+            : supportedLanguages;
 
           supportedLanguages = dynamicLanguages;
 
           translate.addLangs(dynamicLanguages);
 
           const userLang =
-              window.localStorage.getItem('hhw-lang') || translate.getBrowserLang();
+            window.localStorage.getItem('hhw-lang') || translate.getBrowserLang();
           const defaultLang = dynamicLanguages.includes(userLang)
-              ? userLang
-              : dynamicLanguages[0];
+            ? userLang
+            : dynamicLanguages[0];
 
           translate.use(defaultLang);
         }
