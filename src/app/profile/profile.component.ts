@@ -124,7 +124,10 @@ export class ProfileComponent implements OnInit {
 
   onChange(ob: MatSlideToggleChange) {
     this.isLoading = true;
-    this.userService.updateEnableNotif(ob.checked).subscribe(
+    const body = {
+      enableNotif: ob.checked
+    }
+    this.userService.updateEnableNotif(body).subscribe(
       res => {
         const text =
           this.translate.instant('profile.notifications') +
@@ -170,7 +173,7 @@ export class ProfileComponent implements OnInit {
         messageService: this.messageService,
         notifPhoneNumber: this.currentNotifPhoneNumber,
       };
-      this.userService.updateUser(this.currentUser.id, body).subscribe(
+      this.userService.updateEnableNotif(body).subscribe(
           res => {
             const text = this.translate.instant('profile.messageServiceSuccess');
             this.openSnackBar(text, null);

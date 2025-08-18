@@ -20,19 +20,13 @@ export class UserService {
   getUser(id): Observable<any> {
     return this.http.get<any>(`${environment.api}/user/${id}`);
   }
-  updatePhoneNumberNotif(phoneNumber): Observable<any> {
-    return this.http.post<any>(`${environment.api}/user/notif`, { notifPhoneNumber: phoneNumber });
-  }
-  updateEnableNotif(enableNotif): Observable<any> {
-    return this.http.post<any>(`${environment.api}/user/notif`, { enableNotif });
+
+  updateEnableNotif(body): Observable<any> {
+    return this.http.post<any>(`${environment.api}/user/notif`, body);
   }
 
   updateUserProfile(id, firstName: string, lastName: string, department: string, phoneNumber: string): Observable<any> {
     return this.http.patch<any>(`${environment.api}/user/${id}`, { firstName, lastName, department, phoneNumber });
-  }
-
-  updateUser(id, body): Observable<any> {
-    return this.http.put<any>(`${environment.api}/user/${id}`, body);
   }
 
   updateUserTerms(body) {
