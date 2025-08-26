@@ -88,6 +88,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.acceptAll = !!this.configService.config?.extraMimeTypes;
 
     this.getMessages();
+
+    if (this.showInput) {
+      this.readMessages();
+    }
+
     this.socketEventsService.onMessage().subscribe(msg => {
       if (
         msg.data.consultation !==
