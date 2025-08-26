@@ -60,7 +60,15 @@
         "IMADTeam": "IMADTeam",
         "joinVideoCall": "Rejoindre vidéo",
         "viewLess": "Voir moins",
-        "viewMore": "Voir plus"
+        "viewMore": "Voir plus",
+        "needAccess": "Nous avons besoin d'accéder à votre microphone pour poursuivre l'appel. Veuillez autoriser l'accès au microphone.",
+        "retryPermission": "Autorisation de réessayer",
+        "cancelCall": "Annuler l'appel",
+        "permissionRequired": "Autorisation du microphone requise",
+        "addNoteTitle": "Ajouter une note",
+        "addNotePlaceholder": "Tapez votre note...",
+        "cancelAddNote": "Annuler",
+        "saveNote": "Sauvegarder"
     },
     "consultations": {
         "filters": "Filtres",
@@ -86,7 +94,9 @@
         "inviteExpert": "Inviter un collègue",
         "share": "Partager l'invitation par email ou par SMS",
         "shareBy": "Inviter via un lien",
-        "exportButton": "Exporter"
+        "exportButton": "Exporter",
+        "guestTooltip": "Invité(e)",
+        "participant": "Participant(e)"
     },
     "consultation": {
         "expert_link": "Lien de l'expert",
@@ -211,7 +221,8 @@
         "selectTimezone": "Sélectionner le fuseau horaire",
         "chooseDate": "Choisissez une date",
         "sendLinkManually": "Je veux envoyer le lien manuellement",
-        "uk": "Ukrainien"
+        "uk": "Ukrainien",
+        "linkSent": "Invitation envoyée"
     },
     "overlay": {
         "close": "Clôturer",
@@ -272,7 +283,29 @@
         "cancelRevoke": "Ne pas supprimer",
         "revokeConfirmTitle": "Supprimer une invitation",
         "status": "Etat",
-        "immediately": "Immédiatement"
+        "immediately": "Immédiatement",
+        "pending": "En attente",
+        "sending": "Envoi",
+        "communicationMethod": "Méthode de communication",
+        "received": "Reçu",
+        "read": "Lu",
+        "edit": "Modifier",
+        "guestTooltip": "Invité(e)",
+        "sms": "SMS",
+        "whatsapp": "WhatsApp",
+        "email": "Email",
+        "manual": "Manuel",
+        "delivered": "Livré",
+        "undelivered": "Non livré",
+        "receiving": "Réception",
+        "scheduled": "Programmé",
+        "scheduledForInvite": "Programmé pour invitation",
+        "expertTooltip": "Expert(e)",
+        "participant": "Participant(e)",
+        "queued": "En file d'attente",
+        "failed": "Échoué",
+        "acknowledged": "Reconnu(e)",
+        "partiallyDelivered": "Partiellement livré"
     },
     "sideChat": {
         "startTheConsultation": "Démarrer la consultation"
@@ -294,12 +327,12 @@
         "theFirstnameIs": "Le prénom est",
         "required": "requis",
         "lastname": "Nom de famille",
-        "enterPatientLastname": "Enter patient last name",
+        "enterPatientLastname": "Entrez le nom de famille du patient",
         "theLastnameIs": "Le nom de famille est",
         "department": "Départements",
-        "enterDepartmentName": "Enter Department Name",
+        "enterDepartmentName": "Entrez le nom du département",
         "mobilePhoneNumber": "Numéro de mobile",
-        "enterMobileNumber": "Enter Mobile Number",
+        "enterMobileNumber": "Entrez le numéro de téléphone portable",
         "pleaseFillUpThePhoneNumberWithFormat": "Veuillez saisir le numéro de téléphone au format +41XX...",
         "pleaseOnlyFillUpAnEmailOrAnMobilePhoneNumber": "Veuillez renseigner uniquement un des deux champs Email ou Numéro de mobile",
         "cancel": "Annuler",
@@ -369,7 +402,7 @@
     },
     "confirmationDialog": {
         "yesText": "Confirm",
-        "noText": "Cancel",
+        "noText": "Annuler",
         "confirmationTitle": "Confirmation !"
     },
     "filter": {
@@ -445,5 +478,42 @@
         "startTourDismissBtnTitle": "Passer la visite",
         "startTourSubmitBtnTitle": "Suivant",
         "endTourTitle": "Page de profil"
+    },
+    "error": {
+        "defaultMessage": "Une erreur inattendue s'est produite. Veuillez réessayer ultérieurement.",
+        "blockedMessage": "Votre demande a été bloquée par une politique de sécurité. Veuillez contacter le support si le problème persiste.",
+        "defaultTitle": "Erreur",
+        "networkMessage": "Une erreur réseau s'est produite. Veuillez vérifier votre connexion et réessayer.",
+        "blockedTitle": "Demande bloquée"
+    },
+    "pdf": {
+        "consultationReport": "Rapport de consultation",
+        "patientInformation": "Informations sur le patient",
+        "firstname": "Prénom",
+        "startDateTime": "Date/heure de début",
+        "missed": "manqué(e)",
+        "call": "appel",
+        "finished": "fini(e)",
+        "lastname": "Nom de famille",
+        "requesterInformation": "Informations sur le demandeur",
+        "expertInformation": "Informations d'experts",
+        "gender": "Genre",
+        "consultationInformation": "Informations sur la consultation",
+        "duration": "Durée",
+        "endDateTime": "Date/heure de fin",
+        "chatHistory": "Historique des discussions",
+        "attachedFile": "[Fichier joint]",
+        "audioCall": "Appel audio",
+        "videoCall": "Appel vidéo",
+        "accepted": "accepté",
+        "doctorInformation": "Informations sur le médecin"
+    },
+    "roles": {
+        "admin": "Admin",
+        "doctor": "Médecin",
+        "patient": "Patient(e)",
+        "nurse": "Demandeur",
+        "requester": "Demandeur",
+        "scheduler": "Planificateur/-trice"
     }
 }
