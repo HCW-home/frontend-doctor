@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.40) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.41) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -47,7 +47,14 @@ hcw-athome-caregiver (0.5.40) UNRELEASED; urgency=medium
   * add Kazakh (kk) language support
   * fix saving notification settings
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 18 Aug 2025 12:23:51 +0000
+  [ Eugene Paik ]
+  * Translated using Weblate (French)
+
+  [ Gor Grigoryan ]
+  * read chat messages when open consultation room
+  * update jspdf and remove wait-on devDependencies
+
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 29 Aug 2025 14:44:18 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
