@@ -34,7 +34,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "google-libphonenumber": "^3.2.40",
     "hcw-stream-lib": "0.0.16",
-    "jspdf": "^3.0.1",
+    "jspdf": "^3.0.2",
     "moment-timezone": "^0.5.48",
     "ngx-markdown": "17.2.1",
     "ngx-ui-tour-md-menu": "12",
@@ -77,7 +77,6 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "ts-node": "~7.0.0",
-    "typescript": "5.4.5",
-    "wait-on": "^5.2.0"
+    "typescript": "5.4.5"
   }
 }
