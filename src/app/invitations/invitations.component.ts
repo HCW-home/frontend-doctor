@@ -16,10 +16,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { ConfigService } from 'src/app/core/config.service';
 import { Direction, EventName, TourType } from 'src/app/models/tour';
-import {
-  MessageServiceConfig,
-  InvitationStatusConfig,
-} from '../contstants/invitations';
+import { InvitationStatusConfig, MessageServiceConfig } from '../contstants/invitations';
+import { TourState } from 'ngx-ui-tour-core';
 
 @Component({
   selector: 'app-invitations',
@@ -117,7 +115,9 @@ export class InvitationsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-    this.router.navigate(['/invitations']);
+      if (this.tourService.getStatus() === TourState.OFF) {
+        this.router.navigate(['/invitations']);
+      }
       if (result) {
         this.getInvites(this.page);
       }
