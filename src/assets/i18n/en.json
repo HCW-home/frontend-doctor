@@ -501,6 +501,7 @@
     "timeInMinutes": "After (Minutes)",
     "maxDelay": "Delay can't be longer than 60 minutes",
     "send": "Send",
+    "goToConsultation": "Skip and go to consultation",
     "alreadyStarted": "Already started",
     "invalidUrl": "Invalid URL",
     "tokenExpired": "Token expired"
@@ -588,7 +589,8 @@
   "confirmationDialog": {
     "yesText": "Confirm",
     "noText": "Cancel",
-    "confirmationTitle": "Confirmation!"
+    "confirmationTitle": "Confirmation!",
+    "acceptAndStartConsultation": "Accept and start consultation ?"
   },
   "sendInviteLink": {
     "title": "Invite by link",

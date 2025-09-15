@@ -10,6 +10,7 @@ import { SocketEventsService } from '../core/socket-events.service';
 import { ConfirmationService } from '../core/confirmation.service';
 import { InviteService } from '../core/invite.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-consultation',
@@ -168,8 +169,42 @@ export class ConsultationComponent implements OnInit, OnDestroy {
           }
 
           this.consultation = consultation;
+
+          if (consultation?.consultation?.status === 'pending') {
+            this.showStartConsultationDialog();
+          }
         })
     );
+  }
+
+  showStartConsultationDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      id: 'start_consultation_dialog',
+      data: {
+        question: this.translate.instant('confirmationDialog.acceptAndStartConsultation'),
+        yesText: this.translate.instant('confirmationDialog.yesText'),
+        noText: this.translate.instant('confirmationDialog.noText'),
+        title: this.translate.instant('confirmationDialog.confirmationTitle')
+      },
+      autoFocus: false,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.acceptConsultation();
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
+    });
+  }
+
+  acceptConsultation() {
+    this.conServ.acceptConsultation(this.consultationId).subscribe(res => {
+      this.getConsultation();
+    }, error => {
+      console.error('Error accepting consultation:', error);
+    });
   }
 
   makeCall(audioOnly) {

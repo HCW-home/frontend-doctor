@@ -4,6 +4,8 @@ import { Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms
 import { PlanConsultationService } from '../core/plan-consultation.service';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-plan-consultation',
@@ -23,7 +25,9 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
     private formBuilder: UntypedFormBuilder,
     public configService: ConfigService,
     private planConsultationService: PlanConsultationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
 
@@ -40,40 +44,107 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
     // get consultation
     this.subscriptions.push(
       this.planConsultationService.getConsultationFromToken(this.token)
-      // .pipe(catchError(this.handleError))
-      .subscribe(consultation => {
-      this.consultation = consultation;
-      this.loading = false;
-      if(consultation.status !== 'pending') {
-        this.error = this.translate.instant('planConsultation.alreadyStarted')
-      }
-      }, err=>{
-        this.loading = false;
-        this.success = false;
-        this.error = this.translate.instant(`planConsultation.invalidUrl`)
-      })
+        // .pipe(catchError(this.handleError))
+        .subscribe(consultation => {
+          this.consultation = consultation;
+          this.loading = false;
+          if(consultation.status !== 'pending') {
+            this.error = this.translate.instant('planConsultation.alreadyStarted')
+          }
+        }, err=>{
+          this.loading = false;
+          this.success = false;
+          this.error = this.translate.instant(`planConsultation.invalidUrl`)
+        })
     );
     //
   }
 
   handleSubmit() {
+    if (!this.consultation || !this.consultation.id) {
+      return;
+    }
+
+    const consultationUrl = `/consultation/${this.consultation.id}`;
+    const delay = this.planConsultationForm.get("delay").value;
 
     this.loading = true;
 
-    // accept consultation and send chat message
     this.subscriptions.push(
+      this.planConsultationService.planConsultation(this.token, this.consultation.id, delay)
+        .subscribe(res => {
+          this.success = true;
+          this.loading = false;
 
-      this.planConsultationService.planConsultation(this.token, this.consultation.id, this.planConsultationForm.get("delay").value)
-
-      .subscribe(res => {
-        this.success = true;
-        this.loading = false;
-      },err=>{
-        this.loading = false;
-        this.success = false;
-        this.error = this.translate.instant(`planConsultation.${err}`)
-      })
+          this.subscriptions.push(
+            this.authService.getCurrentUser().subscribe(
+              user => {
+                if (user) {
+                  this.router.navigate([consultationUrl], {
+                    state: {
+                      confirmed: true,
+                      shouldStartConsultation: true
+                    }
+                  });
+                } else {
+                  this.router.navigate(['/login'], {
+                    queryParams: {
+                      redirectUrl: consultationUrl
+                    }
+                  });
+                }
+              },
+              error => {
+                this.router.navigate(['/login'], {
+                  queryParams: {
+                    redirectUrl: consultationUrl
+                  }
+                });
+              }
+            )
+          );
+        }, err => {
+          this.loading = false;
+          this.success = false;
+          this.error = this.translate.instant(`planConsultation.${err}`)
+        })
     )
+  }
+
+  goToConsultation() {
+    if (!this.consultation || !this.consultation.id) {
+      return;
+    }
+
+    const consultationUrl = `/consultation/${this.consultation.id}`;
+
+    this.subscriptions.push(
+      this.authService.getCurrentUser().subscribe(
+        user => {
+          if (user) {
+            this.router.navigate([consultationUrl], {
+              state: {
+                confirmed: true,
+                shouldStartConsultation: true
+              }
+            });
+          } else {
+            this.router.navigate(['/login'], {
+              queryParams: {
+                redirectUrl: consultationUrl
+              }
+            });
+          }
+        },
+        error => {
+          this.router.navigate(['/login'], {
+            queryParams: {
+              redirectUrl: consultationUrl
+            }
+          });
+        }
+      )
+    );
   }
 
 

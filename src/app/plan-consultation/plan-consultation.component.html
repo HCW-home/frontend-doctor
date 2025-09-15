@@ -60,6 +60,17 @@
                             >
                                 {{ "planConsultation.send" | translate }}
                             </button>
+
+                            <button
+                                    type="button"
+                                    mat-button
+                                    *ngIf="consultation && !error && !loading"
+                                    color="primary"
+                                    class="w-100 mt-12"
+                                    (click)="goToConsultation()"
+                            >
+                                {{ "planConsultation.goToConsultation" | translate }}
+                            </button>
                         </section>
                     </form>
 

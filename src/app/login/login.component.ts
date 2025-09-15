@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   email: string;
   password: string;
   samlLoginUrl = `${environment.api}/login-saml`;
-  openIdLoginUrl = `${environment.api}/login-openid?role=doctor`;
+  openIdLoginUrl: string;
   localLoginToken;
   smsLoginToken;
   smsVerificationCode;
@@ -71,8 +71,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
-    // If the user is already logged in, redirect him
+    const redirectUrl = this.route.snapshot.queryParams.redirectUrl;
+    this.returnUrl = redirectUrl || this.route.snapshot.queryParams.returnUrl || '/dashboard';
+
+    this.openIdLoginUrl = `${environment.api}/login-openid?role=doctor`;
+    if (redirectUrl) {
+      this.openIdLoginUrl += `&redirectUrl=${encodeURIComponent(redirectUrl)}`;
+    }
+
     if (this.authService.currentUserValue) {
       this.router.navigateByUrl(this.returnUrl);
     }
@@ -97,10 +103,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     const token =
       this.route.snapshot.queryParams.token ||
       this.route.snapshot.queryParams.tk;
-    // If we have a token in the URL, the user has been redirected after the SAML login
     if (token) {
-      this.returnUrl =
-        this.route.snapshot.queryParams.returnUrl || '/dashboard';
+      const redirectUrl = this.route.snapshot.queryParams.redirectUrl;
+      this.returnUrl = redirectUrl || this.route.snapshot.queryParams.returnUrl || '/dashboard';
 
       this.subscriptions.push(
         this.authService
