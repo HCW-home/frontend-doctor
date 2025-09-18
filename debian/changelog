@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.42) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.43) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -55,8 +55,9 @@ hcw-athome-caregiver (0.5.42) UNRELEASED; urgency=medium
   * update jspdf and remove wait-on devDependencies
   * fix tour finishing issue
   * add skipping planning consultation and navigation after login
+  * update socket.io-client
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 15 Sep 2025 16:09:10 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 18 Sep 2025 14:42:27 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
