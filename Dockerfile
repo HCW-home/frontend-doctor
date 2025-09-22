@@ -1,5 +1,5 @@
 FROM node:20-alpine AS builder
-ENV VERSION=0.5.34
+ENV VERSION=5.3.29
 WORKDIR /usr/src/app
 COPY package*.json ./
 COPY yarn.lock ./
