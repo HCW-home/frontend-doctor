@@ -5,6 +5,7 @@ COPY package*.json ./
 COPY yarn.lock ./
 RUN npx yarn install
 COPY . .
+RUN apk add --no-cache make
 RUN make
 
 FROM docker.io/nginxinc/nginx-unprivileged:1.28-bookworm
