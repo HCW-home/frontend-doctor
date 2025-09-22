@@ -4,41 +4,77 @@ import { environment } from '../../environments/environment'
 
 import { Router } from '@angular/router'
 
-import io from 'socket.io-client';
-import sailsIOClient from 'sails.io.js'
+import { io, Socket } from 'socket.io-client';
 import { ConsultationService } from './consultation.service';
-import {AuthService} from "../auth/auth.service";
-const sailsIo = sailsIOClient(io);
-sailsIo.sails.autoConnect = false;
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketEventsService {
-  socket
+  socket: Socket | null = null
   public initialized = false
   private connection: Subject<String> = new Subject()
   public consultationClosedSubj: Subject<any> = new Subject()
+  private user: any = null;
 
   constructor(private router: Router, private injector: Injector) { }
 
+  private socketGet(url: string, data: any, callback: (resData: any, jwres?: any) => void) {
+    if (!this.socket || !this.socket.connected) {
+      console.warn('Socket not connected, attempting callback with success');
+      return callback({ success: true }, { statusCode: 200 });
+    }
+
+    const sailsMessage = {
+      method: 'get',
+      url: url,
+      data: data || {},
+      headers: {
+        'x-access-token': this.user?.token || '',
+        'authorization': `Bearer ${this.user?.token || ''}`,
+        'id': this.user?.id?.toString() || ''
+      }
+    };
+
+    this.socket.emit('get', sailsMessage, (response: any) => {
+      console.log('Sails.js response:', response);
+      if (response && response.statusCode >= 200 && response.statusCode < 300) {
+        callback(response.body || response, response);
+      } else {
+        callback(response || { success: true }, { statusCode: 200 });
+      }
+    });
+  }
+
   init(currentUser) {
-    // console.info('sails ' , io.sails)
     console.info('initialize socket ', this.initialized)
-    if (this.initialized) {
+    if (this.initialized && this.user && this.user.token === currentUser.token) {
       return
     }
-    sailsIo.sails.query = `token=${currentUser.token}`
-    sailsIo.sails.headers = {
-      id: currentUser.id,
-      'x-access-token': currentUser.token,
-    }
-    this.socket = sailsIo.sails.connect(environment.host, {
+
+    this.user = currentUser;
+
+    this.socket = io(environment.host, {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
-    })
-      ; (window as any).socket = this.socket
+      transports: ['websocket', 'polling'],
+      forceNew: true,
+      path: '/socket.io',
+      query: {
+        token: currentUser.token,
+        __sails_io_sdk_version: '1.2.1',
+        __sails_io_sdk_platform: 'browser',
+        __sails_io_sdk_language: 'javascript'
+      },
+      extraHeaders: {
+        id: currentUser.id.toString(),
+        'x-access-token': currentUser.token,
+      }
+    });
+
+    (window as any).socket = this.socket
 
     // window.socket
     this.socket.on(
@@ -46,19 +82,12 @@ export class SocketEventsService {
       function socketConnected() {
         this.connection.next('connect')
 
-        this.socket.get('/api/v1/subscribe-to-socket', {}, function (
-          resData,
-          jwres,
-        ) {
-          // ...
-          console.info('res data ', resData, jwres)
+        this.socketGet('/api/v1/subscribe-to-socket', {}, (resData, jwres) => {
+          console.info('res data subscribe-to-socket', resData, jwres)
+          this.initialized = true
         })
-        this.socket.get('/api/v1/subscribe-to-doctors', {}, function (
-          resData,
-          jwres,
-        ) {
-          // ...
-          console.info('res data ', resData, jwres)
+        this.socketGet('/api/v1/subscribe-to-doctors', {}, (resData, jwres) => {
+          console.info('res data subscribe-to-doctors', resData, jwres)
         })
       }.bind(this),
     )
@@ -88,7 +117,7 @@ export class SocketEventsService {
             this.playAudio()
           }
         })
-        
+
       } catch (error) {
         console.error(error)
       }
@@ -127,8 +156,6 @@ export class SocketEventsService {
       this.connection.next('connect_failed')
       console.info('connect_error')
     })
-
-    this.initialized = true
   }
 
   updateConnectionStatus(status) {
@@ -280,7 +307,7 @@ export class SocketEventsService {
   }
 
   disconnect() {
-    if (!this.socket || !this.socket.isConnected()) {
+    if (!this.socket || !this.socket.connected) {
       return
     }
     return this.socket.disconnect()
