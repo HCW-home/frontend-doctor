@@ -1,4 +1,4 @@
-FROM node:18 AS builder
+FROM node:20-alpine AS builder
 ENV VERSION=0.5.34
 WORKDIR /usr/src/app
 COPY package*.json ./
