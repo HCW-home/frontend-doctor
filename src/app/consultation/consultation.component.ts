@@ -11,6 +11,8 @@ import { ConfirmationService } from '../core/confirmation.service';
 import { InviteService } from '../core/invite.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { CallService } from '../core/call.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-consultation',
@@ -38,6 +40,8 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   audioDevices = [];
 
   currentCall;
+  otherDoctorInCall = false;
+  currentUser;
 
   subscriptions: Subscription[] = [];
 
@@ -53,7 +57,9 @@ export class ConsultationComponent implements OnInit, OnDestroy {
     private confirmationServ: ConfirmationService,
     private openViduService: OpenViduService,
     private translate: TranslateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private callService: CallService,
+    private authService: AuthService
   ) {
     this.callEvent = {};
     if (
@@ -65,8 +71,10 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.currentUserValue;
     this.consultationId = this.activeRoute.snapshot.params.id;
     this.getConsultation();
+    this.checkForActiveCall();
     this.callEvent.id = this.callEvent._id = this.consultationId;
     if (this.callEvent.token) {
       this.incomingCall = true;
@@ -78,6 +86,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
           this.currentCall = null;
           this.token = null;
           this.incomingCall = null;
+          this.otherDoctorInCall = false;
         }
       })
     );
@@ -151,6 +160,110 @@ export class ConsultationComponent implements OnInit, OnDestroy {
       });
   }
 
+  checkForActiveCall() {
+    this.callService.getCurrentCall(this.consultationId).subscribe(
+      call => {
+        if (call && call.status === 'ongoing') {
+          this.currentCall = call;
+          if (
+            call.from !== this.currentUser.id &&
+            !call.currentParticipants?.find(p => p.id === this.currentUser.id)
+          ) {
+            this.otherDoctorInCall = true;
+          }
+        }
+      },
+      err => {}
+    );
+
+    this.subscriptions.push(
+      this._socketEventsService.onMessage().subscribe(msg => {
+        if (
+          msg.data &&
+          msg.data.consultation === this.consultationId &&
+          (msg.data.type === 'videoCall' || msg.data.type === 'audioCall')
+        ) {
+          if (
+            msg.data.status === 'ongoing' &&
+            msg.data.from !== this.currentUser.id
+          ) {
+            this.otherDoctorInCall = true;
+            this.currentCall = msg.data;
+          } else if (msg.data.status === 'ended') {
+            this.otherDoctorInCall = false;
+            if (!this.incomingCall) {
+              this.currentCall = null;
+            }
+          }
+        }
+      })
+    );
+
+    this.subscriptions.push(
+      this._socketEventsService.onCall().subscribe(e => {
+        if (
+          e.data &&
+          e.data.consultation === this.consultationId &&
+          e.data.from !== this.currentUser.id
+        ) {
+          if (!this.incomingCall && !this.currentCall) {
+            this.otherDoctorInCall = true;
+            this.currentCall = e.data.message || e.data;
+          }
+        }
+      })
+    );
+
+    this.subscriptions.push(
+      this._socketEventsService.onAcceptCall().subscribe(e => {
+        if (
+          e.data &&
+          e.data.consultation &&
+          e.data.consultation.id === this.consultationId &&
+          e.data.message &&
+          e.data.message.from !== this.currentUser.id
+        ) {
+          this.otherDoctorInCall = true;
+          this.currentCall = e.data.message;
+        }
+      })
+    );
+
+    this.subscriptions.push(
+      this._socketEventsService.onRejectCall().subscribe(e => {
+        if (
+          e.data &&
+          e.data.consultation &&
+          e.data.consultation.id === this.consultationId
+        ) {
+          this.otherDoctorInCall = false;
+          if (!this.incomingCall) {
+            this.currentCall = null;
+          }
+        }
+      })
+    );
+
+    this.subscriptions.push(
+      this._socketEventsService.onOwnershipTransferred().subscribe(event => {
+        if (
+          event.data &&
+          event.data.consultation &&
+          event.data.consultation.id === this.consultationId
+        ) {
+          if (this.consultation) {
+            this.consultation.consultation.acceptedBy = event.data.newOwner.id;
+            this.consultation.acceptedByUser = {
+              firstName: event.data.newOwner.firstName,
+              lastName: event.data.newOwner.lastName
+            };
+            this.consultation.doctor = event.data.newOwner;
+          }
+        }
+      })
+    );
+  }
+
   getConsultation() {
     this.subscriptions.push(
       this.conServ
@@ -158,13 +271,12 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         .subscribe(consultation => {
           if (!this.consultation) {
             this.subscriptions.push(
-              this.inviteServ
-                .getByConsultation(this.consultationId)
-                .subscribe({
-                  next: (publicInvite) => {
-                    this.publicinvite = publicInvite
-                  }, error: (err) => {}
-                })
+              this.inviteServ.getByConsultation(this.consultationId).subscribe({
+                next: publicInvite => {
+                  this.publicinvite = publicInvite;
+                },
+                error: err => {},
+              })
             );
           }
 
@@ -181,13 +293,15 @@ export class ConsultationComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       id: 'start_consultation_dialog',
       data: {
-        question: this.translate.instant('confirmationDialog.acceptAndStartConsultation'),
+        question: this.translate.instant(
+          'confirmationDialog.acceptAndStartConsultation'
+        ),
         yesText: this.translate.instant('confirmationDialog.yesText'),
         noText: this.translate.instant('confirmationDialog.noText'),
-        title: this.translate.instant('confirmationDialog.confirmationTitle')
+        title: this.translate.instant('confirmationDialog.confirmationTitle'),
       },
       autoFocus: false,
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
@@ -200,11 +314,14 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   }
 
   acceptConsultation() {
-    this.conServ.acceptConsultation(this.consultationId).subscribe(res => {
-      this.getConsultation();
-    }, error => {
-      console.error('Error accepting consultation:', error);
-    });
+    this.conServ.acceptConsultation(this.consultationId).subscribe(
+      res => {
+        this.getConsultation();
+      },
+      error => {
+        console.error('Error accepting consultation:', error);
+      }
+    );
   }
 
   makeCall(audioOnly) {

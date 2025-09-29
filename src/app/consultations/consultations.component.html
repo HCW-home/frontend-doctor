@@ -102,6 +102,17 @@
                 : '-'
             }}
           </td>
+          <td *ngIf="status !== 'pending'" class="hidden-mobile">
+            <span class="tile-header">
+              {{ 'consultations.handledBy' | translate }}
+            </span>
+            @if (consultation.acceptedByUser) {
+              {{ consultation.acceptedByUser.firstName }}
+              {{ consultation.acceptedByUser.lastName }}
+            } @else {
+              -
+            }
+          </td>
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
             <span class="tile-header">
               {{ 'consultations.message' | translate }}
@@ -142,6 +153,17 @@
               consultation.consultation.createdAt -
                 consultation.consultation.closedAt | duration
             }}
+          </td>
+          <td *ngIf="status === 'closed'" class="hidden-mobile">
+            <span class="tile-header">
+              {{ 'consultations.closedBy' | translate }}
+            </span>
+            @if (consultation.closedByUser) {
+              {{ consultation.closedByUser.firstName }}
+              {{ consultation.closedByUser.lastName }}
+            } @else {
+              -
+            }
           </td>
           <ng-container *ngIf="configService.config?.metadata?.length">
             <td

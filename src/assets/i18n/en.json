@@ -78,7 +78,14 @@
     "addNoteTitle": "Add Note",
     "addNotePlaceholder": "Type your note...",
     "cancelAddNote": "Cancel",
-    "saveNote": "Save"
+    "saveNote": "Save",
+    "takeOwnership": "Take Ownership",
+    "transferOwnershipTitle": "Transfer Ownership",
+    "transferOwnershipQuestion": "Are you sure you want to take ownership of this consultation?",
+    "transferOwnershipConfirm": "Yes, take ownership",
+    "transferOwnershipCancel": "Cancel",
+    "transferOwnershipSuccess": "Ownership transferred successfully",
+    "transferOwnershipError": "Failed to transfer ownership"
   },
   "consultations": {
     "noPatientName": "Undefined",
@@ -106,11 +113,14 @@
     "shareBy": "Share invite by link",
     "requestedBy": "Requested by",
     "filters": "Filters",
-    "exportButton": "Export"
+    "exportButton": "Export",
+    "handledBy": "Handled by",
+    "closedBy": "Closed by"
   },
   "consultation": {
     "start": "START",
     "aCall": "A CALL",
+    "anotherDoctorInCall": "Another doctor is currently in a call",
     "joinVideoCall": "Join video",
     "videoCall": "Video call",
     "audioCall": "Audio call",
@@ -412,6 +422,7 @@
   "overlay": {
     "close": "Close",
     "resume": "Resume",
+    "takeOwnership": "Take Ownership",
     "terminate": "TERMINATE",
     "theConsultation": "THE CONSULTATION",
     "theConsultationWillBeDisplayedIntoHistoryDuring24Hours": "The consultation will be displayed into history during 24 hours and you will not be able to communication anymore",
@@ -650,6 +661,8 @@
     "startDateTime": "Start date/time",
     "endDateTime": "End date/time",
     "duration": "Duration",
+    "queue": "Queue",
+    "closedBy": "Closed by",
     "chatHistory": "Chat history",
     "attachedFile": "[Attached file]",
     "audioCall": "Audio call",

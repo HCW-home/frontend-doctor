@@ -9,8 +9,7 @@
   [showFinishOption]="true"
   [redirect]="redirect"
   [showCloseOverlay]="true"
-  [consultation]="consultation">
-</app-overlay>
+  [consultation]="consultation"></app-overlay>
 
 <div class="con-wrap">
   <div
@@ -35,7 +34,8 @@
 
     <mat-icon svgIcon="phone" class="phone-icon"></mat-icon>
     <h3 class="title">
-      {{ 'consultation.start' | translate }} <br />
+      {{ 'consultation.start' | translate }}
+      <br />
       <strong>{{ 'consultation.aCall' | translate }}</strong>
     </h3>
 
@@ -48,9 +48,11 @@
           *ngIf="
             videoDevices.length > 0 &&
             currentCall &&
-            currentCall.type === 'videoCall'
+            currentCall.type === 'videoCall' &&
+            !otherDoctorInCall
           ">
-          <mat-icon svgIcon="camera"></mat-icon>&nbsp;&nbsp;
+          <mat-icon svgIcon="camera"></mat-icon>
+          &nbsp;&nbsp;
           {{ 'consultation.joinVideoCall' | translate }}
         </button>
 
@@ -58,8 +60,9 @@
           (click)="makeCall(false)"
           mat-raised-button
           color="primary"
-          *ngIf="videoDevices.length > 0 && !currentCall">
-          <mat-icon svgIcon="camera"></mat-icon>&nbsp;&nbsp;
+          *ngIf="videoDevices.length > 0 && !currentCall && !otherDoctorInCall">
+          <mat-icon svgIcon="camera"></mat-icon>
+          &nbsp;&nbsp;
           {{ 'consultation.videoCall' | translate }}
         </button>
 
@@ -67,22 +70,32 @@
           (click)="makeCall(true)"
           mat-raised-button
           color="primary"
-          *ngIf="!currentCall">
-          <mat-icon svgIcon="mic"></mat-icon> &nbsp;&nbsp;
+          *ngIf="!currentCall && !otherDoctorInCall">
+          <mat-icon svgIcon="mic"></mat-icon>
+          &nbsp;&nbsp;
           {{ 'consultation.audioCall' | translate }}
         </button>
+
+        <div
+          *ngIf="otherDoctorInCall"
+          class="other-doctor-in-call">
+          <mat-icon>phone_in_talk</mat-icon>
+          <span>{{ 'consultation.anotherDoctorInCall' | translate }}</span>
+        </div>
 
         <button
           (click)="makeCall(true)"
           mat-raised-button
           color="primary"
-          *ngIf="currentCall && currentCall.type === 'audioCall'">
-          <mat-icon svgIcon="mic"></mat-icon> &nbsp;&nbsp;
+          *ngIf="currentCall && currentCall.type === 'audioCall' && !otherDoctorInCall">
+          <mat-icon svgIcon="mic"></mat-icon>
+          &nbsp;&nbsp;
           {{ 'consultation.joinAudioCall' | translate }}
         </button>
 
         <button (click)="openConfiguration()" mat-raised-button color="primary">
-          <mat-icon svgIcon="info"></mat-icon> &nbsp;&nbsp;
+          <mat-icon svgIcon="info"></mat-icon>
+          &nbsp;&nbsp;
           {{ 'consultation.configuration' | translate }}
         </button>
       </div>
@@ -94,8 +107,7 @@
       *ngIf="consultation"
       [showInput]="consultation.consultation.status === 'active'"
       [consultation]="consultation"
-      [publicinvite]="publicinvite">
-    </app-chat>
+      [publicinvite]="publicinvite"></app-chat>
   </div>
 
   <div id="configuration" *ngIf="showConfiguration">

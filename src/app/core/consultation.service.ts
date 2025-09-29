@@ -75,18 +75,45 @@ export class ConsultationService {
       this.consultationsOverviewSub.next(this.consultationsOverview);
     });
 
+    this.socketEventsService.onOwnershipTransferred().subscribe(event => {
+      const consultation = this.consultationsOverview.find(
+        c => c._id === event.data.consultation.id
+      );
+      if (consultation) {
+        consultation.consultation.acceptedBy = event.data.newOwner.id;
+        consultation.acceptedByUser = {
+          firstName: event.data.newOwner.firstName,
+          lastName: event.data.newOwner.lastName
+        };
+        consultation.doctor = event.data.newOwner;
+        this.consultationsOverviewSub.next(this.consultationsOverview);
+      }
+    });
+
     this.socketEventsService.onConsultationAccepted().subscribe(event => {
       const consultation = this.consultationsOverview.find(
         c => c._id === event.data._id
       );
 
-      if (this.currentUser.id === event.data.consultation.acceptedBy) {
-        if (consultation && consultation.consultation.status === 'pending') {
-          consultation.consultation.status = 'active';
-        } else {
-          return;
-        }
-      } else {
+      if (!consultation) {
+        return;
+      }
+
+      consultation.consultation.status = 'active';
+      consultation.consultation.acceptedBy = event.data.consultation.acceptedBy;
+      consultation.consultation.acceptedAt = event.data.consultation.acceptedAt;
+
+      if (event.data.doctor) {
+        consultation.doctor = event.data.doctor;
+        consultation.acceptedByUser = {
+          firstName: event.data.doctor.firstName,
+          lastName: event.data.doctor.lastName
+        };
+      }
+
+      const isSharedQueue = consultation.queue && consultation.queue.shareWhenOpened;
+
+      if (!isSharedQueue && this.currentUser.id !== event.data.consultation.acceptedBy) {
         this.consultationsOverview = this.consultationsOverview.filter(
           c => c._id !== event.data._id
         );
@@ -165,6 +192,25 @@ export class ConsultationService {
           }
           this.consultationsOverviewSub.next(this.consultationsOverview);
           this.updateUnreadCount();
+        })
+      );
+  }
+
+  transferOwnership(id): Observable<any> {
+    return this.http
+      .post<any[]>(environment.api + `/consultation/${id}/transfer-ownership`, null)
+      .pipe(
+        tap(res => {
+          const c = this.consultationsOverview.find(c => c._id === id);
+          if (c && res.consultation) {
+            c.consultation.acceptedBy = res.consultation.acceptedBy;
+            c.doctor = this.currentUser;
+            c.acceptedByUser = {
+              firstName: this.currentUser.firstName,
+              lastName: this.currentUser.lastName
+            };
+          }
+          this.consultationsOverviewSub.next(this.consultationsOverview);
         })
       );
   }

@@ -6,6 +6,7 @@ export class User {
   lastName: string;
   token?: string;
   phoneNumber: string;
-  refreshToken: string
-  doctorTermsVersion: string
+  refreshToken: string;
+  doctorTermsVersion: string;
+  preferredLanguage: string;
 }

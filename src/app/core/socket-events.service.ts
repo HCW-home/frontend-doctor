@@ -192,6 +192,18 @@ export class SocketEventsService {
     return sub
   }
 
+  onOwnershipTransferred(): Subject<any> {
+    const sub = new Subject()
+    const obs = Observable.create((observer) => {
+      this.socket.on('ownershipTransferred', (e) => {
+        console.info('ownership transferred', e)
+        observer.next(e)
+      })
+    })
+    obs.subscribe(sub)
+    return sub
+  }
+
   onMessage(): Subject<any> {
     const sub = new Subject()
     const obs = Observable.create((observer) => {

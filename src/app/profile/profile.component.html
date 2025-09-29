@@ -27,7 +27,7 @@
           <dd>{{ currentUser.authPhoneNumber }}</dd>
         </ng-container>
         <dt></dt>
-        <dd><app-language-selector></app-language-selector></dd>
+        <dd><app-language-selector (selectedLanguageChange)="onLanguageChange($event)"></app-language-selector></dd>
       </dl>
     </div>
   </mat-card>

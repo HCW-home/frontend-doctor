@@ -80,9 +80,12 @@ div.chat {
 }
 
 .general-info {
+  gap: 12px;
   z-index: 9;
+  display: flex;
   padding: 20px 30px;
   position: relative;
+  flex-direction: column;
   background-color: var(--app-white);
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
@@ -90,7 +93,7 @@ div.chat {
 
   .general-title {
     margin-top: 0;
-    padding: 16px 0;
+    margin-bottom: 0px;
 
     @media (max-width: 600px) {
       margin: 0;

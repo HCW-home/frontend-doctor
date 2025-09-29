@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { jsPDF } from 'jspdf';
 import { TranslateService } from '@ngx-translate/core';
@@ -96,7 +96,8 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     private inviteService: InviteService,
     private activatedRoute: ActivatedRoute,
     private breakpointObserver: BreakpointObserver,
-    private consultationService: ConsultationService
+    private consultationService: ConsultationService,
+    private router: Router
   ) {
     this.titles = [
       {
@@ -343,7 +344,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
   exportPDF(event, consultation) {
     event.stopPropagation();
-    this.generatePDF(consultation.consultation, consultation.nurse, consultation.doctor);
+    this.generatePDF(consultation.consultation, consultation.nurse, consultation.doctor,consultation.queue, consultation.closedByUser);
   }
 
   getImageUrl(imageFile: Blob) {
@@ -361,7 +362,13 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
 
   adjustMsg(msg, consultationId) {
     return new Promise(resolve => {
-      if (msg.type === 'attachment') {
+      if (msg.type === 'ownershipTransfer') {
+        msg.isOwnershipTransfer = true;
+        if (msg.metadata) {
+          msg.transferData = msg.metadata;
+        }
+        resolve(msg);
+      } else if (msg.type === 'attachment') {
         const requestUrl = `${environment.api}/consultation/${consultationId}/attachment/${msg.id}`;
         const user = this.authService.currentUserValue;
 
@@ -395,7 +402,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
     });
   }
 
-  generatePDF(data, nurse, doctor) {
+  generatePDF(data, nurse, doctor, queue, closedByUser?) {
     this.msgServ
       .getConsultationMessages(data._id || data.id, undefined, true)
       .subscribe(async res => {
@@ -680,6 +687,38 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         );
         yPosition += lineHeight * 3 + 5;
 
+        if (queue?.name) {
+          doc.setFont('Helvetica', 'normal', 700);
+          doc.text(
+            this.translate.instant('pdf.queue') + ':',
+            leftColX,
+            yPosition
+          );
+          doc.setFont('Helvetica', 'normal', 400);
+          doc.text(
+            `${queue.name}`,
+            leftColX + getLabelWidth(this.translate.instant('pdf.queue') + ':'),
+            yPosition
+          );
+          yPosition += lineHeight + 5;
+        }
+
+        if (closedByUser?.firstName) {
+          doc.setFont('Helvetica', 'normal', 700);
+          doc.text(
+            this.translate.instant('pdf.closedBy') + ':',
+            leftColX,
+            yPosition
+          );
+          doc.setFont('Helvetica', 'normal', 400);
+          doc.text(
+            `${closedByUser.firstName} ${closedByUser.lastName}`,
+            leftColX + getLabelWidth(this.translate.instant('pdf.closedBy') + ':'),
+            yPosition
+          );
+          yPosition += lineHeight + 5;
+        }
+
         if (data.metadata && Object.keys(data.metadata).length) {
           Object.keys(data.metadata).forEach(key => {
             addPageIfNeeded();
@@ -737,7 +776,12 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setFont('Helvetica', 'normal', 400);
           doc.setTextColor('#464F60');
 
-          if (message.type === 'videoCall' || message.type === 'audioCall') {
+          if (message.type === 'ownershipTransfer') {
+            addPageIfNeeded(3);
+            doc.setFont('Helvetica', 'italic');
+            doc.text(message.text || 'Doctor changed', 15, yPosition);
+            yPosition += 5;
+          } else if (message.type === 'videoCall' || message.type === 'audioCall') {
             const callTypeText =
               message.type === 'audioCall'
                 ? this.translate.instant('pdf.audioCall')

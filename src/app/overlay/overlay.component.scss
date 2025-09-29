@@ -222,7 +222,7 @@ div.btns {
     width: 100%;
   }
 
-  .resume, .close {
+  .transfer, .resume, .close {
     width: 100%;
     display: flex;
     align-items: center;
@@ -233,12 +233,20 @@ div.btns {
 div.btns .close {
   background-color: var(--app-red);
   border-top-left-radius: 16px;
+
+  &.withoutBorder {
+    border-top-left-radius: 0;
+  }
 }
 
 div.btns .resume {
   background-color: var(--app-green);
   border-top-right-radius: 16px;
+}
 
+div.btns .transfer {
+  background-color: var(--primary-color);
+  border-top-left-radius: 16px;
 }
 
 .btn {
