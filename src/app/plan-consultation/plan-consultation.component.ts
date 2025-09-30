@@ -40,7 +40,6 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
       delay: [10, [Validators.required, Validators.max(60), Validators.min(1)]],
     });
 
-
     // get consultation
     this.subscriptions.push(
       this.planConsultationService.getConsultationFromToken(this.token)
@@ -48,6 +47,9 @@ export class PlanConsultationComponent implements OnInit, OnDestroy {
         .subscribe(consultation => {
           this.consultation = consultation;
           this.loading = false;
+            if (this.configService.config?.skipConsultationPlanPage) {
+                this.goToConsultation();
+            }
           if(consultation.status !== 'pending') {
             this.error = this.translate.instant('planConsultation.alreadyStarted')
           }
