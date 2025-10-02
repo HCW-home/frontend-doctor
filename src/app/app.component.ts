@@ -414,9 +414,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.consultationService.init(this.currentUser);
     this._socketEventsService.onCall().subscribe(e => {
       this.zone.run(() => {
-        this.router.navigate(['/consultation/' + e.data.consultation], {
-          state: e.data,
-        });
+        if (e.data.from === this.currentUser.id) {
+          this.router.navigate(['/consultation/' + e.data.consultation], {
+            state: e.data,
+          });
+        }
       });
     });
 
