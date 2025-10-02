@@ -47,6 +47,23 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
+    <div style="margin-top: 10px" *ngIf="data.status !== 'pending'">
+      <mat-accordion multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'filter.handled_by' | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-checkbox [(ngModel)]="handledByMe">
+            {{ 'filter.myself' | translate }}
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="handledByNotMe">
+            {{ 'filter.somebodyElse' | translate }}
+          </mat-checkbox>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions [align]="'end'">

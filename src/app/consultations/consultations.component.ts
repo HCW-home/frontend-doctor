@@ -141,6 +141,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
   applyFilters(filters: {
     queues: any[];
     createdBy: { me: boolean; notMe: boolean };
+    handledBy: { me: boolean; notMe: boolean };
   }) {
     const selectedQueueIds = filters.queues
       .filter(queue => queue.selected)
@@ -168,10 +169,25 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         cons => cons.nurse?.firstName
       );
     }
+
+    if (filters.handledBy.me && !filters.handledBy.notMe) {
+      filteredConsultations = filteredConsultations.filter(
+        cons => cons.consultation?.acceptedBy === this.currentUser.id
+      );
+    }
+
+    if (filters.handledBy.notMe && !filters.handledBy.me) {
+      filteredConsultations = filteredConsultations.filter(
+        cons => cons.consultation?.acceptedBy !== this.currentUser.id
+      );
+    }
+
     this.appLiedFiltersCount =
       selectedQueueIds.length +
       (filters.createdBy.me ? 1 : 0) +
-      (filters.createdBy.notMe ? 1 : 0);
+      (filters.createdBy.notMe ? 1 : 0) +
+      (filters.handledBy.me ? 1 : 0) +
+      (filters.handledBy.notMe ? 1 : 0);
 
     this.consultations = filteredConsultations;
   }
@@ -327,6 +343,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         queues: this.queues,
         filterState: this.filterState,
         appLiedFiltersCount: this.appLiedFiltersCount,
+        status: this.status,
       },
     });
 
