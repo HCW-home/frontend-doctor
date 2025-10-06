@@ -333,6 +333,12 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         this.currentCall = response.msg;
       },
       err => {
+        if (err.error?.error === 'SELF_CALL_NOT_ALLOWED') {
+          const errorMessage = this.translate.instant('consultation.selfCallNotAllowed');
+          this.showErrorDialog(errorMessage, this.translate.instant('consultation.callError'));
+          return;
+        }
+
         const message =
           err.error?.details ||
           err.details ||

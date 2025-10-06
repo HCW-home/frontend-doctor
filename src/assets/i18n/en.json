@@ -132,6 +132,7 @@
     "cameraSelection": "Camera selection",
     "close": "Close",
     "callError": "Unable to initiate call, server returned",
+    "selfCallNotAllowed": "Cannot make a call: You are assigned as both doctor and requester in this consultation. Please assign a different user to one of the roles.",
     "expert_link": "Expert Link"
   },
   "dashboard": {
