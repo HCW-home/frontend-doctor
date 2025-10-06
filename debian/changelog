@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.45) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.46) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -68,8 +68,9 @@ hcw-athome-caregiver (0.5.45) UNRELEASED; urgency=medium
   * refs #8722, Skip parameter for time estimation
   * fix navigation when other doctors are calling to shared queue
   * add filter for handled by
+  * Check if the caller is trying to call themselves
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 02 Oct 2025 15:40:46 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 06 Oct 2025 07:00:10 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
