@@ -48,6 +48,7 @@ import { OverlayComponent } from './overlay/overlay.component';
 
 import { MsgTimePipe } from './msg-time.pipe';
 import { DurationPipe } from './duration.pipe';
+import { LinkifyPipe } from './linkify.pipe';
 
 import { DatePipe, registerLocaleData } from '@angular/common';
 
@@ -258,6 +259,7 @@ const routes: Routes = [
     SideChatComponent,
     MsgTimePipe,
     DurationPipe,
+    LinkifyPipe,
     ChatComponent,
     OverlayComponent,
     InvitationsComponent,

@@ -362,8 +362,7 @@
 
           <div class="bubble" *ngIf="msg.text || msg.isFile">
             <div [ngClass]="{ 'big-font': noPagination }">
-              <p class="message-text" *ngIf="msg.text">
-                {{ msg.text }}
+              <p class="message-text" *ngIf="msg.text" [innerHTML]="msg.text | linkify">
               </p>
               <button
                 *ngIf="msg.isFile"

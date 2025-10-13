@@ -24,17 +24,38 @@
   color: var(--app-white);
   padding: 8px 14px 8px 14px;
   background-color: var(--primary-color);
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 
   .message-text {
     overflow-wrap: normal;
     white-space: pre-wrap;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
   }
 }
 
-.reverse div.bubble {
-  padding: 8px 14px 8px 14px !important;
-  color: rgb(58, 58, 58) !important;
-  background-color: #ffffff !important;
+.bubble-link {
+  color: var(--app-white);
+  text-decoration: underline;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.reverse {
+  .bubble {
+    padding: 8px 14px 8px 14px !important;
+    color: rgb(58, 58, 58) !important;
+    background-color: var(--app-white) !important;
+  }
+
+  .bubble-link {
+    color: var(--primary-color) !important;
+  }
 }
 
 span.msg-time {
