@@ -209,6 +209,10 @@ export class SocketEventsService {
     const obs = Observable.create((observer) => {
       this.socket.on('newMessage', (e) => {
         console.info('new mesg ', e)
+          if ((e.data.type === 'text' || e.data.type === 'attachment')) {
+              const audio = new Audio('assets/sounds/new-message.mp3');
+              audio.play().catch(err => console.log('Audio play failed:', err));
+          }
         observer.next(e)
       })
     })
