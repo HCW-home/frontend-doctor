@@ -243,20 +243,22 @@
             </td>
           }
           <td>
-            <button
-              (click)="openDialog($event, consultation)"
-              mat-stroked-button
-              color="primary"
-              *ngIf="status === 'closed'">
-              {{ 'consultations.sendAgainANewInvitation' | translate }}
-            </button>
-            <button
-              (click)="resendInvite($event, consultation.consultation.invite)"
-              mat-stroked-button
-              color="primary"
-              *ngIf="status !== 'closed'">
-              {{ 'consultations.sendAgainTheInvitation' | translate }}
-            </button>
+            @if (!consultation?.nurse?.firstName) {
+              <button
+                (click)="openDialog($event, consultation)"
+                mat-stroked-button
+                color="primary"
+                *ngIf="status === 'closed'">
+                {{ 'consultations.sendAgainANewInvitation' | translate }}
+              </button>
+              <button
+                (click)="resendInvite($event, consultation.consultation.invite)"
+                mat-stroked-button
+                color="primary"
+                *ngIf="status !== 'closed'">
+                {{ 'consultations.sendAgainTheInvitation' | translate }}
+              </button>
+            }
           </td>
 
           @if (status === 'closed') {

@@ -133,7 +133,9 @@
     "close": "Close",
     "callError": "Unable to initiate call, server returned",
     "selfCallNotAllowed": "Cannot make a call: You are assigned as both doctor and requester in this consultation. Please assign a different user to one of the roles.",
-    "expert_link": "Expert Link"
+    "expert_link": "Expert Link",
+    "cameraNotAccessible": "Your camera is not accessible. Do you want to continue without video call without your camera?",
+    "continueWithoutCamera": "Continue without camera"
   },
   "dashboard": {
     "dashboard": "Dashboard",
@@ -689,6 +691,11 @@
     "nurse": "Requester",
     "requester": "Requester",
     "scheduler": "Scheduler"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "The page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to Home"
   },
   "metadata": {
     "Age": "Age",

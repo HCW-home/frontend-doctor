@@ -88,7 +88,17 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       this.joinToSession();
     } catch (error) {
       console.error('Error accessing media devices.', error);
-      this.showPermissionRetryModal();
+
+      // Check if microphone access failed
+      try {
+        const audioTest = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioTest.getTracks().forEach(track => track.stop());
+        // Audio works, so it was a video issue - close without retry modal
+        this.closeCall();
+      } catch (audioError) {
+        // Microphone is not accessible - show retry modal
+        this.showPermissionRetryModal();
+      }
     }
   }
 

@@ -91,6 +91,7 @@ import { TourMatMenuModule } from 'ngx-ui-tour-md-menu';
 import { StartTourComponent } from './shared/components/start-tour/start-tour.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NoteDialogComponent } from './note-dialog/note-dialog.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
@@ -241,7 +242,14 @@ const routes: Routes = [
     path: 'plan-consultation',
     component: PlanConsultationComponent,
   },
-  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+    data: {
+      title: 'Page Not Found',
+    },
+  },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
@@ -287,7 +295,8 @@ const routes: Routes = [
     TermsAcceptanceComponent,
     InviteLinkComponent,
     StartTourComponent,
-    NoteDialogComponent
+    NoteDialogComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserAnimationsModule,

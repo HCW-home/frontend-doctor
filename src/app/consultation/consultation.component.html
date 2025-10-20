@@ -57,10 +57,10 @@
         </button>
 
         <button
-          (click)="makeCall(false)"
+          (click)="initiateVideoCall()"
           mat-raised-button
           color="primary"
-          *ngIf="videoDevices.length > 0 && !currentCall && !otherDoctorInCall">
+          *ngIf="!currentCall && !otherDoctorInCall">
           <mat-icon svgIcon="camera"></mat-icon>
           &nbsp;&nbsp;
           {{ 'consultation.videoCall' | translate }}

@@ -1,4 +1,5 @@
 @import "assets/fonts/fonts";
+
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
@@ -200,4 +201,15 @@ markdown {
 
 .overflow-hidden {
   overflow: hidden !important;
+}
+
+.reverse .bubble-link {
+  color: #3a3a3a;
+}
+
+.bubble-link {
+  color: var(--app-white);
+  text-decoration: underline;
+  cursor: pointer;
+  pointer-events: auto;
 }

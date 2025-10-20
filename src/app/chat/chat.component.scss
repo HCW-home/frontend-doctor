@@ -39,22 +39,11 @@
   }
 }
 
-.bubble-link {
-  color: var(--app-white);
-  text-decoration: underline;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
 .reverse {
   .bubble {
     padding: 8px 14px 8px 14px !important;
     color: rgb(58, 58, 58) !important;
     background-color: var(--app-white) !important;
-  }
-
-  .bubble-link {
-    color: var(--primary-color) !important;
   }
 }
 

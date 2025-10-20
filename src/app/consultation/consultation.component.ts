@@ -97,67 +97,6 @@ export class ConsultationComponent implements OnInit, OnDestroy {
       })
     );
 
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then(stream => {
-        stream.getTracks().forEach(track => track.stop());
-        this.openViduService.getDevices().then(devices => {
-          this.videoDevices = devices.filter(
-            device => device.kind === 'videoinput'
-          );
-          if (
-            this.videoDevices.length &&
-            this.videoDevices[0].deviceId !== ''
-          ) {
-            this.videoDeviceId = this.videoDevices[0].deviceId;
-          }
-          this.audioDevices = devices.filter(
-            device => device.kind === 'audioinput'
-          );
-          if (
-            this.audioDevices.length &&
-            this.audioDevices[0].deviceId !== ''
-          ) {
-            this.audioDeviceId = this.audioDevices[0].deviceId;
-          }
-        });
-      })
-      .catch(error => {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then(stream => {
-            stream.getTracks().forEach(track => track.stop());
-            this.openViduService.getDevices().then(devices => {
-              this.videoDevices = devices.filter(
-                device => device.kind === 'videoinput'
-              );
-              if (
-                this.videoDevices.length &&
-                this.videoDevices[0].deviceId !== ''
-              ) {
-                this.videoDeviceId = this.videoDevices[0].deviceId;
-              }
-            });
-          })
-          .catch(() => {});
-        navigator.mediaDevices
-          .getUserMedia({ audio: true })
-          .then(stream => {
-            stream.getTracks().forEach(track => track.stop());
-            this.openViduService.getDevices().then(devices => {
-              this.audioDevices = devices.filter(
-                device => device.kind === 'audioinput'
-              );
-              if (
-                this.audioDevices.length &&
-                this.audioDevices[0].deviceId !== ''
-              ) {
-                this.audioDeviceId = this.audioDevices[0].deviceId;
-              }
-            });
-          })
-          .catch(() => {});
-      });
   }
 
   checkForActiveCall() {
@@ -275,7 +214,11 @@ export class ConsultationComponent implements OnInit, OnDestroy {
                 next: publicInvite => {
                   this.publicinvite = publicInvite;
                 },
-                error: err => {},
+                error: err => {
+                  if (err.status === 404) {
+                    this.router.navigate(['/not-found']);
+                  }
+                },
               })
             );
           }
@@ -322,6 +265,65 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         console.error('Error accepting consultation:', error);
       }
     );
+  }
+
+  async checkVideoAccess(): Promise<boolean> {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream.getTracks().forEach(track => track.stop());
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async checkDevices(): Promise<void> {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      stream.getTracks().forEach(track => track.stop());
+
+      const devices = await navigator.mediaDevices.enumerateDevices();
+
+      this.videoDevices = devices.filter(device => device.kind === 'videoinput');
+      if (this.videoDevices.length && this.videoDevices[0].deviceId !== '') {
+        this.videoDeviceId = this.videoDevices[0].deviceId;
+      }
+
+      this.audioDevices = devices.filter(device => device.kind === 'audioinput');
+      if (this.audioDevices.length && this.audioDevices[0].deviceId !== '') {
+        this.audioDeviceId = this.audioDevices[0].deviceId;
+      }
+    } catch (error) {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        this.videoDevices = devices.filter(device => device.kind === 'videoinput');
+        this.audioDevices = devices.filter(device => device.kind === 'audioinput');
+      } catch (e) {
+        console.error('Error enumerating devices:', e);
+      }
+    }
+  }
+
+  async initiateVideoCall() {
+    const hasVideoAccess = await this.checkVideoAccess();
+
+    if (!hasVideoAccess) {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        data: {
+          question: this.translate.instant('consultation.cameraNotAccessible'),
+          yesText: this.translate.instant('consultation.continueWithoutCamera'),
+          noText: this.translate.instant('confirmationDialog.noText'),
+        },
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.makeCall(true);
+        }
+      });
+    } else {
+      this.makeCall(false);
+    }
   }
 
   makeCall(audioOnly) {
@@ -384,7 +386,8 @@ export class ConsultationComponent implements OnInit, OnDestroy {
     this.callEvent.token = undefined;
   }
 
-  openConfiguration() {
+  async openConfiguration() {
+    await this.checkDevices();
     this.showConfiguration = true;
   }
 
