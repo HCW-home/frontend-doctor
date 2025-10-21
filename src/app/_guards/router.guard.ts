@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 import { ConfirmationService } from '../core/confirmation.service';
 import { ConsultationService } from '../core/consultation.service';
+import { AuthService } from '../auth/auth.service';
 
 import { Observable, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
@@ -14,13 +15,21 @@ export class RouterGuard {
   constructor(
     private router: Router,
     private confirmationServ: ConfirmationService,
-    private consultationService: ConsultationService
+    private consultationService: ConsultationService,
+    private authService: AuthService
   ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
+    const currentUser = this.authService.currentUserValue;
+
+    if (!currentUser) {
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url, ...state.root.queryParams } });
+      return of(false);
+    }
+
     const currentNav = this.router.getCurrentNavigation();
     if (
       currentNav &&

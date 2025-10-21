@@ -63,7 +63,6 @@ import { ConfigService } from './core/config.service';
 
 import { HugAngularLibModule } from 'hcw-stream-lib';
 import { PeerVideoComponent } from './stream/peer-video/peer-video.component';
-import { PlanConsultationComponent } from './plan-consultation/plan-consultation.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { InviteExpertComponent } from './invite-expoert/invite-expert.component';
@@ -92,6 +91,7 @@ import { StartTourComponent } from './shared/components/start-tour/start-tour.co
 import { MatTooltip } from '@angular/material/tooltip';
 import { NoteDialogComponent } from './note-dialog/note-dialog.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
@@ -239,14 +239,17 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'plan-consultation',
-    component: PlanConsultationComponent,
-  },
-  {
     path: 'not-found',
     component: NotFoundComponent,
     data: {
       title: 'Page Not Found',
+    },
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
+    data: {
+      title: 'Access Forbidden',
     },
   },
   { path: '**', component: NotFoundComponent },
@@ -283,7 +286,6 @@ const routes: Routes = [
     SelectLanguageComponent,
     LanguageSelectorComponent,
     ConfirmationDialogComponent,
-    PlanConsultationComponent,
     ErrorDialogComponent,
     DotSpinnerComponent,
     DateTimePickerComponent,
@@ -296,7 +298,8 @@ const routes: Routes = [
     InviteLinkComponent,
     StartTourComponent,
     NoteDialogComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserAnimationsModule,

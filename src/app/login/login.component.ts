@@ -71,16 +71,38 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const redirectUrl = this.route.snapshot.queryParams.redirectUrl;
-    this.returnUrl = redirectUrl || this.route.snapshot.queryParams.returnUrl || '/dashboard';
+    let redirectUrl = this.route.snapshot.queryParams.redirectUrl;
+    let returnUrl = this.route.snapshot.queryParams.returnUrl;
+
+    if (redirectUrl) {
+      redirectUrl = decodeURIComponent(redirectUrl);
+    }
+    if (returnUrl) {
+      returnUrl = decodeURIComponent(returnUrl);
+    }
+
+    this.returnUrl = redirectUrl || returnUrl || '/dashboard';
 
     this.openIdLoginUrl = `${environment.api}/login-openid?role=doctor`;
-    if (redirectUrl) {
-      this.openIdLoginUrl += `&redirectUrl=${encodeURIComponent(redirectUrl)}`;
+    if (this.returnUrl && this.returnUrl !== '/dashboard') {
+      this.openIdLoginUrl += `&redirectUrl=${encodeURIComponent(this.returnUrl)}`;
     }
 
     if (this.authService.currentUserValue) {
-      this.router.navigateByUrl(this.returnUrl);
+      const urlParts = this.returnUrl.split('?');
+      const path = urlParts[0];
+      const queryParams = {};
+
+      if (urlParts[1]) {
+        urlParts[1].split('&').forEach(param => {
+          const [key, value] = param.split('=');
+          if (key && value && key !== 'tk' && key !== 'token') {
+            queryParams[key] = decodeURIComponent(value);
+          }
+        });
+      }
+
+      this.router.navigate([path], { queryParams });
     }
 
     this.subscriptions.push(
@@ -113,7 +135,20 @@ export class LoginComponent implements OnInit, OnDestroy {
           .pipe(first())
           .subscribe(
             data => {
-              this.router.navigate([this.returnUrl]);
+              const urlParts = this.returnUrl.split('?');
+              const path = urlParts[0];
+              const queryParams = {};
+
+              if (urlParts[1]) {
+                urlParts[1].split('&').forEach(param => {
+                  const [key, value] = param.split('=');
+                  if (key && value && key !== 'tk' && key !== 'token') {
+                    queryParams[key] = decodeURIComponent(value);
+                  }
+                });
+              }
+
+              this.router.navigate([path], { queryParams });
               setTimeout(() => {
                 this.loading = false;
               }, 1000);

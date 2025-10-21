@@ -1,0 +1,51 @@
+.forbidden-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.forbidden-card {
+  max-width: 600px;
+  text-align: center;
+}
+
+mat-card-content {
+  padding: 40px 20px 20px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 40px;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+  color: var(--app-red);
+}
+
+.error-title {
+  font-size: 28px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: var(--app-black);
+}
+
+.error-message {
+  font-size: 16px;
+  margin: 20px 0 0;
+  color: var(--app-gray);
+  line-height: 1.5;
+}
+
+button {
+  font-size: 16px;
+  padding: 12px 32px;
+  min-width: 200px;
+}

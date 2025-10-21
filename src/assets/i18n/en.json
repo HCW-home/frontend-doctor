@@ -697,6 +697,11 @@
     "message": "The page you are looking for does not exist or has been moved.",
     "backToHome": "Back to Home"
   },
+  "forbidden": {
+    "title": "Access Forbidden",
+    "message": "You don't have permission to access this resource.",
+    "backToHome": "Back to Home"
+  },
   "metadata": {
     "Age": "Age",
     "Country": "Country",

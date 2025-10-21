@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,6 +13,9 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { CallService } from '../core/call.service';
 import { AuthService } from '../auth/auth.service';
+import { ConfigService } from '../core/config.service';
+import { PlanConsultationService } from '../core/plan-consultation.service';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-consultation',
@@ -21,6 +24,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ConsultationComponent implements OnInit, OnDestroy {
   @Input() consultation;
+  @ViewChild(ChatComponent) chatComponent: ChatComponent;
   public publicinvite;
   consultationId;
   token;
@@ -46,6 +50,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   mobileFullHeight = false;
+  dialogShown = false;
 
   constructor(
     private conServ: ConsultationService,
@@ -59,7 +64,9 @@ export class ConsultationComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     public dialog: MatDialog,
     private callService: CallService,
-    private authService: AuthService
+    private authService: AuthService,
+    private configService: ConfigService,
+    private planConsultationService: PlanConsultationService
   ) {
     this.callEvent = {};
     if (
@@ -102,7 +109,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   checkForActiveCall() {
     this.callService.getCurrentCall(this.consultationId).subscribe(
       call => {
-        if (call && call.status === 'ongoing') {
+        if (call && call.status === 'ongoing' && !call.closedAt) {
           this.currentCall = call;
           if (
             call.from !== this.currentUser.id &&
@@ -124,11 +131,12 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         ) {
           if (
             msg.data.status === 'ongoing' &&
+            !msg.data.closedAt &&
             msg.data.from !== this.currentUser.id
           ) {
             this.otherDoctorInCall = true;
             this.currentCall = msg.data;
-          } else if (msg.data.status === 'ended') {
+          } else if (msg.data.status === 'ended' || msg.data.closedAt) {
             this.otherDoctorInCall = false;
             if (!this.incomingCall) {
               this.currentCall = null;
@@ -217,6 +225,8 @@ export class ConsultationComponent implements OnInit, OnDestroy {
                 error: err => {
                   if (err.status === 404) {
                     this.router.navigate(['/not-found']);
+                  } else if (err.status === 403) {
+                    this.router.navigate(['/forbidden']);
                   }
                 },
               })
@@ -225,7 +235,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
           this.consultation = consultation;
 
-          if (consultation?.consultation?.status === 'pending') {
+          if (consultation?.consultation?.status === 'pending' && !this.dialogShown) {
             this.showStartConsultationDialog();
           }
         })
@@ -233,6 +243,9 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   }
 
   showStartConsultationDialog() {
+    this.dialogShown = true;
+    const skipPlanPage = this.configService.config?.skipConsultationPlanPage;
+
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       id: 'start_consultation_dialog',
       data: {
@@ -242,14 +255,35 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         yesText: this.translate.instant('confirmationDialog.yesText'),
         noText: this.translate.instant('confirmationDialog.noText'),
         title: this.translate.instant('confirmationDialog.confirmationTitle'),
+        showDelayInput: !skipPlanPage,
+        delayValue: 10,
       },
       autoFocus: false,
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(confirm => {
-      if (confirm) {
-        this.acceptConsultation();
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result.delay) {
+          this.planConsultationService.planConsultation(this.consultationId, result.delay).subscribe(
+            () => {
+              this.getConsultation();
+              if (this.chatComponent) {
+                this.chatComponent.getMessages();
+              }
+            },
+            error => {
+              console.error('Error planning consultation:', error);
+              if (error.status === 403) {
+                this.router.navigate(['/forbidden']);
+              } else if (error.status === 404) {
+                this.router.navigate(['/not-found']);
+              }
+            }
+          );
+        } else if (result.confirmed || result === true) {
+          this.acceptConsultation();
+        }
       } else {
         this.router.navigate(['/dashboard']);
       }
