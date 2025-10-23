@@ -1,7 +1,15 @@
-import { Component, OnInit, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  NgZone,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment-timezone';
 
 import { OpenViduService } from '../openvidu.service';
 import { ConsultationService } from '../core/consultation.service';
@@ -11,6 +19,8 @@ import { ConfirmationService } from '../core/confirmation.service';
 import { InviteService } from '../core/invite.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { RescheduleDialogComponent } from '../reschedule-dialog/reschedule-dialog.component';
+import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { CallService } from '../core/call.service';
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../core/config.service';
@@ -51,6 +61,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
   mobileFullHeight = false;
   dialogShown = false;
+  scheduledCardClosed = false;
 
   constructor(
     private conServ: ConsultationService,
@@ -103,7 +114,6 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         this.confirmClose = true;
       })
     );
-
   }
 
   checkForActiveCall() {
@@ -119,7 +129,11 @@ export class ConsultationComponent implements OnInit, OnDestroy {
           }
         }
       },
-      err => {}
+      err => {
+        if (err.status === 404) {
+          this.router.navigate(['/consultation-not-found']);
+        }
+      }
     );
 
     this.subscriptions.push(
@@ -202,7 +216,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
             this.consultation.consultation.acceptedBy = event.data.newOwner.id;
             this.consultation.acceptedByUser = {
               firstName: event.data.newOwner.firstName,
-              lastName: event.data.newOwner.lastName
+              lastName: event.data.newOwner.lastName,
             };
             this.consultation.doctor = event.data.newOwner;
           }
@@ -216,29 +230,36 @@ export class ConsultationComponent implements OnInit, OnDestroy {
       this.conServ
         .getConsultation(this.consultationId)
         .subscribe(consultation => {
-          if (!this.consultation) {
-            this.subscriptions.push(
-              this.inviteServ.getByConsultation(this.consultationId).subscribe({
-                next: publicInvite => {
-                  this.publicinvite = publicInvite;
-                },
-                error: err => {
-                  if (err.status === 404) {
-                    this.router.navigate(['/not-found']);
-                  } else if (err.status === 403) {
-                    this.router.navigate(['/forbidden']);
-                  }
-                },
-              })
-            );
-          }
+          if (consultation) {
+            if (!this.consultation) {
+              this.loadPublicInvite();
+            }
 
-          this.consultation = consultation;
+            this.consultation = consultation;
 
-          if (consultation?.consultation?.status === 'pending' && !this.dialogShown) {
-            this.showStartConsultationDialog();
+            if (
+              consultation?.consultation?.status === 'pending' &&
+              !this.dialogShown
+            ) {
+              this.showStartConsultationDialog();
+            }
           }
         })
+    );
+  }
+
+  loadPublicInvite() {
+    this.subscriptions.push(
+      this.inviteServ.getByConsultation(this.consultationId).subscribe({
+        next: publicInvite => {
+          this.publicinvite = publicInvite;
+        },
+        error: err => {
+          if (err.status === 403) {
+            this.router.navigate(['/forbidden']);
+          }
+        },
+      })
     );
   }
 
@@ -265,22 +286,24 @@ export class ConsultationComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.delay) {
-          this.planConsultationService.planConsultation(this.consultationId, result.delay).subscribe(
-            () => {
-              this.getConsultation();
-              if (this.chatComponent) {
-                this.chatComponent.getMessages();
+          this.planConsultationService
+            .planConsultation(this.consultationId, result.delay)
+            .subscribe(
+              () => {
+                this.getConsultation();
+                if (this.chatComponent) {
+                  this.chatComponent.getMessages();
+                }
+              },
+              error => {
+                console.error('Error planning consultation:', error);
+                if (error.status === 403) {
+                  this.router.navigate(['/forbidden']);
+                } else if (error.status === 404) {
+                  this.router.navigate(['/not-found']);
+                }
               }
-            },
-            error => {
-              console.error('Error planning consultation:', error);
-              if (error.status === 403) {
-                this.router.navigate(['/forbidden']);
-              } else if (error.status === 404) {
-                this.router.navigate(['/not-found']);
-              }
-            }
-          );
+            );
         } else if (result.confirmed || result === true) {
           this.acceptConsultation();
         }
@@ -313,25 +336,36 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
   async checkDevices(): Promise<void> {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
+      });
       stream.getTracks().forEach(track => track.stop());
 
       const devices = await navigator.mediaDevices.enumerateDevices();
 
-      this.videoDevices = devices.filter(device => device.kind === 'videoinput');
+      this.videoDevices = devices.filter(
+        device => device.kind === 'videoinput'
+      );
       if (this.videoDevices.length && this.videoDevices[0].deviceId !== '') {
         this.videoDeviceId = this.videoDevices[0].deviceId;
       }
 
-      this.audioDevices = devices.filter(device => device.kind === 'audioinput');
+      this.audioDevices = devices.filter(
+        device => device.kind === 'audioinput'
+      );
       if (this.audioDevices.length && this.audioDevices[0].deviceId !== '') {
         this.audioDeviceId = this.audioDevices[0].deviceId;
       }
     } catch (error) {
       try {
         const devices = await navigator.mediaDevices.enumerateDevices();
-        this.videoDevices = devices.filter(device => device.kind === 'videoinput');
-        this.audioDevices = devices.filter(device => device.kind === 'audioinput');
+        this.videoDevices = devices.filter(
+          device => device.kind === 'videoinput'
+        );
+        this.audioDevices = devices.filter(
+          device => device.kind === 'audioinput'
+        );
       } catch (e) {
         console.error('Error enumerating devices:', e);
       }
@@ -370,8 +404,13 @@ export class ConsultationComponent implements OnInit, OnDestroy {
       },
       err => {
         if (err.error?.error === 'SELF_CALL_NOT_ALLOWED') {
-          const errorMessage = this.translate.instant('consultation.selfCallNotAllowed');
-          this.showErrorDialog(errorMessage, this.translate.instant('consultation.callError'));
+          const errorMessage = this.translate.instant(
+            'consultation.selfCallNotAllowed'
+          );
+          this.showErrorDialog(
+            errorMessage,
+            this.translate.instant('consultation.callError')
+          );
           return;
         }
 
@@ -427,6 +466,81 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
   closeConfiguration() {
     this.showConfiguration = false;
+  }
+
+  openRescheduleDialog() {
+    const dialogRef = this.dialog.open(RescheduleDialogComponent, {
+      width: '500px',
+      data: {
+        consultation: this.consultation,
+        currentScheduledFor: this.consultation?.consultation?.scheduledFor,
+        currentTZ: this.consultation?.consultation?.patientTZ || 'UTC',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.rescheduleConsultation(result.scheduledFor, result.patientTZ);
+      }
+    });
+  }
+
+  rescheduleConsultation(scheduledFor: number, patientTZ: string) {
+    this.conServ
+      .rescheduleConsultation(this.consultationId, scheduledFor, patientTZ)
+      .subscribe(
+        response => {
+          if (this.consultation?.consultation) {
+            this.consultation.consultation.scheduledFor = scheduledFor;
+            this.consultation.consultation.patientTZ = patientTZ;
+          }
+          this.translate
+            .get('consultation.rescheduleSuccess')
+            .subscribe(msg => {
+              console.log(msg);
+            });
+
+          if (response.messageService === '4' && response.inviteUrl) {
+            this.dialog.open(InviteLinkComponent, {
+              width: '600px',
+              data: {
+                link: response.inviteUrl,
+              },
+            });
+          }
+        },
+        error => {
+          let errorMessage =
+            error?.error?.error || error?.error?.message || error?.message;
+
+          if (!errorMessage) {
+            this.translate
+              .get('consultation.rescheduleError')
+              .subscribe(msg => {
+                this.dialog.open(ErrorDialogComponent, {
+                  data: { message: msg },
+                });
+              });
+          } else {
+            this.dialog.open(ErrorDialogComponent, {
+              data: { message: errorMessage },
+            });
+          }
+        }
+      );
+  }
+
+  getFormattedScheduledTime(): string {
+    if (!this.consultation?.consultation?.scheduledFor) return '';
+
+    const tz = this.consultation?.consultation?.patientTZ || 'UTC';
+    return moment(this.consultation.consultation.scheduledFor)
+      .tz(tz)
+      .format('D MMMM YYYY HH:mm');
+  }
+
+  closeScheduledCard() {
+    this.scheduledCardClosed = true;
   }
 
   ngOnDestroy() {

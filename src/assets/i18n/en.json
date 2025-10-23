@@ -135,7 +135,18 @@
     "selfCallNotAllowed": "Cannot make a call: You are assigned as both doctor and requester in this consultation. Please assign a different user to one of the roles.",
     "expert_link": "Expert Link",
     "cameraNotAccessible": "Your camera is not accessible. Do you want to continue without video call without your camera?",
-    "continueWithoutCamera": "Continue without camera"
+    "continueWithoutCamera": "Continue without camera",
+    "reschedule": "Reschedule call",
+    "rescheduleTitle": "Reschedule Consultation",
+    "rescheduleConfirm": "Confirm Reschedule",
+    "rescheduleSuccess": "Consultation rescheduled successfully. Patient will be notified.",
+    "rescheduleError": "Failed to reschedule consultation. Please try again.",
+    "scheduledFor": "Scheduled For",
+    "scheduledDate": "Date",
+    "scheduledTime": "Time",
+    "timezone": "Timezone",
+    "notFoundOrClosed": "This consultation was not found or has been closed.",
+    "notFoundOrClosedMessage": "The consultation you are looking for may have been closed, deleted, or you may not have permission to access it."
   },
   "dashboard": {
     "dashboard": "Dashboard",
@@ -701,6 +712,10 @@
     "title": "Access Forbidden",
     "message": "You don't have permission to access this resource.",
     "backToHome": "Back to Home"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "required": "Field required"
   },
   "metadata": {
     "Age": "Age",

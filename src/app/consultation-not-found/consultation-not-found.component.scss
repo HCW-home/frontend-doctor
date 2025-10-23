@@ -1,0 +1,45 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.not-found-card {
+  max-width: 600px;
+  text-align: center;
+}
+
+mat-card-content {
+  padding: 40px 20px 20px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 40px;
+}
+
+.error-icon {
+  font-size: 100px;
+  width: 100px;
+  height: 100px;
+  color: var(--primary-color);
+  margin: 0 auto;
+}
+
+.error-title {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: var(--app-black);
+}
+
+.error-message {
+  font-size: 16px;
+  margin: 20px 0 0;
+  color: var(--app-gray);
+  line-height: 1.5;
+}

@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { tap, map, first } from 'rxjs/operators';
-import { SocketEventsService } from './socket-events.service';
-import { Router } from '@angular/router';
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {first, map, tap} from "rxjs/operators";
+import {SocketEventsService} from "./socket-events.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -173,8 +173,7 @@ export class ConsultationService {
   getConsultation(id): Observable<any> {
     return this.consultationsOverviewSub.pipe(
       map(cs => {
-        const consultation = cs.find(c => c._id === id);
-        return consultation;
+        return cs.find(c => c._id === id);
       })
     );
   }
@@ -229,6 +228,27 @@ export class ConsultationService {
             this.sortConsultations();
             this.consultationsOverviewSub.next(this.consultationsOverview);
             this.socketEventsService.consultationClosedSubj.next(consultation);
+          }
+        })
+      );
+  }
+
+  rescheduleConsultation(id: string, scheduledFor: number, patientTZ: string): Observable<any> {
+    return this.http
+      .post<any>(environment.api + `/consultation/${id}/reschedule`, {
+        scheduledFor,
+        patientTZ
+      })
+      .pipe(
+        tap(res => {
+          const consultation = this.consultationsOverview.find(
+            c => c._id === id
+          );
+
+          if (consultation && res.consultation) {
+            consultation.consultation.scheduledFor = res.consultation.scheduledFor;
+            consultation.consultation.patientTZ = res.consultation.patientTZ;
+            this.consultationsOverviewSub.next(this.consultationsOverview);
           }
         })
       );

@@ -1,0 +1,19 @@
+<div class="scheduled-card-overlay">
+  <mat-card class="schedule-card">
+    <button mat-icon-button class="close-button" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-card-content>
+      <div class="schedule-header">
+        <mat-icon>event</mat-icon>
+        <span class="schedule-label">{{ 'consultation.scheduledFor' | translate }}</span>
+      </div>
+      <div class="schedule-time">
+        <strong>{{ scheduledTime }}</strong>
+      </div>
+      <div class="schedule-timezone" *ngIf="timezone">
+        {{ timezone }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

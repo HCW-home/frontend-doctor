@@ -2,6 +2,7 @@ import { PeerAudioComponent } from './stream/peer-audio/peer-audio.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { InviteFormComponent } from './invite-form/invite-form.component';
+import { RescheduleDialogComponent } from './reschedule-dialog/reschedule-dialog.component';
 import {
   InvitationAlreadyAcceptedComponent,
   InvitationsComponent,
@@ -92,6 +93,8 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { NoteDialogComponent } from './note-dialog/note-dialog.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ScheduledForCardComponent } from './scheduled-for-card/scheduled-for-card.component';
+import { ConsultationNotFoundComponent } from './consultation-not-found/consultation-not-found.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
@@ -246,6 +249,13 @@ const routes: Routes = [
     },
   },
   {
+    path: 'consultation-not-found',
+    component: ConsultationNotFoundComponent,
+    data: {
+      title: 'Consultation Not Found',
+    },
+  },
+  {
     path: 'forbidden',
     component: ForbiddenComponent,
     data: {
@@ -299,7 +309,10 @@ const routes: Routes = [
     StartTourComponent,
     NoteDialogComponent,
     NotFoundComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    RescheduleDialogComponent,
+    ScheduledForCardComponent,
+    ConsultationNotFoundComponent,
   ],
   imports: [
     BrowserAnimationsModule,

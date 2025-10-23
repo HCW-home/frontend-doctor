@@ -11,6 +11,13 @@
   [showCloseOverlay]="true"
   [consultation]="consultation"></app-overlay>
 
+<app-scheduled-for-card
+  *ngIf="consultation?.consultation?.scheduledFor && !scheduledCardClosed"
+  [scheduledTime]="getFormattedScheduledTime()"
+  [timezone]="consultation?.consultation?.patientTZ"
+  (close)="closeScheduledCard()">
+</app-scheduled-for-card>
+
 <div class="con-wrap">
   <div
     *ngIf="incomingCall"
@@ -97,6 +104,15 @@
           <mat-icon svgIcon="info"></mat-icon>
           &nbsp;&nbsp;
           {{ 'consultation.configuration' | translate }}
+        </button>
+
+        <button
+          (click)="openRescheduleDialog()"
+          mat-raised-button
+          color="primary">
+          <mat-icon>schedule</mat-icon>
+          &nbsp;&nbsp;
+          {{ 'consultation.reschedule' | translate }}
         </button>
       </div>
     </div>
