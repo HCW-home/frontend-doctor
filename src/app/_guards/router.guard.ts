@@ -38,10 +38,25 @@ export class RouterGuard {
     ) {
       return of(true);
     }
+
     if (this.consultationPath.test(this.router.url)) {
       const currentUrlMatch = this.router.url.match(
         /\/consultation\/([a-f0-9]{24})/
       );
+
+      const targetUrlMatch = state.url.match(
+        /\/consultation\/([a-f0-9]{24})/
+      );
+
+      if (currentUrlMatch && targetUrlMatch) {
+        const currentConsultationId = currentUrlMatch[1];
+        const targetConsultationId = targetUrlMatch[1];
+
+        if (currentConsultationId === targetConsultationId) {
+          return of(true);
+        }
+      }
+
       if (currentUrlMatch) {
         const currentConsultationId = currentUrlMatch[1];
         const currentConsultation =
@@ -56,10 +71,7 @@ export class RouterGuard {
         }
       }
 
-      const redirect = this.consultationPath.test(state.url)
-        ? '/dashboard'
-        : state.url;
-      this.confirmationServ.requestConfirmation(redirect);
+      this.confirmationServ.requestConfirmation(state.url);
       return of(false);
     }
 
