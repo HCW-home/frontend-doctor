@@ -15,8 +15,7 @@
   *ngIf="consultation?.consultation?.scheduledFor && !scheduledCardClosed"
   [scheduledTime]="getFormattedScheduledTime()"
   [timezone]="consultation?.consultation?.patientTZ"
-  (close)="closeScheduledCard()">
-</app-scheduled-for-card>
+  (close)="closeScheduledCard()"></app-scheduled-for-card>
 
 <div class="con-wrap">
   <div
@@ -83,9 +82,7 @@
           {{ 'consultation.audioCall' | translate }}
         </button>
 
-        <div
-          *ngIf="otherDoctorInCall"
-          class="other-doctor-in-call">
+        <div *ngIf="otherDoctorInCall" class="other-doctor-in-call">
           <mat-icon>phone_in_talk</mat-icon>
           <span>{{ 'consultation.anotherDoctorInCall' | translate }}</span>
         </div>
@@ -94,7 +91,11 @@
           (click)="makeCall(true)"
           mat-raised-button
           color="primary"
-          *ngIf="currentCall && currentCall.type === 'audioCall' && !otherDoctorInCall">
+          *ngIf="
+            currentCall &&
+            currentCall.type === 'audioCall' &&
+            !otherDoctorInCall
+          ">
           <mat-icon svgIcon="mic"></mat-icon>
           &nbsp;&nbsp;
           {{ 'consultation.joinAudioCall' | translate }}
@@ -106,14 +107,16 @@
           {{ 'consultation.configuration' | translate }}
         </button>
 
-        <button
-          (click)="openRescheduleDialog()"
-          mat-raised-button
-          color="primary">
-          <mat-icon>schedule</mat-icon>
-          &nbsp;&nbsp;
-          {{ 'consultation.reschedule' | translate }}
-        </button>
+        @if (!consultation?.nurse?.firstName) {
+          <button
+            (click)="openRescheduleDialog()"
+            mat-raised-button
+            color="primary">
+            <mat-icon>schedule</mat-icon>
+            &nbsp;&nbsp;
+            {{ 'consultation.reschedule' | translate }}
+          </button>
+        }
       </div>
     </div>
   </div>
