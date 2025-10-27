@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.49) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.50) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -74,7 +74,7 @@ hcw-athome-caregiver (0.5.49) UNRELEASED; urgency=medium
   * add not found page, change video call button apearing functionality, change link color in messages
   * add forbidden page, update dialog for planning consultation
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 23 Oct 2025 09:23:02 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 27 Oct 2025 10:55:26 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
