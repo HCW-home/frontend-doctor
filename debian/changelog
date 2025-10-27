@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.47) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.50) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -71,8 +71,10 @@ hcw-athome-caregiver (0.5.47) UNRELEASED; urgency=medium
   * Check if the caller is trying to call themselves
   * add sound when receiving new message
   * linkify messages in chat
+  * add not found page, change video call button apearing functionality, change link color in messages
+  * add forbidden page, update dialog for planning consultation
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 13 Oct 2025 14:47:59 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 27 Oct 2025 10:55:26 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
