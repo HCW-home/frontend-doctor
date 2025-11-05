@@ -68,6 +68,10 @@ export class ConsultationService {
       const c = this.consultationsOverview.find(
         c => c._id === msg.data.consultation
       );
+      if (!c) {
+        console.warn('Consultation not found in overview for message:', msg.data.consultation);
+        return;
+      }
       c.lastMsg = msg.data;
       c.unreadCount++;
       this.updateUnreadCount();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
 import { ConsultationService } from '../core/consultation.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../core/config.service';
@@ -6,13 +6,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
   styleUrls: ['./overlay.component.scss'],
 })
-export class OverlayComponent implements OnInit {
+export class OverlayComponent implements OnInit, OnDestroy {
   constructor(
     private conServ: ConsultationService,
     private router: Router,
@@ -50,22 +51,28 @@ export class OverlayComponent implements OnInit {
   publicinvite;
   noPagination;
 
+  private consultationClosedSubscription: Subscription;
+  private previousConsultationStatus: string = null;
+
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;
+    this.previousConsultationStatus = this.consultation?.consultation?.status;
     this.listenToConsultationClosed();
   }
 
   listenToConsultationClosed() {
     if (this.consultation?.consultation?.status === 'active') {
-      this.conServ.getConsultationsOverview().subscribe(consultations => {
+      this.consultationClosedSubscription = this.conServ.getConsultationsOverview().subscribe(consultations => {
         const currentConsultation = consultations.find(
           c => c._id === this.consultation?._id
         );
-        if (
-          currentConsultation &&
-          currentConsultation.consultation.status === 'closed'
-        ) {
+        if (currentConsultation) {
+          const newStatus = currentConsultation.consultation.status;
+
           if (
+            this.previousConsultationStatus === 'active' &&
+            newStatus === 'closed' &&
+            currentConsultation.consultation.closedBy &&
             currentConsultation.consultation.closedBy !== this.currentUser.id &&
             !this.closingConsultation &&
             !this.showFeedbackOverlay
@@ -76,8 +83,16 @@ export class OverlayComponent implements OnInit {
               state: { confirmed: true },
             });
           }
+
+          this.previousConsultationStatus = newStatus;
         }
       });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.consultationClosedSubscription) {
+      this.consultationClosedSubscription.unsubscribe();
     }
   }
 
