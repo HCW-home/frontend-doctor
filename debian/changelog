@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.52) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.53) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -74,10 +74,12 @@ hcw-athome-caregiver (0.5.52) UNRELEASED; urgency=medium
   * add not found page, change video call button apearing functionality, change link color in messages
   * add forbidden page, update dialog for planning consultation
   * add a way to reschedule consultation
-  * hide rescadule when it has requested by
+  * hide reschedule when it has requested by
   * improve router guard
+  * fix navigation after creating invite from dashboard
+  * fix dashboard navigation when receiving new message
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 27 Oct 2025 15:35:51 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 10 Nov 2025 07:36:32 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
