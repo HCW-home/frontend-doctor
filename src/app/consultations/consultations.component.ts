@@ -517,22 +517,24 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setFontSize(10);
           doc.setTextColor('#000');
           doc.setFont('Helvetica', 'normal', 700);
+          const doctorFirstnameLabel = this.translate.instant('pdf.firstname') + ':';
+          const doctorLastnameLabel = this.translate.instant('pdf.lastname') + ':';
           doc.text(
-            this.translate.instant('pdf.firstname') + ':',
+            doctorFirstnameLabel,
             leftColX,
             yPosition
           );
           doc.text(
-            this.translate.instant('pdf.lastname') + ':',
+            doctorLastnameLabel,
             leftColX,
             yPosition + lineHeight
           );
 
           doc.setFont('Helvetica', 'normal', 400);
-          doc.text(`${doctor.firstName}`, leftColX + labelValueGap, yPosition);
+          doc.text(`${doctor.firstName}`, leftColX + getLabelWidth(doctorFirstnameLabel), yPosition);
           doc.text(
             `${doctor.lastName}`,
-            leftColX + labelValueGap,
+            leftColX + getLabelWidth(doctorLastnameLabel),
             yPosition + lineHeight
           );
           yPosition += lineHeight * 2 + 10;
@@ -550,32 +552,35 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         doc.setFontSize(10);
         doc.setTextColor('#000');
         doc.setFont('Helvetica', 'normal', 700);
+        const patientFirstnameLabel = this.translate.instant('pdf.firstname') + ':';
+        const patientLastnameLabel = this.translate.instant('pdf.lastname') + ':';
+        const patientGenderLabel = this.translate.instant('pdf.gender') + ':';
         doc.text(
-          this.translate.instant('pdf.firstname') + ':',
+          patientFirstnameLabel,
           leftColX,
           yPosition
         );
         doc.text(
-          this.translate.instant('pdf.lastname') + ':',
+          patientLastnameLabel,
           leftColX,
           yPosition + lineHeight
         );
         doc.text(
-          this.translate.instant('pdf.gender') + ':',
+          patientGenderLabel,
           leftColX,
           yPosition + lineHeight * 2
         );
 
         doc.setFont('Helvetica', 'normal', 400);
-        doc.text(`${data.firstName}`, leftColX + labelValueGap, yPosition);
+        doc.text(`${data.firstName}`, leftColX + getLabelWidth(patientFirstnameLabel), yPosition);
         doc.text(
           `${data.lastName}`,
-          leftColX + labelValueGap,
+          leftColX + getLabelWidth(patientLastnameLabel),
           yPosition + lineHeight
         );
         doc.text(
           `${data.gender}`,
-          leftColX + labelValueGap,
+          leftColX + getLabelWidth(patientGenderLabel),
           yPosition + lineHeight * 2
         );
         yPosition += lineHeight * 3 + 10;
@@ -593,22 +598,24 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           doc.setFontSize(10);
           doc.setTextColor('#000');
           doc.setFont('Helvetica', 'normal', 700);
+          const nurseFirstnameLabel = this.translate.instant('pdf.firstname') + ':';
+          const nurseLastnameLabel = this.translate.instant('pdf.lastname') + ':';
           doc.text(
-            this.translate.instant('pdf.firstname') + ':',
+            nurseFirstnameLabel,
             leftColX,
             yPosition
           );
           doc.text(
-            this.translate.instant('pdf.lastname') + ':',
+            nurseLastnameLabel,
             leftColX,
             yPosition + lineHeight
           );
 
           doc.setFont('Helvetica', 'normal', 400);
-          doc.text(`${nurse.firstName}`, leftColX + labelValueGap, yPosition);
+          doc.text(`${nurse.firstName}`, leftColX + getLabelWidth(nurseFirstnameLabel), yPosition);
           doc.text(
             `${nurse.lastName}`,
-            leftColX + labelValueGap,
+            leftColX + getLabelWidth(nurseLastnameLabel),
             yPosition + lineHeight
           );
           yPosition += lineHeight * 2 + 10;
@@ -628,13 +635,15 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             doc.setFontSize(10);
             doc.setTextColor('#000');
             doc.setFont('Helvetica', 'normal', 700);
+            const expertFirstnameLabel = this.translate.instant('pdf.firstname') + ':';
+            const expertLastnameLabel = this.translate.instant('pdf.lastname') + ':';
             doc.text(
-              this.translate.instant('pdf.firstname') + ':',
+              expertFirstnameLabel,
               leftColX,
               yPosition
             );
             doc.text(
-              this.translate.instant('pdf.lastname') + ':',
+              expertLastnameLabel,
               leftColX,
               yPosition + lineHeight
             );
@@ -642,12 +651,12 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             doc.setFont('Helvetica', 'normal', 400);
             doc.text(
               `${expert.firstName}`,
-              leftColX + labelValueGap,
+              leftColX + getLabelWidth(expertFirstnameLabel),
               yPosition
             );
             doc.text(
               `${expert.lastName}`,
-              leftColX + labelValueGap,
+              leftColX + getLabelWidth(expertLastnameLabel),
               yPosition + lineHeight
             );
 
