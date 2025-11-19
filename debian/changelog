@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.54) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.55) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -79,8 +79,11 @@ hcw-athome-caregiver (0.5.54) UNRELEASED; urgency=medium
   * fix navigation after creating invite from dashboard
   * fix dashboard navigation when receiving new message
   * improve pdf generation
+  * add expert role translation
+  * add guest role in translations
+  * update exper invite flow
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 10 Nov 2025 10:33:02 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Wed, 19 Nov 2025 14:43:37 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
