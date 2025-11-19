@@ -701,7 +701,8 @@
     "patient": "Patient",
     "nurse": "Requester",
     "requester": "Requester",
-    "scheduler": "Scheduler"
+    "scheduler": "Scheduler",
+    "expert": "Expert"
   },
   "notFound": {
     "title": "Page Not Found",
