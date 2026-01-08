@@ -5,12 +5,12 @@ export class WebviewDetectionService {
   isWebView(): boolean {
     const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
 
-      console.log(ua, 'ua')
-      alert(ua)
     const webViewPatterns = [
       /\bwv\b/,
       /WebView/i,
       /WhatsApp/i,
+      /WAiOS/i,
+      /WAAndroid/i,
       /FB_IAB|FBAN|FBAV/i,
       /Instagram/i,
       /Twitter/i,
