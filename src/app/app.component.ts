@@ -25,6 +25,9 @@ import { SidenavToggleService } from './core/sidenav-toggle.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { IStepOption, TourService } from 'ngx-ui-tour-md-menu';
 import { TourType } from './models/tour';
+import { MatDialog } from '@angular/material/dialog';
+import { WebviewDetectionService } from './core/webview-detection.service';
+import { WebviewWarningComponent } from './webview-warning/webview-warning.component';
 
 @Component({
   selector: 'app-root',
@@ -67,7 +70,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private consultationService: ConsultationService,
     private _socketEventsService: SocketEventsService,
-    private sidenavToggleService: SidenavToggleService
+    private sidenavToggleService: SidenavToggleService,
+    private dialog: MatDialog,
+    private webviewDetectionService: WebviewDetectionService
   ) {
     this.currentLang = this.translate.currentLang;
     iconRegistry.addSvgIcon(
@@ -205,6 +210,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.webviewDetectionService.isWebView()) {
+      this.dialog.open(WebviewWarningComponent, { disableClose: true });
+    }
+
     this.initializeTour();
     this.translate.onLangChange.subscribe(() => {
       this.initializeTour();

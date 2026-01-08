@@ -95,6 +95,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ScheduledForCardComponent } from './scheduled-for-card/scheduled-for-card.component';
 import { ConsultationNotFoundComponent } from './consultation-not-found/consultation-not-found.component';
+import { WebviewWarningComponent } from './webview-warning/webview-warning.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
@@ -313,6 +314,7 @@ const routes: Routes = [
     RescheduleDialogComponent,
     ScheduledForCardComponent,
     ConsultationNotFoundComponent,
+    WebviewWarningComponent,
   ],
   imports: [
     BrowserAnimationsModule,
