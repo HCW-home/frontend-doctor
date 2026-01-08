@@ -217,7 +217,11 @@ export class AppComponent implements OnInit, OnDestroy {
     document.body.appendChild(debugDiv);
 
     if (this.webviewDetectionService.isWebView()) {
-      this.dialog.open(WebviewWarningComponent, { disableClose: true });
+      this.dialog.open(WebviewWarningComponent, {
+        disableClose: true,
+        panelClass: 'webview-warning-dialog'
+      });
+      return;
     }
 
     this.initializeTour();

@@ -728,9 +728,9 @@
   "webviewWarning": {
     "title": "Browser Not Supported",
     "message": "Video calls are not supported in this browser.",
-    "description": "Please open this link in Chrome or Safari to join the consultation.",
-    "openInBrowser": "Open in Browser",
-    "urlCopied": "URL copied to clipboard. Please paste it in Chrome or Safari.",
-    "copyUrlManually": "Please copy this URL and paste it in your browser"
+    "description": "Copy the link below and open it in Safari or Chrome:",
+    "copyUrl": "Copy URL",
+    "copied": "Copied!",
+    "urlCopied": "URL copied! Open Safari or Chrome and paste the link."
   }
 }

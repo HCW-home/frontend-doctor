@@ -7,9 +7,12 @@
   </div>
   <p class="warning-message">{{ 'webviewWarning.message' | translate }}</p>
   <p class="warning-description">{{ 'webviewWarning.description' | translate }}</p>
+  <div class="url-container">
+    <input id="url-display" type="text" [value]="currentUrl" readonly class="url-input" />
+  </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="openInBrowser()">
-    {{ 'webviewWarning.openInBrowser' | translate }}
+  <button mat-flat-button color="primary" (click)="copyUrl()">
+    {{ copied ? ('webviewWarning.copied' | translate) : ('webviewWarning.copyUrl' | translate) }}
   </button>
 </div>

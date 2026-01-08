@@ -213,3 +213,11 @@ markdown {
   cursor: pointer;
   pointer-events: auto;
 }
+
+.cdk-overlay-container:has(.webview-warning-dialog) {
+  z-index: 99999 !important;
+}
+
+.webview-warning-dialog {
+  z-index: 99999 !important;
+}

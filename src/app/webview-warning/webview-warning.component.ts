@@ -9,6 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./webview-warning.component.scss']
 })
 export class WebviewWarningComponent {
+  currentUrl = window.location.href;
+  copied = false;
 
   constructor(
     private dialogRef: MatDialogRef<WebviewWarningComponent>,
@@ -16,45 +18,29 @@ export class WebviewWarningComponent {
     private translate: TranslateService
   ) {}
 
-  async openInBrowser() {
-    const currentUrl = window.location.href;
-    const ua = navigator.userAgent || '';
-
-    if (/Android/i.test(ua)) {
-      const urlWithoutProtocol = currentUrl.replace(/^https?:\/\//, '');
-      const intentUrl = `intent://${urlWithoutProtocol}#Intent;scheme=https;package=com.android.chrome;end`;
-      window.location.href = intentUrl;
-      setTimeout(() => this.copyUrlAsFallback(currentUrl), 2000);
-    } else if (/iPhone|iPod|iPad/i.test(ua)) {
-      window.location.href = currentUrl;
-      setTimeout(() => this.copyUrlAsFallback(currentUrl), 1000);
-    } else {
-      await this.copyUrlAsFallback(currentUrl);
-    }
-  }
-
-  private async copyUrlAsFallback(url: string) {
+  async copyUrl() {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       try {
-        await navigator.clipboard.writeText(url);
+        await navigator.clipboard.writeText(this.currentUrl);
+        this.copied = true;
         this.snackBar.open(
           this.translate.instant('webviewWarning.urlCopied'),
-            'X',
-          { duration: 5000 }
+          'X',
+          { duration: 3000 }
         );
       } catch (error) {
-        this.showUrlManually(url);
+        this.selectUrlText();
       }
     } else {
-      this.showUrlManually(url);
+      this.selectUrlText();
     }
   }
 
-  private showUrlManually(url: string) {
-    this.snackBar.open(
-      `${this.translate.instant('webviewWarning.copyUrlManually')}: ${url}`,
-        'X',
-      { duration: 10000 }
-    );
+  private selectUrlText() {
+    const urlInput = document.getElementById('url-display') as HTMLInputElement;
+    if (urlInput) {
+      urlInput.select();
+      urlInput.setSelectionRange(0, 99999);
+    }
   }
 }
