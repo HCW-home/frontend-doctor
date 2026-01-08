@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.59) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.60) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -87,8 +87,9 @@ hcw-athome-caregiver (0.5.59) UNRELEASED; urgency=medium
   * test user agent in whatsapp browser
   * add web view patterns
   * update web view warning modal
+  * remove userAgent debug content
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 08 Jan 2026 14:54:25 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 08 Jan 2026 15:12:54 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
