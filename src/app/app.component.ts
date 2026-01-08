@@ -210,6 +210,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const ua = navigator.userAgent || '';
+    const debugDiv = document.createElement('div');
+    debugDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:yellow;color:black;padding:10px;z-index:99999;font-size:12px;word-break:break-all;';
+    debugDiv.textContent = 'UA: ' + ua + ' | isWebView: ' + this.webviewDetectionService.isWebView();
+    document.body.appendChild(debugDiv);
+
     if (this.webviewDetectionService.isWebView()) {
       this.dialog.open(WebviewWarningComponent, { disableClose: true });
     }
