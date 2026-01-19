@@ -604,6 +604,7 @@
   "topNav": {
     "profile": "Profile",
     "logout": "Logout",
+    "switchUser": "Switch User",
     "startTheNextConsultation": "Start the next consultation",
     "terminateTheConsultation": "Terminate the consultation",
     "patientFirstnameAndLastname": "Patient name",

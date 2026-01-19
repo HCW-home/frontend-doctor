@@ -391,6 +391,7 @@
     },
     "topNav": {
         "logout": "Se déconnecter",
+        "switchUser": "Changer d'utilisateur",
         "startTheNextConsultation": "Démarrer la consultation suivante",
         "terminateTheConsultation": "Terminer la consultation",
         "patientFirstnameAndLastname": "Nom du patient",

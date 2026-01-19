@@ -170,6 +170,10 @@ export class TopNavComponent implements OnInit, OnDestroy {
     this.authService.logout(true);
   }
 
+  switchUser() {
+    this.authService.switchUser();
+  }
+
   acceptNextConsultation() {
     this.consultationService.acceptNext();
   }
