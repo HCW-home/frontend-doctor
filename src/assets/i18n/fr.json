@@ -305,7 +305,10 @@
         "queued": "En file d'attente",
         "failed": "Échoué",
         "acknowledged": "Reconnu(e)",
-        "partiallyDelivered": "Partiellement livré"
+        "partiallyDelivered": "Partiellement livré",
+        "getLink": "Obtenir le lien",
+        "getInviteLinkTooltip": "Obtenir le lien d'invitation",
+        "errorGettingLink": "Erreur lors de l'obtention du lien d'invitation"
     },
     "sideChat": {
         "startTheConsultation": "Démarrer la consultation"

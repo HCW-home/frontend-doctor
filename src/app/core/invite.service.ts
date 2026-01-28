@@ -62,4 +62,8 @@ export class InviteService {
       { params }
     );
   }
+
+  getInvite(id: string): Observable<any> {
+    return this.http.get(environment.api + `/invite/${id}`);
+  }
 }

@@ -175,13 +175,14 @@
         </ng-container>
         <td>
           <span class="tile-header"></span>
-          <div *ngIf="invite.resending" class="loading">
+          <div *ngIf="invite.resending || invite.gettingLink" class="loading">
             <mat-spinner [diameter]="35"></mat-spinner>
           </div>
           <div class="d-flex flex-column">
             <button
               *ngIf="
                 !invite.resending &&
+                !invite.gettingLink &&
                 (!invite.translatorRequestInvite ||
                   invite.translatorRequestInvite.status === 'ACCEPTED')
               "
@@ -203,6 +204,15 @@
                 invite.translatorRequestInvite.status === 'REFUSED'
               ">
               {{ 'consultations.sendAgainANewInvitation' | translate }}
+            </button>
+            <button
+              *ngIf="!invite.gettingLink"
+              mat-stroked-button
+              color="primary"
+              (click)="getInviteLink(invite.id)"
+              class="mb-12"
+              title="{{ 'invitations.getInviteLinkTooltip' | translate }}">
+              {{ 'invitations.getLink' | translate }}
             </button>
             <button
               mat-stroked-button
