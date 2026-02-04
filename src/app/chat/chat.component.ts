@@ -507,6 +507,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined) {
+        return;
+      }
       const body = {
         note: result,
       };
