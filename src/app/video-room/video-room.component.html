@@ -16,6 +16,15 @@
   [ngClass]="{ 'h-0': !accepted }">
   <div id="layout" style="height: 100%; display: flex" class="bounds">
     <ng-container *ngIf="accepted">
+      <div *ngIf="connecting" class="connection-overlay">
+        <div class="connection-spinner"></div>
+        <span>{{ 'consultation.connectingToVideoServer' | translate }}</span>
+      </div>
+
+      <div *ngIf="!connecting && myCamStream && remoteUsers.length === 0" class="connection-overlay">
+        <span>{{ 'consultation.waitingForPatient' | translate }}</span>
+      </div>
+
       <div
         *ngIf="camStatus === 'on'"
         #mainStream
@@ -78,4 +87,3 @@
     </div>
   }
 </div>
-'

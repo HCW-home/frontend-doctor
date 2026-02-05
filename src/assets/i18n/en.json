@@ -146,7 +146,12 @@
     "scheduledTime": "Time",
     "timezone": "Timezone",
     "notFoundOrClosed": "This consultation was not found or has been closed.",
-    "notFoundOrClosedMessage": "The consultation you are looking for may have been closed, deleted, or you may not have permission to access it."
+    "notFoundOrClosedMessage": "The consultation you are looking for may have been closed, deleted, or you may not have permission to access it.",
+    "videoServerConnectionFailed": "Failed to connect to video server. Please try again.",
+    "videoConnectionLost": "Video connection lost.",
+    "waitingForPatient": "Waiting for patient to join...",
+    "connectingToVideoServer": "Connecting to video server...",
+    "reconnected": "Video connection restored."
   },
   "dashboard": {
     "dashboard": "Dashboard",

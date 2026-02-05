@@ -17,6 +17,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -51,6 +52,8 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   showControls = false;
   myCamStream: Stream;
   timer: any;
+  connectionTimer: any;
+  connecting = false;
 
   camStatus = 'on';
   screenStream: any = null;
@@ -63,6 +66,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     private roomService: RoomService,
     private translate: TranslateService,
     private remotePeersService: RemotePeersService,
+    private snackBar: MatSnackBar,
   ) {
   }
 
@@ -103,6 +107,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    clearTimeout(this.connectionTimer);
     this.exitSession();
     this.stopWebCam();
     this.subscriptions.forEach(sub => {
@@ -154,6 +159,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   joinToSession() {
     this.accepted = true;
+    this.connecting = true;
 
     this.remoteUsers = [];
 
@@ -166,10 +172,63 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       token: this.token,
     });
 
+    this.connectionTimer = setTimeout(() => {
+      if (this.connecting) {
+        this.snackBar.open(
+          this.translate.instant('consultation.videoServerConnectionFailed'),
+          null,
+          { duration: 5000, panelClass: ['red-snackbar'] }
+        );
+        this.closeCall();
+      }
+    }, 15000);
+
     this.roomService.onCamProducing.subscribe(stream => {
       this.logger.debug('Cam producing ', stream);
       this.myCamStream = { ...stream };
+      this.connecting = false;
+      clearTimeout(this.connectionTimer);
     });
+
+    const signalingService = (this.roomService as any).signalingService;
+    if (signalingService) {
+      if (signalingService.onNotification) {
+        this.subscriptions.push(
+          signalingService.onNotification.subscribe((notification: any) => {
+            if (notification?.method === 'roomReady' && this.audioOnly) {
+              this.connecting = false;
+              clearTimeout(this.connectionTimer);
+            }
+          })
+        );
+      }
+      if (signalingService.onDisconnected) {
+        this.subscriptions.push(
+          signalingService.onDisconnected.subscribe(() => {
+            if (!this.rejected) {
+              this.snackBar.open(
+                this.translate.instant('consultation.videoConnectionLost'),
+                null,
+                { duration: 5000, panelClass: ['red-snackbar'] }
+              );
+              this.closeCall();
+            }
+          })
+        );
+      }
+      if (signalingService.onReconnected) {
+        this.subscriptions.push(
+          signalingService.onReconnected.subscribe(() => {
+            this.snackBar.open(
+              this.translate.instant('consultation.reconnected'),
+              null,
+              { duration: 3000 }
+            );
+          })
+        );
+      }
+    }
+
     this.subscriptions.push(
       this.remotePeersService.remotePeers.subscribe(peers => {
         this.remoteUsers = [];
