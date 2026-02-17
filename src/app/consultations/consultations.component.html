@@ -261,19 +261,17 @@
             }
           </td>
 
-          @if (status === 'closed') {
-            <td>
-              <button
-                mat-flat-button
-                color="primary"
-                (click)="exportPDF($event, consultation)">
-                <mat-icon
-                  aria-hidden="false"
-                  fontIcon="file_download"></mat-icon>
-                {{ 'consultations.exportButton' | translate }}
-              </button>
-            </td>
-          }
+          <td>
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="exportPDF($event, consultation)">
+              <mat-icon
+                aria-hidden="false"
+                fontIcon="file_download"></mat-icon>
+              {{ 'consultations.exportButton' | translate }}
+            </button>
+          </td>
 
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
             <span class="tile-header" *ngIf="consultation.unreadCount">

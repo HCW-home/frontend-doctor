@@ -681,17 +681,6 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
           leftColX,
           yPosition
         );
-        doc.text(
-          this.translate.instant('pdf.endDateTime') + ':',
-          leftColX,
-          yPosition + lineHeight
-        );
-        doc.text(
-          this.translate.instant('pdf.duration') + ':',
-          leftColX,
-          yPosition + lineHeight * 2
-        );
-
         doc.setFont('Helvetica', 'normal', 400);
         doc.text(
           `${this.datePipe.transform(data.acceptedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
@@ -699,19 +688,41 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
             getLabelWidth(this.translate.instant('pdf.startDateTime') + ':'),
           yPosition
         );
-        doc.text(
-          `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
-          leftColX +
-            getLabelWidth(this.translate.instant('pdf.endDateTime') + ':'),
-          yPosition + lineHeight
-        );
-        doc.text(
-          `${this.durationPipe.transform(data.closedAt - data.createdAt, 'en')}`,
-          leftColX +
-            getLabelWidth(this.translate.instant('pdf.duration') + ':'),
-          yPosition + lineHeight * 2
-        );
-        yPosition += lineHeight * 3 + 5;
+        yPosition += lineHeight;
+
+        if (data.closedAt) {
+          doc.setFont('Helvetica', 'normal', 700);
+          doc.text(
+            this.translate.instant('pdf.endDateTime') + ':',
+            leftColX,
+            yPosition
+          );
+          doc.setFont('Helvetica', 'normal', 400);
+          doc.text(
+            `${this.datePipe.transform(data.closedAt, 'd MMM yyyy HH:mm', undefined, 'en')}`,
+            leftColX +
+              getLabelWidth(this.translate.instant('pdf.endDateTime') + ':'),
+            yPosition
+          );
+          yPosition += lineHeight;
+
+          doc.setFont('Helvetica', 'normal', 700);
+          doc.text(
+            this.translate.instant('pdf.duration') + ':',
+            leftColX,
+            yPosition
+          );
+          doc.setFont('Helvetica', 'normal', 400);
+          doc.text(
+            `${this.durationPipe.transform(data.closedAt - data.createdAt, 'en')}`,
+            leftColX +
+              getLabelWidth(this.translate.instant('pdf.duration') + ':'),
+            yPosition
+          );
+          yPosition += lineHeight;
+        }
+
+        yPosition += 5;
 
         if (queue?.name) {
           doc.setFont('Helvetica', 'normal', 700);
