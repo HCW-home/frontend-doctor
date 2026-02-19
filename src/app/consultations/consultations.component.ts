@@ -392,7 +392,7 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         if (msg.mimeType.startsWith('image')) {
           fetch(requestUrl, {
             headers: {
-              'x-access-token': user.token,
+              'Authorization': `Bearer ${user.token}`,
             },
           })
             .then(res => res.blob())

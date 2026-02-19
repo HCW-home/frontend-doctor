@@ -34,7 +34,7 @@ export class AuthService {
   login(token) {
     const headers = {};
     if (token) {
-      headers["x-access-token"] = token;
+      headers["Authorization"] = `Bearer ${token}`;
     }
     return this.http.get<any>(`${environment.api}/current-user?_version=${environment.version}`, { headers })
       .pipe(map(res => {

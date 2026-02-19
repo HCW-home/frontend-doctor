@@ -340,7 +340,6 @@ export class ConsultationService {
     formData.append('attachment', file, file.name);
     return this.http.post(endpoint, formData, {
       headers: {
-        'x-access-token': `${this.currentUser.token}`,
         fileName: encodeURIComponent(file.name),
       },
     });
@@ -354,7 +353,6 @@ export class ConsultationService {
     return this.http.post(endpoint, formData, {
       headers: {
         'mime-type': 'application/pdf',
-        'x-access-token': `${this.currentUser.token}`,
         fileName: 'report',
       },
     });
