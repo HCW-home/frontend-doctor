@@ -1,4 +1,4 @@
-hcw-athome-caregiver (0.5.65) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.66) UNRELEASED; urgency=medium
 
   [ Olivier Bitsch ]
   * Move back to bookworm
@@ -94,8 +94,9 @@ hcw-athome-caregiver (0.5.65) UNRELEASED; urgency=medium
   * fix doctor private note modal closing issue
   * add video call connection error handling and status feedback
   * add export pdf button
+  * Replace x-access-token header with standard Authorization: Bearer
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Tue, 17 Feb 2026 07:36:41 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 19 Feb 2026 16:28:58 +0000
 
 hcw-athome-caregiver (0.5.34) focal; urgency=medium
 
