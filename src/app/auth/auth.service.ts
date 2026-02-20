@@ -34,7 +34,7 @@ export class AuthService {
   login(token) {
     const headers = {};
     if (token) {
-      headers["x-access-token"] = token;
+      headers["Authorization"] = `Bearer ${token}`;
     }
     return this.http.get<any>(`${environment.api}/current-user?_version=${environment.version}`, { headers })
       .pipe(map(res => {
@@ -117,6 +117,16 @@ export class AuthService {
     }, err => {
       this.router.navigate(["/login"]);
     })
+  }
+
+  switchUser() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    this.socketEventsService.disconnect();
+    this.http.get(`${environment.api}/logout`).subscribe(
+      () => this.router.navigate(['/login']),
+      () => this.router.navigate(['/login'])
+    );
   }
 
   getToken() {

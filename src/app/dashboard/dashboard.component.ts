@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                this.router.navigate(['/app/invitations']);
+                this.router.navigate(['/invitations']);
             }
 
         });

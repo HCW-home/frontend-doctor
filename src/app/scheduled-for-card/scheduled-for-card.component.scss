@@ -1,0 +1,78 @@
+.scheduled-card-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.mat-mdc-card-content {
+  padding: 16px;
+}
+
+.schedule-card {
+  min-width: 280px;
+  max-width: 350px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid var(--primary-color);
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: var(--app-gray);
+
+  &:hover {
+    color: var(--app-red);
+  }
+}
+
+.schedule-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  mat-icon {
+    width: auto;
+    height: auto;
+    color: var(--primary-color);
+  }
+
+  .schedule-label {
+    font-size: 14px;
+    color: var(--app-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.schedule-time {
+  font-size: 18px;
+  margin-bottom: 8px;
+
+  strong {
+    color: var(--app-black);
+  }
+}
+
+.schedule-timezone {
+  font-size: 12px;
+  color: var(--app-gray);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

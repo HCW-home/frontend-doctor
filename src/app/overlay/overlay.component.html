@@ -15,7 +15,10 @@
           ? 'calc(100% - 70px);'
           : 'calc(100% - 150px);'
       ">
-      <app-chat [consultation]="consultation" [overlay]="true" [showInput]="false"></app-chat>
+      <app-chat
+        [consultation]="consultation"
+        [overlay]="true"
+        [showInput]="false"></app-chat>
     </div>
   </div>
   <div
@@ -25,14 +28,21 @@
     {{ 'sideChat.startTheConsultation' | translate }}
   </div>
 
-  <div *ngIf="consultation.consultation.status === 'active'" class="btns">
-    <div (click)="showCloseOverlay = true" class="close">
-      {{ 'overlay.close' | translate }}
+  @if (consultation.consultation.status === 'active') {
+    <div class="btns">
+      @if (canTransferOwnership) {
+        <div (click)="transferOwnership()" class="transfer">
+          {{ 'overlay.takeOwnership' | translate }}
+        </div>
+      }
+      <div (click)="showCloseOverlay = true" class="close" [ngClass]="{'withoutBorder': canTransferOwnership}">
+        {{ 'overlay.close' | translate }}
+      </div>
+      <div (click)="resumeConsultation()" class="resume">
+        {{ 'overlay.resume' | translate }}
+      </div>
     </div>
-    <div (click)="resumeConsultation()" class="resume">
-      {{ 'overlay.resume' | translate }}
-    </div>
-  </div>
+  }
 </div>
 
 <div
@@ -56,7 +66,11 @@
                 | translate
             }}
           </p>
-          <button (click)="closeConsultation()" class="overlay-button" mat-flat-button color="warn">
+          <button
+            (click)="closeConsultation()"
+            class="overlay-button"
+            mat-flat-button
+            color="warn">
             {{ 'overlay.close' | translate }}
           </button>
         </div>
@@ -67,7 +81,11 @@
               'overlay.youWillbeAbleToResumeTheConsultationLater' | translate
             }}
           </p>
-          <button (click)="finishConsultation()" class="overlay-button"  color="primary" mat-flat-button>
+          <button
+            (click)="finishConsultation()"
+            class="overlay-button"
+            color="primary"
+            mat-flat-button>
             {{ 'overlay.terminateButKeepOpened' | translate }}
           </button>
         </div>
@@ -76,7 +94,11 @@
           <p>
             {{ 'overlay.doNotCloseTheConsultation' | translate }}
           </p>
-          <button (click)="onClose($event, true)" class="overlay-button" mat-raised-button color="primary">
+          <button
+            (click)="onClose($event, true)"
+            class="overlay-button"
+            mat-raised-button
+            color="primary">
             {{ 'overlay.staryInTheCurrentConsultation' | translate }}
           </button>
         </div>
@@ -245,7 +267,8 @@
               placeholder="{{ 'overlay.yourComment' | translate }}"></textarea>
           </ng-container>
           <p class="feedback-saved" *ngIf="feedbackSent">
-            <span>✓</span> {{ 'overlay.thanksForYourFeedback' | translate }}
+            <span>✓</span>
+            {{ 'overlay.thanksForYourFeedback' | translate }}
           </p>
         </div>
         <div class="buttons">
@@ -256,7 +279,11 @@
             *ngIf="!feedbackSent">
             {{ 'overlay.sendMyFeedback' | translate }}
           </button>
-          <button mat-flat-button color="warn" class="ml-12" (click)="onCloseFeedback()">
+          <button
+            mat-flat-button
+            color="warn"
+            class="ml-12"
+            (click)="onCloseFeedback()">
             {{ 'consultation.close' | translate }}
           </button>
         </div>

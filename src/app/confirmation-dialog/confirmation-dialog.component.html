@@ -3,14 +3,31 @@
 </h1>
 <div mat-dialog-content>
   <p class="question">{{ question }}</p>
+
+  <form *ngIf="showDelayInput" [formGroup]="delayForm">
+    <mat-form-field class="w-100">
+      <input
+        matInput
+        placeholder="{{ 'planConsultation.timeInMinutes' | translate }}"
+        formControlName="delay"
+        type="number"
+      />
+      <mat-error *ngIf="delayForm.get('delay')?.hasError('required')">
+        {{ 'inviteForm.required' | translate }}
+      </mat-error>
+      <mat-error *ngIf="delayForm.get('delay')?.hasError('max') || delayForm.get('delay')?.hasError('min')">
+        {{ 'planConsultation.maxDelay' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
   <button
     mat-stroked-button
     color="primary"
-    [mat-dialog-close]="false"
+    (click)="onCancel()"
   >
     {{ this.noText }}
   </button>
-  <button *ngIf="yesText" mat-flat-button color="warn" [mat-dialog-close]="true">{{ this.yesText }}</button>
+  <button *ngIf="yesText" mat-flat-button color="warn" (click)="onConfirm()">{{ this.yesText }}</button>
 </div>

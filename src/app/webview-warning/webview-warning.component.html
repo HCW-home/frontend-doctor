@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>
+  {{ 'webviewWarning.title' | translate }}
+</h1>
+<div mat-dialog-content>
+  <div class="warning-icon">
+    <mat-icon color="warn">warning</mat-icon>
+  </div>
+  <p class="warning-message">{{ 'webviewWarning.message' | translate }}</p>
+  <p class="warning-description">{{ 'webviewWarning.description' | translate }}</p>
+  <div class="url-container">
+    <input id="url-display" type="text" [value]="currentUrl" readonly class="url-input" />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="copyUrl()">
+    {{ copied ? ('webviewWarning.copied' | translate) : ('webviewWarning.copyUrl' | translate) }}
+  </button>
+</div>

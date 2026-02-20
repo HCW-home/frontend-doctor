@@ -1,0 +1,14 @@
+<div class="forbidden-container">
+  <mat-card class="forbidden-card">
+    <mat-card-content>
+      <h1 class="error-code">403</h1>
+      <h2 class="error-title">{{ 'forbidden.title' | translate }}</h2>
+      <p class="error-message">{{ 'forbidden.message' | translate }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goHome()">
+        {{ 'forbidden.backToHome' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

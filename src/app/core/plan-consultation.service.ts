@@ -10,12 +10,7 @@ export class PlanConsultationService {
 
   constructor(private http: HttpClient) { }
 
-  public getConsultationFromToken(token: string) {
-    return this.http.get<any>(environment.api + `/consultations-from-token?token=${token}`);
+  public planConsultation(consultation: any, delay: number) {
+    return this.http.post(environment.api + `/plan-consultation`, { consultation, delay });
   }
-  public planConsultation(token, consultation: any, delay: number) {
-    return this.http.post(environment.api + `/plan-consultation`, {token, consultation, delay});
-  }
-
-
 }

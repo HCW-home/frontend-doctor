@@ -1,0 +1,14 @@
+<div class="not-found-container">
+  <mat-card class="not-found-card">
+    <mat-card-content>
+      <mat-icon class="error-icon">event_busy</mat-icon>
+      <h2 class="error-title">{{ 'consultation.notFoundOrClosed' | translate }}</h2>
+      <p class="error-message">{{ 'consultation.notFoundOrClosedMessage' | translate }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goHome()">
+        {{ 'notFound.backToHome' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

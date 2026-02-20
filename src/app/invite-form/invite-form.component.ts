@@ -329,6 +329,8 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       if (!this.showRadioGroup) {
         this.valueChangesPatientContactAndScheduled();
       }
+      this.sendInviteExperts();
+      this.valueChangesGuestContactFormControl();
     });
 
     this.myForm.get('guestContactFormControl').valueChanges.subscribe(value => {
@@ -447,6 +449,7 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       const showSuccessMessage = group.get('showSuccessMessage');
       const messageService = group.get('messageService');
       const languageFormControl = this.myForm.get('languageFormControl');
+      const isScheduledControl = this.myForm.get('isScheduled');
 
       showRadio.setValue(false);
       showSuccessMessage.setValue('');
@@ -455,12 +458,16 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       messageService.updateValueAndValidity();
 
       const value = expertControl.value;
+      const type = isScheduledControl.value
+        ? TwilioWhatsappConfig.scheduledGuestInvite
+        : TwilioWhatsappConfig.guestInvite;
+
       if (phoneNumberRegex.test(value) && expertControl.valid) {
         this.inviteService
           .checkPrefix(
             value,
             languageFormControl.value,
-            TwilioWhatsappConfig.pleaseUseThisLink
+            type
           )
           .pipe(
             catchError(err => {
@@ -506,6 +513,7 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
       const showSuccessMessage = group.get('showSuccessMessage');
       const messageService = group.get('messageService');
       const languageFormControl = this.myForm.get('languageFormControl');
+      const isScheduledControl = this.myForm.get('isScheduled');
 
       expertControl.valueChanges
         .pipe(
@@ -517,20 +525,23 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
             messageService.updateValueAndValidity();
             return phoneNumberRegex.test(value) && expertControl.valid;
           }),
-          switchMap(value =>
-            this.inviteService
+          switchMap(value => {
+            const type = isScheduledControl.value
+              ? TwilioWhatsappConfig.scheduledGuestInvite
+              : TwilioWhatsappConfig.guestInvite;
+            return this.inviteService
               .checkPrefix(
                 value,
                 languageFormControl.value,
-                TwilioWhatsappConfig.pleaseUseThisLink
+                type
               )
               .pipe(
                 catchError(err => {
                   console.error(err);
                   return of(null);
                 })
-              )
-          )
+              );
+          })
         )
         .subscribe(res => {
           if (res) {

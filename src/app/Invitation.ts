@@ -17,6 +17,7 @@ export interface Invitation {
   translatorRequestInvite: any;
   resending: boolean;
   revoking: boolean;
+  gettingLink: boolean;
   metadata: object;
   patientTZ: string;
   experts: Expert[];

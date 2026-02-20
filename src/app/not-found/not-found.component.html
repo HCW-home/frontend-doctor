@@ -1,0 +1,14 @@
+<div class="not-found-container">
+  <mat-card class="not-found-card">
+    <mat-card-content>
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">{{ 'notFound.title' | translate }}</h2>
+      <p class="error-message">{{ 'notFound.message' | translate }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goHome()">
+        {{ 'notFound.backToHome' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

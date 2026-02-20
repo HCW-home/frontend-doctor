@@ -56,6 +56,10 @@
             <mat-icon svgIcon="stat"></mat-icon>
             {{ 'topNav.profile' | translate }}
           </div>
+          <div *ngIf="configService.config?.method === 'openid'" (click)="switchUser()">
+            <mat-icon>switch_account</mat-icon>
+            {{ 'topNav.switchUser' | translate }}
+          </div>
           <div class="logout" (click)="logout()">
             <mat-icon svgIcon="logout"></mat-icon>
             {{ 'topNav.logout' | translate }}

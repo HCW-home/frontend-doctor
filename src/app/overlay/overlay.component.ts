@@ -1,18 +1,26 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
 import { ConsultationService } from '../core/consultation.service';
 import { Router } from '@angular/router';
 import { ConfigService } from '../core/config.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { AuthService } from '../auth/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
   styleUrls: ['./overlay.component.scss'],
 })
-export class OverlayComponent implements OnInit {
+export class OverlayComponent implements OnInit, OnDestroy {
   constructor(
     private conServ: ConsultationService,
     private router: Router,
-    public configService: ConfigService
+    public configService: ConfigService,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private translate: TranslateService
   ) {}
 
   @Input() consultation;
@@ -23,6 +31,7 @@ export class OverlayComponent implements OnInit {
   loading = false;
   error = '';
   public showFeedbackOverlay = false;
+  currentUser;
 
   // The current rating selected by the doctor or null if none selected
   public doctorRating: string = null;
@@ -42,7 +51,101 @@ export class OverlayComponent implements OnInit {
   publicinvite;
   noPagination;
 
-  ngOnInit() {}
+  private consultationClosedSubscription: Subscription;
+  private previousConsultationStatus: string = null;
+
+  ngOnInit() {
+    this.currentUser = this.authService.currentUserValue;
+    this.previousConsultationStatus = this.consultation?.consultation?.status;
+    this.listenToConsultationClosed();
+  }
+
+  listenToConsultationClosed() {
+    if (this.consultation?.consultation?.status === 'active') {
+      this.consultationClosedSubscription = this.conServ.getConsultationsOverview().subscribe(consultations => {
+        const currentConsultation = consultations.find(
+          c => c._id === this.consultation?._id
+        );
+        if (currentConsultation) {
+          const newStatus = currentConsultation.consultation.status;
+
+          if (
+            this.previousConsultationStatus === 'active' &&
+            newStatus === 'closed' &&
+            currentConsultation.consultation.closedBy &&
+            currentConsultation.consultation.closedBy !== this.currentUser.id &&
+            !this.closingConsultation &&
+            !this.showFeedbackOverlay
+          ) {
+            this.close.emit(null);
+            this.router.navigate(['/dashboard'], {
+              replaceUrl: true,
+              state: { confirmed: true },
+            });
+          }
+
+          this.previousConsultationStatus = newStatus;
+        }
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.consultationClosedSubscription) {
+      this.consultationClosedSubscription.unsubscribe();
+    }
+  }
+
+  get canTransferOwnership(): boolean {
+    if (
+      !this.consultation ||
+      !this.consultation.queue ||
+      !this.consultation.queue.shareWhenOpened ||
+      this.consultation.consultation.status !== 'active'
+    ) {
+      return false;
+    }
+
+    const acceptedById = this.consultation.consultation.acceptedBy;
+    const doctorId =
+      this.consultation.doctor?.id || this.consultation.doctor?._id;
+
+    return (
+      acceptedById !== this.currentUser.id && doctorId !== this.currentUser.id
+    );
+  }
+
+  transferOwnership() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        title: this.translate.instant('chat.transferOwnershipTitle'),
+        question: this.translate.instant('chat.transferOwnershipQuestion'),
+        yesText: this.translate.instant('chat.transferOwnershipConfirm'),
+        noText: this.translate.instant('chat.transferOwnershipCancel'),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading = true;
+        this.conServ.transferOwnership(this.consultation._id).subscribe(
+          res => {
+            this.loading = false;
+            this.consultation.consultation.acceptedBy = this.currentUser.id;
+            this.consultation.acceptedByUser = {
+              firstName: this.currentUser.firstName,
+              lastName: this.currentUser.lastName,
+            };
+          },
+          err => {
+            this.loading = false;
+            this.error = err.error?.error || 'Failed to transfer ownership';
+          }
+        );
+      }
+    });
+  }
 
   onClose(event, force) {
     event.stopPropagation();

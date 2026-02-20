@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { tap, map, first } from 'rxjs/operators';
-import { SocketEventsService } from './socket-events.service';
-import { Router } from '@angular/router';
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {first, map, tap} from "rxjs/operators";
+import {SocketEventsService} from "./socket-events.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -68,6 +68,10 @@ export class ConsultationService {
       const c = this.consultationsOverview.find(
         c => c._id === msg.data.consultation
       );
+      if (!c) {
+        console.warn('Consultation not found in overview for message:', msg.data.consultation);
+        return;
+      }
       c.lastMsg = msg.data;
       c.unreadCount++;
       this.updateUnreadCount();
@@ -75,18 +79,45 @@ export class ConsultationService {
       this.consultationsOverviewSub.next(this.consultationsOverview);
     });
 
+    this.socketEventsService.onOwnershipTransferred().subscribe(event => {
+      const consultation = this.consultationsOverview.find(
+        c => c._id === event.data.consultation.id
+      );
+      if (consultation) {
+        consultation.consultation.acceptedBy = event.data.newOwner.id;
+        consultation.acceptedByUser = {
+          firstName: event.data.newOwner.firstName,
+          lastName: event.data.newOwner.lastName
+        };
+        consultation.doctor = event.data.newOwner;
+        this.consultationsOverviewSub.next(this.consultationsOverview);
+      }
+    });
+
     this.socketEventsService.onConsultationAccepted().subscribe(event => {
       const consultation = this.consultationsOverview.find(
         c => c._id === event.data._id
       );
 
-      if (this.currentUser.id === event.data.consultation.acceptedBy) {
-        if (consultation && consultation.consultation.status === 'pending') {
-          consultation.consultation.status = 'active';
-        } else {
-          return;
-        }
-      } else {
+      if (!consultation) {
+        return;
+      }
+
+      consultation.consultation.status = 'active';
+      consultation.consultation.acceptedBy = event.data.consultation.acceptedBy;
+      consultation.consultation.acceptedAt = event.data.consultation.acceptedAt;
+
+      if (event.data.doctor) {
+        consultation.doctor = event.data.doctor;
+        consultation.acceptedByUser = {
+          firstName: event.data.doctor.firstName,
+          lastName: event.data.doctor.lastName
+        };
+      }
+
+      const isSharedQueue = consultation.queue && consultation.queue.shareWhenOpened;
+
+      if (!isSharedQueue && this.currentUser.id !== event.data.consultation.acceptedBy) {
         this.consultationsOverview = this.consultationsOverview.filter(
           c => c._id !== event.data._id
         );
@@ -146,8 +177,7 @@ export class ConsultationService {
   getConsultation(id): Observable<any> {
     return this.consultationsOverviewSub.pipe(
       map(cs => {
-        const consultation = cs.find(c => c._id === id);
-        return consultation;
+        return cs.find(c => c._id === id);
       })
     );
   }
@@ -169,6 +199,25 @@ export class ConsultationService {
       );
   }
 
+  transferOwnership(id): Observable<any> {
+    return this.http
+      .post<any[]>(environment.api + `/consultation/${id}/transfer-ownership`, null)
+      .pipe(
+        tap(res => {
+          const c = this.consultationsOverview.find(c => c._id === id);
+          if (c && res.consultation) {
+            c.consultation.acceptedBy = res.consultation.acceptedBy;
+            c.doctor = this.currentUser;
+            c.acceptedByUser = {
+              firstName: this.currentUser.firstName,
+              lastName: this.currentUser.lastName
+            };
+          }
+          this.consultationsOverviewSub.next(this.consultationsOverview);
+        })
+      );
+  }
+
   closeConsultation(id): Observable<any> {
     return this.http
       .post<any[]>(environment.api + `/consultation/${id}/close`, null)
@@ -183,6 +232,27 @@ export class ConsultationService {
             this.sortConsultations();
             this.consultationsOverviewSub.next(this.consultationsOverview);
             this.socketEventsService.consultationClosedSubj.next(consultation);
+          }
+        })
+      );
+  }
+
+  rescheduleConsultation(id: string, scheduledFor: number, patientTZ: string): Observable<any> {
+    return this.http
+      .post<any>(environment.api + `/consultation/${id}/reschedule`, {
+        scheduledFor,
+        patientTZ
+      })
+      .pipe(
+        tap(res => {
+          const consultation = this.consultationsOverview.find(
+            c => c._id === id
+          );
+
+          if (consultation && res.consultation) {
+            consultation.consultation.scheduledFor = res.consultation.scheduledFor;
+            consultation.consultation.patientTZ = res.consultation.patientTZ;
+            this.consultationsOverviewSub.next(this.consultationsOverview);
           }
         })
       );
@@ -270,7 +340,6 @@ export class ConsultationService {
     formData.append('attachment', file, file.name);
     return this.http.post(endpoint, formData, {
       headers: {
-        'x-access-token': `${this.currentUser.token}`,
         fileName: encodeURIComponent(file.name),
       },
     });
@@ -284,7 +353,6 @@ export class ConsultationService {
     return this.http.post(endpoint, formData, {
       headers: {
         'mime-type': 'application/pdf',
-        'x-access-token': `${this.currentUser.token}`,
         fileName: 'report',
       },
     });

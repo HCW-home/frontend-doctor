@@ -10,18 +10,26 @@
       class="general-info"
       [ngClass]="{ 'big-font': noPagination }">
       <div
-        class="d-flex gap-10 align-items-baseline w-100 justify-content-between">
+        class="d-flex gap-10 align-items-baseline w-100 flex-wrap justify-content-between">
         <h4 class="general-title">
           {{ 'chat.generalInformation' | translate }}
         </h4>
         <div
-          class="c_info_wrap d-flex justify-content-end gap-4"
+          class="d-flex justify-content-end gap-4"
           *ngIf="consultation.consultation.status !== 'closed'">
-            @if (configService?.config?.showDoctorPrivateNote) {
-                <button mat-mini-fab color="warn" (click)="openNoteDialog()">
-                    <mat-icon color="primary" class="note-icon">note_add</mat-icon>
-                </button>
-            }
+          @if (configService?.config?.showDoctorPrivateNote) {
+            <button mat-mini-fab color="warn" (click)="openNoteDialog()">
+              <mat-icon color="primary" class="note-icon">note_add</mat-icon>
+            </button>
+          }
+          @if (canTransferOwnership) {
+            <button
+              color="primary"
+              mat-raised-button
+              (click)="transferOwnership()">
+              {{ 'chat.takeOwnership' | translate }}
+            </button>
+          }
           <button
             color="primary"
             mat-flat-button
@@ -354,8 +362,7 @@
 
           <div class="bubble" *ngIf="msg.text || msg.isFile">
             <div [ngClass]="{ 'big-font': noPagination }">
-              <p class="message-text" *ngIf="msg.text">
-                {{ msg.text }}
+              <p class="message-text" *ngIf="msg.text" [innerHTML]="msg.text | linkify">
               </p>
               <button
                 *ngIf="msg.isFile"
@@ -425,7 +432,11 @@
           </div>
         </div>
         <div
-          *ngIf="msg.type !== 'videoCall' && msg.type !== 'audioCall'"
+          *ngIf="
+            msg.type !== 'videoCall' &&
+            msg.type !== 'audioCall' &&
+            msg.type !== 'ownershipTransfer'
+          "
           style="grid-area: msgTime"
           [ngClass]="{ 'big-font': noPagination }"
           class="msg-time">

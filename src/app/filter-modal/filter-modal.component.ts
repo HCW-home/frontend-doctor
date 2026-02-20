@@ -11,6 +11,8 @@ export class FilterModalComponent implements OnInit {
   appLiedFiltersCount = 0;
   createdByMe = false;
   createdByNotMe = false;
+  handledByMe = false;
+  handledByNotMe = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -18,6 +20,7 @@ export class FilterModalComponent implements OnInit {
       queues: any[];
       filterState: any;
       appLiedFiltersCount: number;
+      status?: string;
     }
   ) {}
 
@@ -33,6 +36,8 @@ export class FilterModalComponent implements OnInit {
       this.queues = this.data.filterState.queues;
       this.createdByMe = this.data.filterState.createdBy.me;
       this.createdByNotMe = this.data.filterState.createdBy.notMe;
+      this.handledByMe = this.data.filterState.handledBy?.me || false;
+      this.handledByNotMe = this.data.filterState.handledBy?.notMe || false;
     } else {
       this.queues = this.data.queues.map(queue => ({
         ...queue,
@@ -47,6 +52,10 @@ export class FilterModalComponent implements OnInit {
       createdBy: {
         me: this.createdByMe,
         notMe: this.createdByNotMe,
+      },
+      handledBy: {
+        me: this.handledByMe,
+        notMe: this.handledByNotMe,
       },
     };
   }

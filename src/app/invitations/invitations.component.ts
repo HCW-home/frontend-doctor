@@ -223,6 +223,52 @@ export class InvitationsComponent implements OnInit, OnDestroy {
     });
   }
 
+  getInviteLink(id: string) {
+    const invite = this.currentInvites.find(i => i.id === id);
+    if (invite) {
+      invite.gettingLink = true;
+    }
+
+    this.inviteService.getInvite(id).subscribe({
+      next: (res) => {
+        if (invite) {
+          invite.gettingLink = false;
+        }
+        if (res && res.patientURL) {
+          this.dialog.open(InviteLinkComponent, {
+            width: '600px',
+            data: { link: res.patientURL },
+            autoFocus: false,
+          });
+        } else {
+          this.snackBar.open(
+            this.translate.instant('invitations.errorGettingLink'),
+            'X',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+              duration: 2500,
+            }
+          );
+        }
+      },
+      error: (err) => {
+        if (invite) {
+          invite.gettingLink = false;
+        }
+        this.snackBar.open(
+          this.translate.instant('invitations.errorGettingLink'),
+          'X',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'right',
+            duration: 2500,
+          }
+        );
+      }
+    });
+  }
+
   getFormattedDate(utcTimestamp: number, timezone: string) {
     return moment(utcTimestamp).tz(timezone).format('D MMM YYYY HH:mm');
   }

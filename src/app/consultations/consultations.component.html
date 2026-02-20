@@ -102,6 +102,17 @@
                 : '-'
             }}
           </td>
+          <td *ngIf="status !== 'pending'" class="hidden-mobile">
+            <span class="tile-header">
+              {{ 'consultations.handledBy' | translate }}
+            </span>
+            @if (consultation.acceptedByUser) {
+              {{ consultation.acceptedByUser.firstName }}
+              {{ consultation.acceptedByUser.lastName }}
+            } @else {
+              -
+            }
+          </td>
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
             <span class="tile-header">
               {{ 'consultations.message' | translate }}
@@ -142,6 +153,17 @@
               consultation.consultation.createdAt -
                 consultation.consultation.closedAt | duration
             }}
+          </td>
+          <td *ngIf="status === 'closed'" class="hidden-mobile">
+            <span class="tile-header">
+              {{ 'consultations.closedBy' | translate }}
+            </span>
+            @if (consultation.closedByUser) {
+              {{ consultation.closedByUser.firstName }}
+              {{ consultation.closedByUser.lastName }}
+            } @else {
+              -
+            }
           </td>
           <ng-container *ngIf="configService.config?.metadata?.length">
             <td
@@ -221,35 +243,35 @@
             </td>
           }
           <td>
-            <button
-              (click)="openDialog($event, consultation)"
-              mat-stroked-button
-              color="primary"
-              *ngIf="status === 'closed'">
-              {{ 'consultations.sendAgainANewInvitation' | translate }}
-            </button>
-            <button
-              (click)="resendInvite($event, consultation.consultation.invite)"
-              mat-stroked-button
-              color="primary"
-              *ngIf="status !== 'closed'">
-              {{ 'consultations.sendAgainTheInvitation' | translate }}
-            </button>
+            @if (!consultation?.nurse?.firstName) {
+              <button
+                (click)="openDialog($event, consultation)"
+                mat-stroked-button
+                color="primary"
+                *ngIf="status === 'closed'">
+                {{ 'consultations.sendAgainANewInvitation' | translate }}
+              </button>
+              <button
+                (click)="resendInvite($event, consultation.consultation.invite)"
+                mat-stroked-button
+                color="primary"
+                *ngIf="status !== 'closed'">
+                {{ 'consultations.sendAgainTheInvitation' | translate }}
+              </button>
+            }
           </td>
 
-          @if (status === 'closed') {
-            <td>
-              <button
-                mat-flat-button
-                color="primary"
-                (click)="exportPDF($event, consultation)">
-                <mat-icon
-                  aria-hidden="false"
-                  fontIcon="file_download"></mat-icon>
-                {{ 'consultations.exportButton' | translate }}
-              </button>
-            </td>
-          }
+          <td>
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="exportPDF($event, consultation)">
+              <mat-icon
+                aria-hidden="false"
+                fontIcon="file_download"></mat-icon>
+              {{ 'consultations.exportButton' | translate }}
+            </button>
+          </td>
 
           <td *ngIf="status !== 'closed'" class="hidden-mobile">
             <span class="tile-header" *ngIf="consultation.unreadCount">

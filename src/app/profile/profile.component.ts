@@ -160,6 +160,27 @@ export class ProfileComponent implements OnInit {
     this.isSMSPhoneChanged = true;
   }
 
+  onLanguageChange(language: string) {
+    this.isLoading = true;
+    const body = {
+      preferredLanguage: language
+    };
+    this.userService.updateEnableNotif(body).subscribe(
+      res => {
+        this.currentUser.preferredLanguage = language;
+        this.authService.storeCurrentUser(this.currentUser);
+        const text = this.translate.instant('profile.messageServiceSuccess');
+        this.openSnackBar(text, null);
+        this.isLoading = false;
+      },
+      err => {
+        const text = this.translate.instant('profile.messageServiceError');
+        this.openSnackBar(text, null);
+        this.isLoading = false;
+      }
+    );
+  }
+
   onSave() {
       if (!this.phoneNumberRegex.test(this.currentNotifPhoneNumber)) {
         this.openSnackBar(

@@ -108,6 +108,23 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
     });
 
+    this.socketEventsService.onOwnershipTransferred().subscribe(event => {
+      if (
+        event.data &&
+        event.data.consultation &&
+        event.data.consultation.id === (this.consultation._id || this.consultation.id)
+      ) {
+        if (this.consultation) {
+          this.consultation.consultation.acceptedBy = event.data.newOwner.id;
+          this.consultation.acceptedByUser = {
+            firstName: event.data.newOwner.firstName,
+            lastName: event.data.newOwner.lastName
+          };
+          this.consultation.doctor = event.data.newOwner;
+        }
+      }
+    });
+
     this.listenToCallEvents();
     this.breakpointObserver.observe([Breakpoints.XSmall]).subscribe(result => {
       this.isMobile = result.matches;
@@ -119,6 +136,66 @@ export class ChatComponent implements OnInit, OnDestroy {
       width: '800px',
       data: { expertLink, id: this.consultation._id || this.consultation.id, consultation: this.consultation },
       autoFocus: false,
+    });
+  }
+
+  get canTransferOwnership(): boolean {
+    if (!this.consultation ||
+        !this.consultation.queue ||
+        !this.consultation.queue.shareWhenOpened ||
+        this.consultation.consultation.status !== 'active') {
+      return false;
+    }
+
+    const acceptedById = this.consultation.consultation.acceptedBy;
+    const doctorId = this.consultation.doctor?.id || this.consultation.doctor?._id;
+
+    return acceptedById !== this.currentUser.id && doctorId !== this.currentUser.id;
+  }
+
+  transferOwnership() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        title: this.translate.instant('chat.transferOwnershipTitle'),
+        question: this.translate.instant('chat.transferOwnershipQuestion'),
+        yesText: this.translate.instant('chat.transferOwnershipConfirm'),
+        noText: this.translate.instant('chat.transferOwnershipCancel'),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.consultationService.transferOwnership(this.consultation._id || this.consultation.id).subscribe(
+          res => {
+            this.consultation.consultation.acceptedBy = this.currentUser.id;
+            this.consultation.acceptedByUser = {
+              firstName: this.currentUser.firstName,
+              lastName: this.currentUser.lastName,
+            };
+            this.snackBar.open(
+              this.translate.instant('chat.transferOwnershipSuccess'),
+              'X',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'right',
+                duration: 2500,
+              }
+            );
+          },
+          err => {
+            this.snackBar.open(
+              err.error?.error || this.translate.instant('chat.transferOwnershipError'),
+              'X',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'right',
+                duration: 2500,
+              }
+            );
+          }
+        );
+      }
     });
   }
 
@@ -290,7 +367,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   adjustMsg(msg) {
-    if (msg.type === 'attachment') {
+    if (msg.type === 'ownershipTransfer') {
+      msg.isOwnershipTransfer = true;
+      msg.direction = 'system';
+      if (msg.metadata) {
+        msg.transferData = msg.metadata;
+      }
+    } else if (msg.type === 'attachment') {
       const requestUrl =
         environment.api +
         `/consultation/${
@@ -302,7 +385,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       if (msg.mimeType.endsWith('jpeg') || msg.mimeType.endsWith('png')) {
         fetch(requestUrl, {
           headers: {
-            'x-access-token': user.token,
+            'Authorization': `Bearer ${user.token}`,
           },
         })
           .then(res => {
@@ -424,6 +507,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined) {
+        return;
+      }
       const body = {
         note: result,
       };

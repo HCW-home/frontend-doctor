@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import {supportedLanguages} from "../i18n/i18n.module";
+import { supportedLanguages } from '../i18n/i18n.module';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-language-selector',
@@ -10,7 +11,7 @@ import {supportedLanguages} from "../i18n/i18n.module";
         <mat-icon>language</mat-icon>
       }
       <mat-form-field>
-        <mat-label>{{'profile.selectLanguage' | translate}}</mat-label>
+        <mat-label>{{ 'profile.selectLanguage' | translate }}</mat-label>
         <mat-select
           [(value)]="selectedLanguage"
           (selectionChange)="onLanguageSelect($event)">
@@ -23,24 +24,35 @@ import {supportedLanguages} from "../i18n/i18n.module";
   `,
   styles: [
     `
-                      .language-selector {
-                        gap: 6px;
-                        display: flex;
-                        align-items: center;
-                      }
-                    `,
+      .language-selector {
+        gap: 6px;
+        display: flex;
+        align-items: center;
+      }
+    `,
   ],
 })
-export class LanguageSelectorComponent {
-
+export class LanguageSelectorComponent implements OnInit {
   @Output() selectedLanguageChange = new EventEmitter();
-  @Input() hideIcon:boolean = false;
+  @Input() hideIcon: boolean = false;
   opened = false;
   selectedLanguage = 'fr';
 
-  constructor(public translate: TranslateService) {
-    this.selectedLanguage =
-      localStorage.getItem('hhw-lang') || supportedLanguages[0];
+  constructor(
+    public translate: TranslateService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser && currentUser.preferredLanguage) {
+      this.selectedLanguage = currentUser.preferredLanguage;
+      this.translate.use(currentUser.preferredLanguage);
+      window.localStorage.setItem('hhw-lang', currentUser.preferredLanguage);
+    } else {
+      this.selectedLanguage =
+        localStorage.getItem('hhw-lang') || supportedLanguages[0];
+    }
   }
 
   openDropdown() {
@@ -51,7 +63,7 @@ export class LanguageSelectorComponent {
     this.openDropdown();
     window.localStorage.setItem('hhw-lang', lang.value);
     this.translate.use(lang.value);
-    this.selectedLanguageChange.emit(lang.value)
+    this.selectedLanguageChange.emit(lang.value);
   }
 
   protected readonly supportedLanguages = supportedLanguages;

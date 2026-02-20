@@ -32,6 +32,7 @@
     "filtersApplied": "Filters applied:",
     "filters": "Filters",
     "sent_by": "Invite sent by",
+    "handled_by": "Handled by",
     "queue": "Queue",
     "myself": "Myself",
     "somebodyElse": "Somebody else",
@@ -78,7 +79,14 @@
     "addNoteTitle": "Add Note",
     "addNotePlaceholder": "Type your note...",
     "cancelAddNote": "Cancel",
-    "saveNote": "Save"
+    "saveNote": "Save",
+    "takeOwnership": "Take Ownership",
+    "transferOwnershipTitle": "Transfer Ownership",
+    "transferOwnershipQuestion": "Are you sure you want to take ownership of this consultation?",
+    "transferOwnershipConfirm": "Yes, take ownership",
+    "transferOwnershipCancel": "Cancel",
+    "transferOwnershipSuccess": "Ownership transferred successfully",
+    "transferOwnershipError": "Failed to transfer ownership"
   },
   "consultations": {
     "noPatientName": "Undefined",
@@ -106,11 +114,14 @@
     "shareBy": "Share invite by link",
     "requestedBy": "Requested by",
     "filters": "Filters",
-    "exportButton": "Export"
+    "exportButton": "Export",
+    "handledBy": "Handled by",
+    "closedBy": "Closed by"
   },
   "consultation": {
     "start": "START",
     "aCall": "A CALL",
+    "anotherDoctorInCall": "Another doctor is currently in a call",
     "joinVideoCall": "Join video",
     "videoCall": "Video call",
     "audioCall": "Audio call",
@@ -121,7 +132,26 @@
     "cameraSelection": "Camera selection",
     "close": "Close",
     "callError": "Unable to initiate call, server returned",
-    "expert_link": "Expert Link"
+    "selfCallNotAllowed": "Cannot make a call: You are assigned as both doctor and requester in this consultation. Please assign a different user to one of the roles.",
+    "expert_link": "Expert Link",
+    "cameraNotAccessible": "Your camera is not accessible. Do you want to continue without video call without your camera?",
+    "continueWithoutCamera": "Continue without camera",
+    "reschedule": "Reschedule call",
+    "rescheduleTitle": "Reschedule Consultation",
+    "rescheduleConfirm": "Confirm Reschedule",
+    "rescheduleSuccess": "Consultation rescheduled successfully. Patient will be notified.",
+    "rescheduleError": "Failed to reschedule consultation. Please try again.",
+    "scheduledFor": "Scheduled For",
+    "scheduledDate": "Date",
+    "scheduledTime": "Time",
+    "timezone": "Timezone",
+    "notFoundOrClosed": "This consultation was not found or has been closed.",
+    "notFoundOrClosedMessage": "The consultation you are looking for may have been closed, deleted, or you may not have permission to access it.",
+    "videoServerConnectionFailed": "Failed to connect to video server. Please try again.",
+    "videoConnectionLost": "Video connection lost.",
+    "waitingForPatient": "Waiting for patient to join...",
+    "connectingToVideoServer": "Connecting to video server...",
+    "reconnected": "Video connection restored."
   },
   "dashboard": {
     "dashboard": "Dashboard",
@@ -412,6 +442,7 @@
   "overlay": {
     "close": "Close",
     "resume": "Resume",
+    "takeOwnership": "Take Ownership",
     "terminate": "TERMINATE",
     "theConsultation": "THE CONSULTATION",
     "theConsultationWillBeDisplayedIntoHistoryDuring24Hours": "The consultation will be displayed into history during 24 hours and you will not be able to communication anymore",
@@ -490,7 +521,10 @@
     "sms": "SMS",
     "whatsapp": "WhatsApp",
     "email": "Email",
-    "manual": "Manual"
+    "manual": "Manual",
+    "getLink": "Get Link",
+    "getInviteLinkTooltip": "Get the invitation link",
+    "errorGettingLink": "Error getting the invitation link"
   },
   "sideChat": {
     "startTheConsultation": "Start the consultation"
@@ -578,6 +612,7 @@
   "topNav": {
     "profile": "Profile",
     "logout": "Logout",
+    "switchUser": "Switch User",
     "startTheNextConsultation": "Start the next consultation",
     "terminateTheConsultation": "Terminate the consultation",
     "patientFirstnameAndLastname": "Patient name",
@@ -650,6 +685,8 @@
     "startDateTime": "Start date/time",
     "endDateTime": "End date/time",
     "duration": "Duration",
+    "queue": "Queue",
+    "closedBy": "Closed by",
     "chatHistory": "Chat history",
     "attachedFile": "[Attached file]",
     "audioCall": "Audio call",
@@ -673,12 +710,36 @@
     "patient": "Patient",
     "nurse": "Requester",
     "requester": "Requester",
-    "scheduler": "Scheduler"
+    "scheduler": "Scheduler",
+    "expert": "Expert",
+    "guest": "Guest"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "The page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to Home"
+  },
+  "forbidden": {
+    "title": "Access Forbidden",
+    "message": "You don't have permission to access this resource.",
+    "backToHome": "Back to Home"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "required": "Field required"
   },
   "metadata": {
     "Age": "Age",
     "Country": "Country",
     "Custom Id": "Custom Id",
     "Facility": "Facility"
+  },
+  "webviewWarning": {
+    "title": "Browser Not Supported",
+    "message": "Video calls are not supported in this browser.",
+    "description": "Copy the link below and open it in Safari or Chrome:",
+    "copyUrl": "Copy URL",
+    "copied": "Copied!",
+    "urlCopied": "URL copied! Open Safari or Chrome and paste the link."
   }
 }

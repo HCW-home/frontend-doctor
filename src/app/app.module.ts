@@ -2,6 +2,7 @@ import { PeerAudioComponent } from './stream/peer-audio/peer-audio.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { InviteFormComponent } from './invite-form/invite-form.component';
+import { RescheduleDialogComponent } from './reschedule-dialog/reschedule-dialog.component';
 import {
   InvitationAlreadyAcceptedComponent,
   InvitationsComponent,
@@ -48,12 +49,14 @@ import { OverlayComponent } from './overlay/overlay.component';
 
 import { MsgTimePipe } from './msg-time.pipe';
 import { DurationPipe } from './duration.pipe';
+import { LinkifyPipe } from './linkify.pipe';
 
 import { DatePipe, registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
 import localeUk from '@angular/common/locales/uk';
 import localeSv from '@angular/common/locales/sv';
+import localeEs from '@angular/common/locales/es';
 
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 import { I18nModule } from './i18n/i18n.module';
@@ -61,7 +64,6 @@ import { ConfigService } from './core/config.service';
 
 import { HugAngularLibModule } from 'hcw-stream-lib';
 import { PeerVideoComponent } from './stream/peer-video/peer-video.component';
-import { PlanConsultationComponent } from './plan-consultation/plan-consultation.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { InviteExpertComponent } from './invite-expoert/invite-expert.component';
@@ -89,10 +91,16 @@ import { TourMatMenuModule } from 'ngx-ui-tour-md-menu';
 import { StartTourComponent } from './shared/components/start-tour/start-tour.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NoteDialogComponent } from './note-dialog/note-dialog.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ScheduledForCardComponent } from './scheduled-for-card/scheduled-for-card.component';
+import { ConsultationNotFoundComponent } from './consultation-not-found/consultation-not-found.component';
+import { WebviewWarningComponent } from './webview-warning/webview-warning.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeUk);
 registerLocaleData(localeSv);
+registerLocaleData(localeEs);
 
 export function LocaleIdFactory(translateService: TranslateService) {
   return translateService.currentLang || 'en';
@@ -235,10 +243,27 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'plan-consultation',
-    component: PlanConsultationComponent,
+    path: 'not-found',
+    component: NotFoundComponent,
+    data: {
+      title: 'Page Not Found',
+    },
   },
-  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'consultation-not-found',
+    component: ConsultationNotFoundComponent,
+    data: {
+      title: 'Consultation Not Found',
+    },
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
+    data: {
+      title: 'Access Forbidden',
+    },
+  },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
@@ -256,6 +281,7 @@ const routes: Routes = [
     SideChatComponent,
     MsgTimePipe,
     DurationPipe,
+    LinkifyPipe,
     ChatComponent,
     OverlayComponent,
     InvitationsComponent,
@@ -271,7 +297,6 @@ const routes: Routes = [
     SelectLanguageComponent,
     LanguageSelectorComponent,
     ConfirmationDialogComponent,
-    PlanConsultationComponent,
     ErrorDialogComponent,
     DotSpinnerComponent,
     DateTimePickerComponent,
@@ -283,7 +308,13 @@ const routes: Routes = [
     TermsAcceptanceComponent,
     InviteLinkComponent,
     StartTourComponent,
-    NoteDialogComponent
+    NoteDialogComponent,
+    NotFoundComponent,
+    ForbiddenComponent,
+    RescheduleDialogComponent,
+    ScheduledForCardComponent,
+    ConsultationNotFoundComponent,
+    WebviewWarningComponent,
   ],
   imports: [
     BrowserAnimationsModule,

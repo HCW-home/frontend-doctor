@@ -31,8 +31,7 @@ export class SocketEventsService {
       url: url,
       data: data || {},
       headers: {
-        'x-access-token': this.user?.token || '',
-        'authorization': `Bearer ${this.user?.token || ''}`,
+        'Authorization': `Bearer ${this.user?.token || ''}`,
         'id': this.user?.id?.toString() || ''
       }
     };
@@ -70,7 +69,7 @@ export class SocketEventsService {
       },
       extraHeaders: {
         id: currentUser.id.toString(),
-        'x-access-token': currentUser.token,
+        'Authorization': `Bearer ${currentUser.token}`,
       }
     });
 
@@ -192,11 +191,27 @@ export class SocketEventsService {
     return sub
   }
 
+  onOwnershipTransferred(): Subject<any> {
+    const sub = new Subject()
+    const obs = Observable.create((observer) => {
+      this.socket.on('ownershipTransferred', (e) => {
+        console.info('ownership transferred', e)
+        observer.next(e)
+      })
+    })
+    obs.subscribe(sub)
+    return sub
+  }
+
   onMessage(): Subject<any> {
     const sub = new Subject()
     const obs = Observable.create((observer) => {
       this.socket.on('newMessage', (e) => {
         console.info('new mesg ', e)
+          if ((e.data.type === 'text' || e.data.type === 'attachment')) {
+              const audio = new Audio('assets/sounds/new-message.mp3');
+              audio.play().catch(err => console.log('Audio play failed:', err));
+          }
         observer.next(e)
       })
     })
