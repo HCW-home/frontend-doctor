@@ -741,5 +741,9 @@
     "copyUrl": "Copy URL",
     "copied": "Copied!",
     "urlCopied": "URL copied! Open Safari or Chrome and paste the link."
+  },
+  "videoRoom": {
+    "cameraError": "An error occurred while accessing your camera.",
+    "microphoneError": "An error occurred while accessing your microphone."
   }
 }

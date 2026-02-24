@@ -190,6 +190,25 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       clearTimeout(this.connectionTimer);
     });
 
+    this.subscriptions.push(
+      this.roomService.onCamError.subscribe((error) => {
+        this.snackBar.open(
+          this.translate.instant('videoRoom.cameraError'),
+          'X',
+          { duration: 5000, panelClass: ['red-snackbar'] }
+        );
+      })
+    );
+    this.subscriptions.push(
+      this.roomService.onMicError.subscribe((error) => {
+        this.snackBar.open(
+          this.translate.instant('videoRoom.microphoneError'),
+          'X',
+          { duration: 5000, panelClass: ['red-snackbar'] }
+        );
+      })
+    );
+
     const signalingService = (this.roomService as any).signalingService;
     if (signalingService) {
       if (signalingService.onNotification) {
