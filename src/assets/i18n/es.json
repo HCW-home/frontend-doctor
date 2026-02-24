@@ -599,7 +599,7 @@
         "duration": "Duración",
         "chatHistory": "Historial de chat",
         "attachedFile": "[Archivo adjunto]",
-        "fileName": "informe-de-consulta"
+        "fileName": ""
     },
     "error": {
         "defaultTitle": "Error",
@@ -668,12 +668,14 @@
         "kk": "Қазақ"
     },
     "roles": {
-        "admin": "Administrador",
+        "admin": "Administración",
         "doctor": "Médico",
         "patient": "Paciente",
         "nurse": "Solicitante",
         "requester": "Solicitante",
-        "scheduler": "Programador"
+        "scheduler": "Programador",
+        "expert": "Experto",
+        "guest": "Invitado/a"
     },
     "metadata": {
         "Age": "Edad",
