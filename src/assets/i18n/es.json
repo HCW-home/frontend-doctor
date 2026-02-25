@@ -165,7 +165,6 @@
         "as": "Asamés",
         "av": "Ávaro",
         "ay": "Aimara",
-        "az": "Azerí",
         "ba": "Baskir",
         "be": "Bielorruso",
         "bg": "Búlgaro",
@@ -677,12 +676,14 @@
         "kk": "Қазақ"
     },
     "roles": {
-        "admin": "Administrador",
+        "admin": "Administración",
         "doctor": "Médico",
         "patient": "Paciente",
         "nurse": "Solicitante",
         "requester": "Solicitante",
-        "scheduler": "Programador"
+        "scheduler": "Programador",
+        "expert": "Experto",
+        "guest": "Invitado/a"
     },
     "metadata": {
         "Age": "Edad",
