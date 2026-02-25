@@ -759,12 +759,15 @@ export class ConsultationsComponent implements OnInit, OnDestroy {
         if (data.metadata && Object.keys(data.metadata).length) {
           Object.keys(data.metadata).forEach(key => {
             addPageIfNeeded();
+            const translationKey = `pdf.metadata.${key}`;
+            const translatedLabel = this.translate.instant(translationKey);
+            const label = translatedLabel !== translationKey ? translatedLabel : key;
             doc.setFont('Helvetica', 'normal', 700);
-            doc.text(`${key}:`, leftColX, yPosition);
+            doc.text(`${label}:`, leftColX, yPosition);
             doc.setFont('Helvetica', 'normal', 400);
             doc.text(
               `${data.metadata[key]}`,
-              leftColX + getLabelWidth(`${key}:`),
+              leftColX + getLabelWidth(`${label}:`),
               yPosition
             );
             yPosition += 5;

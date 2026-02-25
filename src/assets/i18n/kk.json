@@ -20,7 +20,15 @@
         "finished": "аяқталды",
         "doctorInformation": "Дәрігер туралы ақпарат",
         "videoCall": "Бейне қоңырау",
-        "fileName": "консультация-есеп"
+        "fileName": "консультация-есеп",
+        "queue": "Кезек",
+        "closedBy": "Жабылған",
+        "metadata": {
+            "age": "Жасы",
+            "country": "Ел",
+            "facilityId": "Мекеме ID",
+            "fileId": "Файл ID"
+        }
     },
     "roles": {
         "admin": "Админ",

@@ -510,7 +510,16 @@
         "audioCall": "Appel audio",
         "videoCall": "Appel vidéo",
         "accepted": "accepté",
-        "doctorInformation": "Informations sur le médecin"
+        "doctorInformation": "Informations sur le médecin",
+        "queue": "File d'attente",
+        "closedBy": "Fermée par",
+        "fileName": "rapport-de-consultation",
+        "metadata": {
+            "age": "Âge",
+            "country": "Pays",
+            "facilityId": "ID de l'établissement",
+            "fileId": "ID du fichier"
+        }
     },
     "roles": {
         "admin": "Admin",

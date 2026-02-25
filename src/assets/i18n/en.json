@@ -695,7 +695,13 @@
     "missed": "missed",
     "call": "call",
     "finished": "finished",
-    "fileName": "consultation-report"
+    "fileName": "consultation-report",
+    "metadata": {
+      "age": "Age",
+      "country": "Country",
+      "facilityId": "Facility ID",
+      "fileId": "File ID"
+    }
   },
   "error": {
     "defaultTitle": "Error",
