@@ -133,6 +133,7 @@
     "close": "Close",
     "callError": "Unable to initiate call, server returned",
     "selfCallNotAllowed": "Cannot make a call: You are assigned as both doctor and requester in this consultation. Please assign a different user to one of the roles.",
+    "patientNotJoined": "Cannot initiate call: the patient has not joined the consultation yet.",
     "expert_link": "Expert Link",
     "cameraNotAccessible": "Your camera is not accessible. Do you want to continue without video call without your camera?",
     "continueWithoutCamera": "Continue without camera",

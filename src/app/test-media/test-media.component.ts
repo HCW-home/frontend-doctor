@@ -33,7 +33,8 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   showSpinner;
   error;
   peerId: string;
-  private volumeChangeSubscription: Subscription;
+  private destroyed = false;
+  private subscriptions: Subscription[] = [];
   @ViewChild('videoElement') videoElement: ElementRef;
 
   constructor(
@@ -48,90 +49,28 @@ export class TestMediaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.peerId = this.authService.currentUserValue.id;
     this.showSpinner = true;
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then(stream => {
-        stream.getTracks().forEach(track => track.stop());
-        this.openviduSev.getDevices().then(devices => {
-          this.videoDevices = devices.filter(
-            device => device.kind === 'videoinput'
-          );
-          if (
-            this.videoDevices.length &&
-            this.videoDevices[0].deviceId !== ''
-          ) {
-            this.videoDeviceId = this.videoDevices[0].deviceId;
-          }
-          this.audioDevices = devices.filter(
-            device => device.kind === 'audioinput'
-          );
-          if (
-            this.audioDevices.length &&
-            this.audioDevices[0].deviceId !== ''
-          ) {
-            this.audioDeviceId = this.audioDevices[0].deviceId;
-          }
-          this.initMediaTests();
-        });
-      })
-      .catch(error => {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then(stream => {
-            stream.getTracks().forEach(track => track.stop());
-            this.openviduSev.getDevices().then(devices => {
-              this.videoDevices = devices.filter(
-                device => device.kind === 'videoinput'
-              );
-              if (
-                this.videoDevices.length &&
-                this.videoDevices[0].deviceId !== ''
-              ) {
-                this.videoDeviceId = this.videoDevices[0].deviceId;
-              }
-              this.initMediaTests();
-            });
-          })
-          .catch(error => {
-            this.showSpinner = false;
-          });
-        navigator.mediaDevices
-          .getUserMedia({ audio: true })
-          .then(stream => {
-            stream.getTracks().forEach(track => track.stop());
-            this.openviduSev.getDevices().then(devices => {
-              this.audioDevices = devices.filter(
-                device => device.kind === 'audioinput'
-              );
-              if (
-                this.audioDevices.length &&
-                this.audioDevices[0].deviceId !== ''
-              ) {
-                this.audioDeviceId = this.audioDevices[0].deviceId;
-              }
-              this.initMediaTests();
-            });
-          })
-          .catch(err => {
-            this.showSpinner = false;
-          });
-      });
+    this.initMediaTests();
   }
 
   ngOnDestroy() {
-    this.volumeChangeSubscription?.unsubscribe();
+    this.destroyed = true;
+    this.subscriptions.forEach(sub => sub?.unsubscribe());
     this.roomService?.close();
   }
 
   initMediaTests() {
-    this.volumeChangeSubscription = this.roomService.onVolumeChange.subscribe(
-      change => {
+    if (this.destroyed) return;
+
+    this.subscriptions.push(
+      this.roomService.onVolumeChange.subscribe(change => {
         this.volumeLevel = change.volume * 1000;
-      }
+      })
     );
 
     this.openviduSev.getTestToken().then(
       ({ token }) => {
+        if (this.destroyed) return;
+
         this.roomService.init({ peerId: this.peerId });
 
         this.roomService.join({
@@ -141,12 +80,29 @@ export class TestMediaComponent implements OnInit, OnDestroy {
           token,
         });
 
-        this.roomService.onCamProducing.subscribe(stream => {
-          this.logger.debug('Cam producing ', stream);
-          this.myCamStream = stream;
+        this.subscriptions.push(
+          this.roomService.onCamProducing.subscribe(stream => {
+            this.logger.debug('Cam producing ', stream);
+            this.myCamStream = stream;
+            this.showSpinner = false;
 
-          this.showSpinner = false;
-        });
+            this.openviduSev.getDevices().then(devices => {
+              if (this.destroyed) return;
+              this.videoDevices = devices.filter(
+                device => device.kind === 'videoinput'
+              );
+              if (this.videoDevices.length && this.videoDevices[0].deviceId !== '') {
+                this.videoDeviceId = this.videoDevices[0].deviceId;
+              }
+              this.audioDevices = devices.filter(
+                device => device.kind === 'audioinput'
+              );
+              if (this.audioDevices.length && this.audioDevices[0].deviceId !== '') {
+                this.audioDeviceId = this.audioDevices[0].deviceId;
+              }
+            });
+          })
+        );
       },
       err => {
         const message =

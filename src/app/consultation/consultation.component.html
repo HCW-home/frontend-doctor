@@ -51,6 +51,7 @@
           (click)="makeCall(false)"
           mat-raised-button
           color="primary"
+          [disabled]="callingInProgress"
           *ngIf="
             videoDevices.length > 0 &&
             currentCall &&
@@ -66,6 +67,7 @@
           (click)="initiateVideoCall()"
           mat-raised-button
           color="primary"
+          [disabled]="callingInProgress"
           *ngIf="!currentCall && !otherDoctorInCall">
           <mat-icon svgIcon="camera"></mat-icon>
           &nbsp;&nbsp;
@@ -76,6 +78,7 @@
           (click)="makeCall(true)"
           mat-raised-button
           color="primary"
+          [disabled]="callingInProgress"
           *ngIf="!currentCall && !otherDoctorInCall">
           <mat-icon svgIcon="mic"></mat-icon>
           &nbsp;&nbsp;
@@ -91,6 +94,7 @@
           (click)="makeCall(true)"
           mat-raised-button
           color="primary"
+          [disabled]="callingInProgress"
           *ngIf="
             currentCall &&
             currentCall.type === 'audioCall' &&

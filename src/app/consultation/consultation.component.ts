@@ -56,6 +56,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   currentCall;
   otherDoctorInCall = false;
   currentUser;
+  callingInProgress = false;
 
   subscriptions: Subscription[] = [];
 
@@ -373,7 +374,17 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   }
 
   async initiateVideoCall() {
-    const hasVideoAccess = await this.checkVideoAccess();
+    if (this.callingInProgress) {
+      return;
+    }
+    this.callingInProgress = true;
+    let hasVideoAccess;
+    try {
+      hasVideoAccess = await this.checkVideoAccess();
+    } catch (e) {
+      this.callingInProgress = false;
+      return;
+    }
 
     if (!hasVideoAccess) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -386,15 +397,25 @@ export class ConsultationComponent implements OnInit, OnDestroy {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.makeCall(true);
+          this._doMakeCall(true);
+        } else {
+          this.callingInProgress = false;
         }
       });
     } else {
-      this.makeCall(false);
+      this._doMakeCall(false);
     }
   }
 
   makeCall(audioOnly) {
+    if (this.callingInProgress) {
+      return;
+    }
+    this.callingInProgress = true;
+    this._doMakeCall(audioOnly);
+  }
+
+  private _doMakeCall(audioOnly) {
     this.audioOnly = audioOnly;
     this.openViduService.getToken(this.consultationId, audioOnly).then(
       response => {
@@ -403,9 +424,21 @@ export class ConsultationComponent implements OnInit, OnDestroy {
         this.currentCall = response.msg;
       },
       err => {
+        this.callingInProgress = false;
         if (err.error?.error === 'SELF_CALL_NOT_ALLOWED') {
           const errorMessage = this.translate.instant(
             'consultation.selfCallNotAllowed'
+          );
+          this.showErrorDialog(
+            errorMessage,
+            this.translate.instant('consultation.callError')
+          );
+          return;
+        }
+
+        if (err.error?.error === 'NO_CALLEE') {
+          const errorMessage = this.translate.instant(
+            'consultation.patientNotJoined'
           );
           this.showErrorDialog(
             errorMessage,
@@ -443,6 +476,7 @@ export class ConsultationComponent implements OnInit, OnDestroy {
   }
 
   reject() {
+    this.callingInProgress = false;
     this.zone.run(() => {
       this.incomingCall = false;
     });

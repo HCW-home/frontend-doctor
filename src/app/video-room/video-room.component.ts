@@ -30,7 +30,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   remoteUsers = [];
   resizeTimeout;
   muteStatus: 'on' | 'off' = 'on';
-  localStream: MediaStream | null = null;
 
   @Output() hangup = new EventEmitter<boolean>();
   @Output() resizeLayout = new EventEmitter<boolean>();
@@ -81,51 +80,23 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.updateLayout();
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     if (this.audioOnly) {
       this.camStatus = 'off';
     }
     this.peerId = this.authService.currentUserValue.id;
-
-    try {
-      this.localStream = await this.askForPerm();
-      this.joinToSession();
-    } catch (error) {
-      console.error('Error accessing media devices.', error);
-
-      // Check if microphone access failed
-      try {
-        const audioTest = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioTest.getTracks().forEach(track => track.stop());
-        // Audio works, so it was a video issue - close without retry modal
-        this.closeCall();
-      } catch (audioError) {
-        // Microphone is not accessible - show retry modal
-        this.showPermissionRetryModal();
-      }
-    }
+    this.joinToSession();
   }
 
   ngOnDestroy() {
     clearTimeout(this.connectionTimer);
-    this.exitSession();
-    this.stopWebCam();
+    this.rejected = true;
     this.subscriptions.forEach(sub => {
       sub?.unsubscribe();
     });
-    this.rejectCall();
-    this.remoteUsers = [];
     this.roomService?.close();
-  }
-
-  stopWebCam() {
-    try {
-      if (this.localStream) {
-        this.localStream.getTracks().forEach(track => track.stop());
-      }
-    } catch (error) {
-      console.error('Error stopping webcam stream', error);
-    }
+    this.remoteUsers = [];
+    this.hangup.emit(true);
   }
 
   checkControlStatus() {
@@ -143,21 +114,17 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   muteStatusChanged() {
-    if (this.localStream) {
-      const audioTracks = this.localStream.getAudioTracks();
-      if (audioTracks.length > 0) {
-        if (this.muteStatus === 'on') {
-          this.roomService.muteMic();
-          this.muteStatus = 'off';
-        } else {
-          this.roomService.unmuteMic();
-          this.muteStatus = 'on';
-        }
-      }
+    if (this.muteStatus === 'on') {
+      this.roomService.muteMic();
+      this.muteStatus = 'off';
+    } else {
+      this.roomService.unmuteMic();
+      this.muteStatus = 'on';
     }
   }
 
   joinToSession() {
+    if (this.rejected) return;
     this.accepted = true;
     this.connecting = true;
 
@@ -183,12 +150,14 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       }
     }, 15000);
 
-    this.roomService.onCamProducing.subscribe(stream => {
-      this.logger.debug('Cam producing ', stream);
-      this.myCamStream = { ...stream };
-      this.connecting = false;
-      clearTimeout(this.connectionTimer);
-    });
+    this.subscriptions.push(
+      this.roomService.onCamProducing.subscribe(stream => {
+        this.logger.debug('Cam producing ', stream);
+        this.myCamStream = { ...stream };
+        this.connecting = false;
+        clearTimeout(this.connectionTimer);
+      })
+    );
 
     this.subscriptions.push(
       this.roomService.onCamError.subscribe((error) => {
@@ -206,6 +175,11 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
           'X',
           { duration: 5000, panelClass: ['red-snackbar'] }
         );
+        if (this.connecting) {
+          this.connecting = false;
+          clearTimeout(this.connectionTimer);
+          this.showPermissionRetryModal();
+        }
       })
     );
 
@@ -214,7 +188,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       if (signalingService.onNotification) {
         this.subscriptions.push(
           signalingService.onNotification.subscribe((notification: any) => {
-            if (notification?.method === 'roomReady' && this.audioOnly) {
+            if (notification?.method === 'roomReady') {
               this.connecting = false;
               clearTimeout(this.connectionTimer);
             }
@@ -310,18 +284,15 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     if (!this.rejected) {
       this.rejected = true;
       this.roomService?.close();
-      if (this.localStream) {
-        this.localStream.getTracks().forEach(track => {
-          track.stop();
-        });
-      }
       this.remoteUsers = [];
       this.hangup.emit(true);
     }
   }
 
   closeCall() {
+    clearTimeout(this.connectionTimer);
     this.rejected = true;
+    this.roomService?.close();
     this.hangup.emit(true);
   }
 
@@ -340,17 +311,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     }
   }
 
-  askForPerm() {
-    const mediaPerms = this.audioOnly
-      ? { audio: true, video: false }
-      : { audio: true, video: true };
-
-    this.logger.debug('Requesting media permissions', mediaPerms);
-
-    return navigator.mediaDevices.getUserMedia(mediaPerms);
-  }
-
-
   showPermissionRetryModal() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       id: 'confirmation_dialog',
@@ -364,15 +324,9 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(async (result) => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        try {
-          this.localStream = await this.askForPerm();
-          this.joinToSession();
-        } catch (audioError) {
-          console.error('Microphone permission denied again.', audioError);
-          this.closeCall();
-        }
+        this.joinToSession();
       } else {
         this.closeCall();
       }
