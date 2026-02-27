@@ -1,8 +1,9 @@
-hcw-athome-caregiver (0.5.69) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.70) UNRELEASED; urgency=medium
 
   * improve video room
+  * update colors
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 26 Feb 2026 09:28:37 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Fri, 27 Feb 2026 08:27:04 +0000
 
 hcw-athome-caregiver (0.5.68) focal; urgency=medium
 
