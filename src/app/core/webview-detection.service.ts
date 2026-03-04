@@ -22,6 +22,14 @@ export class WebviewDetectionService {
     const isIOSWebView = /iPhone|iPod|iPad/.test(ua) && !/Safari/.test(ua);
     const isAndroidWebView = /Android/.test(ua) && (/Version\/[\d.]+/.test(ua) || /\bwv\b/.test(ua));
 
-    return webViewPatterns.some(pattern => pattern.test(ua)) || isIOSWebView || isAndroidWebView;
+    const result = webViewPatterns.some(pattern => pattern.test(ua)) || isIOSWebView || isAndroidWebView;
+
+    console.log('[WebView Detection]', {
+      userAgent: ua,
+      isWebView: result,
+      url: window.location.href
+    });
+
+    return result;
   }
 }
