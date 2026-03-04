@@ -210,14 +210,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Temporarily disable webview detection to debug white screen issue
-    // if (this.webviewDetectionService.isWebView()) {
-    //   this.dialog.open(WebviewWarningComponent, {
-    //     disableClose: true,
-    //     panelClass: 'webview-warning-dialog'
-    //   });
-    //   return;
-    // }
+    if (this.webviewDetectionService.isWebView()) {
+      this.dialog.open(WebviewWarningComponent, {
+        disableClose: true,
+        panelClass: 'webview-warning-dialog'
+      });
+      return;
+    }
 
     this.initializeTour();
     this.translate.onLangChange.subscribe(() => {
