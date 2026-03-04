@@ -215,7 +215,7 @@ export class AppComponent implements OnInit, OnDestroy {
         disableClose: true,
         panelClass: 'webview-warning-dialog'
       });
-      return;
+      // Continue initialization even in webview
     }
 
     this.initializeTour();
