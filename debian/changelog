@@ -1,3 +1,9 @@
+hcw-athome-caregiver (0.5.73) focal; urgency=medium
+
+  * Rollback
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Wed, 04 Mar 2026 16:43:06 +0100
+
 hcw-athome-caregiver (0.5.72) focal; urgency=medium
 
   * Temporary disable webview detection
