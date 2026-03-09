@@ -501,5 +501,13 @@
     },
     "sideChat": {
         "startTheConsultation": "Консультацияны бастаңыз"
+    },
+    "webviewWarning": {
+        "title": "Браузер қолдау көрсетілмейді",
+        "message": "Бейне қоңыраулар бұл браузерде қолдау көрсетілмейді.",
+        "description": "Төмендегі сілтемені көшіріп, Safari немесе Chrome-да ашыңыз:",
+        "copyUrl": "URL көшіру",
+        "copied": "Көшірілді!",
+        "urlCopied": "URL көшірілді! Safari немесе Chrome ашып, сілтемені қойыңыз."
     }
 }

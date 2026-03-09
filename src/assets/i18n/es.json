@@ -690,5 +690,13 @@
         "Country": "País",
         "Custom Id": "Identificación personalizada",
         "Facility": "Instalación"
+    },
+    "webviewWarning": {
+        "title": "Navegador no compatible",
+        "message": "Las videollamadas no son compatibles con este navegador.",
+        "description": "Copie el enlace a continuación y ábralo en Safari o Chrome:",
+        "copyUrl": "Copiar URL",
+        "copied": "Copiado!",
+        "urlCopied": "URL copiada! Abra Safari o Chrome y pegue el enlace."
     }
 }

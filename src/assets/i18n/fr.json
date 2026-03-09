@@ -528,5 +528,13 @@
         "nurse": "Demandeur",
         "requester": "Demandeur",
         "scheduler": "Planificateur/-trice"
+    },
+    "webviewWarning": {
+        "title": "Navigateur non pris en charge",
+        "message": "Les appels vidéo ne sont pas pris en charge dans ce navigateur.",
+        "description": "Copiez le lien ci-dessous et ouvrez-le dans Safari ou Chrome :",
+        "copyUrl": "Copier l'URL",
+        "copied": "Copié !",
+        "urlCopied": "URL copiée ! Ouvrez Safari ou Chrome et collez le lien."
     }
 }
