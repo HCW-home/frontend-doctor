@@ -183,7 +183,8 @@ export class InviteFormComponent implements OnDestroy, OnInit, OnDestroy {
         ? enabledFieldsRaw
         : DEFAULT_REQUIRED_FIELDS;
 
-    const queueFormControl = new UntypedFormControl(undefined);
+    const queueValidators = this.configService.config?.requireSharedQueue ? [Validators.required] : [];
+    const queueFormControl = new UntypedFormControl(undefined, queueValidators);
 
     this.myForm = this.formBuilder.group(
       {

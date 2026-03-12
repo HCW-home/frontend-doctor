@@ -58,7 +58,7 @@
             @if (isFieldEnabled('firstName')) {
               <mat-form-field>
                 <mat-label class="label">
-                  {{ 'inviteForm.firstName' | translate }}
+                  {{ 'inviteForm.firstName' | translate }} *
                 </mat-label>
                 <input
                   [(ngModel)]="data.firstName"
@@ -79,7 +79,7 @@
             @if (isFieldEnabled('lastName')) {
               <mat-form-field>
                 <mat-label class="label">
-                  {{ 'inviteForm.lastName' | translate }}
+                  {{ 'inviteForm.lastName' | translate }} *
                 </mat-label>
                 <input
                   [(ngModel)]="data.lastName"
@@ -103,7 +103,7 @@
             @if (isFieldEnabled('gender')) {
               <mat-form-field>
                 <mat-label class="label">
-                  {{ 'inviteForm.sex' | translate }}
+                  {{ 'inviteForm.sex' | translate }} *
                 </mat-label>
                 <mat-select
                   formControlName="genderFormControl"
@@ -188,6 +188,9 @@
                   </mat-option>
                 </span>
               </mat-select>
+              <mat-error *ngIf="myForm.controls.queueFormControl.hasError('required')">
+                {{ 'inviteForm.required' | translate }}
+              </mat-error>
             </mat-form-field>
           </div>
 
