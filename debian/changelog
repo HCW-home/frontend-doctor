@@ -1,8 +1,9 @@
-hcw-athome-caregiver (0.5.74) UNRELEASED; urgency=medium
+hcw-athome-caregiver (0.5.75) UNRELEASED; urgency=medium
 
   * add webviewWarning translations keys in all languages
+  * Add star beside required fields
 
- -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Mon, 09 Mar 2026 10:32:50 +0000
+ -- Gor Grigoryan <gorgrigoryan1997@gmail.com>  Thu, 12 Mar 2026 10:51:46 +0000
 
 hcw-athome-caregiver (0.5.73) focal; urgency=medium
 
