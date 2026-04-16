@@ -1,0 +1,37 @@
+<div class="image-viewer-toolbar">
+  <h2 mat-dialog-title class="image-viewer-title">
+    {{ data.fileName || ('chat.image' | translate) }}
+  </h2>
+  <div class="image-viewer-actions">
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="download()"
+      [attr.aria-label]="'chat.downloadImage' | translate"
+      [matTooltip]="'chat.downloadImage' | translate">
+      <mat-icon>download</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="close()"
+      [attr.aria-label]="'chat.close' | translate"
+      [matTooltip]="'chat.close' | translate">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<div mat-dialog-content class="image-viewer-content">
+  <div class="image-viewer-wrapper">
+    <img
+      *ngIf="safeUrl"
+      class="image-viewer-image"
+      [src]="safeUrl"
+      [alt]="data.alt || 'Image'" />
+  </div>
+</div>
+<div mat-dialog-actions class="image-viewer-footer">
+  <button mat-flat-button color="primary" (click)="download()">
+    <mat-icon>download</mat-icon>
+    {{ 'chat.downloadImage' | translate }}
+  </button>
+</div>

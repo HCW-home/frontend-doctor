@@ -56,7 +56,11 @@
         "yourBrowserDoesNotSupportTheAudioElement": "Su navegador no soporta el elemento de audio.",
         "videoCallFinished": "Videollamada finalizada",
         "inviteExpert": "Invitar a un/una colega",
-        "needAccess": "Necesitamos acceso a su micrófono para continuar la llamada. Por favor, permítanos acceder al micrófono."
+        "needAccess": "Necesitamos acceso a su micrófono para continuar la llamada. Por favor, permítanos acceder al micrófono.",
+        "image": "Imagen",
+        "downloadImage": "Descargar",
+        "downloadFailed": "La descarga falló. Por favor, inténtalo de nuevo.",
+        "close": "Cerrar"
     },
     "consultation": {
         "videoCall": "Videollamada",

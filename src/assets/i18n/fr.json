@@ -68,7 +68,11 @@
         "addNoteTitle": "Ajouter une note",
         "addNotePlaceholder": "Tapez votre note...",
         "cancelAddNote": "Annuler",
-        "saveNote": "Sauvegarder"
+        "saveNote": "Sauvegarder",
+        "image": "Image",
+        "downloadImage": "Télécharger",
+        "downloadFailed": "Le téléchargement a échoué. Veuillez réessayer.",
+        "close": "Fermer"
     },
     "consultations": {
         "filters": "Filtres",

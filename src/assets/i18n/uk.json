@@ -70,7 +70,11 @@
         "inviteExpert": "Запросити колегу",
         "requestedBy": "Запитано від",
         "viewMore": "Дивитися більше",
-        "viewLess": "Дивитися менше"
+        "viewLess": "Дивитися менше",
+        "image": "Зображення",
+        "downloadImage": "Завантажити",
+        "downloadFailed": "Не вдалося завантажити. Спробуйте ще раз.",
+        "close": "Закрити"
     },
     "consultations": {
         "noPatientName": "Не визначено",

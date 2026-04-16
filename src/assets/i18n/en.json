@@ -86,7 +86,11 @@
     "transferOwnershipConfirm": "Yes, take ownership",
     "transferOwnershipCancel": "Cancel",
     "transferOwnershipSuccess": "Ownership transferred successfully",
-    "transferOwnershipError": "Failed to transfer ownership"
+    "transferOwnershipError": "Failed to transfer ownership",
+    "image": "Image",
+    "downloadImage": "Download",
+    "downloadFailed": "Download failed. Please try again.",
+    "close": "Close"
   },
   "consultations": {
     "noPatientName": "Undefined",

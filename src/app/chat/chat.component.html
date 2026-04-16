@@ -356,7 +356,8 @@
             *ngIf="msg.isImage"
             (load)="imageLoaded()"
             (error)="imageLoaded()"
-            style="width: 70%; display: block; float: left; max-height: 990px"
+            (click)="openImageViewer(msg)"
+            style="width: 70%; display: block; float: left; max-height: 990px; cursor: pointer;"
             [src]="msg.attachmentsURL"
             alt="Couldn't load image" />
 

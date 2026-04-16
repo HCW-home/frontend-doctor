@@ -130,7 +130,11 @@
         "videoAudioMissed": "Қабылданбаған аудио қоңырау",
         "videoAudioFinished": "Аудио қоңырау аяқталды",
         "inviteExpert": "Әріптесті шақырыңыз",
-        "permissionRequired": "Микрофонға рұқсат қажет"
+        "permissionRequired": "Микрофонға рұқсат қажет",
+        "image": "Сурет",
+        "downloadImage": "Жүктеп алу",
+        "downloadFailed": "Жүктеп алу сәтсіз аяқталды. Қайталап көріңіз.",
+        "close": "Жабу"
     },
     "consultations": {
         "noPatientName": "Анықталмаған",

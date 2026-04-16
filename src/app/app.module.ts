@@ -69,6 +69,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { InviteExpertComponent } from './invite-expoert/invite-expert.component';
 import { PeerVideoScreenComponent } from './stream/peer-video-screen/peer-video-screen.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { ImageViewerDialogComponent } from './image-viewer-dialog/image-viewer-dialog.component';
 import { DotSpinnerComponent } from './dot-spinner/dot-spinner.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { TranslateService } from '@ngx-translate/core';
@@ -298,6 +299,7 @@ const routes: Routes = [
     LanguageSelectorComponent,
     ConfirmationDialogComponent,
     ErrorDialogComponent,
+    ImageViewerDialogComponent,
     DotSpinnerComponent,
     DateTimePickerComponent,
     CustomPaginationComponent,

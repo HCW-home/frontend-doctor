@@ -29,6 +29,7 @@ import { InviteLinkComponent } from '../invite-link/invite-link.component';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { InviteExpertComponent } from '../invite-expoert/invite-expert.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ImageViewerDialogComponent } from '../image-viewer-dialog/image-viewer-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -392,9 +393,11 @@ export class ChatComponent implements OnInit, OnDestroy {
             return res.blob();
           })
           .then(imageFile => {
+            const rawUrl = URL.createObjectURL(imageFile);
             msg.isImage = true;
+            msg.imageRawUrl = rawUrl;
             msg.attachmentsURL = this._sanitizer.bypassSecurityTrustResourceUrl(
-              URL.createObjectURL(imageFile)
+              rawUrl
             );
           });
       } else if (msg.mimeType.startsWith('audio')) {
@@ -422,6 +425,24 @@ export class ChatComponent implements OnInit, OnDestroy {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(link.href);
+    });
+  }
+
+  openImageViewer(msg): void {
+    if (!msg?.imageRawUrl) {
+      return;
+    }
+    this.dialog.open(ImageViewerDialogComponent, {
+      panelClass: 'image-viewer-dialog-panel',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      width: '90vw',
+      autoFocus: false,
+      data: {
+        rawUrl: msg.imageRawUrl,
+        fileName: msg.fileName || 'image',
+        alt: msg.fileName || 'Image',
+      },
     });
   }
 
