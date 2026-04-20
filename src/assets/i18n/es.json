@@ -677,7 +677,8 @@
         "fr": "Français",
         "uk": "Українська",
         "es": "Español",
-        "kk": "Қазақ"
+        "kk": "Қазақ",
+        "ru": "Русский"
     },
     "roles": {
         "admin": "Administración",

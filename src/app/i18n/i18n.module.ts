@@ -8,7 +8,7 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ConfigService } from '../core/config.service';
 
-export let supportedLanguages = ['en', 'fr', 'es', 'kk', 'uk'];
+export let supportedLanguages = ['en', 'fr', 'es', 'kk', 'uk', 'ru'];
 
 @NgModule({
   imports: [

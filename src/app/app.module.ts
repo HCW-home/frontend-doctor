@@ -57,6 +57,7 @@ import localeFr from '@angular/common/locales/fr';
 import localeUk from '@angular/common/locales/uk';
 import localeSv from '@angular/common/locales/sv';
 import localeEs from '@angular/common/locales/es';
+import localeRu from '@angular/common/locales/ru';
 
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 import { I18nModule } from './i18n/i18n.module';
@@ -102,6 +103,7 @@ registerLocaleData(localeFr);
 registerLocaleData(localeUk);
 registerLocaleData(localeSv);
 registerLocaleData(localeEs);
+registerLocaleData(localeRu);
 
 export function LocaleIdFactory(translateService: TranslateService) {
   return translateService.currentLang || 'en';
