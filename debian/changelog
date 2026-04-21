@@ -1,3 +1,13 @@
+hcw-athome-caregiver (0.5.77) focal; urgency=medium
+
+  * Added translation using Weblate (Russian)
+  * Adding russian language for doctor interface.
+  * Adding translation for doctor interface
+  * Now use weblate with builder
+  * Disable share after download on mobile
+
+ -- Olivier Bitsch <olivier.b@iabsis.com>  Tue, 21 Apr 2026 17:42:02 +0200
+
 hcw-athome-caregiver (0.5.76) focal; urgency=medium
 
   [ Gor Grigoryan ]
