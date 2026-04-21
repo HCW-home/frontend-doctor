@@ -41,21 +41,6 @@ export class ImageViewerDialogComponent {
       const blob = await response.blob();
       const fileName = this.data.fileName || 'image';
 
-      // On mobile, prefer the Web Share API so the user can save to Photos/Gallery
-      const nav: any = navigator;
-      if (nav.canShare) {
-        try {
-          const file = new File([blob], fileName, { type: blob.type });
-          if (nav.canShare({ files: [file] })) {
-            await nav.share({ files: [file], title: fileName });
-            return;
-          }
-        } catch (shareErr) {
-          // User cancelled or share failed, fall back to anchor download
-        }
-      }
-
-      // Fallback: anchor + download attribute (desktop browsers)
       const objectUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = objectUrl;
