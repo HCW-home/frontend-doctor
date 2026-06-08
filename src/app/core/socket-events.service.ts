@@ -99,7 +99,10 @@ export class SocketEventsService {
       console.info('Disconnect from server')
     })
 
-    this.socket.on('reconnect', (number) => {
+    // In socket.io v4 the reconnection events are emitted by the Manager
+    // (this.socket.io), not by the Socket itself. Listening on this.socket
+    // would never fire these handlers.
+    this.socket.io.on('reconnect', (number) => {
       this.connection.next('connect')
       console.info('Reconnected to server', number)
       try {
@@ -122,15 +125,29 @@ export class SocketEventsService {
       }
     })
 
-    this.socket.on('reconnect_attempt', () => {
-      this.connection.next('connect_failed')
-      console.info('Reconnect Attempt')
-    })
-
-    this.socket.on('reconnecting', (number) => {
-      console.info('Reconnecting to server', number)
+    // 'reconnecting' no longer exists in v4; its logic now lives on the
+    // Manager's 'reconnect_attempt' event, which carries the attempt number.
+    this.socket.io.on('reconnect_attempt', (number) => {
+      console.info('Reconnect Attempt', number)
+      // Stay silent while the first attempt is in flight: a connection that
+      // recovers on the first try shows no message. Only once that attempt
+      // failed (we are now on attempt 2+) do we surface "Connexion échouée".
+      if (number > 1) {
+        this.connection.next('connect_failed')
+      }
       this.injector.get(AuthService).verifyRefreshToken().subscribe({
-        next: (res) => {}, error: (err) => {
+        next: (res) => {
+          // Refresh the token carried in the handshake query so beforeConnect
+          // receives a valid JWT on the next reconnection attempt.
+          const fresh = this.injector.get(AuthService).currentUserValue;
+          if (fresh && this.socket?.io?.opts) {
+            (this.socket.io.opts.query as any) = {
+              ...(this.socket.io.opts.query as any),
+              token: fresh.token,
+            }
+            this.user = fresh
+          }
+        }, error: (err) => {
           if (err.status === 401) {
             this.injector.get(AuthService).logout();
           }
@@ -141,18 +158,19 @@ export class SocketEventsService {
       }
     })
 
-    this.socket.on('reconnect_error', (err) => {
-      this.connection.next('connect_failed')
+    // Per-attempt failures are not surfaced here; the message is driven by the
+    // attempt counter in 'reconnect_attempt' so a single failed attempt that
+    // immediately recovers stays silent.
+    this.socket.io.on('reconnect_error', (err) => {
       console.info('Reconnect Error', err)
     })
 
-    this.socket.on('reconnect_failed', () => {
+    this.socket.io.on('reconnect_failed', () => {
       this.connection.next('connect_failed')
       console.info('Reconnect failed')
     })
 
     this.socket.on('connect_error', () => {
-      this.connection.next('connect_failed')
       console.info('connect_error')
     })
   }
